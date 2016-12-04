@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>LUAScripting</ProjectName>
+    <ProjectGuid>{AEFCEECF-6839-4F1B-9317-70BF3EE09247}</ProjectGuid>
+    <RootNamespace>LUAScripting2008</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.25431.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\bin\debug\script_bin\</OutDir>
+    <IntDir>2008_int_debug_LUAScripting\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\bin\release\script_bin\</OutDir>
+    <IntDir>2008_int_release_LUAScripting\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\..\bin\debug_x64\script_bin\</OutDir>
+    <IntDir>2008_int_debug_LUAScripting_x64\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\..\bin\release_x64\script_bin\</OutDir>
+    <IntDir>2008_int_release_LUAScripting_x64\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>..\..\chrono-shared;..\..\chrono-world;..\..\..\dep\include;..\..\..\dep\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SCRIPTLIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>..\..\..\bin\Debug\chrono-world.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../bin/debug/script_bin/LUAScripting.dll</OutputFile>
+      <AdditionalLibraryDirectories>..\..\..\bin\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>../../../bin/debug/script_bin/LUAScripting.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)LUAScripting.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\chrono-shared;..\..\chrono-world;..\..\..\dep\include;..\..\..\dep\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SCRIPTLIB;_CRT_SECURE_NO_WARNINGS;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>chrono-world.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../bin/release/script_bin/LUAScripting.dll</OutputFile>
+      <AdditionalLibraryDirectories>..\..\..\bin\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>../../../bin/release/script_bin/LUAScripting.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)LUAScripting.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>..\..\chrono-shared;..\..\chrono-world;..\..\..\dep\include;..\..\..\dep\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SCRIPTLIB;X64;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>chrono-world.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../bin/debug_x64/script_bin/LUAScripting.dll</OutputFile>
+      <AdditionalLibraryDirectories>..\..\..\bin\debug_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>../../../bin/debug_x64/script_bin/LUAScripting.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)LUAScripting.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\chrono-shared;..\..\chrono-world;..\..\..\dep\include;..\..\..\dep\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SCRIPTLIB;X64;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>chrono-world.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../bin/release_x64/script_bin/LUAScripting.dll</OutputFile>
+      <AdditionalLibraryDirectories>..\..\..\bin\release_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>../../../bin/release_x64/script_bin/LUAScripting.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)LUAScripting.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\LUAScripting\LUAEngine.cpp" />
+    <ClCompile Include="..\src\LUAScripting\lua\lapi.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lauxlib.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lbaselib.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lcode.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\ldblib.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\ldebug.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\ldo.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\ldump.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lfunc.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lgc.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\linit.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\liolib.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\llex.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lmathlib.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lmem.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\loadlib.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lobject.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lopcodes.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\loslib.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lparser.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lstate.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lstring.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lstrlib.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\ltable.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\ltablib.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\ltm.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lundump.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lvm.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\lzio.c" />
+    <ClCompile Include="..\src\LUAScripting\lua\print.c" />
+    <ClCompile Include="..\src\LUAScripting\NameSpaces\FunctionTables.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\LUAScripting\NameSpaces\GameObjectFunctions.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\LUAScripting\NameSpaces\ItemFunctions.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\LUAScripting\NameSpaces\UnitFunctions.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\LUAScripting\LUAEngine.h" />
+    <ClInclude Include="..\src\LUAScripting\LUAFunctions.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lapi.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lauxlib.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lcode.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\ldebug.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\ldo.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lfunc.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lgc.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\llex.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\llimits.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lmem.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lobject.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lopcodes.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lparser.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lstate.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lstring.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\ltable.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\ltm.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lua.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\luaconf.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lualib.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lundump.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lvm.h" />
+    <ClInclude Include="..\src\LUAScripting\lua\lzio.h" />
+    <CustomBuild Include="..\src\LUAScripting\NameSpaces\GameObjectFunctions.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\src\LUAScripting\NameSpaces\ItemFunctions.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\src\LUAScripting\NameSpaces\UnitFunctions.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
