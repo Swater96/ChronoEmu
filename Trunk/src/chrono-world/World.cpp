@@ -296,7 +296,6 @@ bool World::SetInitialWorldSettings()
 
 	Log.Notice("World", "Clearing old guild logs...");
 	CharacterDatabase.WaitExecute("DELETE FROM guild_logs WHERE timestamp <= %u", uint32(UNIXTIME - 1209600));			// 2 weeks
-	CharacterDatabase.WaitExecute("DELETE FROM guild_banklogs WHERE timestamp <= %u", uint32(UNIXTIME - 1209600));			// 2 weeks
 
 	Log.Notice("World", "Starting up...");  
 	Log.Line();
@@ -2040,7 +2039,7 @@ void World::BackupDB()
 	const char *tables[] =
 	{ "account_data", "account_forced_permissions", "achievements", "arenateams", "auctions",
 	  "banned_names", "characters", "characters_insert_queue", "charters", "corpses", "gm_tickets",
-	  "groups", "guild_bankitems", "guild_banklogs", "guild_banktabs",
+	  "groups",
 	  "guild_data", "guild_logs", "guild_ranks", "guilds",
 	  "instances", "mailbox", "mailbox_insert_queue", "news_timers",
 	  "playercooldowns", "playeritems", "playeritems_insert_queue", "playerpets",
