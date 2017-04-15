@@ -96,7 +96,7 @@ public:
 	{
 		MessageMap::iterator iter = Messages.find(message_id);
 		if(iter == Messages.end())
-			return NULL;
+			return nullptr;
 		return &(iter->second);
 	}
 

@@ -8,8 +8,6 @@
 /*  Instance_RazorfenDowns.cpp Script									*/
 /************************************************************************/
 
-#define GAMEOBJECT_STATE 0
-
 #define AMNENNARS_WRATH 13009
 #define FROST_NOVA		15531
 #define FROSTBOLT		15530
@@ -212,7 +210,7 @@ public:
 		
 		m_spawn = m_active = false;
 		waves = 0;
-		Lefta = Leftb = Leftc = Leftd = Lefte = Middlea = Middleb = Righta = Rightb = Rightc = Rightd = EliteLefta = EliteLeftb = EliteRighta = EliteRightb = Tutenkash = NULL;
+		Lefta = Leftb = Leftc = Leftd = Lefte = Middlea = Middleb = Righta = Rightb = Rightc = Rightd = EliteLefta = EliteLeftb = EliteRighta = EliteRightb = Tutenkash = nullptr;
 	}
 
 	void OnActivate( Player* pPlayer )
@@ -760,87 +758,87 @@ public:
 
 		if ( Clicker && ( !Clicker->isAlive() || !Clicker->IsInInstance()) )
 		{	
-			if ( Lefta != NULL && Lefta->isAlive() ) {
+			if ( Lefta != nullptr && Lefta->isAlive() ) {
 				Lefta->GetAIInterface()->StopMovement(1);
 				Lefta->Despawn(500, 0);
 				waves = 0;
 			}
-			if ( Leftb != NULL && Leftb->isAlive() ) {
+			if ( Leftb != nullptr && Leftb->isAlive() ) {
 				Leftb->GetAIInterface()->StopMovement(1);
 				Leftb->Despawn(500, 0);
 				waves = 0;
 			}
-			if ( Leftc != NULL && Leftc->isAlive() ) {
+			if ( Leftc != nullptr && Leftc->isAlive() ) {
 				Leftc->GetAIInterface()->StopMovement(1);
 				Leftc->Despawn(500, 0);
 				waves = 0;
 			}
-			if ( Leftd != NULL && Leftd->isAlive() ) {
+			if ( Leftd != nullptr && Leftd->isAlive() ) {
 				Leftd->GetAIInterface()->StopMovement(1);
 				Leftd->Despawn(500, 0);
 				waves = 0;
 			}
-			if ( Lefte != NULL && Lefte->isAlive() ) {
+			if ( Lefte != nullptr && Lefte->isAlive() ) {
 				Lefte->GetAIInterface()->StopMovement(1);
 				Lefte->Despawn(500, 0);
 				waves = 0;
 			} 
 
-			if ( Middlea != NULL && Middlea->isAlive() ) {
+			if ( Middlea != nullptr && Middlea->isAlive() ) {
 				Middlea->GetAIInterface()->StopMovement(1);
 				Middlea->Despawn(500, 0);
 				waves = 0; 
 			} 
-			if ( Middleb != NULL && Middleb->isAlive() ) {
+			if ( Middleb != nullptr && Middleb->isAlive() ) {
 				Middleb->GetAIInterface()->StopMovement(1);
 				Middleb->Despawn(500, 0);
 				waves = 0; 
 			} 
 
-			if ( Righta != NULL && Righta->isAlive() ) {
+			if ( Righta != nullptr && Righta->isAlive() ) {
 				Righta->GetAIInterface()->StopMovement(1);
 				Righta->Despawn(500, 0);
 				waves = 0; 
 			} 
-			if ( Rightb != NULL && Rightb->isAlive() ) {
+			if ( Rightb != nullptr && Rightb->isAlive() ) {
 				Rightb->GetAIInterface()->StopMovement(1);
 				Rightb->Despawn(500, 0);
 				waves = 0; 
 			} 
-			if ( Rightc != NULL && Rightc->isAlive() ) {
+			if ( Rightc != nullptr && Rightc->isAlive() ) {
 				Rightc->GetAIInterface()->StopMovement(1);
 				Rightc->Despawn(500, 0);
 				waves = 0; 
 			} 
-			if ( Rightd != NULL && Rightd->isAlive() ) {
+			if ( Rightd != nullptr && Rightd->isAlive() ) {
 				Rightd->GetAIInterface()->StopMovement(1);
 				Rightd->Despawn(500, 0);
 				waves = 0; 
 			} 
 			
-			if ( EliteLefta != NULL && EliteLefta->isAlive() ) {
+			if ( EliteLefta != nullptr && EliteLefta->isAlive() ) {
 				EliteLefta->GetAIInterface()->StopMovement(1);
 				EliteLefta->Despawn(500, 0);
 				waves = 1;
 			}
-			if ( EliteLeftb != NULL && EliteLeftb->isAlive() ) {
+			if ( EliteLeftb != nullptr && EliteLeftb->isAlive() ) {
 				EliteLeftb->GetAIInterface()->StopMovement(1);
 				EliteLeftb->Despawn(500, 0);
 				waves = 1;
 			}
 
-			if ( EliteRighta != NULL && EliteRighta->isAlive() ) {
+			if ( EliteRighta != nullptr && EliteRighta->isAlive() ) {
 				EliteRighta->GetAIInterface()->StopMovement(1);
 				EliteRighta->Despawn(500, 0);
 				waves = 1;
 			}
-			if ( EliteRightb != NULL && EliteRightb->isAlive() ) {
+			if ( EliteRightb != nullptr && EliteRightb->isAlive() ) {
 				EliteRightb->GetAIInterface()->StopMovement(1);
 				EliteRightb->Despawn(500, 0);
 				waves = 1;
 			}
 
-			if ( Tutenkash != NULL && Tutenkash->isAlive() ) {
+			if ( Tutenkash != nullptr && Tutenkash->isAlive() ) {
 				Tutenkash->GetAIInterface()->StopMovement(1);
 				Tutenkash->Despawn(500, 0);
 				waves = 2;

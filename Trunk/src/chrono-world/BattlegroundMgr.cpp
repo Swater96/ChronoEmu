@@ -31,7 +31,7 @@ const static uint32 BGMapIds[BATTLEGROUND_NUM_TYPES] = {
 };
 
 const static CreateBattlegroundFunc BGCFuncs[BATTLEGROUND_NUM_TYPES] = {
-	NULL,							// 0
+	nullptr,							// 0
 	&AlteracValley::Create,			// AV
 	&WarsongGulch::Create,			// WSG
 	&ArathiBasin::Create,			// AB
@@ -168,7 +168,7 @@ void CBattlegroundManager::HandleBattlegroundJoin(WorldSession * m_session, Worl
 		return;		// cheater!
 	}
 
-	if( joinasgroup && m_session->GetPlayer()->GetGroup() == NULL ) 
+	if( joinasgroup && m_session->GetPlayer()->GetGroup() == nullptr ) 
 	{
 		//Correct? is there any message here at blizz?
 		sChatHandler.RedSystemMessage( m_session, "You are not in a Group." );
@@ -411,7 +411,7 @@ void CBattlegroundManager::EventQueueUpdate(bool forceStart)
 				if(CanCreateInstance(i,j))
 				{
 					bg = CreateInstance(i,j);
-					if( bg == NULL )
+					if( bg == nullptr )
 					{
 						// creation failed
 						for(k = 0; k < 2; ++k)
@@ -659,7 +659,7 @@ void CBattleground::RemovePendingPlayer(Player* plr)
 	m_pendPlayers[0].erase(plr->GetLowGUID());
 	m_pendPlayers[1].erase(plr->GetLowGUID());
 
-	/* send a null bg update (so they don't join) */
+	/* send a nullptr bg update (so they don't join) */
 	for(uint32 i = 0; i < 3; ++i)
 	{
 		if( plr->m_pendingBattleground[i] && 
@@ -682,7 +682,7 @@ void CBattleground::OnPlayerPushed(Player* plr)
 
 	plr->ProcessPendingUpdates();
 	
-	if( plr->GetGroup() == NULL && !plr->m_isGmInvisible )
+	if( plr->GetGroup() == nullptr && !plr->m_isGmInvisible )
 		m_groups[plr->m_bgTeam]->AddMember( plr->m_playerInfo );
 }
 
@@ -715,7 +715,7 @@ void CBattleground::PortPlayer(Player* plr, bool skip_teleport /* = false*/)
 		return;
 	}
 
-	if( plr->m_bg != NULL )
+	if( plr->m_bg != nullptr )
 	{
 		plr->m_bg->RemovePlayer(plr, true);		// don't bother porting them out, we're about to port them anyway
 		plr->m_bg = NULLBATTLEGROUND;
@@ -794,14 +794,14 @@ CBattleground* CBattlegroundManager::CreateInstance(uint32 Type, uint32 LevelGro
 {
 	CreateBattlegroundFunc cfunc = BGCFuncs[Type];
 	MapMgr* mgr = NULLMAPMGR;
-	CBattleground* bg = NULL;
+	CBattleground* bg = nullptr;
 	bool isWeekend = false;
 	struct tm tm;
 	time_t t;
 	uint32 iid;
 	int n;
 
-	if(cfunc == NULL)
+	if(cfunc == nullptr)
 	{
 		Log.Error("BattlegroundManager", "Could not find CreateBattlegroundFunc pointer for type %u level group %u", Type, LevelGroup);
 		return NULLBATTLEGROUND;
@@ -809,13 +809,13 @@ CBattleground* CBattlegroundManager::CreateInstance(uint32 Type, uint32 LevelGro
 
 	/* Create Map Manager */
 	mgr = sInstanceMgr.CreateBattlegroundInstance(BGMapIds[Type]);
-	if(mgr == NULL)
+	if(mgr == nullptr)
 	{
 		Log.Error("BattlegroundManager", "CreateInstance() call failed for map %u, type %u, level group %u", BGMapIds[Type], Type, LevelGroup);
 		return NULLBATTLEGROUND;		// Shouldn't happen
 	}
 
-	t = time(NULL);
+	t = time(nullptr);
 #ifdef WIN32
 	tm = *localtime(&t);
 #else
@@ -894,7 +894,7 @@ void CBattlegroundManager::DeleteBattleground(CBattleground* bg)
 GameObject* CBattleground::SpawnGameObject(uint32 entry,float x, float y, float z, float o, uint32 flags, uint32 faction, float scale)
 {
 	GameObject *go = m_mapMgr->CreateGameObject(entry);
-	if(go == NULL || !go->CreateFromProto(entry, m_mapMgr->GetMapId(), x, y, z, o))
+	if(go == nullptr || !go->CreateFromProto(entry, m_mapMgr->GetMapId(), x, y, z, o))
 		return NULLGOB;
 
 	go->SetUInt32Value(GAMEOBJECT_FACTION,faction);
@@ -1197,7 +1197,7 @@ void CBattleground::Close()
 			++it2;
 			plr = objmgr.GetPlayer(guid);
 
-			if(plr!=NULL)
+			if(plr!=nullptr)
 				RemovePendingPlayer(plr);
 			else
 				m_pendPlayers[i].erase(guid);
@@ -1223,7 +1223,7 @@ Creature* CBattleground::SpawnSpiritGuide(float x, float y, float z, float o, ui
 		return NULLCREATURE;
 
 	CreatureProto *pProto = CreatureProtoStorage.LookupEntry(13116 + horde);
-	if( pProto == NULL )
+	if( pProto == nullptr )
 		return NULLCREATURE;
 
 	Creature* pCreature = NULLCREATURE;
@@ -1312,7 +1312,7 @@ void CBattleground::RemovePlayerFromResurrect(Player* plr, Creature* spirit_heal
 
 void CBattleground::AddSpiritGuide(Creature* pCreature)
 {
-	if (pCreature == NULL)
+	if (pCreature == nullptr)
 		return;
 	m_mainLock.Acquire();
 	map<Creature*,set<uint32> >::iterator itr = m_resurrectMap.find(pCreature);
@@ -1377,7 +1377,7 @@ void CBattleground::QueueAtNearestSpiritGuide(Player* plr, Creature* old)
 	float dd;
 	float dist = 999999.0f;
 	Creature* cl = NULLCREATURE;
-	set<uint32> *closest = NULL;
+	set<uint32> *closest = nullptr;
 	m_lock.Acquire();
 	map<Creature*, set<uint32> >::iterator itr = m_resurrectMap.begin();
 	for(; itr != m_resurrectMap.end(); ++itr)
@@ -1394,7 +1394,7 @@ void CBattleground::QueueAtNearestSpiritGuide(Player* plr, Creature* old)
 		}
 	}
 
-	if( closest != NULL )
+	if( closest != nullptr )
 	{
 		closest->insert(plr->GetLowGUID());
 		plr->m_areaSpiritHealer_guid=cl->GetGUID();

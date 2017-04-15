@@ -138,7 +138,7 @@ void DropFlag(Player*  pPlayer, uint32 spellID)
 		if( pPlayer->CalcDistance(pAreaTrigger->x,pAreaTrigger->y,pAreaTrigger->z) > 10.0f )
 		{
 			GameObject* pGo = pPlayer->GetMapMgr()->GetInterface()->SpawnGameObject(SILITHYST_MOUND, pPlayer->GetPositionX(), pPlayer->GetPositionY(), pPlayer->GetPositionZ(), 0, true, 0, 0);
-			if( pGo == NULL )
+			if( pGo == nullptr )
 			{
 				pGo->Destructor();
 				pGo = NULLGOB;
@@ -157,6 +157,6 @@ void SetupPvPSilithus(ScriptMgr *mgr)
 	mgr->register_hook(SERVER_HOOK_EVENT_ON_AURA_REMOVE, DropFlag);
 	
 	SpellEntry* sp = dbcSpell.LookupEntryForced( SILITHYST_SPELL );
-	if( sp != NULL )
+	if( sp != nullptr )
 		sp->AuraInterruptFlags = AURA_INTERRUPT_ON_ANY_DAMAGE_TAKEN | AURA_INTERRUPT_ON_MOUNT;
 }

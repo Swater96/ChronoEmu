@@ -77,7 +77,7 @@ uint32 MapScriptInterface::GetPlayerCountInRadius(float x, float y, float z /* =
 GameObject* MapScriptInterface::SpawnGameObject(uint32 Entry, float cX, float cY, float cZ, float cO, bool AddToWorld, uint32 Misc1, uint32 Misc2)
 {
 	GameObject* pGameObject = mapMgr->CreateGameObject(Entry);
-	if(pGameObject == NULL || !pGameObject->CreateFromProto(Entry, mapMgr->GetMapId(), cX, cY, cZ, cO))
+	if(pGameObject == nullptr || !pGameObject->CreateFromProto(Entry, mapMgr->GetMapId(), cX, cY, cZ, cO))
 		return NULLGOB;
 
 	pGameObject->SetInstanceID(mapMgr->GetInstanceID());
@@ -97,7 +97,7 @@ Creature* MapScriptInterface::SpawnCreature(uint32 Entry, float cX, float cY, fl
 		return NULLCREATURE;
 	}
 
-	CreatureSpawn * sp = NULL;
+	CreatureSpawn * sp = nullptr;
 	sp = new CreatureSpawn;
 	sp->entry = Entry;
 	sp->form = 0;
@@ -124,9 +124,9 @@ Creature* MapScriptInterface::SpawnCreature(uint32 Entry, float cX, float cY, fl
 		return NULLCREATURE;
 	}
 
-	p->Load(sp, (uint32)NULL, NULL);
+	p->Load(sp, (uint32)nullptr, nullptr);
 	p->spawnid = 0;
-	p->m_spawn = NULL;
+	p->m_spawn = nullptr;
 	delete sp;
 
 	if( AddToWorld )

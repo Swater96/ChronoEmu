@@ -34,7 +34,7 @@ public:
 
 		GossipMenu *Menu;
 		Creature * spirit = TO_CREATURE(pObject);
-		if (spirit == NULL)
+		if (spirit == nullptr)
 			return;
 
 		if(plr->GetQuestLogForEntry(3520))
@@ -56,7 +56,7 @@ public:
 			return;
 
 		Creature * spirit = TO_CREATURE(pObject);
-		if (spirit == NULL)
+		if (spirit == nullptr)
 			return;
 
 		switch (IntId)

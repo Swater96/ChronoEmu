@@ -68,7 +68,7 @@ public:
 
     for(int i = 0; i<MAX_AURAS+MAX_PASSIVE_AURAS; i++)
     {
-      if(_unit->m_auras[i] == NULL)
+      if(_unit->m_auras[i] == nullptr)
         continue;
 
       if(_unit->m_auras[i]->GetSpellId() == current_aura)
@@ -91,7 +91,7 @@ public:
       return;
 
     QuestLogEntry *qle = p_caster->GetQuestLogForEntry(9364);
-    if(qle == NULL)
+    if(qle == nullptr)
       return;
 
     _unit->Despawn(0, 1*60*1000);

@@ -54,7 +54,7 @@ void WSClient::OnRead()
 			uint16 op  = *(uint16*)&m_readBuffer[4];
 			uint32 sz  = *(uint32*)&m_readBuffer[6];			
 			WorldSession * session = sClusterInterface.GetSession(sid);
-			if(session != NULL)
+			if(session != nullptr)
 			{
 				WorldPacket * pck = new WorldPacket(op, sz);
 				pck->resize(sz);

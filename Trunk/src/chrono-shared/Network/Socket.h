@@ -189,7 +189,7 @@ private:
 /** Connect to a server.
 * @param hostname Hostname or IP address to connect to
 * @param port Port to connect to
-* @return templated type if successful, otherwise null
+* @return templated type if successful, otherwise nullptr
 */
 template<class T>
 T* ConnectTCPSocket(const char * hostname, u_short port)
@@ -201,7 +201,7 @@ T* ConnectTCPSocket(const char * hostname, u_short port)
 	host = gethostbyname(hostname);
 
 	if(!host)
-		return NULL;
+		return nullptr;
 
 	/* copy into our address struct */
 	memcpy(&conn.sin_addr, host->h_addr_list[0], sizeof(in_addr));

@@ -91,11 +91,6 @@ public:
 	bool m_announce;
 	uint32 m_team;
 	CHRONO_INLINE size_t GetNumMembers() { return m_members.size(); }
-#ifdef VOICE_CHAT
-	bool voice_enabled;
-	uint16 i_voice_channel_id;
-	MemberMap m_VoiceMembers;
-#endif
 	uint32 m_minimumLevel;
 public:
 	Channel(const char * name, uint32 team, uint32 type_id);
@@ -131,15 +126,6 @@ public:
 
 	void SendToAll(WorldPacket * data);
 	void SendToAll(WorldPacket * data, Player * plr);
-
-#ifdef VOICE_CHAT
-	void VoiceChannelCreated(uint16 id);
-	void JoinVoiceChannel(Player * plr);
-	void PartVoiceChannel(Player * plr);
-	void SendVoiceUpdate();
-	void VoiceDied();
-
-#endif
 
 	bool HasMember(Player * pPlayer);
 };

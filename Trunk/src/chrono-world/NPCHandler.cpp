@@ -184,7 +184,7 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvPacket)
 	Trainer *pTrainer = pCreature->GetTrainer();
 	if(pTrainer == 0 || !CanTrainAt(_player, pTrainer)) return;
 
-	TrainerSpell * pSpell=NULL;
+	TrainerSpell * pSpell=nullptr;
 	for(vector<TrainerSpell>::iterator itr = pTrainer->Spells.begin(); itr != pTrainer->Spells.end(); ++itr)
 	{
 		if( itr->pLearnSpell->Id == TeachingSpellID )
@@ -193,7 +193,7 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvPacket)
 		}
 	}
 	
-	if(pSpell == NULL)
+	if(pSpell == nullptr)
 		return;
 
 	if(TrainerGetSpellStatus(pSpell) > 0) return;
@@ -385,7 +385,7 @@ void WorldSession::HandleGossipHelloOpcode( WorldPacket & recv_data )
 
 	sLog.outDebug( "WORLD: Received CMSG_GOSSIP_HELLO from %u", Chrono::Util::GUID_LOPART(guid) );
 
-	GossipScript * Script = qst_giver->GetCreatureName() ? qst_giver->GetCreatureName()->gossip_script : NULL;
+	GossipScript * Script = qst_giver->GetCreatureName() ? qst_giver->GetCreatureName()->gossip_script : nullptr;
 	if(!Script)
 		return;
 
@@ -432,7 +432,7 @@ void WorldSession::HandleGossipHelloOpcode( WorldPacket & recv_data )
 						break;
 					}
 
-					LocalizedQuest * lq = (language>0) ? sLocalizationMgr.GetLocalizedQuest((*it)->qst->id,language):NULL;
+					LocalizedQuest * lq = (language>0) ? sLocalizationMgr.GetLocalizedQuest((*it)->qst->id,language):nullptr;
 					if(lq)
 						data << lq->Title;
 					else
@@ -465,8 +465,8 @@ void WorldSession::HandleGossipSelectOptionOpcode( WorldPacket & recv_data )
 	recv_data >> guid >> option;
 
 	sLog.outDetail("WORLD: CMSG_GOSSIP_SELECT_OPTION Option %i Guid %.8X", option, guid );
-	GossipScript * Script=NULL;
-	Object * qst_giver=NULL;
+	GossipScript * Script=nullptr;
+	Object * qst_giver=nullptr;
 	uint32 guidtype = GET_TYPE_FROM_GUID(guid);
 
 	if(guidtype==HIGHGUID_TYPE_UNIT)
@@ -476,12 +476,12 @@ void WorldSession::HandleGossipSelectOptionOpcode( WorldPacket & recv_data )
 			return;
 
 		qst_giver=crt;
-		Script=crt->GetCreatureName()?crt->GetCreatureName()->gossip_script:NULL;
+		Script=crt->GetCreatureName()?crt->GetCreatureName()->gossip_script:nullptr;
 	}
 	else if(guidtype==HIGHGUID_TYPE_ITEM)
 	{
 		Item * pitem = _player->GetItemInterface()->GetItemByGUID(guid);
-		if(pitem==NULL)
+		if(pitem==nullptr)
 			return;
 
 		qst_giver=pitem;
@@ -516,7 +516,7 @@ void WorldSession::HandleGossipSelectOptionOpcode( WorldPacket & recv_data )
 		Script->GossipSelectOption(qst_giver, _player, option, IntId, str.c_str());
 	}
 	else
-		Script->GossipSelectOption(qst_giver, _player, option, IntId, NULL);
+		Script->GossipSelectOption(qst_giver, _player, option, IntId, nullptr);
 }
 
 //////////////////////////////////////////////////////////////
@@ -541,7 +541,7 @@ void WorldSession::HandleSpiritHealerActivateOpcode( WorldPacket & recv_data )
 			SpellEntry *spellInfo = dbcSpell.LookupEntry( 15007 );//resurrection sickness
 			SpellCastTargets targets;
 			targets.m_unitTarget = GetPlayer()->GetGUID();
-			Spell*sp=new Spell(_player,spellInfo,true,NULL);
+			Spell*sp=new Spell(_player,spellInfo,true,nullptr);
 			sp->prepare(&targets);
 		}
 	}
@@ -566,7 +566,7 @@ void WorldSession::HandleNpcTextQueryOpcode( WorldPacket & recv_data )
 	GetPlayer()->SetUInt64Value(UNIT_FIELD_TARGET, targetGuid);
 
 	pGossip = NpcTextStorage.LookupEntry(textID);
-	LocalizedNpcText * lnc = (language>0) ? sLocalizationMgr.GetLocalizedNpcText(textID,language) : NULL;
+	LocalizedNpcText * lnc = (language>0) ? sLocalizationMgr.GetLocalizedNpcText(textID,language) : nullptr;
 
 	data.Initialize( SMSG_NPC_TEXT_UPDATE );
 	data << textID;
@@ -639,7 +639,7 @@ void WorldSession::SendInnkeeperBind(Creature* pCreature)
 
 	if(!_player->bHasBindDialogOpen)
 	{
-        OutPacket(SMSG_GOSSIP_COMPLETE, 0, NULL);
+        OutPacket(SMSG_GOSSIP_COMPLETE, 0, nullptr);
 
 		data.Initialize(SMSG_BINDER_CONFIRM);
 		data << pCreature->GetGUID() << _player->GetZoneId();
@@ -653,7 +653,7 @@ void WorldSession::SendInnkeeperBind(Creature* pCreature)
 	if(!_player->GetItemInterface()->GetItemCount(ITEM_ID_HEARTH_STONE, true))
 	{
 		// We don't have a chrono. Add one.
-		if(_player->GetItemInterface()->CalculateFreeSlots(NULL) > 0)
+		if(_player->GetItemInterface()->CalculateFreeSlots(nullptr) > 0)
 		{
 			Item *item = objmgr.CreateItem( ITEM_ID_HEARTH_STONE, _player);
 			if( _player->GetItemInterface()->AddItemToFreeSlot(item) )
@@ -678,7 +678,7 @@ void WorldSession::SendInnkeeperBind(Creature* pCreature)
 	data << pCreature->GetGUID() << _player->GetBindZoneId();
 	SendPacket(&data);
 
-    OutPacket(SMSG_GOSSIP_COMPLETE, 0, NULL);
+    OutPacket(SMSG_GOSSIP_COMPLETE, 0, nullptr);
 
 	data.Initialize( SMSG_SPELL_START );
 	data << pCreature->GetNewGUID();

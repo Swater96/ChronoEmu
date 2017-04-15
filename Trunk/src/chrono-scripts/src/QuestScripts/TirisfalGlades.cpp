@@ -25,7 +25,7 @@ class TheDormantShade : public QuestScript
 public:
 	void OnQuestComplete( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		Creature * creat = mTarget->GetMapMgr()->GetInterface()->SpawnCreature(1946, 2467.314f, 14.8471f, 23.5950f, 0, true, false, 0, 0);
 		creat->Despawn(60000,0);
@@ -84,7 +84,7 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -92,7 +92,7 @@ public:
 
 		Creature * Dashel = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 6784);
 
-		if(Dashel == NULL)
+		if(Dashel == nullptr)
 			return;
 
 		Dashel->SetUInt32Value(UNIT_FIELD_FACTIONTEMPLATE, 28);
@@ -107,7 +107,7 @@ public:
 
 	void OnQuestComplete( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -115,7 +115,7 @@ public:
 
 		Creature * Zealot = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 1931);
 
-		if(Zealot == NULL)
+		if(Zealot == nullptr)
 			return;
 
 		Zealot->SendChatMessage(CHAT_MSG_MONSTER_SAY, LANG_UNIVERSAL, "I. . . I. . .don't. . .feel. . .right. . .");

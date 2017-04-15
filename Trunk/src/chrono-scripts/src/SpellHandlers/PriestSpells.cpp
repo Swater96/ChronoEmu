@@ -28,10 +28,10 @@ public:
 	SpellCastError CanCast(bool tolerate)
 	{
 		Unit *  u_target=_spell->GetUnitTarget();
-		if (!_spell->u_caster == NULL || u_target == NULL || u_target->getLevel() > _spell->m_spellInfo->EffectBasePoints[0]+1 + int32(_spell->u_caster->getLevel() - _spell->m_spellInfo->spellLevel))
+		if (!_spell->u_caster == nullptr || u_target == nullptr || u_target->getLevel() > _spell->m_spellInfo->EffectBasePoints[0]+1 + int32(_spell->u_caster->getLevel() - _spell->m_spellInfo->spellLevel))
 			return SPELL_FAILED_HIGHLEVEL;
 
-		if (u_target->IsCreature() && TO_CREATURE(u_target)->GetCreatureName() != NULL || TO_CREATURE(u_target)->GetCreatureName()->Rank > ELITE_ELITE)
+		if (u_target->IsCreature() && TO_CREATURE(u_target)->GetCreatureName() != nullptr || TO_CREATURE(u_target)->GetCreatureName()->Rank > ELITE_ELITE)
 			return SPELL_FAILED_HIGHLEVEL;
 
 		return SPELL_CANCAST_OK;
@@ -43,11 +43,11 @@ class PowerWordShield : public SpellScript
 public:
 	ADD_SPELL_FACTORY_FUNCTION(PowerWordShield);
 	Unit *  u_target;
-	PowerWordShield(Spell * pSpell) : SpellScript(pSpell) { u_target = NULL; }
+	PowerWordShield(Spell * pSpell) : SpellScript(pSpell) { u_target = nullptr; }
 	SpellCastError CanCast(bool tolerate)
 	{
 		Unit *  u_target=_spell->GetUnitTarget();
-		if (u_target == NULL || u_target->HasAura(6788))
+		if (u_target == nullptr || u_target->HasAura(6788))
 			return SPELL_FAILED_DAMAGE_IMMUNE;
 
 		return SPELL_CANCAST_OK;
@@ -55,7 +55,7 @@ public:
 
 	void OnCast()
 	{
-		if (_spell->u_caster != NULL && u_target != NULL)
+		if (_spell->u_caster != nullptr && u_target != nullptr)
 			_spell->u_caster->CastSpell(u_target, 6788, true);
 	}
 };

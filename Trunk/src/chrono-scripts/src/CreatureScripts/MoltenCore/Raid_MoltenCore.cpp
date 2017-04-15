@@ -83,7 +83,7 @@ class FlamewakerProtectorAI : public MoonScriptCreatureAI
     MOONSCRIPT_FACTORY_FUNCTION(FlamewakerProtectorAI, MoonScriptCreatureAI);
 	FlamewakerProtectorAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
 	{
-		Lucifron = NULL;
+		Lucifron = nullptr;
 	
 		AddSpell(FLAMEWAKER_PROT_CLEAVE, Target_Current, 8, 0, 0, 0, 15);
 		DominateMind = AddSpell(FLAMEWAKER_PROT_DM, Target_RandomPlayer, 8, 0, 0, 0, 20);
@@ -297,7 +297,7 @@ class FireswornAI : public MoonScriptCreatureAI
     MOONSCRIPT_FACTORY_FUNCTION(FireswornAI, MoonScriptCreatureAI);
 	FireswornAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
 	{
-		mGarr = NULL;
+		mGarr = nullptr;
 
 		//Spells
 		AddSpell(FIRESWORN_IMMOLATE, Target_Current, 10, 0, 0, 0, 40);
@@ -495,7 +495,7 @@ class ShazzrahAI : public MoonScriptBossAI
 
 void SpellFunc_ShazzrahBlink(SpellDesc* pThis, MoonScriptCreatureAI* pCreatureAI, Unit* pTarget, TargetType pType)
 {
-	ShazzrahAI* Shazzrah = ( pCreatureAI ) ? (ShazzrahAI*)pCreatureAI : NULL;
+	ShazzrahAI* Shazzrah = ( pCreatureAI ) ? (ShazzrahAI*)pCreatureAI : nullptr;
 	if( Shazzrah )
 	{
 			// Sloppy code is sloppy, but it works with no issues.
@@ -585,7 +585,7 @@ class CoreRagerAI : public MoonScriptCreatureAI
     MOONSCRIPT_FACTORY_FUNCTION(CoreRagerAI, MoonScriptCreatureAI);
     CoreRagerAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
     {
-		Golemagg = NULL;
+		Golemagg = nullptr;
 
 		AddSpell(CORERAGER_MANGLE, Target_Current, 20, 0, 20);
     }
@@ -621,7 +621,7 @@ class GolemaggAI : public MoonScriptBossAI
     MOONSCRIPT_FACTORY_FUNCTION(GolemaggAI, MoonScriptBossAI);
 	GolemaggAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
 	{
-		CoreRager1 = CoreRager2 = NULL;
+		CoreRager1 = CoreRager2 = nullptr;
 		GolemaggTrust = AddSpell(GOLEMAGG_TRUST, Target_Self, 8, 0, 3);
 		AddSpell(GOLEMAGG_MAGMA_SPLASH, Target_Self, 15, 0, 0);
 		AddSpell(GOLEMAGG_PYROBLAST, Target_RandomPlayer, 10, 0, 8, 0, 40); 
@@ -749,13 +749,13 @@ class MajordomoExecutusAI : public MoonScriptBossAI
 		
 		if(GetPhase() == 2 && IsTimerFinished(DomoSayTimer1))
 		{
-			Emote("Brashly, you have come to rest the secrets of the Living Flame! You will soon regret the recklessness of your quest", Text_Yell, NULL);
+			Emote("Brashly, you have come to rest the secrets of the Living Flame! You will soon regret the recklessness of your quest", Text_Yell, 0);
 			RemoveTimer(DomoSayTimer1);
 		}
 		
 		if(GetPhase() == 2 && IsTimerFinished(DomoSayTimer2))
 		{
-			Emote("I go now to summon the lord whose house this is. Should you seek an audience with him, your paltry lives will surely be forfeit! Nevertheless, seek out his lair, if you dare!", Text_Yell, NULL);
+			Emote("I go now to summon the lord whose house this is. Should you seek an audience with him, your paltry lives will surely be forfeit! Nevertheless, seek out his lair, if you dare!", Text_Yell, 0);
 			RemoveTimer(DomoSayTimer2);
 		}
 		

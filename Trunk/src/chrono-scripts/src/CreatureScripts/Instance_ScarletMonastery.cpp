@@ -628,7 +628,7 @@ public:
 		AddSpell(HIF_FEAR, Target_RandomPlayerNotCurrent, 8, 1.5, 10);
 		AddSpell(HIF_HEAL, Target_Self, 7, 3, 5);
 		AddSpell(HIF_POWERWORD_SHIELD, Target_Self, 10, 0, 15);
-		AddSpell(HIF_SLEEP, Target_RandomPlayer, 7, 1.3, 15);
+		AddSpell(HIF_SLEEP, Target_RandomPlayer, 7, 1.3f, 15);
 	}
 };
 
@@ -702,9 +702,9 @@ public:
 			if(door)
 				door->SetState(0);
 
-			MoonScriptCreatureAI *whitemane = SpawnCreature(BOSS_HI_WHITEMANE, 1202, 1399, 29.1);
+			MoonScriptCreatureAI *whitemane = SpawnCreature(BOSS_HI_WHITEMANE, 1202.0f, 1399.0f, 29.1f);
 			if(whitemane) {
-				Location waypoint1 = {1168.194, 1398.985, 32, 3.15};
+				Location waypoint1 = {1168.194f, 1398.985f, 32.0f, 3.15f};
 				Location waypoint2;
 				waypoint2.x = _unit->GetPositionX();
 				waypoint2.y = _unit->GetPositionY();

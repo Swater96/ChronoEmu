@@ -83,7 +83,7 @@ public:
 	void SetRequest(uint32 id, ConsoleSocket * sock)
 	{
 		authmgrlock.Acquire();
-		if( sock == NULL )
+		if( sock == nullptr )
 			requestmap.erase(id);
 		else
 			requestmap.insert(make_pair(id, sock));
@@ -96,7 +96,7 @@ public:
 		authmgrlock.Acquire();
 		map<uint32,ConsoleSocket*>::iterator itr = requestmap.find(id);
 		if(itr == requestmap.end())
-			rtn = NULL;
+			rtn = nullptr;
 		else
 			rtn = itr->second;
 		authmgrlock.Release();
@@ -104,13 +104,13 @@ public:
 	}
 };
 
-ListenSocket<ConsoleSocket> * g_pListenSocket = NULL;
+ListenSocket<ConsoleSocket> * g_pListenSocket = nullptr;
 initialiseSingleton(ConsoleAuthMgr);
 
 void ConsoleAuthCallback(uint32 request, uint32 result)
 {
 	ConsoleSocket * pSocket = ConsoleAuthMgr::getSingleton().GetRequest(request);
-	if(pSocket == NULL || !pSocket->IsConnected())
+	if(pSocket == nullptr || !pSocket->IsConnected())
 		return;
 
     if(result)
@@ -121,7 +121,7 @@ void ConsoleAuthCallback(uint32 request, uint32 result)
 
 void CloseConsoleListener()
 {
-	if(g_pListenSocket != NULL)
+	if(g_pListenSocket != nullptr)
 		g_pListenSocket->Close();
 }
 
@@ -138,14 +138,14 @@ bool StartConsoleListener( )
 		return false;
 
 	g_pListenSocket = new ListenSocket<ConsoleSocket>( lhost.c_str(), lport );
-	if( g_pListenSocket == NULL )
+	if( g_pListenSocket == nullptr )
 		return false;
 
 	if( !g_pListenSocket->IsOpen( ) )
 	{
 		g_pListenSocket->Close( );
 		delete g_pListenSocket;
-		g_pListenSocket = NULL;
+		g_pListenSocket = nullptr;
 		return false;
 	}
 
@@ -170,15 +170,15 @@ ConsoleSocket::ConsoleSocket( SOCKET iFd ) : Socket(iFd, 10000, 1000)
 
 ConsoleSocket::~ConsoleSocket( )
 {
-	if( m_pBuffer != NULL )
+	if( m_pBuffer != nullptr )
 		delete [] m_pBuffer;
 
-	if( m_pConsole != NULL )
+	if( m_pConsole != nullptr )
 		delete m_pConsole;
 
 	if(m_requestNo)
 	{
-		ConsoleAuthMgr::getSingleton().SetRequest(m_requestNo, NULL);
+		ConsoleAuthMgr::getSingleton().SetRequest(m_requestNo, nullptr);
 		m_requestNo=0;
 	}
 }
@@ -201,7 +201,7 @@ void ConsoleSocket::OnRead()
 
 	// let's look for any newline bytes.
 	p = strchr(m_pBuffer, '\n');
-	while( p != NULL )
+	while( p != nullptr )
 	{
 		// windows is stupid. :P
 		len = (uint32)((p+1) - m_pBuffer);
@@ -271,14 +271,14 @@ void ConsoleSocket::OnDisconnect()
 {
 	if(m_requestNo)
 	{
-		ConsoleAuthMgr::getSingleton().SetRequest(m_requestNo, NULL);
+		ConsoleAuthMgr::getSingleton().SetRequest(m_requestNo, nullptr);
 		m_requestNo=0;
 	}
 }
 
 void ConsoleSocket::AuthCallback(bool result)
 {
-	ConsoleAuthMgr::getSingleton().SetRequest(m_requestNo, NULL);
+	ConsoleAuthMgr::getSingleton().SetRequest(m_requestNo, nullptr);
 	m_requestNo=0;
 
 	if( !result )
@@ -352,7 +352,7 @@ void HandleConsoleInput(BaseConsole * pConsole, const char * szInput)
 		{ &HandleBPStatsCommand, "bpstats", "none", "Shows buffer pool stats" },
 		{ &HandleBackupDBCommand, "backupdb", "none", "Backups Character Database" },
 		{ &HandleSaveAllCommand, "saveall", "none", "Save all players" },
-		{ NULL, NULL, NULL, NULL },
+		{ nullptr, nullptr, nullptr, nullptr },
 	};
 
 	uint32 i;
@@ -363,7 +363,7 @@ void HandleConsoleInput(BaseConsole * pConsole, const char * szInput)
 
 	q = (char*)szInput;
 	p = strchr(q, ' ');
-	while( p != NULL )
+	while( p != nullptr )
 	{
 		*p = 0;
 		tokens.push_back(q);
@@ -372,7 +372,7 @@ void HandleConsoleInput(BaseConsole * pConsole, const char * szInput)
 		p = strchr(q, ' ');
 	}
 
-	if( q != NULL && *q != '\0' )
+	if( q != nullptr && *q != '\0' )
 		tokens.push_back( q	);
 
 	if( tokens.empty() )
@@ -382,7 +382,7 @@ void HandleConsoleInput(BaseConsole * pConsole, const char * szInput)
 	{
 		pConsole->Write("=========================================================================================\r\n");
 		pConsole->Write("| %10s | %20s | %49s |\r\n", "Name", "Arguments", "Description");
-		for(i = 0; Commands[i].Name != NULL; ++i)
+		for(i = 0; Commands[i].Name != nullptr; ++i)
 		{
 			pConsole->Write("| %10s | %20s | %49s |\r\n", Commands[i].Name, Commands[i].ArgumentFormat, Commands[i].Description);
 		}
@@ -390,7 +390,7 @@ void HandleConsoleInput(BaseConsole * pConsole, const char * szInput)
 	}
 	else
 	{
-		for(i = 0; Commands[i].Name != NULL; ++i)
+		for(i = 0; Commands[i].Name != nullptr; ++i)
 		{
 			if( !stricmp( Commands[i].Name, tokens[0] ) )
 			{

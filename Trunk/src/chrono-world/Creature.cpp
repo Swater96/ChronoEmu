@@ -34,11 +34,11 @@ Creature::Creature(uint64 guid)
 	m_wowGuid.Init(GetGUID());
 
 
-	m_quests = NULL;
-	proto = NULL;
+	m_quests = nullptr;
+	proto = nullptr;
 	spawnid=0;
  
-	creature_info=NULL;
+	creature_info=nullptr;
 	m_H_regenTimer=0;
 	m_P_regenTimer=0;
 	m_useAI = true;
@@ -68,12 +68,12 @@ Creature::Creature(uint64 guid)
 		FlatStatMod[x]=0;
 	}
 
-	totemOwner = NULL;
+	totemOwner = nullptr;
 	totemSlot = -1;
 
 	m_PickPocketed = false;
-	m_SellItems = NULL;
-	_myScriptClass = NULL;
+	m_SellItems = nullptr;
+	_myScriptClass = nullptr;
 	m_TaxiNode = 0;
 	myFamily = 0;
 
@@ -91,7 +91,7 @@ Creature::Creature(uint64 guid)
 	m_escorter = 0;
 	m_limbostate = false;
 	m_corpseEvent=false;
-	m_respawnCell=NULL;
+	m_respawnCell=nullptr;
 	m_walkSpeed = 2.5f;
 	m_runSpeed = MONSTER_NORMAL_RUN_SPEED;
 	m_base_runSpeed = m_runSpeed;
@@ -99,7 +99,7 @@ Creature::Creature(uint64 guid)
 	m_noRespawn=false;
     m_canRegenerateHP = true;
 	m_transportGuid = 0;
-	m_transportPosition = NULL;
+	m_transportPosition = nullptr;
 	BaseAttackType = SCHOOL_NORMAL;
 	m_lootMethod = -1;
 }
@@ -121,7 +121,7 @@ Creature::~Creature()
 			delete (*itr);
 		delete m_custom_waypoint_map;
 	}
-	if(m_respawnCell!=NULL)
+	if(m_respawnCell!=nullptr)
 		m_respawnCell->_respawnObjects.erase(this);
 }
 
@@ -138,7 +138,7 @@ void Creature::Update( uint32 p_time )
 	if(m_corpseEvent)
 	{
 		sEventMgr.RemoveEvents(this);
-		if(this->proto==NULL)
+		if(this->proto==nullptr)
 			sEventMgr.AddEvent(this, &Creature::OnRemoveCorpse, EVENT_CREATURE_REMOVE_CORPSE, 1000, 1, EVENT_FLAG_DO_NOT_EXECUTE_IN_WORLD_CONTEXT);
 		else if (this->creature_info->Rank == ELITE_WORLDBOSS)
 			sEventMgr.AddEvent(this, &Creature::OnRemoveCorpse, EVENT_CREATURE_REMOVE_CORPSE, TIME_CREATURE_REMOVE_BOSSCORPSE, 1,EVENT_FLAG_DO_NOT_EXECUTE_IN_WORLD_CONTEXT);
@@ -387,7 +387,7 @@ Quest* Creature::FindQuest(uint32 quest_id, uint8 quest_relation)
 			return ptr->qst;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 uint16 Creature::GetQuestRelation(uint32 quest_id)
@@ -420,7 +420,7 @@ void Creature::setDeathState(DeathState s)
 	if(s == JUST_DIED) 
 	{
 
-		GetAIInterface()->SetUnitToFollow(NULL);
+		GetAIInterface()->SetUnitToFollow(nullptr);
 		m_deathState = CORPSE;
 		m_corpseEvent=true;
 		
@@ -722,13 +722,13 @@ void Creature::UpdateItemAmount(uint32 itemid)
 
 void Creature::TotemExpire()
 {
-	if( totemOwner != NULL )
+	if( totemOwner != nullptr )
 	{
 		totemOwner->m_TotemSlots[totemSlot] = 0;
 	}
 	
 	totemSlot = -1;
-	totemOwner = NULL;
+	totemOwner = nullptr;
 
 	if( IsInWorld() )
 		RemoveFromWorld(false, true);
@@ -1006,7 +1006,7 @@ bool Creature::Load(CreatureSpawn *spawn, uint32 mode, MapInfo *info)
 	GetAIInterface()->setMoveRunFlag(0);
 	
 	// load formation data
-	if( spawn->form != NULL )
+	if( spawn->form != nullptr )
 	{
 		m_aiInterface->m_formationLinkSqlId = spawn->form->fol;
 		m_aiInterface->m_formationFollowDistance = spawn->form->dist;

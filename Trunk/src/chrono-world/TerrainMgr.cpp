@@ -15,7 +15,7 @@ TerrainTile* TerrainHolder::GetTile(float x, float y)
 
 TerrainTile::~TerrainTile()
 {
-	m_parent->m_tiles[m_tx][m_ty] = NULL;
+	m_parent->m_tiles[m_tx][m_ty] = nullptr;
 }
 
 TerrainTile::TerrainTile(TerrainHolder* parent, uint32 mapid, int32 x, int32 y)
@@ -193,7 +193,7 @@ float TileMap::GetHeightF(float x, float y, int x_int, int y_int)
 
 float TileMap::GetHeight(float x, float y)
 {
-	if (m_heightMap9F == NULL)
+	if (m_heightMap9F == nullptr)
 		return m_tileHeight;
 
 	x = TERRAIN_MAP_RESOLUTION * (32 - x / TERRAIN_TILE_SIZE);
@@ -218,7 +218,7 @@ void TileMap::Load(char* filename)
 	sLog.outDebug("Terrain", "Loading %s", filename);
 	FILE* f = fopen(filename, "rb");
 
-	if (f == NULL)
+	if (f == nullptr)
 	{
 		sLog.outError("Terrain", "%s does not exist", filename);
 		return;
@@ -327,7 +327,7 @@ void TileMap::LoadAreaData(FILE* f, TileMapHeader &header)
 
 float TileMap::GetLiquidHeight(float x, float y)
 {
-	if (m_liquidMap == NULL)
+	if (m_liquidMap == nullptr)
 		return m_liquidLevel;
 
 	x = TERRAIN_MAP_RESOLUTION * (32 - x / TERRAIN_TILE_SIZE);
@@ -347,7 +347,7 @@ float TileMap::GetLiquidHeight(float x, float y)
 
 uint8 TileMap::GetLiquidType(float x, float y)
 {
-	if (m_liquidType == NULL)
+	if (m_liquidType == nullptr)
 		return (uint8)m_defaultLiquidType;
 
 	x = 16 * (32 - x / TERRAIN_TILE_SIZE);
@@ -359,7 +359,7 @@ uint8 TileMap::GetLiquidType(float x, float y)
 
 uint32 TileMap::GetArea(float x, float y)
 {
-	if (m_areaMap == NULL)
+	if (m_areaMap == nullptr)
 		return m_area;
 
 	x = 16 * (32 - x / TERRAIN_TILE_SIZE);

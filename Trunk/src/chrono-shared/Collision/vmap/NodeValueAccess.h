@@ -33,7 +33,7 @@ namespace VMAP
             TValue const* iValueArray;
 
         public:
-            inline NodeValueAccess() : iNodeArray(NULL), iValueArray(NULL) {}
+            inline NodeValueAccess() : iNodeArray(nullptr), iValueArray(nullptr) {}
 
             inline NodeValueAccess(TNode const* pNodeArray, TValue const* pValueArray) : iNodeArray(pNodeArray), iValueArray(pValueArray) {}
             inline TNode const* getNodePtr() const { return(iNodeArray); }

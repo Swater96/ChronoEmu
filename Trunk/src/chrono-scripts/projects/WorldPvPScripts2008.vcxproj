@@ -23,6 +23,7 @@
     <ProjectGuid>{FF39B41C-C998-4AAF-9EF0-199402233EE5}</ProjectGuid>
     <RootNamespace>WorldPvPScripts</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -78,6 +79,7 @@
     <OutDir>..\..\..\bin\debug\script_bin\</OutDir>
     <IntDir>2008_int_release_WorldPvPScripts\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>WorldPvPScripts</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>..\..\..\bin\debug_x64\script_bin\</OutDir>

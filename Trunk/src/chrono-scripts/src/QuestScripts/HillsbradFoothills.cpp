@@ -29,7 +29,7 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		if(BaronVardusAllowSpawn == true)
 		{

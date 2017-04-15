@@ -149,7 +149,7 @@ void ApplySingleHunterSpellFixes(SpellEntry *sp)
 			
 	// Spirit Bond
 	sp = dbcSpell.LookupEntryForced( 19578 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_CASTED_ON_PET_SUMMON_PET_OWNER | SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_TRIGGER_SPELL;
@@ -157,14 +157,14 @@ void ApplySingleHunterSpellFixes(SpellEntry *sp)
 	}
 
 	sp = dbcSpell.LookupEntryForced( 20895 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_CASTED_ON_PET_SUMMON_PET_OWNER | SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_TRIGGER_SPELL;
 		sp->EffectTriggerSpell[0] = 24529;
 	}
 	sp = dbcSpell.LookupEntryForced( 19579 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[1] = SPELL_EFFECT_APPLY_AURA;
@@ -175,7 +175,7 @@ void ApplySingleHunterSpellFixes(SpellEntry *sp)
 		sp->EffectDieSides[1] = sp->EffectDieSides[0];
 	}
 	sp = dbcSpell.LookupEntryForced( 24529 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[1] = SPELL_EFFECT_APPLY_AURA;

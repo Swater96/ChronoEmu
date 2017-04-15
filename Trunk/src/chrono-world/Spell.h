@@ -1188,7 +1188,7 @@ CHRONO_INLINE bool TargetTypeCheck(Object *obj,uint32 ReqCreatureTypeMask)
 	if( obj->GetTypeId() == TYPEID_UNIT )
 	{
 		CreatureInfo* inf = TO_CREATURE( obj )->GetCreatureName();
-		if( inf == NULL || !( 1 << ( inf->Type - 1 ) & ReqCreatureTypeMask ) )
+		if( inf == nullptr || !( 1 << ( inf->Type - 1 ) & ReqCreatureTypeMask ) )
 			return false;
 	}
 	else if(obj->GetTypeId() == TYPEID_PLAYER && !(UNIT_TYPE_HUMANOID_BIT & ReqCreatureTypeMask))

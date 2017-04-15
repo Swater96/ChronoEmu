@@ -223,35 +223,35 @@ void ApplySingleWarlockSpellFixes(SpellEntry *sp)
 	//Master Demononologist -- Taken from AspireDev. Shitload of spells for it.
 	//warlock - Master Demonologist - 25 spells here
 	sp = dbcSpell.LookupEntryForced( 23785 ); // 23875
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_CASTED_ON_PET_SUMMON_ON_PET | SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_TRIGGER_SPELL;
 		sp->EffectTriggerSpell[0] = 23784;
 	}
 	sp = dbcSpell.LookupEntryForced( 23822 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_CASTED_ON_PET_SUMMON_ON_PET | SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_TRIGGER_SPELL;
 		sp->EffectTriggerSpell[0] = 23830;
 	}
 	sp = dbcSpell.LookupEntryForced( 23823 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_CASTED_ON_PET_SUMMON_ON_PET | SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_TRIGGER_SPELL;
 		sp->EffectTriggerSpell[0] = 23831;
 	}
 	sp = dbcSpell.LookupEntryForced( 23824 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_CASTED_ON_PET_SUMMON_ON_PET | SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_TRIGGER_SPELL;
 		sp->EffectTriggerSpell[0] = 23832;
 	}
 	sp = dbcSpell.LookupEntryForced( 23825 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_CASTED_ON_PET_SUMMON_ON_PET | SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_TRIGGER_SPELL;
@@ -259,64 +259,64 @@ void ApplySingleWarlockSpellFixes(SpellEntry *sp)
 	}
 	//and the rest
 	sp = dbcSpell.LookupEntryForced( 23784 );
-	if( sp != NULL )
+	if( sp != nullptr )
 		sp->EffectImplicitTargetA[0] = EFF_TARGET_PET;
 	sp = dbcSpell.LookupEntryForced( 23830 );
-	if( sp != NULL )
+	if( sp != nullptr )
 		sp->EffectImplicitTargetA[0] = EFF_TARGET_PET;
 	sp = dbcSpell.LookupEntryForced( 23831 );
-	if( sp != NULL )
+	if( sp != nullptr )
 		sp->EffectImplicitTargetA[0] = EFF_TARGET_PET;
 	sp = dbcSpell.LookupEntryForced( 23832 );
-	if( sp != NULL )
+	if( sp != nullptr )
 		sp->EffectImplicitTargetA[0] = EFF_TARGET_PET;
 	sp = dbcSpell.LookupEntryForced( 35708 );
-	if( sp != NULL )
+	if( sp != nullptr )
 		sp->EffectImplicitTargetA[0] = EFF_TARGET_PET;
 	sp = dbcSpell.LookupEntryForced( 23759 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 	}
 	sp = dbcSpell.LookupEntryForced( 23760 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 	}
 	sp = dbcSpell.LookupEntryForced( 23761 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 	}
 	sp = dbcSpell.LookupEntryForced( 23762 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 	}
 	sp = dbcSpell.LookupEntryForced( 23826 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 	}
 	sp = dbcSpell.LookupEntryForced( 23827 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 	}
 	sp = dbcSpell.LookupEntryForced( 23828 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 	}
 	sp = dbcSpell.LookupEntryForced( 23829 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
@@ -324,42 +324,42 @@ void ApplySingleWarlockSpellFixes(SpellEntry *sp)
 	for(uint32 i=23833;i<=23844;i++)
 	{
 		sp = dbcSpell.LookupEntryForced( i );
-		if( sp != NULL )
+		if( sp != nullptr )
 		{
 			sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 			sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 		}
 	}
 	sp = dbcSpell.LookupEntryForced( 35702 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 		sp->Effect[1] = 0; //hacks, we are handling this in another way
 	}
 	sp = dbcSpell.LookupEntryForced( 35703 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 		sp->Effect[1] = 0; //hacks, we are handling this in another way
 	}
 	sp = dbcSpell.LookupEntryForced( 35704 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 		sp->Effect[1] = 0; //hacks, we are handling this in another way
 	}
 	sp = dbcSpell.LookupEntryForced( 35705 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;
 		sp->Effect[1] = 0; //hacks, we are handling this in another way
 	}
 	sp = dbcSpell.LookupEntryForced( 35706 );
-	if( sp != NULL )
+	if( sp != nullptr )
 	{
 		sp->c_is_flags |= SPELL_FLAG_IS_EXPIREING_WITH_PET;
 		sp->Effect[0] = SPELL_EFFECT_APPLY_AURA;

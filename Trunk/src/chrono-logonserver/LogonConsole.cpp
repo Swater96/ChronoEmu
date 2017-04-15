@@ -53,7 +53,7 @@ void LogonConsole::Kill()
 	_thread->kill=true;
 	WriteConsoleInput (GetStdHandle(STD_INPUT_HANDLE), ir, 2, & dwTmp);
 	printf("Waiting for console thread to terminate....\n");
-	while(_thread != NULL)
+	while(_thread != nullptr)
 	{
 		Sleep(100);
 	}
@@ -93,7 +93,7 @@ bool LogonConsoleThread::run()
 		}
 	}
 
-	sLogonConsole._thread=NULL;
+	sLogonConsole._thread=nullptr;
 	return true;
 }
 
@@ -143,7 +143,7 @@ void LogonConsole::ReloadAccts(char *str)
 // quit | exit
 void LogonConsole::TranslateQuit(char *str)
 {
-	int delay = str != NULL ? atoi(str) : 5000;
+	int delay = str != nullptr ? atoi(str) : 5000;
 	if(!delay)
 		delay = 5000;
 	else
@@ -159,11 +159,11 @@ void LogonConsole::ProcessQuit(int delay)
 // help | ?
 void LogonConsole::TranslateHelp(char *str)
 {
-	ProcessHelp(NULL);
+	ProcessHelp(nullptr);
 }
 void LogonConsole::ProcessHelp(char *command)
 {
-	if (command == NULL)
+	if (command == nullptr)
 	{
 		sLog.outString("Console:--------help--------");
 		sLog.outString("   help, ?: print this text");

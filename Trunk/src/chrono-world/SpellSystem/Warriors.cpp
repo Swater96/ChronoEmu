@@ -42,15 +42,15 @@ void ApplySingleWarriorSpellFixes(SpellEntry *sp)
 		
 		//warrior - improved berserker rage
 		sp = dbcSpell.LookupEntryForced( 20500 );
-		if( sp != NULL )
+		if( sp != nullptr )
 			sp->procFlags = PROC_ON_CAST_SPELL | CPROC_ON_SELF;
 		sp = dbcSpell.LookupEntryForced( 20501 );
-		if( sp != NULL )
+		if( sp != nullptr )
 			sp->procFlags = PROC_ON_CAST_SPELL | CPROC_ON_SELF;
 
 		//warrior - berserker rage is missing 1 effect = regenerate rage
 		sp = dbcSpell.LookupEntryForced( 18499 );
-		if( sp != NULL )
+		if( sp != nullptr )
 		{
 			sp->Effect[2] = 6;
 			sp->EffectApplyAuraName[2] = SPELL_AURA_PROC_TRIGGER_SPELL;

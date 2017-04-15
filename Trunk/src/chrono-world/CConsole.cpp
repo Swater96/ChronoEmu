@@ -74,7 +74,7 @@ bool ConsoleThread::run()
 
 		// Read in single line from "stdin"
 		memset( cmd, 0, sizeof( cmd ) ); 
-		if( fgets( cmd, 300, stdin ) == NULL )
+		if( fgets( cmd, 300, stdin ) == nullptr )
 			continue;
 
 		if( m_killSwitch )
@@ -85,7 +85,7 @@ bool ConsoleThread::run()
 		tv.tv_usec = 0;
 		FD_ZERO( &fds );
 		FD_SET( STDIN_FILENO, &fds );
-		if( select( 1, &fds, NULL, NULL, &tv ) <= 0 )
+		if( select( 1, &fds, nullptr, nullptr, &tv ) <= 0 )
 		{
 			if(!m_killSwitch)	// timeout
 				continue;
@@ -95,7 +95,7 @@ bool ConsoleThread::run()
 
 		// Read in single line from "stdin"
 		memset( cmd, 0, sizeof( cmd ) ); 
-		if( fgets( cmd, 300, stdin ) == NULL )
+		if( fgets( cmd, 300, stdin ) == nullptr )
 			continue;
 #endif
 

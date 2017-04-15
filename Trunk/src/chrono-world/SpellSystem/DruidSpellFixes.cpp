@@ -113,12 +113,12 @@ void ApplySingleDruidSpellFixes(SpellEntry *sp)
 			
 
 		sp = dbcSpell.LookupEntryForced( 9635 );
-		if( sp != NULL )
+		if( sp != nullptr )
 			sp->EffectRealPointsPerLevel[1] = 0;
 			
 		//druid - Blood Frenzy
 		sp = dbcSpell.LookupEntryForced( 16954 );
-		if( sp != NULL ) 
+		if( sp != nullptr ) 
 		{
 			sp->EffectApplyAuraName[0] = SPELL_AURA_PROC_TRIGGER_SPELL;
 			sp->EffectTriggerSpell[0] = 16953;
@@ -126,7 +126,7 @@ void ApplySingleDruidSpellFixes(SpellEntry *sp)
 			sp->procChance = 100;
 		}
 		sp = dbcSpell.LookupEntryForced( 16952 );
-		if( sp != NULL ) 
+		if( sp != nullptr ) 
 		{
 			sp->EffectApplyAuraName[0] = SPELL_AURA_PROC_TRIGGER_SPELL;
 			sp->EffectTriggerSpell[0] = 16953;

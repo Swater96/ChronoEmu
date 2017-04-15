@@ -82,7 +82,7 @@ public:
 	LogonCommWatcherThread()
 	{
 #ifdef WIN32
-		hEvent = CreateEvent( NULL, TRUE, FALSE, NULL );
+		hEvent = CreateEvent( nullptr, TRUE, FALSE, nullptr );
 #endif
 	}
 
@@ -123,7 +123,7 @@ void LogonCommHandler::Startup()
 
 	Log.Notice("LogonCommClient", "Loading forced permission strings...");
 	QueryResult * result = CharacterDatabase.Query("SELECT * FROM account_forced_permissions");
-	if( result != NULL )
+	if( result != nullptr )
 	{
 		do 
 		{
@@ -151,7 +151,7 @@ const string* LogonCommHandler::GetForcedPermissions(string& username)
 {
 	ForcedPermissionMap::iterator itr = forced_permissions.find(username);
 	if(itr == forced_permissions.end())
-		return NULL;
+		return nullptr;
 
 	return &itr->second;
 }
@@ -177,7 +177,7 @@ void LogonCommHandler::Connect(LogonServer * server)
 		{
 			Log.Notice("LogonCommClient", "Authentication timed out.");
 			conn->Disconnect();
-			logons[server]=NULL;
+			logons[server]=nullptr;
 			return;
 		}
 
@@ -324,7 +324,7 @@ uint32 LogonCommHandler::ClientConnected(string AccountName, WorldSocket * Socke
 	}
 
 	LogonCommClientSocket * s = itr->second;
-	if( s == NULL )
+	if( s == nullptr )
 		return (uint32)-1;
 
 	pendingLock.Acquire();

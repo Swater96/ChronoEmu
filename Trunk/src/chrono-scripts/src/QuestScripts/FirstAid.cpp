@@ -34,22 +34,22 @@ struct Location
 
 static Location AllianceCoords[]=
 {
-	{-3742.2626, -4536.9624, 14.2759, 3.6178}, // Far Left Bed, Behind
-	{-3750.0925, -4540.1699, 14.2712, 3.5404}, // Far Left Bed
-	{-3754.2653, -4539.0634, 14.1620, 5.1827}, // Left Bed
-	{-3757.5134, -4532.7343, 14.1667, 5.1497}, // Right Bed
-	{-3755.9040, -4529.0385, 14.0517, 0.4200}, // Far Right Bed
-	{-3749.5649, -4526.9609, 14.0764, 5.1297}  // Far Right Bed, Behind
+	{-3742.2626f, -4536.9624f, 14.2759f, 3.6178f}, // Far Left Bed, Behind
+	{-3750.0925f, -4540.1699f, 14.2712f, 3.5404f}, // Far Left Bed
+	{-3754.2653f, -4539.0634f, 14.1620f, 5.1827f}, // Left Bed
+	{-3757.5134f, -4532.7343f, 14.1667f, 5.1497f}, // Right Bed
+	{-3755.9040f, -4529.0385f, 14.0517f, 0.4200f}, // Far Right Bed
+	{-3749.5649f, -4526.9609f, 14.0764f, 5.1297f}  // Far Right Bed, Behind
 };
 
 static Location HordeCoords[]=
 {
-	{-1013.75, -3492.59, 62.62, 4.34}, // Left, Behind
-	{-1017.72, -3490.92, 62.62, 4.34}, // Right, Behind
-	{-1015.77, -3497.15, 62.82, 4.34}, // Left, Mid
-	{-1019.51, -3495.49, 62.82, 4.34}, // Right, Mid
-	{-1017.25, -3500.85, 62.98, 4.34}, // Left, front
-	{-1020.95, -3499.21, 62.98, 4.34}  // Right, Front
+	{-1013.75f, -3492.59f, 62.62f, 4.34f}, // Left, Behind
+	{-1017.72f, -3490.92f, 62.62f, 4.34f}, // Right, Behind
+	{-1015.77f, -3497.15f, 62.82f, 4.34f}, // Left, Mid
+	{-1019.51f, -3495.49f, 62.82f, 4.34f}, // Right, Mid
+	{-1017.25f, -3500.85f, 62.98f, 4.34f}, // Left, front
+	{-1020.95f, -3499.21f, 62.98f, 4.34f}  // Right, Front
 };
 
 #define A_RUNTOX -3742.96
@@ -113,7 +113,7 @@ bool Triage(uint32 i, Spell * pSpell)
 {
 	// Unit* target = pSpell->GetUnitTarget();
 	// if(!pSpell->p_caster || !target || target->GetTypeId() != TYPEID_UNIT) return true;
-	if(!pSpell->p_caster || pSpell->GetUnitTarget() == NULL) return true;
+	if(!pSpell->p_caster || pSpell->GetUnitTarget() == nullptr) return true;
 		pSpell->p_caster->CastSpell(pSpell->GetUnitTarget(), dbcSpell.LookupEntry(746), true);
 		QuestLogEntry *en = pSpell->p_caster->GetQuestLogForEntry(6624);
 

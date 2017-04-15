@@ -46,10 +46,10 @@ public:
 	Ambush(Spell * pSpell) : SpellScript(pSpell) {}
 	SpellCastError CanCast(bool tolerate)
 	{
-		if (_spell->u_caster == NULL || !_spell->u_caster->InStealth())
+		if (_spell->u_caster == nullptr || !_spell->u_caster->InStealth())
 			return SPELL_FAILED_ONLY_STEALTHED;
 
-		if (_spell->p_caster != NULL)
+		if (_spell->p_caster != nullptr)
 		{
 			Item * pMainHand = _spell->p_caster->GetItemInterface()->GetInventoryItem( INVENTORY_SLOT_NOT_SET, EQUIPMENT_SLOT_MAINHAND );
 			if( !pMainHand || pMainHand->GetProto()->Class != 2 || pMainHand->GetProto()->SubClass != 15 )
@@ -67,7 +67,7 @@ public:
 	Backstab(Spell * pSpell) : SpellScript(pSpell) {}
 	SpellCastError CanCast(bool tolerate)
 	{
-		if (_spell->p_caster != NULL)
+		if (_spell->p_caster != nullptr)
 		{
 			Item * pMainHand = _spell->p_caster->GetItemInterface()->GetInventoryItem( INVENTORY_SLOT_NOT_SET, EQUIPMENT_SLOT_MAINHAND );
 			if( !pMainHand || pMainHand->GetProto()->Class != 2 || pMainHand->GetProto()->SubClass != 15 )
@@ -85,10 +85,10 @@ public:
 	Stealth(Spell * pSpell) : SpellScript(pSpell) {}
 	SpellCastError CanCast(bool tolerate)
 	{
-		if (_spell->u_caster == NULL || _spell->u_caster->CombatStatus.IsInCombat())
+		if (_spell->u_caster == nullptr || _spell->u_caster->CombatStatus.IsInCombat())
 			return SPELL_FAILED_TARGET_IN_COMBAT;
 
-		if (_spell->p_caster != NULL && _spell->p_caster->m_bgHasFlag)
+		if (_spell->p_caster != nullptr && _spell->p_caster->m_bgHasFlag)
 			return SPELL_FAILED_SPELL_UNAVAILABLE;
 
 		return SPELL_CANCAST_OK;
@@ -102,7 +102,7 @@ public:
 	Vanish(Spell * pSpell) : SpellScript(pSpell) {}
 	SpellCastError CanCast(bool tolerate)
 	{
-		if (_spell->p_caster != NULL && _spell->p_caster->m_bgHasFlag)
+		if (_spell->p_caster != nullptr && _spell->p_caster->m_bgHasFlag)
 			return SPELL_FAILED_SPELL_UNAVAILABLE;
 
 		return SPELL_CANCAST_OK;
@@ -118,7 +118,7 @@ public:
 	{
 		// WoWWiki says +( 0.18 * attack power / number of ticks )
 		// Tooltip gives no specific reading, but says ", increased by your attack power.".
-		if( _spell->u_caster != NULL )
+		if( _spell->u_caster != nullptr )
 		{
 			float ap = (float)_spell->u_caster->GetAP();
 			if( EffectIndex == 0 )
@@ -159,7 +159,7 @@ public:
 	Eviscerate(Spell * pSpell) : SpellScript(pSpell) {}
 	void CalculateEffect(uint32 EffectIndex, Unit *  target, int32* value)
 	{
-		if( _spell->p_caster != NULL && EffectIndex == 0 )//Envenom
+		if( _spell->p_caster != nullptr && EffectIndex == 0 )//Envenom
 		{
 			value += (uint32)( _spell->p_caster->GetAP() * ( 0.03 * _spell->p_caster->m_comboPoints ) );
 		}

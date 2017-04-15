@@ -99,13 +99,13 @@ void Pet::CreateAsSummon(uint32 entry, CreatureInfo *ci, Creature* created_from_
 	creature_info = ci;
 	myFamily = dbcCreatureFamily.LookupEntry(creature_info->Family);
 	//m_name = objmgr.GetCreatureFamilyName(myFamily->ID);
-	if( myFamily->name == NULL )
+	if( myFamily->name == nullptr )
 		m_name = "Pet";
 	else
 		m_name.assign( myFamily->name );
 
 	// Create ourself	
-	if (spell_callback != NULL && spell_callback->m_targets.m_targetMask & TARGET_FLAG_DEST_LOCATION)
+	if (spell_callback != nullptr && spell_callback->m_targets.m_targetMask & TARGET_FLAG_DEST_LOCATION)
 		Create(m_name.c_str(), owner->GetMapId(), spell_callback->m_targets.m_destX, spell_callback->m_targets.m_destY, spell_callback->m_targets.m_destZ, owner->GetOrientation());
 	else
 		Create(m_name.c_str(), owner->GetMapId(), owner->GetPositionX(), owner->GetPositionY(), owner->GetPositionZ(), owner->GetOrientation());
@@ -114,7 +114,7 @@ void Pet::CreateAsSummon(uint32 entry, CreatureInfo *ci, Creature* created_from_
 	SetFloatValue(UNIT_MOD_CAST_SPEED, 1.0f);	// better set this one
 
 	// Fields common to both lock summons and pets
-	if(type & 0x2 && created_from_creature != NULL)
+	if(type & 0x2 && created_from_creature != nullptr)
 		SetUInt32Value(UNIT_FIELD_LEVEL, created_from_creature->getLevel());
 	else
 		SetUInt32Value(UNIT_FIELD_LEVEL,owner->GetUInt32Value(UNIT_FIELD_LEVEL));
@@ -124,10 +124,10 @@ void Pet::CreateAsSummon(uint32 entry, CreatureInfo *ci, Creature* created_from_
 	SetUInt64Value(UNIT_FIELD_SUMMONEDBY, owner->GetGUID());
 	SetUInt64Value(UNIT_FIELD_CREATEDBY, owner->GetGUID());
 	
-	if(type & 0x1 && created_by_spell != NULL)
+	if(type & 0x1 && created_by_spell != nullptr)
 		SetUInt64Value(UNIT_CREATED_BY_SPELL, created_by_spell->Id);
 
-	if(type & 0x1 || created_from_creature == NULL)
+	if(type & 0x1 || created_from_creature == nullptr)
 	{
 		Summon = true;
 		SetUInt32Value(UNIT_FIELD_BYTES_0, 2048 | (0 << 24));
@@ -582,7 +582,7 @@ void Pet::InitializeMe(bool first)
 
 void Pet::UpdatePetInfo(bool bSetToOffline)
 {
-	if(bExpires || m_Owner==NULL)
+	if(bExpires || m_Owner==nullptr)
 		return;	// don't update expiring pets
 
 	PlayerPet *pi = m_Owner->GetPlayerPet(m_PetNumber);
@@ -656,9 +656,9 @@ void Pet::Remove(bool bSafeDelete, bool bUpdate, bool bSetOffline)
 			if(!bExpires) 
 				UpdatePetInfo(bSetOffline);
 			if(!IsSummon())
-				m_Owner->_SavePet(NULL);//not perfect but working
+				m_Owner->_SavePet(nullptr);//not perfect but working
 		}
-		m_Owner->SetSummon(NULL);
+		m_Owner->SetSummon(nullptr);
 		SendNullSpellsToOwner();
 	}
 	ClearPetOwner();
@@ -1352,7 +1352,7 @@ void Pet::ApplySummonLevelAbilities()
 
 void Pet::ApplyPetLevelAbilities()
 {
-	if(m_Owner == NULL)
+	if(m_Owner == nullptr)
 		return;
 		
 	uint32 level = m_uint32Values[UNIT_FIELD_LEVEL];
@@ -1405,7 +1405,7 @@ void Pet::ApplyPetLevelAbilities()
 	double pet_mod_sta = 1, pet_mod_arm = 1, pet_mod_dps = 1;
 	if(creature_info->Family > 35 || R_pet_mod_sta[creature_info->Family] == 0)
 	{
-		if( myFamily == NULL && myFamily->name != NULL )
+		if( myFamily == nullptr && myFamily->name != nullptr )
             sLog.outError("PETSTAT: Creature family %u has missing data. Assuming to be 1.", creature_info->Family);
 		else
 			sLog.outError("PETSTAT: Creature family %u [%s] has missing data. Assuming to be 1.", creature_info->Family, myFamily->name);
@@ -1658,7 +1658,7 @@ bool Pet::UpdateLoyalty( char pts )
 	}
 	__except(EXCEPTION_EXECUTE_HANDLER)
 	{
-		m_Owner = NULL;
+		m_Owner = nullptr;
 		return true;
 	}
 #else
@@ -1737,17 +1737,17 @@ AI_Spell * Pet::HandleAutoCastEvent()
 			if( sp->cooldown && getMSTime() >= sp->cooldowntime )
 				return *m_autoCastSpells[AUTOCAST_EVENT_ATTACK].begin();
 			else
-				return NULL;
+				return nullptr;
 		}
 		else
 		{
 			// bad pointers somehow end up here :S
 			m_autoCastSpells[AUTOCAST_EVENT_ATTACK].erase(m_autoCastSpells[AUTOCAST_EVENT_ATTACK].begin());
-			return NULL;
+			return nullptr;
 		}
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 void Pet::HandleAutoCastEvent(uint32 Type)
@@ -1809,7 +1809,7 @@ void Pet::HandleAutoCastEvent(uint32 Type)
 		else
 		{
 			//modified by Zack: Spell targetting will be generated in the castspell function now.You cannot force to target self all the time
-			CastSpell( TO_UNIT( NULL ), sp->spell, false);
+			CastSpell( TO_UNIT( nullptr ), sp->spell, false);
 		}
 	}
 }

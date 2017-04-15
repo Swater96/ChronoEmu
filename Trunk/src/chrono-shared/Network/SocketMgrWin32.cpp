@@ -16,7 +16,7 @@ SocketMgr::SocketMgr()
 {
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2,0), &wsaData);
-	m_completionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, (ULONG_PTR)0, 0);
+	m_completionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, nullptr, (ULONG_PTR)0, 0);
 
 }
 
@@ -71,7 +71,7 @@ bool SocketWorkerThread::run()
 
 void HandleReadComplete(Socket * s, uint32 len)
 {
-	//s->m_readEvent=NULL;
+	//s->m_readEvent=nullptr;
 	if(!s->IsDeleted())
 	{
 		s->m_readEvent.Unmark();

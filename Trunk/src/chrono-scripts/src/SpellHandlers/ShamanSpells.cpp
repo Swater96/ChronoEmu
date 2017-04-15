@@ -93,7 +93,7 @@ public:
 		//we should be in world here, lets get totem
 		Unit * totem=_unit->GetMapMgr()->GetUnit(_unit->GetUInt64Value(UNIT_FIELD_CREATEDBY));
 
-		if (totem == NULL) //WTF
+		if (totem == nullptr) //WTF
 			return;
 
 #ifdef ASCENT_CORE

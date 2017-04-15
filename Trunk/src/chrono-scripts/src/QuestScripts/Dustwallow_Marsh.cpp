@@ -92,7 +92,7 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -100,7 +100,7 @@ public:
 
 		Creature * creat = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 6546);
 
-		if(creat == NULL)
+		if(creat == nullptr)
 			return;
 		
 		creat->SendChatMessage(CHAT_MSG_MONSTER_SAY, LANG_UNIVERSAL, "Fine, if you ready to go!");
@@ -179,7 +179,7 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -187,7 +187,7 @@ public:
 
 		Creature * Overlord = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 4500);
 
-		if(Overlord == NULL)
+		if(Overlord == nullptr)
 			return;
 
 		string say = "Puny";
@@ -249,7 +249,7 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -257,7 +257,7 @@ public:
 
 		Creature * Dashel = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 4966);
 
-		if(Dashel == NULL)
+		if(Dashel == nullptr)
 			return;
 
 		Dashel->SetUInt32Value(UNIT_FIELD_FACTIONTEMPLATE, 72);

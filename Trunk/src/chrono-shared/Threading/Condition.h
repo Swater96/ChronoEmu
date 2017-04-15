@@ -39,7 +39,7 @@ public:
 	Condition(Mutex*m)
 	{
 		external_mutex=m;
-		wake_sem=NULL;
+		wake_sem=nullptr;
 		memset(generations,0,sizeof(generations));
 	}
 
@@ -58,14 +58,14 @@ public:
 		internal_mutex.Acquire();
 		if(wake_sem)
 		{
-			ReleaseSemaphore(wake_sem,1,NULL);
+			ReleaseSemaphore(wake_sem,1,nullptr);
 			for(unsigned int generation=MAX_AWAITING_THREADS;generation!=0;--generation)
 			{
 				list_entry& entry=generations[generation-1];
 				if(entry.count)
 				{
 					entry.notified=true;
-					ReleaseSemaphore(entry.semaphore,1,NULL);
+					ReleaseSemaphore(entry.semaphore,1,nullptr);
 					if(!--entry.count)
 					{
 						dispose_entry(entry);
@@ -141,9 +141,9 @@ protected:
 	{
 		SECURITY_ATTRIBUTES attr;
 		attr.nLength=sizeof(SECURITY_ATTRIBUTES);
-		attr.lpSecurityDescriptor=NULL;
+		attr.lpSecurityDescriptor=nullptr;
 		attr.bInheritHandle=false;
-		return CreateSemaphore(&attr,cur,max,NULL);
+		return CreateSemaphore(&attr,cur,max,nullptr);
 	}
 
 		static bool no_waiters(list_entry const& entry)
@@ -165,8 +165,8 @@ protected:
 
 		void broadcast_entry(list_entry& entry)
 		{
-			ReleaseSemaphore(wake_sem,entry.count,NULL);
-			ReleaseSemaphore(entry.semaphore,entry.count,NULL);
+			ReleaseSemaphore(wake_sem,entry.count,nullptr);
+			ReleaseSemaphore(entry.semaphore,entry.count,nullptr);
 			entry.count=0;
 			dispose_entry(entry);
 		}
@@ -237,7 +237,7 @@ public:
 
 		// Enter a new event handle into the wait set.
 		HANDLE hWaitEvent = Push();
-		if( NULL == hWaitEvent )
+		if( nullptr == hWaitEvent )
 			return WAIT_FAILED;
 
 		// Store the current lock count for re-acquisition.
@@ -304,7 +304,7 @@ public:
 
 		// Enter a new event handle into the wait set.
 		HANDLE hWaitEvent = Push();
-		if( NULL == hWaitEvent )
+		if( nullptr == hWaitEvent )
 			return WAIT_FAILED;
 
 		// Store the current lock count for re-acquisition.
@@ -370,7 +370,7 @@ public:
 		HANDLE hWaitEvent = Pop();
 
 		// If there is not thread currently waiting, that's just fine.
-		if(NULL == hWaitEvent)
+		if(nullptr == hWaitEvent)
 			return;
 
 		// Signal the event.
@@ -400,14 +400,14 @@ private:
 	{
 		// Create the new event.
 		HANDLE hWaitEvent = ::CreateEvent(
-			NULL, // no security
+			nullptr, // no security
 			FALSE, // auto-reset event
 			FALSE, // initially unsignalled
-			NULL // string name
+			nullptr // string name
 			);
 		//
-		if( NULL == hWaitEvent ) {
-			return NULL;
+		if( nullptr == hWaitEvent ) {
+			return nullptr;
 		}
 
 		// Push the handle on the deque.
@@ -423,7 +423,7 @@ private:
 		// Pop the first handle off the deque.
 		//
 		::EnterCriticalSection(&m_critsecWaitSetProtection);
-		HANDLE hWaitEvent = NULL; 
+		HANDLE hWaitEvent = nullptr; 
 		if( 0 != m_deqWaitSet.size() )
 		{
 			hWaitEvent = m_deqWaitSet.front();
@@ -479,7 +479,7 @@ public:
 	CHRONO_INLINE Condition(Mutex *m)
 	{
 		mut=m;
-		pthread_cond_init(&cond,NULL);
+		pthread_cond_init(&cond,nullptr);
 	}
 	CHRONO_INLINE ~Condition()
 	{

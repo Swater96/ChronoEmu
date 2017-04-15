@@ -397,7 +397,7 @@ const string WorldStateManager::GetPersistantSetting(const char *szKeyName, cons
 	QueryResult * pResult = CharacterDatabase.Query("SELECT setting_value FROM worldstate_save_data WHERE setting_id = \"%s\"", 
 		CharacterDatabase.EscapeString(string(szKeyName)).c_str());
 
-	if( pResult == NULL )
+	if( pResult == nullptr )
 		return string(szDefaultValue);
 
 	string ret = string(pResult->Fetch()[0].GetString());
@@ -424,7 +424,7 @@ void WorldStateManager::SetPersistantSetting(const char *szKeyName, const char *
 void WorldStateTemplateManager::LoadFromDB()
 {
 	QueryResult * pResult = WorldDatabase.Query("SELECT * FROM worldstate_template");
-	if( pResult == NULL )
+	if( pResult == nullptr )
 		return;
 
 	Field *fields;

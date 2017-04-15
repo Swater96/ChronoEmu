@@ -34,14 +34,14 @@ bool SpragglesCanteen(uint32 i, Spell * pSpell)
   Player * plr = TO_PLAYER(pSpell->u_caster);
   
   Creature * target = plr->GetMapMgr()->GetCreature(GET_LOWGUID_PART(plr->GetSelection()));
-  if(target == NULL)
+  if(target == nullptr)
     return true;
 
   if(target->GetEntry() != 9999)
     return true;
 
   QuestLogEntry *qle = plr->GetQuestLogForEntry(4492);
-  if(qle == NULL)
+  if(qle == nullptr)
     return true;
 
   target->SetStandState(0);
@@ -179,7 +179,7 @@ bool FindingTheSource(uint32 i, Spell * pSpell)
 		return true;
 
 	QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(974);
-	if(qle == NULL)
+	if(qle == nullptr)
 		return true;
 
 	GameObject * place1 = pPlayer->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(-7163, -1149, -264, 148503);
@@ -188,27 +188,27 @@ bool FindingTheSource(uint32 i, Spell * pSpell)
 	GameObject * place4 = pPlayer->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(-7328, -1461, -242, 148503);
 	GameObject * place5 = pPlayer->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(-7092, -1305, -187, 148503);
 
-	if(place1 != NULL)
+	if(place1 != nullptr)
 	{
 		if(pPlayer->CalcDistance(pPlayer, place1) < 11)
 			pPlayer->CastSpell(pPlayer, 14797, true);		
 	}
-	if(place2 != NULL)
+	if(place2 != nullptr)
 	{
 		if(pPlayer->CalcDistance(pPlayer, place2) < 11)
 			pPlayer->CastSpell(pPlayer, 14797, true);
 	}
-	if(place3 != NULL)
+	if(place3 != nullptr)
 	{
 		if(pPlayer->CalcDistance(pPlayer, place3) < 11)
 			pPlayer->CastSpell(pPlayer, 14797, true);
 	}
-	if(place4 != NULL)
+	if(place4 != nullptr)
 	{
 		if(pPlayer->CalcDistance(pPlayer, place4) < 11)
 			pPlayer->CastSpell(pPlayer, 14797, true);
 	}
-	if(place5 != NULL)
+	if(place5 != nullptr)
 	{
 		if(pPlayer->CalcDistance(pPlayer, place5) < 11)
 		{
@@ -229,14 +229,14 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
 		float SSZ = mTarget->GetPositionZ();
 
 		Creature * creat = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 9623);
-		if(creat == NULL)
+		if(creat == nullptr)
 			return;
 		creat->m_escorter = mTarget;
 		creat->GetAIInterface()->setMoveType(11);
@@ -292,7 +292,7 @@ public:
 			_unit->SendChatMessage(CHAT_MSG_MONSTER_SAY, LANG_UNIVERSAL, "Tr..........");
 			_unit->Despawn(5000,1000);
 			sEAS.DeleteWaypoints(_unit);
-			if(_unit->m_escorter == NULL)
+			if(_unit->m_escorter == nullptr)
 				return;
 			Player * plr = _unit->m_escorter;
 			_unit->m_escorter = NULLPLR;

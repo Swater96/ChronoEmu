@@ -32,7 +32,7 @@ public:
     GossipMenu *Menu;
     objmgr.CreateGossipMenuForPlayer(&Menu, pObject->GetGUID(), 3557, plr);
 
-    if(plr->GetQuestLogForEntry(4921) != NULL)
+    if(plr->GetQuestLogForEntry(4921) != nullptr)
       Menu->AddItem(0, "I'll inspect the body further.", 1);
     
     if(AutoSend)
@@ -50,7 +50,7 @@ public:
          SendQuickMenu(3558);
 
          QuestLogEntry *qle = plr->GetQuestLogForEntry(4921);
-         if(qle == NULL)
+         if(qle == nullptr)
            return;
            
          if(qle->GetMobCount(0) != 0)
@@ -75,7 +75,7 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -83,7 +83,7 @@ public:
 
 
 		Creature * creat = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 3439);
-		if(creat == NULL)
+		if(creat == nullptr)
 			return;
 		creat->m_escorter = mTarget;   
 		creat->GetAIInterface()->setMoveType(11);
@@ -308,7 +308,7 @@ public:
 			_unit->SendChatMessage(CHAT_MSG_MONSTER_SAY, LANG_UNIVERSAL, "Thank you. Young warior!");
 			_unit->Despawn(5000,1000);
 			sEAS.DeleteWaypoints(_unit);
-			if(_unit->m_escorter == NULL)
+			if(_unit->m_escorter == nullptr)
 				return;
 			Player * plr = _unit->m_escorter;
 			_unit->m_escorter = NULLPLR;
@@ -323,7 +323,7 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-				if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+				if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -331,7 +331,7 @@ public:
 
 
 		Creature * creat = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 3465);
-		if(creat == NULL)
+		if(creat == nullptr)
 			return;		
 		creat->m_escorter = mTarget;   
 		creat->GetAIInterface()->setMoveType(11);
@@ -458,7 +458,7 @@ public:
 			_unit->SendChatMessage(CHAT_MSG_MONSTER_SAY, LANG_UNIVERSAL, "Finally, I am rescued");
 			_unit->Despawn(5000,1000);
 			sEAS.DeleteWaypoints(_unit);
-			if(_unit->m_escorter == NULL)
+			if(_unit->m_escorter == nullptr)
 				return;
 			Player * plr = _unit->m_escorter;
 			_unit->m_escorter = NULLPLR;
@@ -502,10 +502,10 @@ bool Echeyakee(uint32 i, Spell * pSpell)
   if(!pSpell->u_caster->IsPlayer())
     return true;
   QuestLogEntry *en = pPlayer->GetQuestLogForEntry( 881 );
-  if(en == NULL)
+  if(en == nullptr)
     return true;
   Creature * Echeyakee = pPlayer->GetMapMgr()->GetInterface()->GetCreatureNearestCoords( 459.78, -3034.95, 91.68,3475 );
-    if (Echeyakee==NULL)
+    if (Echeyakee==nullptr)
     {
     Creature * EcheyakeeSpawn = sEAS.SpawnCreature( pPlayer, 3475, 459.78, -3034.95, 91.68, 3.87,120000 );
     EcheyakeeSpawn->GetAIInterface()->MoveTo(pPlayer->GetPositionX(), pPlayer->GetPositionY(), pPlayer->GetPositionZ(), pPlayer->GetOrientation());

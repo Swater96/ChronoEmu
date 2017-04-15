@@ -54,7 +54,7 @@ public:
 	Class *CreateByCoords(float x, float y);
 	void Remove(uint32 x, uint32 y);
 
-	CHRONO_INLINE bool Allocated(uint32 x, uint32 y) { return _cells[x][y] != NULL; }
+	CHRONO_INLINE bool Allocated(uint32 x, uint32 y) { return _cells[x][y] != nullptr; }
 
 	static uint32 GetPosX(float x); 
 	static uint32 GetPosY(float y);
@@ -91,7 +91,7 @@ void CellHandler<Class>::_Init()
 	for (uint32 i = 0; i < _sizeX; i++)
 	{
 		//_cells[i] = new Class*[_sizeY];
-		_cells[i]=NULL;
+		_cells[i]=nullptr;
 		//ASSERT(_cells[i]);
 	}
 
@@ -99,7 +99,7 @@ void CellHandler<Class>::_Init()
 	{
 		for (uint32 posY = 0; posY < _sizeY; posY++ )
 		{
-			_cells[posX][posY] = NULL;
+			_cells[posX][posY] = nullptr;
 		}
 	}*/
 }
@@ -134,7 +134,7 @@ Class* CellHandler<Class>::Create(uint32 x, uint32 y)
 		memset(_cells[x],0,sizeof(Class*)*_sizeY);
 	}
 
-	ASSERT(_cells[x][y] == NULL);
+	ASSERT(_cells[x][y] == nullptr);
 
 	Class *cls = new Class;
 	_cells[x][y] = cls;
@@ -152,10 +152,10 @@ template <class Class>
 void CellHandler<Class>::Remove(uint32 x, uint32 y)
 {
 	if(!_cells[x]) return;
-	ASSERT(_cells[x][y] != NULL);
+	ASSERT(_cells[x][y] != nullptr);
 
 	Class *cls = _cells[x][y];
-	_cells[x][y] = NULL;
+	_cells[x][y] = nullptr;
 
 	delete cls;
 }
@@ -163,7 +163,7 @@ void CellHandler<Class>::Remove(uint32 x, uint32 y)
 template <class Class>
 Class* CellHandler<Class>::GetCell(uint32 x, uint32 y)
 {
-	if(!_cells[x]) return NULL;
+	if(!_cells[x]) return nullptr;
 	return _cells[x][y];
 }
 

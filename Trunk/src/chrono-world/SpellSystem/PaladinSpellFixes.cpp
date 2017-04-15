@@ -7,7 +7,7 @@ enum FixedPaladinSpells
 
 void ApplySinglePaladinSpellFixes(SpellEntry *sp)
 {
-	if (sp != NULL)
+	if (sp != nullptr)
 	{
 		switch (sp->Id)
 		{

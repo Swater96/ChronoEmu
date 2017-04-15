@@ -28,10 +28,10 @@ public:
 	Prowl(Spell * pSpell) : SpellScript(pSpell) {}
 	SpellCastError CanCast(bool tolerate)
 	{
-		if (_spell->u_caster == NULL || _spell->u_caster->CombatStatus.IsInCombat())
+		if (_spell->u_caster == nullptr || _spell->u_caster->CombatStatus.IsInCombat())
 			return SPELL_FAILED_TARGET_IN_COMBAT;
 
-		if (_spell->p_caster != NULL && _spell->p_caster->m_bgHasFlag)
+		if (_spell->p_caster != nullptr && _spell->p_caster->m_bgHasFlag)
 			return SPELL_FAILED_SPELL_UNAVAILABLE;
 
 		return SPELL_CANCAST_OK;
@@ -46,7 +46,7 @@ public:
 	void CalculateEffect(uint32 EffectIndex, Unit *  target, int32* value)
 	{
 		//Rake the target for ${$AP/100+$m1} bleed damage and an additional ${$m2*3+$AP*0.06} damage over $d.
-		if( _spell->u_caster != NULL ) 
+		if( _spell->u_caster != nullptr ) 
 		{
 			float ap = (float)_spell->u_caster->GetAP();
 			if(EffectIndex == 0)
@@ -64,7 +64,7 @@ public:
 	Rip(Spell * pSpell) : SpellScript(pSpell) {}
 	void CalculateEffect(uint32 EffectIndex, Unit *  target, int32* value)
 	{
-		if( _spell->u_caster != NULL ) 
+		if( _spell->u_caster != nullptr ) 
 			*value += (uint32)(_spell->u_caster->GetAP()*0.04f);
 	}
 };
@@ -76,7 +76,7 @@ public:
 	Swipe(Spell * pSpell) : SpellScript(pSpell) {}
 	void CalculateEffect(uint32 EffectIndex, Unit *  target, int32* value)
 	{
-		if( _spell->u_caster != NULL )
+		if( _spell->u_caster != nullptr )
 			*value += float2int32(_spell->u_caster->GetAP()*0.06f);
 	}
 };

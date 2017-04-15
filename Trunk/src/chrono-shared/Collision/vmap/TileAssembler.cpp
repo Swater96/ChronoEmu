@@ -30,7 +30,7 @@
 #include <limits.h>
 
 #ifdef _ASSEMBLER_DEBUG
-FILE *g_df = NULL;
+FILE *g_df = nullptr;
 #endif
 
 namespace VMAP
@@ -52,7 +52,7 @@ namespace VMAP
     TileAssembler::TileAssembler(const std::string& pSrcDirName, const std::string& pDestDirName)
     {
         iCurrentUniqueNameId = 0;
-        iFilterMethod = NULL;
+        iFilterMethod = nullptr;
         iSrcDir = pSrcDirName;
         iDestDir = pDestDirName;
         //mkdir(iDestDir);

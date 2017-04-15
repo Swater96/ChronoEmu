@@ -37,7 +37,7 @@ public:
 	void GossipSelectOption(Object * pObject, Player * plr, uint32 Id, uint32 IntId, const char * Code)
 	{
 		Creature *  pCreature = (pObject->GetTypeId()==TYPEID_UNIT)?(TO_CREATURE(pObject)):NULLCREATURE;
-		if(pObject==NULL)
+		if(pObject==nullptr)
 			return;
 
 		switch(IntId)
@@ -79,7 +79,7 @@ public:
 	{
 		GossipMenu *Menu;
 		Creature *  pCreature = (pObject->GetTypeId()==TYPEID_UNIT)?(TO_CREATURE(pObject)):NULLCREATURE;
-		if(pObject==NULL)
+		if(pObject==nullptr)
 			return;
 
 		switch(IntId)

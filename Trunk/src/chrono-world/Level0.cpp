@@ -26,7 +26,7 @@
 
 bool ChatHandler::ShowHelpForCommand(WorldSession *m_session, ChatCommand *table, const char* cmd)
 {
-	for(uint32 i = 0; table[i].Name != NULL; i++)
+	for(uint32 i = 0; table[i].Name != nullptr; i++)
 	{
 		if(!hasStringAbbr(table[i].Name, cmd))
 			continue;
@@ -34,9 +34,9 @@ bool ChatHandler::ShowHelpForCommand(WorldSession *m_session, ChatCommand *table
 		if(m_session->CanUseCommand(table[i].CommandGroup))
 			continue;
 
-		if(table[i].ChildCommands != NULL)
+		if(table[i].ChildCommands != nullptr)
 		{
-			cmd = strtok(NULL, " ");
+			cmd = strtok(nullptr, " ");
 			if(cmd && ShowHelpForCommand(m_session, table[i].ChildCommands, cmd))
 				return true;
 		}
@@ -86,7 +86,7 @@ bool ChatHandler::HandleCommandsCommand(const char* args, WorldSession *m_sessio
 
 	output = "Available commands: \n\n";
 
-	for(uint32 i = 0; table[i].Name != NULL; i++)
+	for(uint32 i = 0; table[i].Name != nullptr; i++)
 	{
 		if(*args && !hasStringAbbr(table[i].Name, (char*)args))
 			continue;
@@ -220,14 +220,14 @@ bool ChatHandler::HandleStartCommand(const char* args, WorldSession *m_session)
 	}
 
 	// Try to find a class that works
-	PlayerCreateInfo *info = NULL;
+	PlayerCreateInfo *info = nullptr;
 	for(uint32 i=1;i<8;i++)
 	{
 		 info = objmgr.GetPlayerCreateInfo(raceid, i);
-		 if(info != NULL) break;
+		 if(info != nullptr) break;
 	}
 	
-	if(info == NULL)
+	if(info == nullptr)
 	{
 		RedSystemMessage(m_session, "Internal error: Could not find create info.");
 		return false;
@@ -279,7 +279,7 @@ bool ChatHandler::HandleNYICommand(const char* args, WorldSession *m_session)
 
 bool ChatHandler::HandleDismountCommand(const char* args, WorldSession *m_session)
 {
-	Unit *m_target = NULL;
+	Unit *m_target = nullptr;
 
 	Player *p_target = getSelectedChar(m_session, false);
 

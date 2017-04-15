@@ -54,7 +54,7 @@ public:
 			NewCreature->GetAIInterface()->setWaypointToMove(0);
 
 			GameObject* Gate = pPlayer->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(287.941864f, 92.195206f, 115.257523f, 175570);
-			if(Gate != NULL)
+			if(Gate != nullptr)
 			{
 				Gate->SetUInt32Value(GAMEOBJECT_STATE, 1);
 				Gate->SetFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
@@ -233,11 +233,11 @@ public:
 	}		
 	void OnCombatStart(Unit* pTarget)
     {
-		Creature* Vectus = NULL;
+		Creature* Vectus = nullptr;
 		Vectus = _unit->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(150.368f, 116.22f, 104.661f, 10432);
 		Vectus->SendChatMessage(CHAT_MSG_MONSTER_YELL, LANG_UNIVERSAL, "What is this?! How dare you!");
 		Vectus->SetUInt32Value(UNIT_FIELD_FACTIONTEMPLATE, 14);
-		Creature* NewCreature = NULL;
+		Creature* NewCreature = nullptr;
 
 		for(int i = 0;i<32;i++)
 		{
@@ -250,7 +250,7 @@ public:
 				NewCreature->GetAIInterface()->MoveTo(150.368f, 116.22f, 104.661f, 3.83972f);
 				NewCreature->GetAIInterface()->SetNextTarget(pTarget);
 			}
-			NewCreature = NULL;
+			NewCreature = nullptr;
 		}	
 		Vectus->GetAIInterface()->setMoveRunFlag(true);
 		Vectus->GetAIInterface()->MoveTo(150.368f, 116.22f, 104.661f, 3.83972f);
@@ -499,18 +499,18 @@ public:
 	}
 	void SummonAdds()
 	{
-		Creature* JandiceAdd = NULL;
+		Creature* JandiceAdd = nullptr;
 		for(int i=0;i<8;i++)
 		{
 			JandiceAdd = _unit->GetMapMgr()->GetInterface()->SpawnCreature(11439, _unit->GetPositionX()+RandomFloat(3), _unit->GetPositionY()+RandomFloat(3), _unit->GetPositionZ(), 1.0f, true, false, 0,0);
 			JandiceAdd->Despawn(14000, 0);
-			JandiceAdd = NULL;
+			JandiceAdd = nullptr;
 		}
 		for(int i=0;i<7;i++)
 		{
 			JandiceAdd = _unit->GetMapMgr()->GetInterface()->SpawnCreature(11439, _unit->GetPositionX()-RandomFloat(3), _unit->GetPositionY()-RandomFloat(3), _unit->GetPositionZ(), 1.0f, true, false, 0,0);
 			JandiceAdd->Despawn(14000, 0);
-			JandiceAdd = NULL;
+			JandiceAdd = nullptr;
 		}
 		DespawnAdds();
 	}
@@ -593,10 +593,10 @@ public:
     }
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
 			float comulativeperc = 0;
-		    Unit* target = NULL;
+		    Unit* target = nullptr;
 			for(int i=0;i<nrspells;i++)
 			{
 				if(!spells[i].perctrigger) continue;
@@ -760,10 +760,10 @@ public:
     MOONSCRIPT_FACTORY_FUNCTION(DarkmasterGandlingAI, MoonScriptCreatureAI);
     DarkmasterGandlingAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
     {
-		Plr = NULL;
-		Gatea = Gateb = Gatec = Gated = Gatee = Gatef = NULL;
-		Miniona = Minionb = Minionc = Miniond = Minione = Minionf = Miniong = Minionh = Minioni = NULL;
-		Minionj = Minionk = Minionl = Minionm = Minionn = Miniono = Minionp = Minionq = Minionr = NULL;
+		Plr = nullptr;
+		Gatea = Gateb = Gatec = Gated = Gatee = Gatef = nullptr;
+		Miniona = Minionb = Minionc = Miniond = Minione = Minionf = Miniong = Minionh = Minioni = nullptr;
+		Minionj = Minionk = Minionl = Minionm = Minionn = Miniono = Minionp = Minionq = Minionr = nullptr;
 		closegatea = closegateb = closegatec = closegated = closegatee = closegated = false;
 		PortID = 0;
 		
@@ -809,10 +809,10 @@ public:
 
 	void AIUpdate()
     {
-		if(Plr == NULL)
+		if(Plr == nullptr)
 		{
 			Plr = _unit->GetMapMgr()->GetInterface()->GetPlayerNearestCoords(_unit->GetPositionX(), _unit->GetPositionY(), _unit->GetPositionZ());
-			if(Plr == NULL)
+			if(Plr == nullptr)
 			{
 				switch (PortID)
 				{
@@ -853,7 +853,7 @@ public:
 			case 1:
 				{
 				GameObject* Gatea = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(204.326f, 0.011124f, 76.1678f, 177371);
-				if(Gatea != NULL && (!Miniona->isAlive() && !Minionb->isAlive() && !Minionc->isAlive()))
+				if(Gatea != nullptr && (!Miniona->isAlive() && !Minionb->isAlive() && !Minionc->isAlive()))
 				{
 					Gatea->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 					Gatea->SetUInt32Value(GAMEOBJECT_STATE, 0);	
@@ -863,7 +863,7 @@ public:
 			case 2:
 				{
 				GameObject* Gateb = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(159.746f, -0.767021f, 76.1678f, 177372);
-				if(Gateb != NULL && (!Miniond->isAlive() && !Minione->isAlive() && !Minionf->isAlive()))
+				if(Gateb != nullptr && (!Miniond->isAlive() && !Minione->isAlive() && !Minionf->isAlive()))
 				{
 					Gateb->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 					Gateb->SetUInt32Value(GAMEOBJECT_STATE, 0);	
@@ -873,7 +873,7 @@ public:
 			case 3:
 				{
 				GameObject* Gatec = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(181.054f, -21.3466f, 76.1317f, 177373);
-				if(Gatec != NULL && (!Miniong->isAlive() && !Minionh->isAlive() && !Minioni->isAlive()))
+				if(Gatec != nullptr && (!Miniong->isAlive() && !Minionh->isAlive() && !Minioni->isAlive()))
 				{
 					Gatec->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 					Gatec->SetUInt32Value(GAMEOBJECT_STATE, 0);
@@ -883,7 +883,7 @@ public:
 			case 4:
 				{
 				GameObject* Gated = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(151.773f, -0.602287f, 88.9039f, 177375);
-				if(Gated != NULL && (!Minionj->isAlive() && !Minionk->isAlive() && !Minionl->isAlive()))
+				if(Gated != nullptr && (!Minionj->isAlive() && !Minionk->isAlive() && !Minionl->isAlive()))
 				{
 					Gated->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 					Gated->SetUInt32Value(GAMEOBJECT_STATE, 0);		
@@ -893,7 +893,7 @@ public:
 			case 5:
 				{
 				GameObject* Gatee = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(209.065f, 0.011116f, 88.9113f, 177376);
-				if(Gatee != NULL && (!Minionm->isAlive() && !Minionn->isAlive() && !Miniono->isAlive()))
+				if(Gatee != nullptr && (!Minionm->isAlive() && !Minionn->isAlive() && !Miniono->isAlive()))
 				{
 					Gatee->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 					Gatee->SetUInt32Value(GAMEOBJECT_STATE, 0);
@@ -903,7 +903,7 @@ public:
 			case 6:
 				{
 				GameObject* Gatef = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(181.244f, -29.1116f, 88.9104f, 177377);
-				if(Gatef != NULL && (!Minionp->isAlive() && !Minionq->isAlive() && !Minionr->isAlive()))
+				if(Gatef != nullptr && (!Minionp->isAlive() && !Minionq->isAlive() && !Minionr->isAlive()))
 				{
 					Gatef->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 					Gatef->SetUInt32Value(GAMEOBJECT_STATE, 0);	
@@ -1192,7 +1192,7 @@ public:
 					if(closegatea == true)
 					{
 						GameObject* Gatea = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(204.326f, 0.011124f, 76.1678f, 177371);
-						if(Gatea != NULL)
+						if(Gatea != nullptr)
 						{
 							Gatea->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 							Gatea->SetUInt32Value(GAMEOBJECT_STATE, 0);	
@@ -1205,7 +1205,7 @@ public:
 					if(closegateb == true)
 					{
 						GameObject* Gateb = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(159.746f, -0.767021f, 76.1678f, 177372);
-						if(Gateb != NULL)
+						if(Gateb != nullptr)
 						{
 							Gateb->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 							Gateb->SetUInt32Value(GAMEOBJECT_STATE, 0);	
@@ -1218,7 +1218,7 @@ public:
 					if(closegatec == true)
 					{
 						GameObject* Gatec = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(181.054f, -21.3466f, 76.1317f, 177373);
-						if(Gatec != NULL)
+						if(Gatec != nullptr)
 						{
 							Gatec->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 							Gatec->SetUInt32Value(GAMEOBJECT_STATE, 0);
@@ -1231,7 +1231,7 @@ public:
 					if(closegated == true)
 					{
 						GameObject* Gated = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(151.773f, -0.602287f, 88.9039f, 177375);
-						if(Gated != NULL)
+						if(Gated != nullptr)
 						{
 							Gated->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 							Gated->SetUInt32Value(GAMEOBJECT_STATE, 0);	
@@ -1244,7 +1244,7 @@ public:
 					if(closegatee == true)
 					{
 						GameObject* Gatee = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(209.065f, 0.011116f, 88.9113f, 177376);
-						if(Gatee != NULL)
+						if(Gatee != nullptr)
 						{
 							Gatee->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 							Gatee->SetUInt32Value(GAMEOBJECT_STATE, 0);
@@ -1257,7 +1257,7 @@ public:
 					if(closegatef == true)
 					{
 						GameObject* Gatef = _unit->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(181.244f, -29.1116f, 88.9104f, 177377);
-						if(Gatef != NULL)
+						if(Gatef != nullptr)
 						{
 							Gatef->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_UNCLICKABLE);
 							Gatef->SetUInt32Value(GAMEOBJECT_STATE, 0);			

@@ -46,7 +46,7 @@ void WorldSession::HandleGroupChangeSubGroup(WorldPacket & recv_data)
 	recv_data >> subGroup;
 
 	PlayerInfo * inf = objmgr.GetPlayerInfoByName(name.c_str());
-	if(inf == NULL || inf->m_Group == NULL || inf->m_Group != _player->m_playerInfo->m_Group)
+	if(inf == nullptr || inf->m_Group == nullptr || inf->m_Group != _player->m_playerInfo->m_Group)
 		return;
 
 	_player->GetGroup()->MovePlayer(inf, subGroup);
@@ -60,7 +60,7 @@ void WorldSession::HandleGroupAssistantLeader(WorldPacket & recv_data)
 	if(!_player->IsInWorld())
 		return;
 
-	if(_player->GetGroup() == NULL)
+	if(_player->GetGroup() == nullptr)
 		return;
 
 	if ( _player->GetGroup()->GetLeader() != _player->m_playerInfo )   //access denied
@@ -71,12 +71,12 @@ void WorldSession::HandleGroupAssistantLeader(WorldPacket & recv_data)
 
 	recv_data >> guid >> on;
 	if(on == 0)
-        _player->GetGroup()->SetAssistantLeader(NULL);
+        _player->GetGroup()->SetAssistantLeader(nullptr);
 	else
 	{
 		PlayerInfo * np = objmgr.GetPlayerInfo((uint32)guid);
-		if(np==NULL)
-			_player->GetGroup()->SetAssistantLeader(NULL);
+		if(np==nullptr)
+			_player->GetGroup()->SetAssistantLeader(nullptr);
 		else
 		{
 			if(_player->GetGroup()->HasMember(np))
@@ -93,7 +93,7 @@ void WorldSession::HandleGroupPromote(WorldPacket& recv_data)
 	if(!_player->IsInWorld())
 		return;
 
-	if(_player->GetGroup() == NULL)
+	if(_player->GetGroup() == nullptr)
 		return;
 
 	if ( _player->GetGroup()->GetLeader() != _player->m_playerInfo )   //access denied
@@ -113,12 +113,12 @@ void WorldSession::HandleGroupPromote(WorldPacket& recv_data)
 		function_to_call = &Group::SetMainAssist;
 
 	if(on == 0)
-		(_player->GetGroup()->*function_to_call)(NULL);
+		(_player->GetGroup()->*function_to_call)(nullptr);
 	else
 	{
 		PlayerInfo * np = objmgr.GetPlayerInfo((uint32)guid);
-		if(np==NULL)
-			(_player->GetGroup()->*function_to_call)(NULL);
+		if(np==nullptr)
+			(_player->GetGroup()->*function_to_call)(nullptr);
 		else
 		{
 			if(_player->GetGroup()->HasMember(np))

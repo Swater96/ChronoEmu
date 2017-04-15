@@ -56,7 +56,7 @@ void InstanceMgr::Load(TaskList * l)
 	{
 		do 
 		{
-			if(WorldMapInfoStorage.LookupEntry(result->Fetch()[0].GetUInt32()) == NULL)
+			if(WorldMapInfoStorage.LookupEntry(result->Fetch()[0].GetUInt32()) == nullptr)
 				continue;
 
 			if( result->Fetch()[0].GetUInt32() >= NUM_MAPS )
@@ -83,7 +83,7 @@ void InstanceMgr::Load(TaskList * l)
 			continue;
 		}
 
-		if(m_maps[itr->Get()->mapid] == NULL)
+		if(m_maps[itr->Get()->mapid] == nullptr)
 		{
 			l->AddTask(new Task(new CallbackP1<InstanceMgr,uint32>(this, &InstanceMgr::_CreateMap, itr->Get()->mapid)));
 		}
@@ -109,7 +109,7 @@ void InstanceMgr::Shutdown()
 	InstanceMap::iterator itr;
 	for(i = 0; i < NUM_MAPS; ++i)
 	{
-		if(m_instances[i] != NULL)
+		if(m_instances[i] != nullptr)
 		{
 			for(itr = m_instances[i]->begin(); itr != m_instances[i]->end(); ++itr)
 			{
@@ -120,21 +120,21 @@ void InstanceMgr::Shutdown()
 			}
 
 			delete m_instances[i];
-			m_instances[i]=NULL;
+			m_instances[i]=nullptr;
 		}
 
-		if(m_singleMaps[i] != NULL)
+		if(m_singleMaps[i] != nullptr)
 		{
 			MapMgr * ptr = m_singleMaps[i];
 			ptr->KillThread();
 			delete ptr;
-			m_singleMaps[i]=NULL;
+			m_singleMaps[i]=nullptr;
 		}
 
-		if(m_maps[i] != NULL)
+		if(m_maps[i] != nullptr)
 		{
 			delete m_maps[i];
-			m_maps[i]=NULL;
+			m_maps[i]=nullptr;
 		}
 	}
 
@@ -149,7 +149,7 @@ uint32 InstanceMgr::PreTeleport(uint32 mapid, Player * plr, uint32 instanceid)
 	InstanceMap * instancemap;
 	Instance * in;
 
-	if(inf == NULL || mapid>=NUM_MAPS)
+	if(inf == nullptr || mapid>=NUM_MAPS)
 		return INSTANCE_ABORT_NOT_FOUND;
 
 	// main continent check.
@@ -157,7 +157,7 @@ uint32 InstanceMgr::PreTeleport(uint32 mapid, Player * plr, uint32 instanceid)
 	{
 		// this will be useful when clustering comes into play.
 		// we can check if the destination world server is online or not and then cancel them before they load.
-		return (m_singleMaps[mapid] != NULL) ? INSTANCE_OK : INSTANCE_ABORT_NOT_FOUND;
+		return (m_singleMaps[mapid] != nullptr) ? INSTANCE_OK : INSTANCE_ABORT_NOT_FOUND;
 	}
 
 	// shouldn't happen
@@ -165,7 +165,7 @@ uint32 InstanceMgr::PreTeleport(uint32 mapid, Player * plr, uint32 instanceid)
 		return INSTANCE_ABORT_NOT_FOUND;
 
 	// players without groups cannot enter raid instances (no soloing them:P)
-	if(plr->GetGroup() == NULL && (inf->type == INSTANCE_RAID || inf->type == INSTANCE_MULTIMODE) && !plr->triggerpass_cheat)
+	if(plr->GetGroup() == nullptr && (inf->type == INSTANCE_RAID || inf->type == INSTANCE_MULTIMODE) && !plr->triggerpass_cheat)
 		return INSTANCE_ABORT_NOT_IN_RAID_GROUP;
 
 	// check that heroic mode is available if the player has requested it.
@@ -183,7 +183,7 @@ uint32 InstanceMgr::PreTeleport(uint32 mapid, Player * plr, uint32 instanceid)
 	// set up our pointers (cleaner code is always good)
 	pGroup = plr->GetGroup();
 
-	if(instancemap == NULL)
+	if(instancemap == nullptr)
 	{
 		if(instanceid != 0)
 		{
@@ -246,7 +246,7 @@ uint32 InstanceMgr::PreTeleport(uint32 mapid, Player * plr, uint32 instanceid)
 	in->m_difficulty = plr->iInstanceType;
 	in->m_instanceId = GenerateInstanceID();
 	in->m_mapId = mapid;
-	in->m_mapMgr = NULL;		// always start off without a map manager, it is created in GetInstance()
+	in->m_mapMgr = nullptr;		// always start off without a map manager, it is created in GetInstance()
 	in->m_mapInfo = inf;
 	in->m_isBattleground=false;
 	plr->SetInstanceID(in->m_instanceId);
@@ -277,8 +277,8 @@ MapMgr * InstanceMgr::GetInstance(Object* obj)
 	MapInfo * inf = WorldMapInfoStorage.LookupEntry(obj->GetMapId());
 
 	// we can *never* teleport to maps without a mapinfo.
-	if( inf == NULL || obj->GetMapId() >= NUM_MAPS )
-		return NULL;
+	if( inf == nullptr || obj->GetMapId() >= NUM_MAPS )
+		return nullptr;
 
 	if( obj->IsPlayer() )
 	{
@@ -291,7 +291,7 @@ MapMgr * InstanceMgr::GetInstance(Object* obj)
 
 		m_mapLock.Acquire();
 		instancemap = m_instances[obj->GetMapId()];
-		if(instancemap != NULL)
+		if(instancemap != nullptr)
 		{
 			// check our saved instance id. see if its valid, and if we can join before trying to find one.
 			itr = instancemap->find(obj->GetInstanceID());
@@ -312,13 +312,13 @@ MapMgr * InstanceMgr::GetInstance(Object* obj)
 				if(PlayerOwnsInstance(in, plr))
 				{
 					// this is our instance.
-					if(in->m_mapMgr == NULL)
+					if(in->m_mapMgr == nullptr)
 					{
 						/*if(plr->m_TeleportState == 1)
 						{
 							// the player is loading. boot him out to the entry point, we don't want to spam useless instances on startup.
 							m_mapLock.Release();
-							return NULL;
+							return nullptr;
 						}*/
 
 						// create the actual instance.
@@ -339,7 +339,7 @@ MapMgr * InstanceMgr::GetInstance(Object* obj)
 		// if we're here, it means there are no instances on that map, or none of the instances on that map are joinable
 		// by this player.
 		m_mapLock.Release();
-		return NULL;
+		return nullptr;
 	}
 	else
 	{
@@ -362,7 +362,7 @@ MapMgr * InstanceMgr::GetInstance(Object* obj)
 
 		// instance is non-existant (shouldn't really happen for units...)
 		m_mapLock.Release();
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -372,7 +372,7 @@ MapMgr * InstanceMgr::_CreateInstance(uint32 mapid, uint32 instanceid)
 	MapMgr * ret;
 
 	ASSERT(inf && inf->type == INSTANCE_NULL);
-	ASSERT(mapid < NUM_MAPS && m_maps[mapid] != NULL);
+	ASSERT(mapid < NUM_MAPS && m_maps[mapid] != nullptr);
 
 	Log.Notice("InstanceMgr", "Creating continent %s.", m_maps[mapid]->GetName());
 
@@ -390,7 +390,7 @@ MapMgr * InstanceMgr::_CreateInstance(uint32 mapid, uint32 instanceid)
 MapMgr * InstanceMgr::_CreateInstance(Instance * in)
 {
 	Log.Notice("InstanceMgr", "Creating saved instance %u (%s)", in->m_instanceId, m_maps[in->m_mapId]->GetName());
-	ASSERT(in->m_mapMgr==NULL);
+	ASSERT(in->m_mapMgr==nullptr);
 
 	// we don't have to check for world map info here, since the instance wouldn't have been saved if it didn't have any.
 	in->m_mapMgr = new MapMgr(m_maps[in->m_mapId], in->m_mapId, in->m_instanceId);
@@ -409,9 +409,9 @@ void InstanceMgr::_CreateMap(uint32 mapid)
 	MapInfo * inf;
 
 	inf = WorldMapInfoStorage.LookupEntry(mapid);
-	if(inf==NULL)
+	if(inf==nullptr)
 		return;
-	if(m_maps[mapid]!=NULL)
+	if(m_maps[mapid]!=nullptr)
 		return;
 
 	m_maps[mapid] = new Map(mapid, inf);
@@ -496,19 +496,19 @@ void InstanceMgr::BuildXMLStats(char * m_file)
 	m_mapLock.Acquire();
 	for(i = 0; i < NUM_MAPS; ++i)
 	{
-		if(m_singleMaps[i] != NULL)
-			BuildStats(m_singleMaps[i], m_file, NULL, m_singleMaps[i]->GetMapInfo());
+		if(m_singleMaps[i] != nullptr)
+			BuildStats(m_singleMaps[i], m_file, nullptr, m_singleMaps[i]->GetMapInfo());
 		else
 		{
 			instancemap = m_instances[i];
-			if(instancemap != NULL)
+			if(instancemap != nullptr)
 			{
 				for(itr = instancemap->begin(); itr != instancemap->end();)
 				{
 					in = itr->second;
 					++itr;
 
-					if(in->m_mapMgr==NULL)
+					if(in->m_mapMgr==nullptr)
 						continue;
 
 					BuildStats(in->m_mapMgr, m_file, in, in->m_mapInfo);
@@ -538,7 +538,7 @@ void InstanceMgr::_LoadInstances()
 		do 
 		{
 			inf = WorldMapInfoStorage.LookupEntry(result->Fetch()[1].GetUInt32());
-			if(inf == NULL || result->Fetch()[1].GetUInt32() >= NUM_MAPS)
+			if(inf == nullptr || result->Fetch()[1].GetUInt32() >= NUM_MAPS)
 			{
 				CharacterDatabase.Execute("DELETE FROM instances WHERE mapid = %u", result->Fetch()[1].GetUInt32());
 				continue;
@@ -549,13 +549,13 @@ void InstanceMgr::_LoadInstances()
 			in->LoadFromDB(result->Fetch());
 
 			// this assumes that groups are already loaded at this point.
-			if(in->m_creatorGroup && objmgr.GetGroupById(in->m_creatorGroup) == NULL)
+			if(in->m_creatorGroup && objmgr.GetGroupById(in->m_creatorGroup) == nullptr)
 			{
 				delete in;
 				continue;
 			}
 
-			if(m_instances[in->m_mapId] == NULL)
+			if(m_instances[in->m_mapId] == nullptr)
 				m_instances[in->m_mapId] = new InstanceMap;
 
 			m_instances[in->m_mapId]->insert( InstanceMap::value_type( in->m_instanceId, in ) );
@@ -577,7 +577,7 @@ void Instance::LoadFromDB(Field * fields)
 	m_difficulty = fields[5].GetUInt32();
 	m_creatorGroup = fields[6].GetUInt32();
 	m_creatorGuid = fields[7].GetUInt32();
-	m_mapMgr=NULL;
+	m_mapMgr=nullptr;
 
 	// process saved npc's
 	q = m_npcstring;
@@ -609,7 +609,7 @@ void InstanceMgr::ResetSavedInstances(Player * plr)
 	m_mapLock.Acquire();
 	for(i = 0; i < NUM_MAPS; ++i)
 	{
-		if(m_instances[i] != NULL)
+		if(m_instances[i] != nullptr)
 		{
 			instancemap = m_instances[i];
 			for(itr = instancemap->begin(); itr != instancemap->end();)
@@ -683,7 +683,7 @@ bool InstanceMgr::_DeleteInstance(Instance * in, bool ForcePlayersOut)
 			else
 			{
 				in->m_mapMgr->BeginInstanceExpireCountdown();
-				in->m_mapMgr->pInstance = NULL;
+				in->m_mapMgr->pInstance = nullptr;
 			}
 		}
 		else
@@ -760,7 +760,7 @@ void InstanceMgr::BuildSavedInstancesForPlayer(Player * plr)
 		m_mapLock.Acquire();
 		for(i = 0; i < NUM_MAPS; ++i)
 		{
-			if(m_instances[i] != NULL)
+			if(m_instances[i] != nullptr)
 			{
 				instancemap = m_instances[i];
 				for(itr = instancemap->begin(); itr != instancemap->end();)
@@ -806,7 +806,7 @@ void InstanceMgr::BuildRaidSavedInstancesForPlayer(Player * plr)
 	m_mapLock.Acquire();
 	for(i = 0; i < NUM_MAPS; ++i)
 	{
-		if(m_instances[i] != NULL)
+		if(m_instances[i] != nullptr)
 		{
 			instancemap = m_instances[i];
 			for(itr = instancemap->begin(); itr != instancemap->end();)
@@ -905,13 +905,13 @@ MapMgr * InstanceMgr::CreateBattlegroundInstance(uint32 mapid)
 {
 	// shouldn't happen
 	if( mapid >= NUM_MAPS )
-		return NULL;
+		return nullptr;
 
 	if(!m_maps[mapid])
 	{
 		_CreateMap(mapid);
 		if(!m_maps[mapid])
-			return NULL;
+			return nullptr;
 	}
 
 	MapMgr * ret = new MapMgr(m_maps[mapid],mapid,GenerateInstanceID());
@@ -927,7 +927,7 @@ MapMgr * InstanceMgr::CreateBattlegroundInstance(uint32 mapid)
 	pInstance->m_mapInfo = WorldMapInfoStorage.LookupEntry( mapid );
 	pInstance->m_mapMgr = ret;
 	m_mapLock.Acquire();
-	if( m_instances[mapid] == NULL )
+	if( m_instances[mapid] == nullptr )
 		m_instances[mapid] = new InstanceMap;
 
 	m_instances[mapid]->insert( make_pair( pInstance->m_instanceId, pInstance ) );

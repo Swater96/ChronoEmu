@@ -64,6 +64,17 @@ struct ReflectSpellSchool
 	int32 require_aura_hash;
 };
 
+struct DamageSplitTarget
+{
+	uint64 m_target;
+	uint32 m_spellId;
+	float m_pctDamageSplit;
+	uint32 m_flatDamageSplit;
+	uint8 damage_type;
+	bool active;
+	void * creator;
+};
+
 typedef struct
 {
 	uint32 spellid;
@@ -870,7 +881,7 @@ public:
 
 	//! Remove all auras
 	void RemoveAllAuras();
-	bool RemoveAllAuras(uint32 spellId, uint64 guid, Aura* ignore = NULL); //remove stacked auras but only if they come from the same caster. Shaman purge If GUID = 0 then removes all auras with this spellid
+	bool RemoveAllAuras(uint32 spellId, uint64 guid, Aura* ignore = nullptr); //remove stacked auras but only if they come from the same caster. Shaman purge If GUID = 0 then removes all auras with this spellid
     void RemoveAllAuraType(uint32 auratype);//ex:to remove morph spells
 	bool RemoveAllAuraByNameHash(uint32 namehash);//required to remove weaker instances of a spell
 	bool RemoveAllPosAuraByNameHash(uint32 namehash);//required to remove weaker instances of a spell
@@ -909,7 +920,6 @@ public:
 	bool m_damgeShieldsInUse;
 	std::list<struct DamageProc> m_damageShields;
 	std::list<struct ReflectSpellSchool*> m_reflectSpellSchool;
- 	std::list<struct DamageSplitTarget> m_damageSplitTargets;
  
 	std::list<struct ProcTriggerSpell> m_procSpells;
 //	std::map<uint32,ProcTriggerSpellOnSpellList> m_procSpellonSpell; //index is namehash
@@ -918,6 +928,9 @@ public:
 	bool m_chargeSpellsInUse;
 	CHRONO_INLINE void SetOnMeleeSpell(uint32 spell ) { m_meleespell = spell; }
 	CHRONO_INLINE uint32 GetOnMeleeSpell() { return m_meleespell; }
+	
+	struct DamageSplitTarget m_damageSplitTargets;
+	uint32 DoDamageSplitTarget(uint32 res, uint32 school_type, bool melee_dmg);
 
 	// Spell Crit
 	float spellcritperc;
@@ -1188,8 +1201,8 @@ public:
 	bool HasNegativeAura(uint32 spell_id); //just to reduce search range in some cases
 	bool IsPoisoned();
 
-	AuraCheckResponse AuraCheck(uint32 name_hash, uint32 rank, Object *caster=NULL);
-	AuraCheckResponse AuraCheck(uint32 name_hash, uint32 rank, Aura* aur, Object *caster=NULL);
+	AuraCheckResponse AuraCheck(uint32 name_hash, uint32 rank, Object *caster=nullptr);
+	AuraCheckResponse AuraCheck(uint32 name_hash, uint32 rank, Aura* aur, Object *caster=nullptr);
 
 	uint16 m_diminishCount[23];
 	uint8  m_diminishAuraCount[23];
@@ -1271,7 +1284,7 @@ public:
 	}
 	bool HasDummyAura( uint32 namehash )
 	{
-		return m_DummyAuras[namehash] != NULL;
+		return m_DummyAuras[namehash] != nullptr;
 	}
 	SpellEntry* GetDummyAura( uint32 namehash )
 	{
@@ -1279,7 +1292,7 @@ public:
 	}
 	void RemoveDummyAura( uint32 namehash )//we removes only this shit, not aura
 	{
-		m_DummyAuras[namehash] = NULL;
+		m_DummyAuras[namehash] = nullptr;
 	}
 	
 	void Dismount();	

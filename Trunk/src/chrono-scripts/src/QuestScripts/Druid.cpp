@@ -34,7 +34,7 @@ bool CenarionMoondust(uint32 i, Spell * pSpell) // Body And Heart (Alliance)
   Player * p_caster = pSpell->p_caster;
 
   Creature * lunaclaw = p_caster->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(pos[0], pos[1], pos[2], 12138);
-  if(lunaclaw != NULL)
+  if(lunaclaw != nullptr)
   {
 	if(!lunaclaw->isAlive())
 	  lunaclaw->Delete();
@@ -56,7 +56,7 @@ bool CenarionLunardust(uint32 i, Spell * pSpell) // Body And Heart (Horde)
   Player * p_caster = pSpell->p_caster;
 
   Creature * lunaclaw = p_caster->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(pos[0], pos[1], pos[2], 12138);
-  if(lunaclaw != NULL)
+  if(lunaclaw != nullptr)
   {
 	if(!lunaclaw->isAlive())
 	  lunaclaw->Delete();
@@ -87,7 +87,7 @@ public:
 
 	Player * plr = TO_PLAYER(mKiller);
 
-			if(plr == NULL || plr->GetMapMgr() == NULL || plr->GetMapMgr()->GetInterface() == NULL)
+			if(plr == nullptr || plr->GetMapMgr() == nullptr || plr->GetMapMgr()->GetInterface() == nullptr)
 				return;
 	sEAS.SpawnCreature(plr, 12144, _unit->GetPositionX(), _unit->GetPositionY(), _unit->GetPositionZ(), 0, 1*60*1000);
   }
@@ -104,11 +104,11 @@ public:
         GossipMenu *Menu;
         objmgr.CreateGossipMenuForPlayer(&Menu, pObject->GetGUID(), 4714, plr);
 
-		if(plr->GetQuestLogForEntry(6002) != NULL)
+		if(plr->GetQuestLogForEntry(6002) != nullptr)
 		{
 			Menu->AddItem( 0, GOSSIP_GHOST_MOONKIN, 1); //Horde
 		}
-		else if(plr->GetQuestLogForEntry(6001) != NULL)
+		else if(plr->GetQuestLogForEntry(6001) != nullptr)
 		{
 			Menu->AddItem( 0, GOSSIP_GHOST_MOONKIN, 2); //Ally
 		}
@@ -136,7 +136,7 @@ public:
 				Menu->SendTo(plr);
 
 				QuestLogEntry *qle = plr->GetQuestLogForEntry(6002);
-				if(qle == NULL)
+				if(qle == nullptr)
 				return;
 
 				if(qle->GetMobCount(0) != 0)
@@ -157,7 +157,7 @@ public:
 				Menu->SendTo(plr);
 
 				QuestLogEntry *qle = plr->GetQuestLogForEntry(6001);
-				if(qle == NULL)
+				if(qle == nullptr)
 				return;
 
 				if(qle->GetMobCount(0) != 0)
@@ -195,11 +195,11 @@ public:
         GossipMenu *Menu;
         objmgr.CreateGossipMenuForPlayer(&Menu, pObject->GetGUID(), 4719, plr);
 
-		if(plr->GetQuestLogForEntry(5930) != NULL) // horde
+		if(plr->GetQuestLogForEntry(5930) != nullptr) // horde
 		{
 			Menu->AddItem( 0, GOSSIP_GHOST_BEAR_A, 1);
 		}
-		else if(plr->GetQuestLogForEntry(5929) != NULL) // ally
+		else if(plr->GetQuestLogForEntry(5929) != nullptr) // ally
 		{
 			Menu->AddItem( 0, GOSSIP_GHOST_BEAR_A, 5);
 		}
@@ -246,7 +246,7 @@ public:
 			objmgr.CreateGossipMenuForPlayer(&Menu, pObject->GetGUID(), 4735, plr);
 			
 			QuestLogEntry *qle = plr->GetQuestLogForEntry(5930);
-			if(qle == NULL)
+			if(qle == nullptr)
 			return;
 
 			if(qle->GetMobCount(0) != 0)
@@ -285,7 +285,7 @@ public:
 			objmgr.CreateGossipMenuForPlayer(&Menu, pObject->GetGUID(), 4735, plr);
 			
 			QuestLogEntry *qle = plr->GetQuestLogForEntry(5929);
-			if(qle == NULL)
+			if(qle == nullptr)
 			return;
 
 			if(qle->GetMobCount(0) != 0)
@@ -320,7 +320,7 @@ public:
 bool CurativeAnimalSalve(uint32 i, Spell * pSpell) // Curing the Sick
 {
 	Player * caster = pSpell->p_caster;
-	if(caster == NULL)
+	if(caster == nullptr)
 		return true;
 
 	if(!pSpell->GetUnitTarget()->IsCreature())
@@ -332,10 +332,10 @@ bool CurativeAnimalSalve(uint32 i, Spell * pSpell) // Curing the Sick
 	if(entry == 12296 || entry == 12298)
 	{
 		QuestLogEntry *qle = caster->GetQuestLogForEntry(6129);
-		if(qle == NULL)
+		if(qle == nullptr)
 		{
 			qle = caster->GetQuestLogForEntry(6124);
-			if(qle == NULL)
+			if(qle == nullptr)
 				return true;
 		}
 
@@ -362,16 +362,16 @@ bool CurativeAnimalSalve(uint32 i, Spell * pSpell) // Curing the Sick
 
 bool TrialOfTheLake(uint32 i, Spell * pSpell)
 {
-	if ( pSpell == NULL || pSpell->u_caster == NULL || !pSpell->u_caster->IsPlayer() )
+	if ( pSpell == nullptr || pSpell->u_caster == nullptr || !pSpell->u_caster->IsPlayer() )
 		return true;
 
 	Player * pPlayer = TO_PLAYER( pSpell->u_caster );
 
 	QuestLogEntry *pQuest = pPlayer->GetQuestLogForEntry( 28 );
-	if ( pQuest == NULL )
+	if ( pQuest == nullptr )
 	{
 		pQuest = pPlayer->GetQuestLogForEntry( 29 );
-		if ( pQuest == NULL )
+		if ( pQuest == nullptr )
 			return true;
 	}
 

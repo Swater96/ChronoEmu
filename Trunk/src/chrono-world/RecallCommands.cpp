@@ -21,18 +21,18 @@
 
 bool ChatHandler::HandleRecallGoCommand(const char* args, WorldSession *m_session)
 {
-	if( args == NULL )
+	if( args == nullptr )
 		return false;
 
 	if( !*args )
 		return false;
 
-	if( m_session == NULL )
+	if( m_session == nullptr )
 		return false;
 
 	QueryResult *result = WorldDatabase.Query( "SELECT * FROM recall ORDER BY name" );
 
-	if( result == NULL)
+	if( result == nullptr)
 		return false;
 
 	do
@@ -46,7 +46,7 @@ bool ChatHandler::HandleRecallGoCommand(const char* args, WorldSession *m_sessio
 
 		if( strnicmp( const_cast< char* >( args ), locname, strlen( args ) ) == 0 )
 		{
-			if( m_session->GetPlayer() != NULL )
+			if( m_session->GetPlayer() != nullptr )
 			{
 				m_session->GetPlayer()->SafeTeleport(locmap, 0, LocationVector(x, y, z));
 				delete result;

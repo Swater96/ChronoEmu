@@ -137,7 +137,7 @@ public:
 	VictoryRush(Spell * pSpell) : SpellScript(pSpell) {}
 	void CalculateEffect(uint32 EffectIndex, Unit *  target, int32* value)
 	{
-		if(EffectIndex == 0 && _spell->u_caster != NULL)
+		if(EffectIndex == 0 && _spell->u_caster != nullptr)
 			*value = (*value * _spell->u_caster->GetAP())/100;
 	}
 };

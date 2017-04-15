@@ -190,7 +190,7 @@ namespace VMAP
                     iNodeValueAccess = pNodeValueAccess;
                     intersectionCache.resize(node->getNValues());
 
-                    if (node->getChild(iNodeValueAccess->getNodePtr(),0) == NULL && node->getChild(iNodeValueAccess->getNodePtr(), 1) == NULL)
+                    if (node->getChild(iNodeValueAccess->getNodePtr(),0) == nullptr && node->getChild(iNodeValueAccess->getNodePtr(), 1) == nullptr)
                     {
                         startTime = minTime;
                         endTime   = maxTime;
@@ -314,7 +314,7 @@ namespace VMAP
         public:
             RayIntersectionIterator(const NodeValueAccess<TNode, TValue> pNodeValueAccess, const Ray& r, const TNode* root,  double pMaxTime, bool skip)
                 : minDistance(0), maxDistance(inf()), debugCounter(0),
-                ray(r), isEnd(root == NULL),
+                ray(r), isEnd(root == nullptr),
                 stackLength(20), stackIndex(0), breakFrameIndex(-1),
                 skipAABoxTests(skip)
             {
@@ -404,7 +404,7 @@ namespace VMAP
                         // children.
 
                         const TNode* child = (s->nextChild >= 0) ?
-                            s->node->getChild(iNodeValueAccess.getNodePtr() ,s->nextChild) : NULL;
+                            s->node->getChild(iNodeValueAccess.getNodePtr() ,s->nextChild) : nullptr;
                         double childStartTime = s->startTime;
                         double childEndTime   = s->endTime;
 
@@ -451,7 +451,7 @@ namespace VMAP
                         // There could have been a resize on the array, so
                         // do not use s (pointer into the array)!
 
-                        if (child != NULL)
+                        if (child != nullptr)
                         {
                             ++stackIndex;
                             stack[stackIndex].init(&iNodeValueAccess, child, ray, childStartTime, childEndTime);
@@ -619,7 +619,7 @@ namespace VMAP
     Object*&    firstObject,
     double&     firstTime) {
 
-    firstObject   = NULL;
+    firstObject   = nullptr;
     firstDistance = inf();
 
     typedef AABSPTree<Object*>::RayIntersectionIterator IT;

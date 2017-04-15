@@ -22,8 +22,8 @@
 //#include "../Common.h"
 DBCFile::DBCFile()
 {
-	data = NULL;
-	stringTable = NULL;
+	data = nullptr;
+	stringTable = nullptr;
 }
 
 DBCFile::~DBCFile()

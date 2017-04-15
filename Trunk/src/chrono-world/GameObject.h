@@ -150,7 +150,7 @@ enum GameObjectFlags
 	GO_FLAG_TRIGGERED       = 0x40,                         //typically, summoned objects. Triggered by spell or other events
 };
 
-#define CALL_GO_SCRIPT_EVENT(obj, func) if(obj->GetTypeId() == TYPEID_GAMEOBJECT && static_cast<GameObject*>(obj)->GetScript() != NULL) static_cast<GameObject*>(obj)->GetScript()->func
+#define CALL_GO_SCRIPT_EVENT(obj, func) if(obj->GetTypeId() == TYPEID_GAMEOBJECT && static_cast<GameObject*>(obj)->GetScript() != nullptr) static_cast<GameObject*>(obj)->GetScript()->func
 
 class SERVER_DECL GameObject : public Object
 {
@@ -202,7 +202,7 @@ public:
 	
 	// Quests
 	void _LoadQuests();
-	bool HasQuests() { return m_quests != NULL; };
+	bool HasQuests() { return m_quests != nullptr; };
 	void AddQuest(QuestRelation *Q);
 	void DeleteQuest(QuestRelation *Q);
 	Quest *FindQuest(uint32 quest_id, uint8 quest_relation);

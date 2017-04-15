@@ -25,7 +25,7 @@ typedef struct _hashmap_map{
 } hashmap_map;
 
 /*
- * Return an empty hashmap, or NULL on failure.
+ * Return an empty hashmap, or nullptr on failure.
  */
 map_t hashmap_new() {
 	hashmap_map* m = (hashmap_map*) malloc(sizeof(hashmap_map));
@@ -41,7 +41,7 @@ map_t hashmap_new() {
 	err:
 		if (m)
 			hashmap_free(m);
-		return NULL;
+		return nullptr;
 }
 
 /*
@@ -186,7 +186,7 @@ int hashmap_get(map_t in, int key, any_t *arg){
 	}
 
 	if (arg) {
-		*arg = NULL;
+		*arg = nullptr;
 	}
 
 	/* Not found */
@@ -240,7 +240,7 @@ int hashmap_remove(map_t in, int key){
 		if(m->data[curr].key == key && m->data[curr].in_use == 1){
 			/* Blank out the fields */
 			m->data[curr].in_use = 0;
-			m->data[curr].data = NULL;
+			m->data[curr].data = nullptr;
 			m->data[curr].key = 0;
 
 			/* Reduce the size */
@@ -264,7 +264,7 @@ void hashmap_free(map_t in){
 /* Return the length of the hashmap */
 int hashmap_length(map_t in){
 	hashmap_map* m = (hashmap_map *) in;
-	if(m != NULL) return m->size;
+	if(m != nullptr) return m->size;
 	else return 0;
 }
 
@@ -284,7 +284,7 @@ typedef struct _hashmap_map64{
 } hashmap_map64;
 
 /*
- * Return an empty hashmap, or NULL on failure.
+ * Return an empty hashmap, or nullptr on failure.
  */
 map_t hashmap64_new() {
 	hashmap_map64* m = (hashmap_map64*) malloc(sizeof(hashmap_map64));
@@ -300,7 +300,7 @@ map_t hashmap64_new() {
 	err:
 		if (m)
 			hashmap64_free(m);
-		return NULL;
+		return nullptr;
 }
 
 /*
@@ -439,7 +439,7 @@ int hashmap64_get(map_t in, int64 key, any_t *arg){
 	}
 
 	if (arg) {
-		*arg = NULL;
+		*arg = nullptr;
 	}
 
 	/* Not found */
@@ -493,7 +493,7 @@ int hashmap64_remove(map_t in, int64 key){
 		if(m->data[curr].key == key && m->data[curr].in_use == 1){
 			/* Blank out the fields */
 			m->data[curr].in_use = 0;
-			m->data[curr].data = NULL;
+			m->data[curr].data = nullptr;
 			m->data[curr].key = 0;
 
 			/* Reduce the size */
@@ -517,6 +517,6 @@ void hashmap64_free(map_t in){
 /* Return the length of the hashmap */
 int hashmap64_length(map_t in){
 	hashmap_map64* m = (hashmap_map64 *) in;
-	if(m != NULL) return m->size;
+	if(m != nullptr) return m->size;
 	else return 0;
 }

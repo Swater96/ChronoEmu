@@ -28,7 +28,7 @@ bool SymbolOfLife(uint32 i, Spell * pSpell) // Alliance ress. quests
   Player * plr = TO_PLAYER(pSpell->u_caster);
   Creature * target = plr->GetMapMgr()->GetCreature(GET_LOWGUID_PART(plr->GetSelection()));
   
-  if(target == NULL)
+  if(target == nullptr)
     return true;
 
   const uint32 targets[] = {17542, 6177, 6172}; 
@@ -53,7 +53,7 @@ bool SymbolOfLife(uint32 i, Spell * pSpell) // Alliance ress. quests
   
   for(int i = 0; i<3; i++)
   {
-    if(plr->GetQuestLogForEntry(quests[i]) != NULL)
+    if(plr->GetQuestLogForEntry(quests[i]) != nullptr)
     {
       qle = plr->GetQuestLogForEntry(quests[i]);
       questOk = true;
@@ -85,14 +85,14 @@ bool FilledShimmeringVessel(uint32 i, Spell * pSpell) // Blood Elf ress. quest
   Player * plr = TO_PLAYER(pSpell->u_caster);
   
   Creature * target = plr->GetMapMgr()->GetCreature(GET_LOWGUID_PART(plr->GetSelection()));
-  if(target == NULL)
+  if(target == nullptr)
     return true;
 
   if(target->GetEntry() != 17768)
     return true;
 
   QuestLogEntry *qle = plr->GetQuestLogForEntry(9685);
-  if(qle == NULL)
+  if(qle == nullptr)
     return true;
 
   target->SetStandState(0);
@@ -178,16 +178,16 @@ public:
 
 bool DouseEternalFlame(uint32 i, Spell * pSpell)
 {
-	if (pSpell->u_caster == NULL || !pSpell->u_caster->IsPlayer())
+	if (pSpell->u_caster == nullptr || !pSpell->u_caster->IsPlayer())
 		return true;
 
 	Player * plr = TO_PLAYER(pSpell->u_caster);
 	QuestLogEntry *qle = plr->GetQuestLogForEntry(9737);
-	if(qle == NULL)
+	if(qle == nullptr)
 		return true;
 
 	GameObject * Flame = plr->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(3678, -3640, 139, 182068);
-	if(Flame != NULL)
+	if(Flame != nullptr)
 	{
 		if(plr->CalcDistance(plr, Flame) < 30)
 			if(qle->GetMobCount(0) < qle->GetQuest()->required_mobcount[0])

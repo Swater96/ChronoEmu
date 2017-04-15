@@ -48,7 +48,7 @@ void CCollideInterface::ActivateMap(uint32 mapId)
 {
 	if( !CollisionMgr ) return;
 	m_mapCreateLock.Acquire();
-	if( m_mapLocks[mapId] == NULL )
+	if( m_mapLocks[mapId] == nullptr )
 	{
 		m_mapLocks[mapId] = new CollisionMap;
 		m_mapLocks[mapId]->m_loadCount = 1;
@@ -64,21 +64,21 @@ void CCollideInterface::DeactivateMap(uint32 mapId)
 {
 	if( !CollisionMgr ) return;
 	m_mapCreateLock.Acquire();
-	ASSERT(m_mapLocks[mapId] != NULL);
+	ASSERT(m_mapLocks[mapId] != nullptr);
 	--m_mapLocks[mapId]->m_loadCount;
 	if( m_mapLocks[mapId]->m_loadCount == 0 )
 	{
 		// no instances using this anymore
 		delete m_mapLocks[mapId];
 		CollisionMgr->unloadMap(mapId);
-		m_mapLocks[mapId] = NULL;
+		m_mapLocks[mapId] = nullptr;
 	}
 	m_mapCreateLock.Release();
 }
 
 void CCollideInterface::ActivateTile(uint32 mapId, uint32 tileX, uint32 tileY)
 {
-	ASSERT(m_mapLocks[mapId] != NULL);
+	ASSERT(m_mapLocks[mapId] != nullptr);
 	if( !CollisionMgr ) return;
 	// acquire write lock
 	m_mapLocks[mapId]->m_lock.AcquireWriteLock();
@@ -94,7 +94,7 @@ void CCollideInterface::ActivateTile(uint32 mapId, uint32 tileX, uint32 tileY)
 
 void CCollideInterface::DeactivateTile(uint32 mapId, uint32 tileX, uint32 tileY)
 {
-	ASSERT(m_mapLocks[mapId] != NULL);
+	ASSERT(m_mapLocks[mapId] != nullptr);
 	if( !CollisionMgr ) return;
 
 	// get write lock
@@ -108,7 +108,7 @@ void CCollideInterface::DeactivateTile(uint32 mapId, uint32 tileX, uint32 tileY)
 
 bool CCollideInterface::CheckLOS(uint32 mapId, float x1, float y1, float z1, float x2, float y2, float z2)
 {
-	ASSERT(m_mapLocks[mapId] != NULL);
+	ASSERT(m_mapLocks[mapId] != nullptr);
 
 	// get read lock
 	m_mapLocks[mapId]->m_lock.AcquireReadLock();
@@ -125,7 +125,7 @@ bool CCollideInterface::CheckLOS(uint32 mapId, float x1, float y1, float z1, flo
 
 bool CCollideInterface::GetFirstPoint(uint32 mapId, float x1, float y1, float z1, float x2, float y2, float z2, float & outx, float & outy, float & outz, float distmod)
 {
-	ASSERT(m_mapLocks[mapId] != NULL);
+	ASSERT(m_mapLocks[mapId] != nullptr);
 
 	// get read lock
 	m_mapLocks[mapId]->m_lock.AcquireReadLock();
@@ -142,7 +142,7 @@ bool CCollideInterface::GetFirstPoint(uint32 mapId, float x1, float y1, float z1
 
 float CCollideInterface::GetHeight(uint32 mapId, float x, float y, float z)
 {
-	ASSERT(m_mapLocks[mapId] != NULL);
+	ASSERT(m_mapLocks[mapId] != nullptr);
 
 	// get read lock
 	m_mapLocks[mapId]->m_lock.AcquireReadLock();
@@ -159,7 +159,7 @@ float CCollideInterface::GetHeight(uint32 mapId, float x, float y, float z)
 
 bool CCollideInterface::IsIndoor(uint32 mapId, float x, float y, float z)
 {
-	ASSERT(m_mapLocks[mapId] != NULL);
+	ASSERT(m_mapLocks[mapId] != nullptr);
 
 	// get read lock
 	m_mapLocks[mapId]->m_lock.AcquireReadLock();
@@ -176,7 +176,7 @@ bool CCollideInterface::IsIndoor(uint32 mapId, float x, float y, float z)
 
 bool CCollideInterface::IsOutdoor(uint32 mapId, float x, float y, float z)
 {
-	ASSERT(m_mapLocks[mapId] != NULL);
+	ASSERT(m_mapLocks[mapId] != nullptr);
 
 	// get read lock
 	m_mapLocks[mapId]->m_lock.AcquireReadLock();

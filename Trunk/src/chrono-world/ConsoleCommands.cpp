@@ -130,7 +130,7 @@ bool HandleKickCommand(BaseConsole * pConsole, int argc, const char * argv[])
 	Player * pPlayer;
 
 	pPlayer = objmgr.GetPlayer(argv[1]);
-	if( pPlayer == NULL )
+	if( pPlayer == nullptr )
 	{
 		pConsole->Write("Could not find player, %s.\r\n", argv[1]);
 		return true;
@@ -138,7 +138,7 @@ bool HandleKickCommand(BaseConsole * pConsole, int argc, const char * argv[])
 
 	snprintf(pAnnounce, 1024, "%sConsole:|r %s was kicked from the server for: %s.", MSG_COLOR_LIGHTBLUE, pPlayer->GetName(), argv[2]);
 	pPlayer->BroadcastMessage("You were kicked by the console for: %s", argv[2]);
-	sWorld.SendWorldText(pAnnounce, NULL);
+	sWorld.SendWorldText(pAnnounce, nullptr);
 	pPlayer->Kick(5000);
 	pConsole->Write("Kicked player %s.\r\n", pPlayer->GetName());
 	return true;
@@ -239,7 +239,7 @@ bool HandlePlayerInfoCommand(BaseConsole * pConsole, int argc, const char * argv
 		return false;
 
 	Player * plr = objmgr.GetPlayer(argv[1]);
-	if( plr == NULL )
+	if( plr == nullptr )
 	{
 		pConsole->Write("Player not found.\r\n");
 		return true;

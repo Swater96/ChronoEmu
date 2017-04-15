@@ -34,10 +34,10 @@ void Player::Gossip_SendPOI(float X, float Y, uint32 Icon, uint32 Flags, uint32 
 	size_t namelen = strlen(Name);
 	WorldPacket data(SMSG_GOSSIP_POI, 11 + namelen);
 	data << Flags << X << Y << Icon << Data;
-	if( Name == NULL || namelen == 0 )
+	if( Name == nullptr || namelen == 0 )
 		data << uint8(0);
 	else
-		data.append((const uint8*)Name, namelen + 1);		// already null-terminated in memory so this is fine, saves the extra strlen()
+		data.append((const uint8*)Name, namelen + 1);		// already nullptr-terminated in memory so this is fine, saves the extra strlen()
 
 	GetSession()->SendPacket(&data);
 }

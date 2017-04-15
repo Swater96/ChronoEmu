@@ -88,7 +88,7 @@ public:
 
 	void write(const char* format, ...);
 	void writefromsession(WorldSession* session, const char* format, ...);
-	CHRONO_INLINE bool IsOpen() { return (m_file != NULL); }
+	CHRONO_INLINE bool IsOpen() { return (m_file != nullptr); }
 	void Open();
 	void Close();
 };

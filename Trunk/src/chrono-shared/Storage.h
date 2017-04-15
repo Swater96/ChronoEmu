@@ -48,7 +48,7 @@ public:
 		if( _count >= _max )
 		{
 			printf("StorageAllocationPool Get() failed!\n");
-			return NULL;
+			return nullptr;
 		}
 
 		return &_pool[_count++];
@@ -176,7 +176,7 @@ public:
 		return _array[Entry];
 	}
 
-	/** Deallocates the entry Entry in the array and sets the pointer to null.
+	/** Deallocates the entry Entry in the array and sets the pointer to nullptr.
 	 */
 	bool DeallocateEntry(uint32 Entry)
 	{
@@ -190,7 +190,7 @@ public:
 		return true;
 	}
 
-	/** Looks up entry Entry and returns the pointer if it is existant, otherwise null.
+	/** Looks up entry Entry and returns the pointer if it is existant, otherwise nullptr.
 	 */
 	T * LookupEntry(uint32 Entry)
 	{
@@ -302,7 +302,7 @@ public:
 		return n;
 	}
 
-	/** Deallocates the entry Entry in the array and sets the pointer to null.
+	/** Deallocates the entry Entry in the array and sets the pointer to nullptr.
 	 */
 	bool DeallocateEntry(uint32 Entry)
 	{
@@ -603,7 +603,7 @@ public:
 				offset += sizeof(uint64);
 				break;
 
-			case 's':	// Null-terminated string
+			case 's':	// nullptr-terminated string
 				*(char**)&structpointer[offset] = strdup(f->GetString());
 				offset += sizeof(char*);
 				break;

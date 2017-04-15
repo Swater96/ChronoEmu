@@ -34,7 +34,7 @@ public:
 
 		GossipMenu *Menu;
 		Creature * doctor = TO_CREATURE(pObject);
-		if (doctor == NULL)
+		if (doctor == nullptr)
 			return;
 
 		objmgr.CreateGossipMenuForPlayer(&Menu, pObject->GetGUID(), 1, plr);
@@ -51,7 +51,7 @@ public:
 			return;
 
 		Creature * doctor = TO_CREATURE(pObject);
-		if (doctor == NULL)
+		if (doctor == nullptr)
 			return;
 
 		switch (IntId)
@@ -90,7 +90,7 @@ public:
 		if(mKiller->IsPlayer())
 		{
 			Player * mPlayer = TO_PLAYER(mKiller);
-			if(mPlayer == NULL || mPlayer->GetMapMgr() == NULL || mPlayer->GetMapMgr()->GetInterface() == NULL)
+			if(mPlayer == nullptr || mPlayer->GetMapMgr() == nullptr || mPlayer->GetMapMgr()->GetInterface() == nullptr)
 				return;
 			Creature *  beka1 = sEAS.SpawnCreature(mPlayer, 1516, -13770.5, -6.79, 42.8, 5.7 , 0);
 			beka1->GetAIInterface()->MoveTo(-13727.8, -26.2, 46.15, 4.07);
@@ -101,7 +101,7 @@ public:
 			Player * mPlayer = _unit->GetMapMgr()->GetInterface()->GetPlayerNearestCoords(_unit->GetPositionX(), _unit->GetPositionY(), _unit->GetPositionZ());
 			if(mPlayer)
 			{
-				if(mPlayer == NULL || mPlayer->GetMapMgr() == NULL || mPlayer->GetMapMgr()->GetInterface() == NULL)
+				if(mPlayer == nullptr || mPlayer->GetMapMgr() == nullptr || mPlayer->GetMapMgr()->GetInterface() == nullptr)
 					return;
 				Creature *  beka1 = sEAS.SpawnCreature(mPlayer, 1516, -13770.5, -6.79, 42.8, 5.7 , 0);
 				beka1->GetAIInterface()->MoveTo(-13727.8, -26.2, 46.15, 4.07);
@@ -122,7 +122,7 @@ public:
 		if(mKiller->IsPlayer())
 		{
 			Player * mPlayer = TO_PLAYER(mKiller);
-			if(mPlayer == NULL || mPlayer->GetMapMgr() == NULL || mPlayer->GetMapMgr()->GetInterface() == NULL)
+			if(mPlayer == nullptr || mPlayer->GetMapMgr() == nullptr || mPlayer->GetMapMgr()->GetInterface() == nullptr)
 				return;
 			Creature * beka1 = sEAS.SpawnCreature(mPlayer, 1514, -13770.5, -6.79, 42.8, 5.7, 0);
 			beka1->GetAIInterface()->MoveTo(-13727.8, -26.2, 46.15, 4.07);
@@ -133,7 +133,7 @@ public:
 			Player * mPlayer = _unit->GetMapMgr()->GetInterface()->GetPlayerNearestCoords(_unit->GetPositionX(), _unit->GetPositionY(), _unit->GetPositionZ());
 			if(mPlayer)
 			{
-				if(mPlayer == NULL || mPlayer->GetMapMgr() == NULL || mPlayer->GetMapMgr()->GetInterface() == NULL)
+				if(mPlayer == nullptr || mPlayer->GetMapMgr() == nullptr || mPlayer->GetMapMgr()->GetInterface() == nullptr)
 					return;
 				Creature * beka1 = sEAS.SpawnCreature(mPlayer, 1514, -13770.5, -6.79, 42.8, 5.7, 0);
 				beka1->GetAIInterface()->MoveTo(-13727.8, -26.2, 46.15, 4.07);
@@ -151,7 +151,7 @@ public:
 
 	void OnDied(Unit * mKiller)
 	{
-		if( mKiller == NULL || mKiller->GetMapMgr() == NULL || mKiller->GetMapMgr()->GetInterface() == NULL )
+		if( mKiller == nullptr || mKiller->GetMapMgr() == nullptr || mKiller->GetMapMgr()->GetInterface() == nullptr )
 			return;
 
 		float SSX = mKiller->GetPositionX();
@@ -170,7 +170,7 @@ public:
 
 	void OnQuestComplete( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -181,7 +181,7 @@ public:
 			return;
 
 		Creature * Kin_weelay = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 2519);
-		if(Kin_weelay == NULL)
+		if(Kin_weelay == nullptr)
 			return;
 
 		string msg1 = "Ah. Good ";
@@ -194,7 +194,7 @@ public:
 		if(skull2)
 			skull2->Despawn(5000);
 
-		if(Kin_weelay == NULL)
+		if(Kin_weelay == nullptr)
 			return;
 		string msg = "There, ";
 		msg += mTarget->GetName();
@@ -210,7 +210,7 @@ public:
 
 	void OnQuestComplete( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float X = mTarget->GetPositionX();
 		float Y = mTarget->GetPositionY();
@@ -233,7 +233,7 @@ public:
 
 	void OnQuestComplete( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float X = mTarget->GetPositionX();
 		float Y = mTarget->GetPositionY();

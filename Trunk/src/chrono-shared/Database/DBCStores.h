@@ -395,6 +395,23 @@ struct WorldMapOverlayEntry
 	uint32 AreaTableID;
 };
 
+struct WMOAreaTableEntry
+{
+	uint32 Id;                                              // 0        m_ID index
+	int32 rootId;                                           // 1        m_WMOID used in root WMO
+	int32 adtId;                                            // 2        m_NameSetID used in adt file
+	int32 groupId;                                          // 3        m_WMOGroupID used in group WMO
+															// uint32 field4;                                       // 4        m_SoundProviderPref
+															// uint32 field5;                                       // 5        m_SoundProviderPrefUnderwater
+															// uint32 field6;                                       // 6        m_AmbienceID
+															// uint32 field7;                                       // 7        m_ZoneMusic
+															// uint32 field8;                                       // 8        m_IntroSound
+	uint32 Flags;                                           // 9        m_flags (used for indoor/outdoor determination)
+	uint32 areaId;                                          // 10       m_AreaTableID (AreaTable.dbc)
+															// char *Name[8];                                       //          m_AreaName_lang
+															// uint32 nameFlags;
+};
+
 struct AreaTable
 {
     uint32 AreaId;
@@ -572,7 +589,7 @@ CHRONO_INLINE uint32 GetDuration(SpellDuration *dur)
     return dur->Duration1;
 }
 
-#define SAFE_DBC_CODE_RETURNS			/* undefine this to make out of range/nulls return null. */
+#define SAFE_DBC_CODE_RETURNS			/* undefine this to make out of range/nulls return nullptr. */
 
 template<class T>
 class SERVER_DECL DBCStorage
@@ -587,16 +604,37 @@ class SERVER_DECL DBCStorage
 	char * m_stringData;
 
 public:
-	
+
+class iterator
+        {
+            private:
+                T* p;
+            public:
+                iterator(T* ip = 0) : p(ip) { }
+                iterator & operator++() { ++p; return *this; }
+                iterator & operator--() { --p; return *this; }
+                bool operator!=(const iterator & i) { return (p != i.p); }
+                T* operator*() { return p; }
+        };
+
+        iterator begin()
+        {
+            return iterator(&m_heapBlock[0]);
+        }
+        iterator end()
+        {
+            return iterator(&m_heapBlock[m_numrows]);
+        }
+
 	DBCStorage()
 	{
-		m_heapBlock = NULL;
-		m_entries = NULL;
-		m_firstEntry = NULL;
+		m_heapBlock = nullptr;
+		m_entries = nullptr;
+		m_firstEntry = nullptr;
 		m_max = 0;
 		m_numrows = 0;
 		m_stringlength=0;
-		m_stringData = NULL;
+		m_stringData = nullptr;
 	}
 
 	~DBCStorage()
@@ -609,17 +647,17 @@ public:
 		if(m_heapBlock)
 		{
 			free(m_heapBlock);
-			m_heapBlock = NULL;
+			m_heapBlock = nullptr;
 		}
 		if(m_entries)
 		{
 			free(m_entries);
-			m_entries = NULL;
+			m_entries = nullptr;
 		}
-		if( m_stringData != NULL )
+		if( m_stringData != nullptr )
 		{
 			free(m_stringData);
-			m_stringData = NULL;
+			m_stringData = nullptr;
 		}
 	}
 
@@ -634,7 +672,7 @@ public:
 		long pos;
 
 		FILE * f = fopen(filename, "rb");
-		if(f == NULL)
+		if(f == nullptr)
 			return false;
 
 		/* read the number of rows, and allocate our block on the heap */
@@ -684,7 +722,7 @@ public:
 			memset(m_entries, 0, (sizeof(T*) * (m_max+1)));
 			for(i = 0; i < rows; ++i)
 			{
-				if(m_firstEntry == NULL)
+				if(m_firstEntry == nullptr)
 					m_firstEntry = &m_heapBlock[i];
 
 				m_entries[*(uint32*)&m_heapBlock[i]] = &m_heapBlock[i];
@@ -759,10 +797,10 @@ public:
 #if 0
 		if(m_entries)
 		{
-			if(i > m_max || m_entries[i] == NULL)
+			if(i > m_max || m_entries[i] == nullptr)
 			{
 				printf("LookupEntryForced failed for entry %u\n", i);
-				return NULL;
+				return nullptr;
 			}
 			else
 				return m_entries[i];
@@ -770,22 +808,22 @@ public:
 		else
 		{
 			if(i >= m_numrows)
-				return NULL;
+				return nullptr;
 			else
 				return &m_heapBlock[i];
 		}
 #else
 		if(m_entries)
 		{
-			if(i > m_max || m_entries[i] == NULL)
-				return NULL;
+			if(i > m_max || m_entries[i] == nullptr)
+				return nullptr;
 			else
 				return m_entries[i];
 		}
 		else
 		{
 			if(i >= m_numrows)
-				return NULL;
+				return nullptr;
 			else
 				return &m_heapBlock[i];
 		}
@@ -803,7 +841,7 @@ public:
 	{
 		if(m_entries)
 		{
-			if(i > m_max || m_entries[i] == NULL)
+			if(i > m_max || m_entries[i] == nullptr)
 				return m_firstEntry;
 			else
 				return m_entries[i];
@@ -831,15 +869,15 @@ public:
 	{
 		if(m_entries)
 		{
-			if(i > m_max || m_entries[i] == NULL)
-				return NULL;
+			if(i > m_max || m_entries[i] == nullptr)
+				return nullptr;
 			else
 				return m_entries[i];
 		}
 		else
 		{
 			if(i >= m_numrows)
-				return NULL;
+				return nullptr;
 			else
 				return m_heapBlock[i];
 		}
@@ -848,7 +886,7 @@ public:
 	T * LookupRow(uint32 i)
 	{
 		if(i >= m_numrows)
-			return NULL;
+			return nullptr;
 		else
 			return m_heapBlock[i];
 	}
@@ -857,6 +895,7 @@ public:
 };
 
 extern SERVER_DECL DBCStorage<AreaTriggerEntry> dbcAreaTrigger;
+extern SERVER_DECL DBCStorage<WMOAreaTableEntry> dbcWMOArea;
 extern SERVER_DECL DBCStorage<WorldSafeLocs> dbcworldsafelocs;
 extern SERVER_DECL DBCStorage<ItemSetEntry> dbcItemSet;
 extern SERVER_DECL DBCStorage<Lock> dbcLock;

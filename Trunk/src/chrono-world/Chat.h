@@ -107,8 +107,8 @@ enum Languages
 #define MSG_COLOR_YELLOW		"|cffffff00"
 #define MSG_COLOR_CYAN		  "|cff00ffff"
 
-#define CHECKSESSION if(m_session == NULL) return NULL; \
-	if(m_session->GetPlayer() == NULL) return NULL;
+#define CHECKSESSION if(m_session == nullptr) return nullptr; \
+	if(m_session->GetPlayer() == nullptr) return nullptr;
 
 
 class ChatCommand

@@ -446,7 +446,7 @@ uint32 CalculateDamage( Unit* pAttacker, Unit* pVictim, uint32 weapon_damage_typ
 	//type of this UNIT_FIELD_ATTACK_POWER_MODS is unknown, not even uint32 disabled for now.
 
 	uint32 offset;
-	Item *it = NULL;
+	Item *it = nullptr;
 
 	if(pAttacker->disarmed && pAttacker->IsPlayer())
 	{
@@ -475,7 +475,7 @@ uint32 CalculateDamage( Unit* pAttacker, Unit* pVictim, uint32 weapon_damage_typ
 	float MeleeDmgPct = 1.0f;
 	MeleeDmgPct += pAttacker->DamageDoneModPCT[0];
 	
-	Item* BonusItem = NULL;
+	Item* BonusItem = nullptr;
 	if( pAttacker->IsPlayer() && weapon_damage_type == MELEE )
 	{
 		BonusItem = TO_PLAYER(pAttacker)->GetItemInterface()->GetInventoryItem(EQUIPMENT_SLOT_MAINHAND);

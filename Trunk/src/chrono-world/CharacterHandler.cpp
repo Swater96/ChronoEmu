@@ -1,21 +1,6 @@
-/*
- * Chrono Emulator
- * Copyright (C) 2010 ChronoEmu Team <http://www.forsakengaming.com/>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
+//
+// Chrono Emu (C) 2016
+//
 
 #include "StdAfx.h"
 #include "AuthCodes.h"
@@ -77,7 +62,7 @@ bool ChatHandler::HandleRenameAllCharacter(const char * args, WorldSession * m_s
 			{
 				printf("renaming character %s, %u\n", pName,uGuid);
                 Player * pPlayer = objmgr.GetPlayer(uGuid);
-				if( pPlayer != NULL )
+				if( pPlayer != nullptr )
 				{
 					pPlayer->rename_pending = true;
 					pPlayer->GetSession()->SystemMessage("Your character has had a force rename set, you will be prompted to rename your character at next login in conformance with server rules.");
@@ -105,12 +90,11 @@ void CapitalizeString(string& arg)
 
 void WorldSession::CharacterEnumProc(QueryResult * result)
 {
-
 }
 
 void WorldSession::HandleCharEnumOpcode( WorldPacket & recv_data )
 {	
-    QueryResult* result = CharacterDatabase.Query("SELECT guid, level, race, class, gender, bytes, bytes2, name, positionX, positionY, positionZ, mapId, zoneId, banned, restState, deathstate, forced_rename_pending, player_flags, guild_data.guildid FROM characters LEFT JOIN guild_data ON characters.guid = guild_data.playerid WHERE acct=%u ORDER BY guid LIMIT 10", GetAccountId());
+	QueryResult* result = CharacterDatabase.Query("SELECT guid, level, race, class, gender, bytes, bytes2, name, positionX, positionY, positionZ, mapId, zoneId, banned, restState, deathstate, forced_rename_pending, player_flags FROM characters WHERE acct=%u ORDER BY guid LIMIT 10", GetAccountId());
 
 	// should be more than enough.. 200 bytes per char..
 	WorldPacket data(SMSG_CHAR_ENUM, (result ? result->GetRowCount() * 200 : 1));	
@@ -118,28 +102,28 @@ void WorldSession::HandleCharEnumOpcode( WorldPacket & recv_data )
 	data << num;
     if( result )
     {
-	Player *plr;
-    uint32 guid;
-    Field *fields;
-        do
-        {
-        fields = result->Fetch();
-        guid = fields[0].GetUInt32();
+	     Player *plr;
+         uint32 guid;
+         Field *fields;
+         do
+         {
+              fields = result->Fetch();
+              guid = fields[0].GetUInt32();
 			
-            plr = objmgr.GetPlayer(guid);
-            if(plr)
-            {
-                // we already have that player in world... for some strange reason...
-                continue;
-            }
+              plr = objmgr.GetPlayer(guid);
+              if(plr)
+              {
+                  // we already have that player in world... for some strange reason...
+                   continue;
+              }
 
-            plr = new Player(HIGHGUID_TYPE_PLAYER);
-            ASSERT(plr);
-            plr->SetSession(this);
+              plr = new Player(HIGHGUID_TYPE_PLAYER);
+              ASSERT(plr);
+              plr->SetSession(this);
 			
-            //plr->LoadFromDB( guid );
-			plr->LoadFromDB_Light( fields, guid );
-			plr->BuildEnumData(result, &data);
+              //plr->LoadFromDB( guid );
+			  plr->LoadFromDB_Light( fields, guid );
+			  plr->BuildEnumData(result, &data);
 
             num++;			
 		}	
@@ -276,16 +260,12 @@ void WorldSession::HandleCharCreateOpcode( WorldPacket & recv_data )
 	pn->cl = pNewChar->getClass();
 	pn->race = pNewChar->getRace();
 	pn->gender = pNewChar->getGender();
+	pn->publicNote = nullptr;
+	pn->officerNote = nullptr;
 	pn->m_Group=0;
 	pn->subGroup=0;
-	pn->m_loggedInPlayer=NULL;
+	pn->m_loggedInPlayer=nullptr;
 	pn->team = pNewChar->GetTeam ();
-	pn->guild=NULL;
-	pn->guildRank=NULL;
-	pn->guildMember=NULL;
-#ifdef VOICE_CHAT
-	pn->groupVoiceId = -1;
-#endif
 	objmgr.AddPlayerInfo(pn);
 
 	pNewChar->ok_to_remove = true;
@@ -390,39 +370,32 @@ void WorldSession::HandleCharDeleteOpcode( WorldPacket & recv_data )
 	uint64 guid;
 	recv_data >> guid;
 
-	if(objmgr.GetPlayer((uint32)guid) != NULL)
+	if(objmgr.GetPlayer((uint32)guid) != nullptr)
 	{
 		// "Char deletion failed"
 		//fail = 0x3B;
 	} else {
 
 		PlayerInfo * inf = objmgr.GetPlayerInfo((uint32)guid);
-		if( inf != NULL && inf->m_loggedInPlayer == NULL )
+		if( inf != nullptr && inf->m_loggedInPlayer == nullptr )
 		{
-			QueryResult * result = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = %u AND acct = %u", (uint32)guid, _accountId);
+			QueryResult * result = CharacterDatabase.Query("SELECT guildid, name FROM characters WHERE guid = %u", (uint32)guid, _accountId);
 			if(!result)
 				return;
 
-			if(inf->guild)
-			{
-				if(inf->guild->GetGuildLeader()==inf->guid)
-					inf->guild->Disband();
-				else
-					inf->guild->RemoveGuildMember(inf,NULL);
-			}
-
-			string name = result->Fetch()[0].GetString();
+			uint32 guildid = result->Fetch()[0].GetUInt32();
+			string name = result->Fetch()[1].GetString();
 			delete result;
 
 			for(int i = 0; i < NUM_CHARTER_TYPES; ++i)
 			{
 				Charter * c = objmgr.GetCharterByGuid(guid, (CharterTypes)i);
-				if(c != NULL)
+				if(c != nullptr)
 					c->RemoveSignature((uint32)guid);
 			}
 
 			
-			/*if( _socket != NULL )
+			/*if( _socket != nullptr )
 				sPlrLog.write("Account: %s | IP: %s >> Deleted player %s", GetAccountName().c_str(), GetSocket()->GetRemoteIP().c_str(), name.c_str());*/
 			
 			sPlrLog.writefromsession(this, "deleted character %s (GUID: %u)", name.c_str(), (uint32)guid);
@@ -534,7 +507,7 @@ void WorldSession::HandlePlayerLoginOpcode( WorldPacket & recv_data )
 	sLog.outDebug( "WORLD: Recvd Player Logon Message" );
 
 	recv_data >> playerGuid; // this is the GUID selected by the player
-	if(objmgr.GetPlayer((uint32)playerGuid) != NULL || m_loggingInPlayer || _player)
+	if(objmgr.GetPlayer((uint32)playerGuid) != nullptr || m_loggingInPlayer || _player)
 	{
 		// A character with that name already exists 0x3E
 		uint8 respons = CHAR_LOGIN_DUPLICATE_CHARACTER;
@@ -591,21 +564,15 @@ void WorldSession::FullLogin(Player * plr)
 		info->lastLevel = plr->getLevel();
 		info->lastOnline = UNIXTIME;
 		info->lastZone = plr->GetZoneId();
+		info->officerNote = nullptr;
+		info->publicNote = nullptr;
 		info->race = plr->getRace();
 		info->team = plr->GetTeam();
-		info->guild=NULL;
-		info->guildRank=NULL;
-		info->guildMember=NULL;
 		info->m_Group=0;
 		info->subGroup=0;
 		objmgr.AddPlayerInfo(info);
 	}
 	plr->m_playerInfo = info;
-	if(plr->m_playerInfo->guild)
-	{
-		plr->m_uint32Values[PLAYER_GUILDID] = plr->m_playerInfo->guild->GetGuildId();
-		plr->m_uint32Values[PLAYER_GUILDRANK] = plr->m_playerInfo->guildRank->iId;
-	}
 
 	info->m_loggedInPlayer = plr;
 
@@ -697,20 +664,22 @@ void WorldSession::FullLogin(Player * plr)
 	//Issue a message telling all guild members that this player has signed on
 	if(plr->IsInGuild())
 	{
-		Guild *pGuild = plr->m_playerInfo->guild;
+		Guild *pGuild = objmgr.GetGuild(plr->GetGuildId());
 		if(pGuild)
 		{
 			WorldPacket data(50);
 			data.Initialize(SMSG_GUILD_EVENT);
 			data << uint8(GUILD_EVENT_MOTD);
 			data << uint8(0x01);
-			if(pGuild->GetMOTD())
-				data << pGuild->GetMOTD();
-			else
-				data << uint8(0);
+			data << pGuild->GetGuildMotd();
 			SendPacket(&data);
 
-			pGuild->LogGuildEvent(GUILD_EVENT_HASCOMEONLINE, 1, plr->GetName());
+			data.Initialize(SMSG_GUILD_EVENT);
+			data << uint8(GUILD_EVENT_HASCOMEONLINE);
+			data << uint8(0x01);
+			data << plr->GetName();
+			data << plr->GetGUID();
+			pGuild->SendMessageToGuild(0, &data, G_MSGTYPE_ALL);
 		}
 	}
 
@@ -796,7 +765,7 @@ bool ChatHandler::HandleRenameCommand(const char * args, WorldSession * m_sessio
 		return true;
 	}
 
-	if( objmgr.GetPlayerInfoByName(new_name.c_str()) != NULL )
+	if( objmgr.GetPlayerInfoByName(new_name.c_str()) != nullptr )
 	{
 		RedSystemMessage(m_session, "Player found with this name in use already.");
 		return true;

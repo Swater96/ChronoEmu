@@ -145,7 +145,7 @@ void TaxiPath::SetPosForTime(float &x, float &y, float &z, uint32 time, uint32 *
 TaxiPathNode* TaxiPath::GetPathNode(uint32 i)
 {
 	if (m_pathNodes.find(i) == m_pathNodes.end())
-		return NULL;
+		return nullptr;
 	else
 		return m_pathNodes.find(i)->second;
 }
@@ -388,7 +388,7 @@ TaxiPath* TaxiMgr::GetTaxiPath(uint32 path)
 	itr = this->m_taxiPaths.find(path);
 
 	if (itr == m_taxiPaths.end())
-		return NULL;
+		return nullptr;
 	else
 		return itr->second;
 }
@@ -401,7 +401,7 @@ TaxiPath* TaxiMgr::GetTaxiPath(uint32 from, uint32 to)
 		if ((itr->second->to == to) && (itr->second->from == from))
 			return itr->second;
 
-	return NULL;
+	return nullptr;
 }
 
 TaxiNode* TaxiMgr::GetTaxiNode(uint32 node)
@@ -411,7 +411,7 @@ TaxiNode* TaxiMgr::GetTaxiNode(uint32 node)
 	itr = this->m_taxiNodes.find(node);
 
 	if (itr == m_taxiNodes.end())
-		return NULL;
+		return nullptr;
 	else
 		return itr->second;
 }

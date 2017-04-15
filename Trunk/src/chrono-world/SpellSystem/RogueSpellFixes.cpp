@@ -114,10 +114,10 @@ void ApplySingleRogueSpellFixes(SpellEntry *sp)
 			
 	// Dirty Deeds
 	sp = dbcSpell.LookupEntryForced( 14082 ); 
-	if( sp != NULL )
+	if( sp != nullptr )
 		sp->EffectSpellGroupRelation[0] = 1024 | 256; // Cheap Shot + Garrote
 	sp = dbcSpell.LookupEntryForced( 14083 ); 
-	if( sp != NULL )
+	if( sp != nullptr )
 		sp->EffectSpellGroupRelation[0] = 1024 | 256; // Cheap Shot + Garrote
 		
 		//Vanish should dispel all movement impairing effects

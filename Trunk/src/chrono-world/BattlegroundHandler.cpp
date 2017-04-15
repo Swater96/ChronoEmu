@@ -136,7 +136,7 @@ void WorldSession::HandleBattleMasterHelloOpcode(WorldPacket &recv_data)
 
 	CHECK_INWORLD_RETURN;
 	Creature * pCreature = _player->GetMapMgr()->GetCreature( GET_LOWGUID_PART(guid) );
-	if( pCreature == NULL )
+	if( pCreature == nullptr )
 		return;
 
 	SendBattlegroundList( pCreature, 0 );
@@ -155,7 +155,7 @@ void WorldSession::HandleAreaSpiritHealerQueryOpcode(WorldPacket &recv_data)
 	recv_data >> guid;
 
 	Creature * psg = _player->GetMapMgr()->GetCreature(GET_LOWGUID_PART(guid));
-	if(psg == NULL)
+	if(psg == nullptr)
 		return;
 	
 	uint32 restime = _player->m_bg->GetLastResurrect() + 30;
@@ -175,7 +175,7 @@ void WorldSession::HandleAreaSpiritHealerQueueOpcode(WorldPacket &recv_data)
 	uint64 guid;
 	recv_data >> guid;
 	Creature * psg = _player->GetMapMgr()->GetCreature(GET_LOWGUID_PART(guid));
-	if(psg == NULL)
+	if(psg == nullptr)
 		return;
 
 	_player->m_bg->QueuePlayerForResurrect(_player, psg);

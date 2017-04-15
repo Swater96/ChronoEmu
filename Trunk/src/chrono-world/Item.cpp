@@ -21,9 +21,9 @@
 
 Item::Item()//this is called when constructing as container
 {
-	m_itemProto = NULL;
-	m_owner = NULL;
-	loot = NULL;
+	m_itemProto = nullptr;
+	m_owner = nullptr;
+	loot = nullptr;
 	locked = false;
 	wrapped_item_id = 0;
 }
@@ -42,9 +42,9 @@ Item::Item( uint32 high, uint32 low )
 
 	SetFloatValue( OBJECT_FIELD_SCALE_X, 1 );//always 1
 
-	m_itemProto = NULL;
-	m_owner = NULL;
-	loot = NULL;
+	m_itemProto = nullptr;
+	m_owner = nullptr;
+	loot = nullptr;
 	locked = false;
 	m_isDirty = true;
 	random_prop = 0;
@@ -54,7 +54,7 @@ Item::Item( uint32 high, uint32 low )
 
 Item::~Item()
 {
-	if( loot != NULL )
+	if( loot != nullptr )
 		delete loot;
 
 	sEventMgr.RemoveEvents( this );
@@ -65,21 +65,21 @@ Item::~Item()
 		if( itr->second.Enchantment->type == 0 && itr->second.Slot == 0 && itr->second.ApplyTime == 0 && itr->second.Duration == 0 )
 		{
 			delete itr->second.Enchantment;
-			itr->second.Enchantment = NULL;
+			itr->second.Enchantment = nullptr;
 		}
 	}
 
 	if( IsInWorld() )
 		RemoveFromWorld();
 
-	m_owner = NULL;
+	m_owner = nullptr;
 }
 
 void Item::Create( uint32 itemid, Player* owner )
 {
 	SetUInt32Value( OBJECT_FIELD_ENTRY, itemid );
  
-	if( owner != NULL )
+	if( owner != nullptr )
 	{
 		SetUInt64Value( ITEM_FIELD_OWNER, owner->GetGUID() );
 		SetUInt64Value( ITEM_FIELD_CONTAINED, owner->GetGUID() );
@@ -293,7 +293,7 @@ void Item::SaveToDB( int8 containerslot, int8 slot, bool firstsave, QueryBuffer*
 		CharacterDatabase.WaitExecute( ss.str().c_str() );
 	else
 	{
-		if( buf == NULL )
+		if( buf == nullptr )
 			CharacterDatabase.Execute( ss.str().c_str() );
 		else
 			buf->AddQueryStr( ss.str() );
@@ -309,7 +309,7 @@ void Item::DeleteFromDB()
 		/* deleting a container */
 		for( uint32 i = 0; i < m_itemProto->ContainerSlots; ++i )
 		{
-			if( static_cast< Container* >( this )->GetItem( i ) != NULL )
+			if( static_cast< Container* >( this )->GetItem( i ) != nullptr )
 			{
 				/* abort the delete */
 				return;
@@ -391,7 +391,7 @@ const ItemProf* GetProficiencyBySkill( uint32 skill )
 		case SKILL_FISHING:
 			return &prof[21];
 		default:
-			return NULL;
+			return nullptr;
 	}
 }
 
@@ -406,7 +406,7 @@ uint32 GetBuyPriceForItem( ItemPrototype* proto, uint32 count, Player* plr, Crea
 {
 	int32 cost = proto->BuyPrice;
 
-	if( plr != NULL && vendor != NULL )
+	if( plr != nullptr && vendor != nullptr )
 	{
 		Standing plrstanding = plr->GetStandingRank( vendor->m_faction->Faction );
 		cost = float2int32( ceilf( float( proto->BuyPrice ) * pricemod[plrstanding] ) );
@@ -434,7 +434,7 @@ uint32 GetBuyPriceForItem( uint32 itemid, uint32 count, Player* plr, Creature* v
 void Item::RemoveFromWorld()
 {
 	// if we have an owner->send destroy
-	if( m_owner != NULL )
+	if( m_owner != nullptr )
 	{
 		DestroyForPlayer( m_owner );
 	}
@@ -444,7 +444,7 @@ void Item::RemoveFromWorld()
 
 	mSemaphoreTeleport = true;
 	m_mapMgr->RemoveObject( this, false );
-	m_mapMgr = NULL;
+	m_mapMgr = nullptr;
   
 	// update our event holder
 	event_Relocate();
@@ -452,7 +452,7 @@ void Item::RemoveFromWorld()
 
 void Item::SetOwner( Player* owner )
 { 
-	if( owner != NULL )
+	if( owner != nullptr )
 		SetUInt64Value( ITEM_FIELD_OWNER, static_cast< Object* >( owner )->GetGUID() );
 	else SetUInt64Value( ITEM_FIELD_OWNER, 0 );
 
@@ -523,7 +523,7 @@ int32 Item::AddEnchantment( EnchantEntry* Enchantment, uint32 Duration, bool Per
 	// Add it to our map.
 	Enchantments[Slot] = Instance;
 
-	if( m_owner == NULL )
+	if( m_owner == nullptr )
 		return Slot;
 
 	// Add the removal event.
@@ -587,7 +587,7 @@ void Item::RemoveEnchantment( uint32 EnchantmentSlot )
 
 void Item::ApplyEnchantmentBonus( uint32 Slot, bool Apply )
 {
-	if( m_owner == NULL )
+	if( m_owner == nullptr )
 		return;
 
 	EnchantmentMap::iterator itr = Enchantments.find( Slot );
@@ -717,7 +717,7 @@ void Item::ApplyEnchantmentBonus( uint32 Slot, bool Apply )
 						if( Entry->spell[c] != 0 )
 						{
 							sp = dbcSpell.LookupEntry( Entry->spell[c] );
-							if( sp == NULL )
+							if( sp == nullptr )
 								continue;
 
 							spell = new Spell( m_owner, sp, true, 0 );
@@ -948,7 +948,7 @@ EnchantmentInstance* Item::GetEnchantment( uint32 slot )
 	if( itr != Enchantments.end() )
 		return &itr->second;
 	else
-		return NULL;
+		return nullptr;
 }
 
 uint32 Item::GenerateRandomSuffixFactor( ItemPrototype* m_itemProto )
@@ -993,7 +993,7 @@ string ItemPrototype::ConstructItemLink(uint32 random_prop, uint32 random_suffix
 	else
 		sbuf[0] = 0;
 
-	// null 'em
+	// nullptr 'em
 	rptxt[0] = 0;
 	rstxt[0] = 0;
 
@@ -1001,7 +1001,7 @@ string ItemPrototype::ConstructItemLink(uint32 random_prop, uint32 random_suffix
 	if( random_prop != 0 )
 	{
 		RandomProps *rp = dbcRandomProps.LookupEntryForced(random_prop);
-		if( rp != NULL )
+		if( rp != nullptr )
 			snprintf(rptxt, 100, " %s", rp->rpname);
 	}
 	

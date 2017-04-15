@@ -315,7 +315,7 @@ void Spell::SpellTargetSingleTargetEnemy(uint32 i, uint32 j)
 	{		
 		Creature* cr = TO_CREATURE( pTarget );
 		
-		if( cr == NULL )
+		if( cr == nullptr )
 			return;
 
 		if( cr->GetCreatureName() )
@@ -475,7 +475,7 @@ void Spell::SpellTargetAllPartyMembersRangeNR(uint32 i, uint32 j)
 	TargetsList* tmpMap = &m_targetUnits[i];
 	Player* pUnit = p_caster;
 
-	if( pUnit == NULL )
+	if( pUnit == nullptr )
  	{
  		if( static_cast< Creature* >( u_caster)->IsTotem() )
 			pUnit = static_cast< Player* >( static_cast< Creature* >( u_caster )->GetTotemOwner() );
@@ -487,14 +487,14 @@ void Spell::SpellTargetAllPartyMembersRangeNR(uint32 i, uint32 j)
 
 	r *= r;
 
-	if( pUnit != NULL )
+	if( pUnit != nullptr )
 	{
 		if( IsInrange( m_caster->GetPositionX(), m_caster->GetPositionY(), m_caster->GetPositionZ(), pUnit, r ) )
 			SafeAddTarget( tmpMap, pUnit->GetGUID() );	 
  
 		SubGroup* subgroup = pUnit->GetGroup() ? pUnit->GetGroup()->GetSubGroup( pUnit->GetSubGroup() ) : 0;
 
-		if( subgroup != NULL )
+		if( subgroup != nullptr )
 		{				
 			pUnit->GetGroup()->Lock();
 			for(GroupMembersSet::iterator itr = subgroup->GetGroupMembersBegin(); itr != subgroup->GetGroupMembersEnd(); ++itr)
@@ -523,7 +523,7 @@ void Spell::SpellTargetSingleTargetFriend(uint32 i, uint32 j)
 	if(m_targets.m_unitTarget == m_caster->GetGUID())
 		Target = u_caster;
 	else
-		Target = m_caster->GetMapMgr() ? m_caster->GetMapMgr()->GetUnit(m_targets.m_unitTarget) : NULL;
+		Target = m_caster->GetMapMgr() ? m_caster->GetMapMgr()->GetUnit(m_targets.m_unitTarget) : nullptr;
 	if(!Target)
 		return;
 
@@ -599,7 +599,7 @@ void Spell::SpellTargetGameobject_itemTarget(uint32 i, uint32 j)
 void Spell::SpellTargetPetOwner(uint32 i, uint32 j)
 { 
 	TargetsList* tmpMap = &m_targetUnits[i];
-	if( u_caster != NULL && u_caster->IsPet() && static_cast< Pet* >( u_caster )->GetPetOwner() )
+	if( u_caster != nullptr && u_caster->IsPet() && static_cast< Pet* >( u_caster )->GetPetOwner() )
 		SafeAddTarget( tmpMap, u_caster->GetUInt64Value( UNIT_FIELD_SUMMONEDBY ) );
 }
 
@@ -625,11 +625,11 @@ mysql> select id,name from spell where EffectImplicitTargetb1 = 29;
 void Spell::SpellTargetTypeTAOE(uint32 i, uint32 j)
 {
 	Unit* Target = m_caster->GetMapMgr()->GetUnit(m_targets.m_unitTarget);
-	if( Target == NULL )
+	if( Target == nullptr )
 		return;
 
 	// tranquility
-	if( u_caster != NULL && m_spellInfo->NameHash == SPELL_HASH_TRANQUILITY )
+	if( u_caster != nullptr && m_spellInfo->NameHash == SPELL_HASH_TRANQUILITY )
 		m_targetUnits[i].push_back( u_caster->GetGUID() );
 	else
 		FillAllTargetsInArea( (LocationVector&)Target->GetPosition(), i );
@@ -668,7 +668,7 @@ void Spell::SpellTargetNearbyPartyMembers(uint32 i, uint32 j)
 {
 	TargetsList *tmpMap=&m_targetUnits[i];
 	// this implementation is wrong.... this one is for totems
-	if( u_caster != NULL )
+	if( u_caster != nullptr )
 	{
 		if( u_caster->GetTypeId()==TYPEID_UNIT)
 		{
@@ -679,7 +679,7 @@ void Spell::SpellTargetNearbyPartyMembers(uint32 i, uint32 j)
 
 				Player* p = TO_PLAYER( TO_CREATURE( u_caster )->GetTotemOwner() );
 				
-				if( p == NULL)
+				if( p == nullptr)
 					return;
 
 				if(IsInrange(m_caster->GetPositionX(),m_caster->GetPositionY(),m_caster->GetPositionZ(),p,r))
@@ -834,7 +834,7 @@ void Spell::SpellTargetChainTargeting(uint32 i, uint32 j)
 	range *= range;
 
 	firstTarget = m_caster->GetMapMgr()->GetPlayer((uint32)m_targets.m_unitTarget);
-	if( firstTarget && p_caster != NULL )
+	if( firstTarget && p_caster != nullptr )
 	{
 		if( p_caster->InGroup() )
 			if( p_caster->GetSubGroup() == TO_PLAYER( firstTarget )->GetSubGroup() )
@@ -928,7 +928,7 @@ void Spell::SpellTargetSimpleTargetAdd(uint32 i, uint32 j)
 void Spell::SpellTargetTargetAreaSelectedUnit(uint32 i, uint32 j)
 {
 	//TargetsList *tmpMap=&m_targetUnits[i];
-	Unit *Target = NULL;
+	Unit *Target = nullptr;
 	if(m_caster->IsInWorld())
 	{
 		if(p_caster)

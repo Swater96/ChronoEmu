@@ -54,8 +54,8 @@ public:
       returns false if the key could not be read for any reason.
     
       @beta
-      @param valueData pointer to the output buffer of sufficient size. Pass NULL as valueData in order to have available data size returned in dataSize.
-      @param dataSize size of the output buffer.  When NULL is passed for valueData, contains the size of available data on successful return.
+      @param valueData pointer to the output buffer of sufficient size. Pass nullptr as valueData in order to have available data size returned in dataSize.
+      @param dataSize size of the output buffer.  When nullptr is passed for valueData, contains the size of available data on successful return.
     */
     static bool readBytes(const std::string& key, uint8* valueData, uint32& dataSize);
 

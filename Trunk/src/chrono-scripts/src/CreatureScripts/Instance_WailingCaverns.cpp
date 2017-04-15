@@ -388,7 +388,7 @@ public:
 	void GossipSelectOption(Object * pObject, Player * Plr, uint32 Id, uint32 IntId, const char * Code)
 	{
 		Creature * pCreature = (pObject->GetTypeId()==TYPEID_UNIT) ? TO_CREATURE(pObject) : NULLCREATURE;
-		if(pObject == NULL)
+		if(pObject == nullptr)
 			return;
 
 		switch(IntId)
@@ -440,7 +440,7 @@ class DofNaralexAI : public MoonScriptBossAI
 		// Awakening Spell
 		Awakening = AddSpell(6271, Target_Self, 0, 0, 0, 0, 0, false, "Step back and be ready!, I'll try to Awake Naralex", Text_Say);
 
-		SpawnTimer = NULL;
+		SpawnTimer = 0;
 	}
     
 	void OnReachWP(uint32 iWaypointId, bool bForwards)
@@ -487,7 +487,7 @@ class DofNaralexAI : public MoonScriptBossAI
 		
 	void Moccasin()
 	{
-		MoonScriptCreatureAI* Moccasin = NULL;
+		MoonScriptCreatureAI* Moccasin = nullptr;
 		Moccasin = SpawnCreature(5762, 134.249207f, 242.194839f, -98.375496f, 3.325373f);
 		Moccasin = SpawnCreature(5762, 124.917931f, 255.066635f, -97.796837f, 4.176745f);
 		Moccasin = SpawnCreature(5762, 113.077148f, 258.880157f, -97.190590f, 4.688039f);
@@ -495,7 +495,7 @@ class DofNaralexAI : public MoonScriptBossAI
 
 	void Ectoplasm()
 	{
-		MoonScriptCreatureAI* Ectoplasm = NULL;
+		MoonScriptCreatureAI* Ectoplasm = nullptr;
 		Ectoplasm = SpawnCreature(5763, 134.249207f, 242.194839f, -98.375496f, 3.325373f);
 		Ectoplasm = SpawnCreature(5763, 124.917931f, 255.066635f, -97.796837f, 4.176745f);
 		Ectoplasm = SpawnCreature(5763, 113.077148f, 258.880157f, -97.190590f, 4.688039f);

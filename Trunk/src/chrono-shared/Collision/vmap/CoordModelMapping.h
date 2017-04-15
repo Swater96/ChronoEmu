@@ -109,7 +109,7 @@ namespace VMAP
             }
 
         public:
-            CoordModelMapping() { iFilterMethod = NULL; }
+            CoordModelMapping() { iFilterMethod = nullptr; }
             virtual ~CoordModelMapping();
 
             bool readCoordinateMapping(const std::string& pDirectoryFileName);

@@ -68,8 +68,8 @@ void AiAgentHealSupport::Init(Unit *un, AIType at, MovementType mt, Unit *owner)
 
 	uint32 local_itr,local_itr2;
 
-	memset(m_HealSpells,NULL,HealSpellCount*HealSpellLevels*sizeof(SpellEntry*));
-	memset(m_HealSpellsEficiency,NULL,HealSpellCount*HealSpellLevels*sizeof(float));
+	memset(m_HealSpells,nullptr,HealSpellCount*HealSpellLevels*sizeof(SpellEntry*));
+	memset(m_HealSpellsEficiency,nullptr,HealSpellCount*HealSpellLevels*sizeof(float));
 
 	//we are using const lists. You don't like it ? Write your own AI :P
 	//owner : Lesser Heal, Flash Heal, heal, Healing Touch, Greater Heal, Great Heal, Heal Brethren, Debuff Uber Heal Over Time
@@ -405,7 +405,7 @@ printf("found a better match with id %u , old price %f new price %f\n",m_HealSpe
 printf("selected spell with id %u and price %f\n",m_HealSpells[ DifficultyLevel ][ selected_spell_index ]->Id,best_match);
 		return m_HealSpells[ DifficultyLevel ][ selected_spell_index ];
 	}
-	return NULL ;
+	return nullptr;
 }
 
 void AiAgentHealSupport::_UpdateCombat(uint32 p_time)
@@ -466,7 +466,7 @@ printf("we are not casting\n");
 	uint32 Time_Now = getMSTime();
 
 	SpellCastTargets targets;
-	m_castingSpell = NULL;
+	m_castingSpell = nullptr;
 
 	//poor thing died. Res him
 	if( !m_nextTarget->isAlive() 
@@ -479,7 +479,7 @@ printf("we are not casting\n");
 printf("master died, we are going to resurect him\n");
 	}
 
-	if ( last_time_full_health == true && m_PetOwner->GetHealthPct() != 100 && m_castingSpell == NULL )
+	if ( last_time_full_health == true && m_PetOwner->GetHealthPct() != 100 && m_castingSpell == nullptr )
 	{
 		uint32 augment_DifficultyLevel = m_PetOwner->GetUInt32Value(UNIT_FIELD_LEVEL) / AugmentSpellCount;
 		//pick 1 random augment spell
@@ -491,7 +491,7 @@ printf("master died, we are going to resurect him\n");
 		}
 	}
 
-	if ( m_PetOwner->GetHealthPct() < 100 && m_castingSpell == NULL )
+	if ( m_PetOwner->GetHealthPct() < 100 && m_castingSpell == nullptr )
 	{
 printf("master is injured, will try to heal him\n");
 		m_castingSpell = Get_Best_Heal_Spell( m_PetOwner );
@@ -500,7 +500,7 @@ printf("master is injured, will try to heal him\n");
 else printf("we were not able to select any heal spells due to power %u or cooldown issues\n",m_Unit->GetUInt32Value(UNIT_FIELD_POWER1));
 	}
 
-	if ( m_Unit->GetHealthPct() < 100 && m_castingSpell == NULL )
+	if ( m_Unit->GetHealthPct() < 100 && m_castingSpell == nullptr )
 	{
 		if(	!Protect_self() ) //first we try to escape combat
 		{
@@ -512,7 +512,7 @@ printf("we are injured, will try to heal us\n");
 else printf("we were not able to select any heal spells due to power %u or cooldown issues\n",m_Unit->GetUInt32Value(UNIT_FIELD_POWER1));
 	}
 
-	if ( m_PetOwner->GetHealthPct() == 100 && m_castingSpell == NULL && m_PetOwner->IsPlayer() && static_cast< Player*>( m_PetOwner )->InGroup())
+	if ( m_PetOwner->GetHealthPct() == 100 && m_castingSpell == nullptr && m_PetOwner->IsPlayer() && static_cast< Player*>( m_PetOwner )->InGroup())
 	{
 		uint32 party_DifficultyLevel = m_PetOwner->GetUInt32Value(UNIT_FIELD_LEVEL) / PartySpellCount;
 		//pick 1 random augment spell
@@ -545,7 +545,7 @@ printf("spell is not instant so we are going to stop movement \n");
 printf("we are in range and going to cast spell \n");
 		m_AIState = STATE_CASTING;
 		
-		Spell *nspell = new Spell(m_Unit, m_castingSpell, false, NULL);
+		Spell *nspell = new Spell(m_Unit, m_castingSpell, false, nullptr);
 
 #ifdef SPELL_EFF_PCT_SCALE_WITH_DIFFICULTY
 		nspell->forced_basepoints[ 0 ] = (uint32)( m_castingSpell->EffectBasePoints[0] * SPELL_EFF_PCT_SCALE_WITH_DIFFICULTY * DifficultyLevel );

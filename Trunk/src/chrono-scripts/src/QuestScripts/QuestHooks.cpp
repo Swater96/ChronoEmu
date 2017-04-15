@@ -89,7 +89,7 @@ void OntoGoldshireComplete(Player * pPlayer, Object * pObject)
 void ZuluhedtheWhacked(Player * pPlayer, Object * pObject)
 {
 	Creature * Zuluhed = pPlayer->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(-4206.199219f, 313.5462f, 122.907f, 11980);
-	if (Zuluhed == NULL)
+	if (Zuluhed == nullptr)
 	{
 		sEAS.SpawnCreature(pPlayer, 11980, -4206.199219f, 313.5462f, 122.907f, 1.2589f);
 	}
@@ -98,7 +98,7 @@ void ZuluhedtheWhacked(Player * pPlayer, Object * pObject)
 
 void OnQuestAccept(Player * pPlayer, Quest * pQuest, Object * pObject)
 {
-	if ( pPlayer == NULL || pQuest == NULL || pObject == NULL || !pObject->IsInWorld() || !pPlayer->IsInWorld() || !pObject->IsCreature() )
+	if ( pPlayer == nullptr || pQuest == nullptr || pObject == nullptr || !pObject->IsInWorld() || !pPlayer->IsInWorld() || !pObject->IsCreature() )
 		return;
 
 	switch(pQuest->id)
@@ -189,7 +189,7 @@ void MaybellComplete(Player * pPlayer, Object * pObject)
 
 void OnQuestFinished(Player * pPlayer, Quest * pQuest, Object * pObject)
 {
-	if ( pPlayer == NULL || pQuest == NULL || pObject == NULL || !pObject->IsCreature() )
+	if ( pPlayer == nullptr || pQuest == nullptr || pObject == nullptr || !pObject->IsCreature() )
 		return;
 
 	switch(pQuest->id)
@@ -225,7 +225,7 @@ void OnQuestFinished(Player * pPlayer, Quest * pQuest, Object * pObject)
 void ZuluhedtheWhackedCancel(Player * pPlayer)
 {
 	Creature * Zuluhed = pPlayer->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(-4206.199219f, 313.5462f, 122.907f, 11980);
-	if (Zuluhed != NULL)
+	if (Zuluhed != nullptr)
 	{
 		Zuluhed->Despawn(0,0);
 	}
@@ -235,7 +235,7 @@ void ZuluhedtheWhackedCancel(Player * pPlayer)
 
 void OnQuestCancelled(Player * pPlayer, Quest * pQuest)
 {
-	if ( pPlayer == NULL || pQuest == NULL )
+	if ( pPlayer == nullptr || pQuest == nullptr )
 		return;
 
 	switch(pQuest->id)
@@ -259,7 +259,7 @@ void InnkeeperFlex(Player * pPlayer, Unit * pUnit)
 	if(pUnit->GetEntry() == 6740)
 	{
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(8356);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		qle->SetMobCount(0, qle->GetMobCount(0)+1);
@@ -269,7 +269,7 @@ void InnkeeperFlex(Player * pPlayer, Unit * pUnit)
 	else if(pUnit->GetEntry() == 6929)
 	{
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(8359);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		qle->SetMobCount(0, qle->GetMobCount(0)+1);
@@ -283,7 +283,7 @@ void InnkeeperDance(Player * pPlayer, Unit * pUnit)
 	if(pUnit->GetEntry() == 6735)
 	{
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(8357);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		qle->SetMobCount(0, qle->GetMobCount(0)+1);
@@ -293,7 +293,7 @@ void InnkeeperDance(Player * pPlayer, Unit * pUnit)
 	else if(pUnit->GetEntry() == 6746)
 	{
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(8360);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		qle->SetMobCount(0, qle->GetMobCount(0)+1);
@@ -307,7 +307,7 @@ void InnkeeperTrain(Player * pPlayer, Unit * pUnit)
 	if(pUnit->GetEntry() == 6826)
 	{
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(8355);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		qle->SetMobCount(0, qle->GetMobCount(0)+1);
@@ -317,7 +317,7 @@ void InnkeeperTrain(Player * pPlayer, Unit * pUnit)
 	else if(pUnit->GetEntry() == 11814)
 	{
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(8358);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		qle->SetMobCount(0, qle->GetMobCount(0)+1);
@@ -331,7 +331,7 @@ void InnkeeperChicken(Player * pPlayer, Unit * pUnit)
 	if(pUnit->GetEntry() == 5111)
 	{
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(8353);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		qle->SetMobCount(0, qle->GetMobCount(0)+1);
@@ -341,7 +341,7 @@ void InnkeeperChicken(Player * pPlayer, Unit * pUnit)
 	else if(pUnit->GetEntry() == 6741)
 	{
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(8354);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		qle->SetMobCount(0, qle->GetMobCount(0)+1);
@@ -389,7 +389,7 @@ void OnEmote(Player * pPlayer, uint32 Emote, Unit * pUnit)
 void InvasionPointCataclysm(Player * pPlayer, uint32 AreaTrigger)
 {
 	QuestLogEntry *en = pPlayer->GetQuestLogForEntry(10766);
-	if(en == NULL)
+	if(en == nullptr)
 		return;
 	pPlayer->SafeTeleport(530, 0, -2723.674561f, 1952.664673f, 146.939743f, 3.185559f);
 }
@@ -397,11 +397,11 @@ void InvasionPointCataclysm(Player * pPlayer, uint32 AreaTrigger)
 void Scratches(Player * pPlayer, uint32 AreaTrigger)
 {
 	QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(10556);
-	if(qle == NULL)
+	if(qle == nullptr)
 		return;
 
 	Creature *  Kaliri = pPlayer->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(pPlayer->GetPositionX(), pPlayer->GetPositionY(), pPlayer->GetPositionZ(), 21468);
-	if(Kaliri == NULL)
+	if(Kaliri == nullptr)
 		return;
 
 	Kaliri->Despawn(0, 0);

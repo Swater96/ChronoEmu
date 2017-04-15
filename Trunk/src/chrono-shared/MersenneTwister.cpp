@@ -28,7 +28,7 @@ uint32 counter=0;
 uint32 generate_seed()
 {
 	uint32 mstime = getMSTime();
-	uint32 stime = (uint32)time(NULL);
+	uint32 stime = (uint32)time(nullptr);
 	uint32 rnd[2];
 	rnd[0] = rand()*rand()*rand();
 	rnd[1] = rand()*rand()*rand();

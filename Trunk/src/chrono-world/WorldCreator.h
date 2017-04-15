@@ -112,7 +112,7 @@ public:
 	CHRONO_INLINE Map* GetMap(uint32 mapid)
 	{
 		if(mapid>NUM_MAPS)
-			return NULL;
+			return nullptr;
 		else
 			return m_maps[mapid];
 	}

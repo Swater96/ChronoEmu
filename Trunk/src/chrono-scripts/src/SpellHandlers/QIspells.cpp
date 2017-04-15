@@ -10,7 +10,7 @@
 
 bool NixxsPledgeOfSecrecy(uint32 i, Spell * pSpell)
 {
-	if ( pSpell == NULL || pSpell->u_caster == NULL || !pSpell->u_caster->IsPlayer() )
+	if ( pSpell == nullptr || pSpell->u_caster == nullptr || !pSpell->u_caster->IsPlayer() )
 		return true;
     
 	Player * pPlayer = TO_PLAYER( pSpell->u_caster );
@@ -21,12 +21,12 @@ bool NixxsPledgeOfSecrecy(uint32 i, Spell * pSpell)
 
 bool SummonCyclonian(uint32 i, Spell * pSpell)
 {
-	if ( pSpell == NULL || pSpell->u_caster == NULL )
+	if ( pSpell == nullptr || pSpell->u_caster == nullptr )
 		return true;
     
 	Unit * pUnit = pSpell->u_caster;
 	Creature * pCreature = pUnit->GetMapMgr()->GetInterface()->SpawnCreature( 6239, pUnit->GetPositionX(), pUnit->GetPositionY(), pUnit->GetPositionZ(), pUnit->GetOrientation(), true, false, 0, 0 );
-	if ( pCreature != NULL )
+	if ( pCreature != nullptr )
 	{
 		pCreature->Despawn( 600000, 0 );
 	}
@@ -36,12 +36,12 @@ bool SummonCyclonian(uint32 i, Spell * pSpell)
 
 bool AwakenPeon(uint32 i, Spell * pSpell)
 {
-	if ( pSpell == NULL || pSpell->p_caster == NULL )
+	if ( pSpell == nullptr || pSpell->p_caster == nullptr )
 		return true;
 
 	Player * pPlayer = pSpell->p_caster;
 	Unit * pUnit = pSpell->GetUnitTarget();
-	if ( pUnit == NULL || !pUnit->IsCreature() )
+	if ( pUnit == nullptr || !pUnit->IsCreature() )
 		return true;
 
 	Creature * pTarget = TO_CREATURE( pUnit );
@@ -123,14 +123,14 @@ bool SpragglesCanteen(uint32 i, Spell * pSpell) // Quest: Lost!
   Player * pPlayer = TO_PLAYER(pSpell->u_caster);
   
   Creature * target = pPlayer->GetMapMgr()->GetCreature( GET_LOWGUID_PART( pPlayer->GetSelection() ) );
-  if(target == NULL)
+  if(target == nullptr)
     return true;
 
   if(target->GetEntry() != 9999)
     return true;
 
   QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(4492);
-  if(qle == NULL)
+  if(qle == nullptr)
     return true;
 
   target->SetStandState(0);
@@ -155,10 +155,10 @@ bool AllAlongtheWatchtowers(uint32 i, Spell * pSpell)
 		return true;
 
 	QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(5097);
-	if(qle == NULL)
+	if(qle == nullptr)
 	{
 		qle = pPlayer->GetQuestLogForEntry(5098);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return true;
 	}
 
@@ -167,7 +167,7 @@ bool AllAlongtheWatchtowers(uint32 i, Spell * pSpell)
 	GameObject * tower3 = pPlayer->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(1481, -1414, 67, 300030);
 	GameObject * tower4 = pPlayer->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(1557, -1470, 68, 300030);
 
-	if(tower1 != NULL)
+	if(tower1 != nullptr)
 	{
 		if(pPlayer->CalcDistance(pPlayer, tower1) < 30)
 		if(qle->GetMobCount(0) < qle->GetQuest()->required_mobcount[0])
@@ -177,7 +177,7 @@ bool AllAlongtheWatchtowers(uint32 i, Spell * pSpell)
 			qle->UpdatePlayerFields();
 		}
 	}
-	if(tower2 != NULL)
+	if(tower2 != nullptr)
 	{
 		if(pPlayer->CalcDistance(pPlayer, tower2) < 30)
 		if(qle->GetMobCount(1) < qle->GetQuest()->required_mobcount[1])
@@ -187,7 +187,7 @@ bool AllAlongtheWatchtowers(uint32 i, Spell * pSpell)
 			qle->UpdatePlayerFields();
 		}
 	}
-	if(tower3 != NULL)
+	if(tower3 != nullptr)
 	{
 		if(pPlayer->CalcDistance(pPlayer, tower3) < 30)
 		if(qle->GetMobCount(2) < qle->GetQuest()->required_mobcount[2])
@@ -197,7 +197,7 @@ bool AllAlongtheWatchtowers(uint32 i, Spell * pSpell)
 			qle->UpdatePlayerFields();
 		}
 	}
-	if(tower4 != NULL)
+	if(tower4 != nullptr)
 	{
 		if(pPlayer->CalcDistance(pPlayer, tower4) < 30)
 		if(qle->GetMobCount(3) < qle->GetQuest()->required_mobcount[3])
@@ -220,7 +220,7 @@ bool YennikuRelease(uint32 i, Spell * pSpell)
     	return true;
 
   	QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(592);
-  	if(qle == NULL)
+  	if(qle == nullptr)
     	return true;
   
   	Creature * yenniku = TO_CREATURE(pSpell->GetUnitTarget());
@@ -244,13 +244,13 @@ bool ScrollOfMyzrael(uint32 i, Spell * pSpell)
     return true;
 
   QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(656);
-  if(qle == NULL)
+  if(qle == nullptr)
     return true;
 
-  const float MyzraelPos[] = {-940.7374, -3111.1953, 48.9566, 3.327};
+  const float MyzraelPos[] = {-940.7374f, -3111.1953f, 48.9566f, 3.327f};
 
   Creature * myzrael = pPlayer->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(MyzraelPos[0], MyzraelPos[1], MyzraelPos[2], 2755);
-  if(myzrael != NULL)
+  if(myzrael != nullptr)
   {
     if(!myzrael->isAlive())
       myzrael->Delete();
@@ -272,7 +272,7 @@ bool TheBaitforLarkorwi1(uint32 i, Spell * pSpell)
     		return true;
 
   	QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(4292);
-  	if(qle == NULL)
+  	if(qle == nullptr)
     		return true;
   
 	GameObject * obj = NULLGOB;
@@ -293,7 +293,7 @@ bool TheBaitforLarkorwi2(uint32 i, Spell * pSpell)
     		return true;
 
   	QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(4292);
-  	if(qle == NULL)
+  	if(qle == nullptr)
     		return true;
   
 	Creature * larkowi = sEAS.SpawnCreature(pPlayer, 9684, pPlayer->GetPositionX()+2, pPlayer->GetPositionY()+3, pPlayer->GetPositionZ(), pPlayer->GetOrientation(), 0);
@@ -311,15 +311,15 @@ bool ZappedGiants(uint32 i, Spell * pSpell)
     return true;
 
   QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(7003);
-  if(qle == NULL)
+  if(qle == nullptr)
   {
 	  QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(7725);
-	  if(qle == NULL)
+	  if(qle == nullptr)
 		  return true;
   }
 
   Creature * creat = TO_CREATURE(pSpell->GetUnitTarget());
-  if (creat == NULL)
+  if (creat == nullptr)
   	return true;
 
   float X = creat->GetPositionX();

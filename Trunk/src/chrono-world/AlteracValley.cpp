@@ -347,7 +347,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			12050,		12053 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		5,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		0,
+		5,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		0,
 
 		//	world state fields
 		0,
@@ -379,7 +379,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			12050,		12053 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		5,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		0,
+		5,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		0,
 
 		//	world state fields
 		0,
@@ -411,7 +411,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			12050,		12053 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		5,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		0,
+		5,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		0,
 
 		//	world state fields
 		0,
@@ -443,7 +443,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			12050,		12053 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		5,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		0,
+		5,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		0,
 
 		//	world state fields
 		WORLDSTATE_AV_SNOWFALL_GRAVE_NEUTRAL_CONTROLLED,
@@ -475,7 +475,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			0,			0 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		0,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		0,
+		0,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		0,
 
 		//	world state fields
 		WORLDSTATE_AV_COLDTOOTH_MINE_KOBOLD_CONTROLLED,
@@ -507,7 +507,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			0,			0 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		0,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		0,
+		0,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		0,
 
 		//	world state fields
 		WORLDSTATE_AV_IRONDEEP_MINE_TROGG_CONTROLLED,
@@ -539,7 +539,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			12050,		12053 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		5,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		0,
+		5,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		0,
 
 		//	world state fields
 		0,
@@ -571,7 +571,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			12050,		12053 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		5,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		0,
+		5,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		0,
 
 		//	world state fields
 		0,
@@ -603,7 +603,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			12050,		12053 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		5,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		0,
+		5,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		0,
 
 		//	world state fields
 		0,
@@ -635,7 +635,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			0,			0 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		0,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		13358,
+		0,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		13358,
 
 		//	world state fields
 		0,
@@ -667,7 +667,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			0,			0 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		0,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		13358,
+		0,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		13358,
 
 		//	world state fields
 		0,
@@ -699,7 +699,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			0,			0 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		0,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		13358,
+		0,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		13358,
 
 		//	world state fields
 		0,
@@ -731,7 +731,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			0,			0 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		0,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		13358,
+		0,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		13358,
 
 		//	world state fields
 		0,
@@ -763,7 +763,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			0,			0 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		0,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		13359,
+		0,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		13359,
 
 		//	world state fields
 		0,
@@ -795,7 +795,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			0,			0 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		0,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		13359,
+		0,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		13359,
 
 		//	world state fields
 		0,
@@ -827,7 +827,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			0,			0 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		0,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		13359,
+		0,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		13359,
 
 		//	world state fields
 		0,
@@ -859,7 +859,7 @@ static AVNodeTemplate g_nodeTemplates[AV_NUM_CONTROL_POINTS] = {
 		{				0,			0,			0 },
 
 		//	guard count,		boss ids					peon locations		boss location				fire locations
-		0,						{ 0, 0, 0 },				NULL,				{ 0.0f, 0.0f, 0.0f },		13359,
+		0,						{ 0, 0, 0 },				nullptr,				{ 0.0f, 0.0f, 0.0f },		13359,
 
 		//	world state fields
 		0,
@@ -900,15 +900,15 @@ static const char *g_stateNames[AV_NODE_STATE_COUNT] = {
 
 AVNode::AVNode(AlteracValley &parent, AVNodeTemplate *tmpl, uint32 nodeid) : m_bg(parent), m_template(tmpl), m_nodeId(nodeid)
 {
-	m_boss = NULL;
-	m_flag = NULL;
-	m_aura = NULL;
-	m_glow = NULL;
+	m_boss = nullptr;
+	m_flag = nullptr;
+	m_aura = nullptr;
+	m_glow = nullptr;
 	m_state = tmpl->m_defaultState;
 	m_lastState = tmpl->m_defaultState;
 	m_destroyed = false;
-	m_homeNPC = NULL;
-	m_spiritGuide = NULL;
+	m_homeNPC = nullptr;
+	m_spiritGuide = nullptr;
 
 	// set state
 	ChangeState(m_state);
@@ -1017,11 +1017,11 @@ void AVNode::Spawn()
 	if( m_template->m_flagLocation.id[m_state] == 0 )
 	{
 		// no flag should be spawned, despawn if one exists
-		if( m_flag != NULL )
+		if( m_flag != nullptr)
 		{
 			DEBUG_LOG("AVNode::Spawn(%s) : Despawning main flag", m_template->m_name);
 			m_flag->Despawn(0);
-			m_flag = NULL;
+			m_flag = nullptr;
 		}
 	}
 	else
@@ -1029,7 +1029,7 @@ void AVNode::Spawn()
 		// spawn the flag.
 		const AVGameObject *g = &m_template->m_flagLocation;
 		DEBUG_LOG("AVNode::Spawn(%s) : Spawning main flag", m_template->m_name);
-		if( m_flag == NULL )
+		if( m_flag == nullptr)
 		{
 			// initial spawn
 			m_flag = m_bg.SpawnGameObject(g->id[m_state], g->x, g->y, g->z, g->o, 0, 0, 1.0f);
@@ -1063,11 +1063,11 @@ void AVNode::Spawn()
 	if( m_template->m_auraLocation.id[m_state] == 0 )
 	{
 		// no flag should be spawned, despawn if one exists
-		if( m_aura != NULL )
+		if( m_aura != nullptr )
 		{
 			DEBUG_LOG("AVNode::Spawn(%s) : Despawning secondary flag", m_template->m_name);
 			m_aura->Despawn(0);
-			m_aura = NULL;
+			m_aura = nullptr;
 		}
 	}
 	else
@@ -1075,7 +1075,7 @@ void AVNode::Spawn()
 		// spawn the flag.
 		const AVGameObject *g = &m_template->m_auraLocation;
 		DEBUG_LOG("AVNode::Spawn(%s) : Spawning secondary flag", m_template->m_name);
-		if( m_aura == NULL )
+		if( m_aura == nullptr )
 		{
 			// initial spawn
 			m_aura = m_bg.SpawnGameObject(g->id[m_state], g->x, g->y, g->z, g->o, 0, 0, 3.0f);
@@ -1110,11 +1110,11 @@ void AVNode::Spawn()
 	if( m_template->m_glowLocation.id[m_state] == 0 )
 	{
 		// no flag should be spawned, despawn if one exists
-		if( m_glow != NULL )
+		if( m_glow != nullptr )
 		{
 			DEBUG_LOG("AVNode::Spawn(%s) : Despawning glow", m_template->m_name);
 			m_glow->Despawn(0);
-			m_glow = NULL;
+			m_glow = nullptr;
 		}
 	}
 	else
@@ -1122,7 +1122,7 @@ void AVNode::Spawn()
 		// spawn the flag.
 		const AVGameObject *g = &m_template->m_glowLocation;
 		DEBUG_LOG("AVNode::Spawn(%s) : Spawning glow", m_template->m_name);
-		if( m_glow == NULL )
+		if( m_glow == nullptr )
 		{
 			// initial spawn
 			m_glow = m_bg.SpawnGameObject(g->id[m_state], g->x, g->y, g->z, g->o, 0, 0, 1.0f);
@@ -1212,7 +1212,7 @@ void AVNode::Spawn()
 	if( m_template->m_isGraveyard )
 	{
 		// should one be spawned
-		if( m_spiritGuide != NULL )
+		if( m_spiritGuide != nullptr )
 		{
 			DEBUG_LOG("AVNode::Spawn(%s) : despawning spirit guide", m_template->m_name);
 			// move everyone in the revive queue to a different node
@@ -1223,7 +1223,7 @@ void AVNode::Spawn()
 				{
 					// repop him at a new GY
 					Player *plr_tmp = m_bg.GetMapMgr()->GetPlayer(*it2);
-					if( plr_tmp != NULL )
+					if( plr_tmp != nullptr )
 					{
 						m_bg.HookHandleRepop(plr_tmp);
 						m_bg.QueueAtNearestSpiritGuide(plr_tmp, m_spiritGuide);
@@ -1233,7 +1233,7 @@ void AVNode::Spawn()
 			}
 			m_bg.RemoveSpiritGuide(m_spiritGuide);
 			m_spiritGuide->Despawn(0, 0);
-			m_spiritGuide = NULL;
+			m_spiritGuide = nullptr;
 		}
 
 		if( m_state == AV_NODE_STATE_ALLIANCE_CONTROLLED )
@@ -1309,7 +1309,7 @@ void AVNode::Capture()
 			}
 
 			// disable the flag
-			if( m_flag != NULL )
+			if( m_flag != nullptr )
 			{
 				m_flag->SetUInt32Value(GAMEOBJECT_FLAGS, GO_FLAG_IN_USE);
 				m_flag->SetUInt32Value(GAMEOBJECT_DYN_FLAGS, 0);
@@ -1332,7 +1332,7 @@ void AVNode::Capture()
 			}
 
 			// the npc at our home has to change.
-			if( m_homeNPC != NULL )
+			if( m_homeNPC != nullptr )
 				m_homeNPC->Despawn(0, 0);
 
 			// respawn if we have one
@@ -1634,7 +1634,7 @@ void AlteracValley::HookOnUnitKill(Player * plr, Unit * pVictim)
 		Creature *toDespawn;
 		for(uint32 i = 0; i < AV_NUM_COLDTOOTH_UNITS; ++i)
 		{
-			if( m_coldToothUnits[i] != 0 && (toDespawn = m_mapMgr->GetCreature(m_coldToothUnits[i])) != NULL )
+			if( m_coldToothUnits[i] != 0 && (toDespawn = m_mapMgr->GetCreature(m_coldToothUnits[i])) != nullptr )
 				toDespawn->Despawn(0, 0);
 		}
 
@@ -1649,7 +1649,7 @@ void AlteracValley::HookOnUnitKill(Player * plr, Unit * pVictim)
 		Creature *toDespawn;
 		for(uint32 i = 0; i < AV_NUM_IRONDEEP_UNITS; ++i)
 		{
-			if( m_ironDeepUnits[i] != 0 && (toDespawn = m_mapMgr->GetCreature(m_ironDeepUnits[i])) != NULL )
+			if( m_ironDeepUnits[i] != 0 && (toDespawn = m_mapMgr->GetCreature(m_ironDeepUnits[i])) != nullptr )
 				toDespawn->Despawn(0, 0);
 		}
 	}*/
@@ -1732,7 +1732,7 @@ void AlteracValley::HookGenerateLoot(Player *plr, Corpse *pCorpse)
 			{
 				__LootItem li;
 				ItemPrototype *pProto = ItemPrototypeStorage.LookupEntry(loot_ptr->ItemId);
-				if( pProto != NULL )
+				if( pProto != nullptr )
 				{
 					li.ffa_loot = 0;
 					li.item.displayid = pProto->DisplayInfoID;
@@ -1742,9 +1742,9 @@ void AlteracValley::HookGenerateLoot(Player *plr, Corpse *pCorpse)
 					else
 						li.iItemsCount = loot_ptr->MinCount;
 
-					li.iRandomProperty = NULL;
+					li.iRandomProperty = nullptr;
 					li.passed = false;
-					li.roll = NULL;
+					li.roll = nullptr;
 
 					// push to vector
 					pCorpse->m_loot.items.push_back(li);

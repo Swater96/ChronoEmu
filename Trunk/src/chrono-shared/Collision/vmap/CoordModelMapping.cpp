@@ -103,7 +103,7 @@ namespace VMAP
 
                 // this is ugly, but the format has no read delimiter and a space could be in the first part of the name
                 int nameStart = findPosChar(buffer, ' ', 2);// find the 2. space
-                if(nameStart > -1 && (iFilterMethod == NULL || (*iFilterMethod)(buffer)))
+                if(nameStart > -1 && (iFilterMethod == nullptr || (*iFilterMethod)(buffer)))
                 {
                     ++nameStart;
                                                             // find the 1. / (now a space only can be found at the end of the name)

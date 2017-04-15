@@ -75,10 +75,10 @@ namespace VMAP
     {
 		for(unsigned int i = 0; i < MAX_MAPS; ++i)
 		{
-			if( m_maps[i] != NULL )
+			if( m_maps[i] != nullptr )
 				delete m_maps[i];
 
-			m_maps[i] = NULL;
+			m_maps[i] = nullptr;
 		}
     }
 
@@ -254,7 +254,7 @@ namespace VMAP
 			dirFileName = getDirFileName( pMapId );
 
 		MapTree* instanceTree = m_maps[pMapId];
-		if( instanceTree == NULL )
+		if( instanceTree == nullptr )
 		{
 			instanceTree = new MapTree( pBasePath );
 			m_maps[pMapId] = instanceTree;
@@ -266,7 +266,7 @@ namespace VMAP
 		{
 			if(instanceTree->size() == 0)
 			{
-				m_maps[pMapId] = NULL;
+				m_maps[pMapId] = nullptr;
 				delete instanceTree;
 			}
 		}
@@ -278,7 +278,7 @@ namespace VMAP
 
     void VMapManager::unloadMap(unsigned int pMapId, int x, int y)
     {
-		if( m_maps[pMapId] != NULL )
+		if( m_maps[pMapId] != nullptr )
 		{
 			MapTree * instanceTree = m_maps[pMapId];
 			std::string dirFileName;
@@ -292,7 +292,7 @@ namespace VMAP
 			instanceTree->unloadMap(dirFileName, mapTileIdent);
 			if(instanceTree->size() == 0)
 			{
-				m_maps[ pMapId ] = NULL;
+				m_maps[ pMapId ] = nullptr;
 				delete instanceTree;
 			}
 		}
@@ -302,14 +302,14 @@ namespace VMAP
 
     void VMapManager::unloadMap(unsigned int pMapId)
     {
-		if( m_maps[pMapId] != NULL )
+		if( m_maps[pMapId] != nullptr )
         {
             MapTree* instanceTree = m_maps[ pMapId ];
             std::string dirFileName = getDirFileName(pMapId);
             instanceTree->unloadMap(dirFileName, 0);
             if(instanceTree->size() == 0)
             {
-				m_maps[pMapId]=NULL;
+				m_maps[pMapId]=nullptr;
                 delete instanceTree;
             }
         }
@@ -319,7 +319,7 @@ namespace VMAP
     bool VMapManager::isInLineOfSight(unsigned int pMapId, float x1, float y1, float z1, float x2, float y2, float z2)
     {
         bool result = true;
-		if( m_maps[pMapId] != NULL )
+		if( m_maps[pMapId] != nullptr )
         {
             Vector3 pos1 = convertPositionToInternalRep(x1,y1,z1);
             Vector3 pos2 = convertPositionToInternalRep(x2,y2,z2);
@@ -335,7 +335,7 @@ namespace VMAP
 	bool VMapManager::isInLineOfSight(unsigned int pMapId, LocationVector & v1, LocationVector & v2)
 	{
 		bool result = true;
-		if( m_maps[pMapId] != NULL )
+		if( m_maps[pMapId] != nullptr )
 		{
 			Vector3 pos1 = convertPositionToInternalRepMod(v1);
 			Vector3 pos2 = convertPositionToInternalRepMod(v2);
@@ -351,7 +351,7 @@ namespace VMAP
 	bool VMapManager::isInDoors(unsigned int mapid, float x, float y, float z)
 	{
 		bool result = false;
-		if( m_maps[mapid] != NULL )
+		if( m_maps[mapid] != nullptr )
 		{
 			Vector3 pos = convertPositionToInternalRep(x,y,z);
 			MapTree* mapTree = m_maps[mapid];
@@ -363,7 +363,7 @@ namespace VMAP
 	bool VMapManager::isInDoors(unsigned int mapid, LocationVector & vec)
 	{
 		bool result = false;
-		if( m_maps[mapid] != NULL )
+		if( m_maps[mapid] != nullptr )
 		{
 			Vector3 pos = convertPositionToInternalRepMod(vec);
 			MapTree* mapTree = m_maps[mapid];
@@ -375,7 +375,7 @@ namespace VMAP
 	bool VMapManager::isOutDoors(unsigned int mapid, float x, float y, float z)
 	{
 		bool result = false;
-		if( m_maps[mapid] != NULL )
+		if( m_maps[mapid] != nullptr )
 		{
 			Vector3 pos = convertPositionToInternalRep(x,y,z);
 			MapTree* mapTree = m_maps[mapid];
@@ -387,7 +387,7 @@ namespace VMAP
 	bool VMapManager::isOutDoors(unsigned int mapid, LocationVector & vec)
 	{
 		bool result = false;
-		if( m_maps[mapid] != NULL )
+		if( m_maps[mapid] != nullptr )
 		{
 			Vector3 pos = convertPositionToInternalRepMod(vec);
 			MapTree* mapTree = m_maps[mapid];
@@ -408,7 +408,7 @@ namespace VMAP
         rx=x2;
         ry=y2;
         rz=z2;
-		if( m_maps[pMapId] != NULL )
+		if( m_maps[pMapId] != nullptr )
 		{
                 Vector3 pos1 = convertPositionToInternalRep(x1,y1,z1);
                 Vector3 pos2 = convertPositionToInternalRep(x2,y2,z2);
@@ -427,7 +427,7 @@ namespace VMAP
 	{
 		bool result = false;
 		vout = v2;
-		if( m_maps[pMapId] != NULL )
+		if( m_maps[pMapId] != nullptr )
 		{
 			Vector3 pos1 = convertPositionToInternalRepMod(v1);
 			Vector3 pos2 = convertPositionToInternalRepMod(v2);
@@ -448,7 +448,7 @@ namespace VMAP
     float VMapManager::getHeight(unsigned int pMapId, float x, float y, float z)
     {
         float height = VMAP_INVALID_HEIGHT;                 //no height
-		if( m_maps[pMapId] != NULL )
+		if( m_maps[pMapId] != nullptr )
 		{
             Vector3 pos = convertPositionToInternalRep(x,y,z);
             height = m_maps[pMapId]->getHeight(pos);
@@ -462,7 +462,7 @@ namespace VMAP
 	float VMapManager::getHeight(unsigned int mapid, LocationVector & vec)
 	{
 		float height = VMAP_INVALID_HEIGHT;                 //no height
-		if( m_maps[mapid] != NULL )
+		if( m_maps[mapid] != nullptr )
 		{
 			Vector3 pos = convertPositionToInternalRepMod(vec);
 			height = m_maps[mapid]->getHeight(pos);

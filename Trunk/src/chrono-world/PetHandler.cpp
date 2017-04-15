@@ -65,7 +65,7 @@ void WorldSession::HandlePetAction(WorldPacket & recv_data)
 	if(!pPet || !pPet->isAlive())
 		return;
 
-	Unit *pTarget = NULL;
+	Unit *pTarget = nullptr;
 
 	if(action == PET_ACTION_SPELL || action == PET_ACTION_SPELL_1 || action == PET_ACTION_SPELL_2 || (action == PET_ACTION_ACTION && misc == PET_ACTION_ATTACK )) // >> target
 	{
@@ -101,7 +101,7 @@ void WorldSession::HandlePetAction(WorldPacket & recv_data)
 					pPet->GetAIInterface()->WipeHateList();
 
 					// Attack target with melee if the owner if we dont have spells - other wise cast. All done by AIInterface.
-					if(pPet->GetAIInterface()->getUnitToFollow() == NULL)
+					if(pPet->GetAIInterface()->getUnitToFollow() == nullptr)
 						pPet->GetAIInterface()->SetUnitToFollow(_player);
 
 					// EVENT_PET_ATTACK
@@ -125,7 +125,7 @@ void WorldSession::HandlePetAction(WorldPacket & recv_data)
 					pPet->GetAIInterface()->WipeHateList();
 
 					// Stop following the owner, and sit.
-					pPet->GetAIInterface()->SetUnitToFollow(NULL);
+					pPet->GetAIInterface()->SetUnitToFollow(nullptr);
 				}break;
 			case PET_ACTION_DISMISS:
 				{
@@ -202,7 +202,7 @@ void WorldSession::HandlePetAction(WorldPacket & recv_data)
 				case 19441:
 				case 19442:
 				case 19443:
-					targets.m_unitTarget = pPet->GetGUID(); // dono maybe it should be NULL;
+					targets.m_unitTarget = pPet->GetGUID(); // dono maybe it should be nullptr;
 					break;
 				default:
 					targets.m_unitTarget = (pTarget ? pTarget->GetGUID() : pPet->GetGUID());
@@ -366,7 +366,7 @@ void WorldSession::HandleBuyStableSlot(WorldPacket &recv_data)
 	if(!_player->IsInWorld() || _player->GetStableSlotCount() == 2) return;
 	uint8 scount = _player->GetStableSlotCount();
 	BankSlotPrice* bsp = dbcStableSlotPrices.LookupEntry(scount+1);
-	int32 cost = (bsp != NULL) ? bsp->Price : 99999999;
+	int32 cost = (bsp != nullptr) ? bsp->Price : 99999999;
 	if(cost > (int32)_player->GetUInt32Value(PLAYER_FIELD_COINAGE))
 		return;
 
@@ -400,7 +400,7 @@ void WorldSession::HandlePetSetActionOpcode(WorldPacket& recv_data)
 
 	Pet * pet = _player->GetSummon();
 	SpellEntry * spe = dbcSpell.LookupEntryForced( spell );
-	if( spe == NULL )
+	if( spe == nullptr )
 		return;
 
 	// do we have the spell? if not don't set it (exploit fix)
@@ -449,7 +449,7 @@ void WorldSession::HandlePetUnlearn(WorldPacket & recv_data)
 	recv_data >> guid;
 
 	Pet* pPet = _player->GetSummon();
-	if( pPet == NULL || pPet->GetGUID() != guid )
+	if( pPet == nullptr || pPet->GetGUID() != guid )
 	{
 		sChatHandler.SystemMessage(this, "That pet is not your current pet, or you do not have a pet.");
 		return;

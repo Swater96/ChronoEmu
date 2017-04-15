@@ -308,7 +308,7 @@ public:
 	WayPoint* getWayPoint(uint32 wpid);
 	void deleteWayPoint(uint32 wpid);
 	void deleteWaypoints();
-	CHRONO_INLINE bool hasWaypoints() { return m_waypoints!=NULL; }
+	CHRONO_INLINE bool hasWaypoints() { return m_waypoints!=nullptr; }
 	CHRONO_INLINE void setMoveType(uint32 movetype) { m_moveType = movetype; }
 	CHRONO_INLINE uint32 getMoveType() { return m_moveType; }
 	CHRONO_INLINE void setMoveRunFlag(bool f) { m_moveRun = f; }

@@ -190,9 +190,9 @@ char *ext;
 		{
 			ext = strrchr(list[filecount]->d_name, '.');
 #ifdef HAVE_DARWIN
-			if (ext != NULL && strstr(list[filecount]->d_name, ".0.dylib") == NULL && !strcmp(ext, ".dylib")) {
+			if (ext != nullptr && strstr(list[filecount]->d_name, ".0.dylib") == nullptr && !strcmp(ext, ".dylib")) {
 #else
-                        if (ext != NULL && !strcmp(ext, ".so")) {
+                        if (ext != nullptr && !strcmp(ext, ".so")) {
 #endif
 				string full_path = "../lib/" + string(list[filecount]->d_name);
 				SCRIPT_MODULE mod = dlopen(full_path.c_str(), RTLD_NOW);
@@ -303,7 +303,7 @@ void ScriptMgr::UnloadScripts()
 		(*itr)->Destroy();
 	_customgossipscripts.clear();
 	delete this->DefaultGossipScript;
-	this->DefaultGossipScript=NULL;
+	this->DefaultGossipScript=nullptr;
 
 	LibraryHandleMap::iterator itr = _handles.begin();
 	for(; itr != _handles.end(); ++itr)
@@ -370,7 +370,7 @@ void ScriptMgr::register_go_gossip_script(uint32 entry, GossipScript * gs)
 void ScriptMgr::register_quest_script(uint32 entry, QuestScript * qs)
 {
 	Quest * q = QuestStorage.LookupEntry( entry );
-	if( q != NULL )
+	if( q != nullptr )
 		q->pQuestScript = qs;
 
 	_questscripts.insert( qs );
@@ -385,7 +385,7 @@ CreatureAIScript* ScriptMgr::CreateAIScriptClassForEntry(Creature* pCreature)
 {
 	CreatureCreateMap::iterator itr = _creatures.find(pCreature->GetEntry());
 	if(itr == _creatures.end())
-		return NULL;
+		return nullptr;
 
 	exp_create_creature_ai function_ptr = itr->second;
 	return (function_ptr)(pCreature);
@@ -395,7 +395,7 @@ GameObjectAIScript * ScriptMgr::CreateAIScriptClassForGameObject(uint32 uEntryId
 {
 	GameObjectCreateMap::iterator itr = _gameobjects.find(pGameObject->GetEntry());
 	if(itr == _gameobjects.end())
-		return NULL;
+		return nullptr;
 
 	exp_create_gameobject_ai function_ptr = itr->second;
 	return (function_ptr)(pGameObject);
@@ -405,7 +405,7 @@ InstanceScript* ScriptMgr::CreateScriptClassForInstance( uint32 pMapId, MapMgr* 
 {
 	InstanceCreateMap::iterator Iter = mInstances.find( pMapMgr->GetMapId() );
 	if ( Iter == mInstances.end() )
-		return NULL;
+		return nullptr;
 
 	exp_create_instance_ai function_ptr = Iter->second;
 	return ( function_ptr )( pMapMgr );
@@ -415,7 +415,7 @@ SpellScript * ScriptMgr::CreateAIScriptClassForSpell(uint32 uEntryId, Spell* pSp
 {
 	SpellCreateMap::iterator itr = _spellscripts.find(uEntryId);
 	if(itr == _spellscripts.end())
-		return NULL;
+		return nullptr;
 
 	exp_create_spell function_ptr = itr->second;
 	return (function_ptr)(pSpell);
@@ -541,7 +541,7 @@ void GossipScript::GossipHello(Object* pObject, Player* Plr, bool AutoSend)
 	if( flags & UNIT_NPC_FLAG_VENDOR && !pCreature->HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PLAYER_CONTROLLED_CREATURE))
 		Menu->AddItem(GOSSIP_ICON_GOSSIP_VENDOR, "I would like to browse your goods", 1);
 
-	if(pTrainer != NULL && (flags & UNIT_NPC_FLAG_TRAINER))
+	if(pTrainer != nullptr && (flags & UNIT_NPC_FLAG_TRAINER))
 	{
 		string name = pCreature->GetCreatureInfo()->Name;
 		string::size_type pos = name.find(" ");	  // only take first name
@@ -638,7 +638,7 @@ void GossipScript::GossipHello(Object* pObject, Player* Plr, bool AutoSend)
 	if( pTrainer &&
 			pTrainer->TrainerType == TRAINER_TYPE_PET &&	// pet trainer type
 			Plr->getClass() == HUNTER &&					// hunter class
-			Plr->GetSummon() != NULL )						// have pet
+			Plr->GetSummon() != nullptr )						// have pet
 		Menu->AddItem(GOSSIP_ICON_GOSSIP_NORMAL, "I would like to untrain my pet.", 13);
 
 	if(AutoSend)
@@ -985,8 +985,8 @@ SpellScript::SpellScript(Spell *pSpell)
 
 SpellScript::~SpellScript()
 {
-	_spell->m_spellScript = NULL;
-	_spell = NULL;
+	_spell->m_spellScript = nullptr;
+	_spell = nullptr;
 	sEventMgr.RemoveEvents(this);
 }
 
@@ -1021,7 +1021,7 @@ void SpellScript::RemoveRef(Aura* obj)
 {
 	if (Auras.find(obj) != Auras.end())
  	{
-		obj->m_spellScript = NULL;
+		obj->m_spellScript = nullptr;
 		Auras.erase(obj);
  	}
  
@@ -1033,7 +1033,7 @@ void SpellScript::RemoveRef(DynamicObject* obj)
 {
 	if (DynamicObjects.find(obj) != DynamicObjects.end())
 	{
-		obj->m_spellScript = NULL;
+		obj->m_spellScript = nullptr;
 		DynamicObjects.erase(obj);
 	}
 

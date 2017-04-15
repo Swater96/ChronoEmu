@@ -84,12 +84,12 @@ void WorldSession::HandleCreatureQueryOpcode( WorldPacket & recv_data )
 	else
 	{
 		ci = CreatureNameStorage.LookupEntry(entry);
-		if(ci == NULL)
+		if(ci == nullptr)
 			return;
 
-		LocalizedCreatureName * lcn = (language>0) ? sLocalizationMgr.GetLocalizedCreatureName(entry, language) : NULL;
+		LocalizedCreatureName * lcn = (language>0) ? sLocalizationMgr.GetLocalizedCreatureName(entry, language) : nullptr;
 
-		if(lcn == NULL)
+		if(lcn == nullptr)
 		{
 			sLog.outDetail("WORLD: CMSG_CREATURE_QUERY '%s'", ci->Name);
 			data << (uint32)entry;
@@ -141,10 +141,10 @@ void WorldSession::HandleGameObjectQueryOpcode( WorldPacket & recv_data )
 	sLog.outDetail("WORLD: CMSG_GAMEOBJECT_QUERY '%u'", entryID);
 
 	goinfo = GameObjectNameStorage.LookupEntry(entryID);
-	if(goinfo == NULL)
+	if(goinfo == nullptr)
 		return;
 
-	LocalizedGameObjectName * lgn = (language>0) ? sLocalizationMgr.GetLocalizedGameObjectName(entryID, language) : NULL;
+	LocalizedGameObjectName * lgn = (language>0) ? sLocalizationMgr.GetLocalizedGameObjectName(entryID, language) : nullptr;
     
 	data << entryID;
 	data << goinfo->Type;
@@ -248,7 +248,7 @@ void WorldSession::HandlePageTextQueryOpcode( WorldPacket & recv_data )
 		if(!page)
 			return;
 
-		LocalizedItemPage * lpi = (language>0) ? sLocalizationMgr.GetLocalizedItemPage(pageid,language):NULL;
+		LocalizedItemPage * lpi = (language>0) ? sLocalizationMgr.GetLocalizedItemPage(pageid,language):nullptr;
 		WorldPacket data(SMSG_PAGE_TEXT_QUERY_RESPONSE, 1000);
 		data << pageid;
 		if(lpi)
@@ -277,7 +277,7 @@ void WorldSession::HandleItemNameQueryOpcode( WorldPacket & recv_data )
 		reply << "Unknown Item";
 	else
 	{
-		LocalizedItem * li = (language>0) ? sLocalizationMgr.GetLocalizedItem(itemid, language) : NULL;
+		LocalizedItem * li = (language>0) ? sLocalizationMgr.GetLocalizedItem(itemid, language) : nullptr;
 		if(li)
 			reply << li->Name;
 		else

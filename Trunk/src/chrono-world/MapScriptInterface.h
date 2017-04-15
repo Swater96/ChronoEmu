@@ -41,7 +41,7 @@ public:
 	{
 		MapCell * pCell = mapMgr->GetCell(mapMgr->GetPosX(x), mapMgr->GetPosY(y));
 
-		if(pCell == NULL)
+		if(pCell == nullptr)
 			return CAST(T, NULLPLR);
 
 		Object* ClosestObject = NULLOBJ;

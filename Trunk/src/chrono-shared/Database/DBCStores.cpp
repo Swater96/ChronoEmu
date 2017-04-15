@@ -55,6 +55,7 @@ SERVER_DECL DBCStorage<DurabilityCostsEntry> dbcDurabilityCosts;
 SERVER_DECL DBCStorage<BankSlotPrice> dbcBankSlotPrices;
 SERVER_DECL DBCStorage<BankSlotPrice> dbcStableSlotPrices;
 SERVER_DECL DBCStorage<WorldMapOverlayEntry> dbcWorldMapOverlay;
+SERVER_DECL DBCStorage<WMOAreaTableEntry> dbcWMOArea;
 
 const char* AreaTriggerFormat = "uuffffffff";
 const char* ItemSetFormat = "usxxxxxxxxuuuuuuuuuxxxxxxxxuuuuuuuuuuuuuuuuuu";
@@ -63,7 +64,7 @@ const char* EmoteEntryFormat = "uxuuuuxuxuxxxxxxxxx";
 const char* skilllinespellFormat = "uuuxxxxxuuuuxxu";
 const char* EnchantEntrYFormat = "uuuuuuuuuuuuusxxxxxxxxuu";
 const char* skilllineentrYFormat = "uuusxxxxxxxxxxxxxxxxxx";
-
+const char* WMOAreaTableFormat = "niiixxxxxiixxxxxxxxx";
 const char* spellentryFormat = 
 "u"
 "u"
@@ -259,5 +260,6 @@ bool LoadDBCs()
 	LOAD_DBC("DBC/BankBagSlotPrices.dbc", bankslotpriceformat, true, dbcBankSlotPrices, false);
 	LOAD_DBC("DBC/StableSlotPrices.dbc", bankslotpriceformat, true, dbcStableSlotPrices, false);
 	LOAD_DBC("DBC/WorldMapOverlay.dbc", WorldMapOverlayfmt, true, dbcWorldMapOverlay, true);
+	LOAD_DBC("DBC/WMOAreaTable.dbc", WMOAreaTableFormat, true, dbcWMOArea, true);
 	return true;
 }

@@ -29,7 +29,7 @@ bool isHostile(Object* objA, Object* objB)// B is hostile for A?
 		return false;
 	bool hostile = false;
 
-	if(objB->m_faction == NULL || objA->m_faction == NULL)
+	if(objB->m_faction == nullptr || objA->m_faction == nullptr)
 		return true;
 
 	if(objA == objB)
@@ -91,7 +91,7 @@ bool isHostile(Object* objA, Object* objB)// B is hostile for A?
 #if defined(WIN32) && defined(HACKY_CRASH_FIXES)
 			__try {
 				// Check PvP Flags.
-				if( static_cast< Pet* >( objB )->GetPetOwner() != NULL && static_cast< Pet* >( objB )->GetPetOwner()->GetMapMgr() == objB->GetMapMgr() && static_cast< Pet* >( objB )->GetPetOwner()->IsPvPFlagged() )
+				if( static_cast< Pet* >( objB )->GetPetOwner() != nullptr && static_cast< Pet* >( objB )->GetPetOwner()->GetMapMgr() == objB->GetMapMgr() && static_cast< Pet* >( objB )->GetPetOwner()->IsPvPFlagged() )
 					return true;
 				else
 					return false;
@@ -102,7 +102,7 @@ bool isHostile(Object* objA, Object* objB)// B is hostile for A?
 			}
 #else
 			// Check PvP Flags.
-			if( static_cast< Pet* >( objB )->GetPetOwner() != NULL && static_cast< Pet* >( objB )->GetPetOwner()->GetMapMgr() == objB->GetMapMgr() && static_cast< Pet* >( objB )->GetPetOwner()->IsPvPFlagged() )
+			if( static_cast< Pet* >( objB )->GetPetOwner() != nullptr && static_cast< Pet* >( objB )->GetPetOwner()->GetMapMgr() == objB->GetMapMgr() && static_cast< Pet* >( objB )->GetPetOwner()->IsPvPFlagged() )
 				return true;
 			else
 				return false;
@@ -123,7 +123,7 @@ bool isHostile(Object* objA, Object* objB)// B is hostile for A?
 			hostile = TO_PLAYER( objB )->IsHostileBasedOnReputation( objA->m_factionDBC );
 	}
 
-	if( objA->IsPlayer() && objB->IsPlayer() && static_cast<Player*>(objA)->m_bg != NULL )
+	if( objA->IsPlayer() && objB->IsPlayer() && static_cast<Player*>(objA)->m_bg != nullptr )
 	{
 		if( static_cast<Player*>(objA)->m_bgTeam != static_cast<Player*>(objB)->m_bgTeam )
 			return true;
@@ -136,10 +136,10 @@ bool isHostile(Object* objA, Object* objB)// B is hostile for A?
 /// Including the spell class and the player class.
 bool isAttackable(Object* objA, Object* objB, bool CheckStealth)// A can attack B?
 {
-	if(!objA || !objB || objB->m_factionDBC == NULL || objA->m_factionDBC == NULL)
+	if(!objA || !objB || objB->m_factionDBC == nullptr || objA->m_factionDBC == nullptr)
 		return false;
 
-	if(objB->m_faction == NULL || objA->m_faction == NULL )
+	if(objB->m_faction == nullptr || objA->m_faction == nullptr )
 		return true;
 
 	if(objA == objB)
@@ -186,7 +186,7 @@ bool isAttackable(Object* objA, Object* objB, bool CheckStealth)// A can attack 
 
 		if(objA->HasFlag(PLAYER_FLAGS,PLAYER_FLAG_FREE_FOR_ALL_PVP) && objB->HasFlag(PLAYER_FLAGS,PLAYER_FLAG_FREE_FOR_ALL_PVP))
 		{
-			if( TO_PLAYER( objA )->m_bg != NULL )
+			if( TO_PLAYER( objA )->m_bg != nullptr )
 				if( TO_PLAYER( objA )->GetGroup() == TO_PLAYER( objB )->GetGroup() )
 					return false;
 
@@ -277,14 +277,14 @@ bool isAttackable(Object* objA, Object* objB, bool CheckStealth)// A can attack 
 	else if( objA->IsPlayer() )
 		atA = dbcArea.LookupEntry( TO_PLAYER( objA )->GetAreaID() );
 	else
-		atA = NULL;
+		atA = nullptr;
 
 	if( objB->IsPet() && static_cast< Pet* >( objB )->GetPetOwner() )
 		atB = dbcArea.LookupEntry( static_cast< Pet* >( objB )->GetPetOwner()->GetAreaID() );
 	else if( objB->IsPlayer() )
 		atB = dbcArea.LookupEntry( TO_PLAYER( objB )->GetAreaID() );
 	else
-		atB = NULL;
+		atB = nullptr;
 
 	// We have the area codes
 	// We know they aren't dueling
@@ -368,7 +368,7 @@ bool isAlliance(Object* objA)// A is alliance?
 {
 	FactionTemplateDBC * m_sw_faction = dbcFactionTemplate.LookupEntry(11);
 	FactionDBC * m_sw_factionDBC = dbcFaction.LookupEntry(72);
-	if(!objA || objA->m_factionDBC == NULL || objA->m_faction == NULL)
+	if(!objA || objA->m_factionDBC == nullptr || objA->m_faction == nullptr)
 		return true;
 
 	if(m_sw_faction == objA->m_faction || m_sw_factionDBC == objA->m_factionDBC)

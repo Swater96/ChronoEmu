@@ -48,7 +48,7 @@ public:
     float SSO = _unit->GetOrientation();
 
 	Creature * NewCreature = _unit->GetMapMgr()->GetInterface()->SpawnCreature(5895, SSX, SSY+1, SSZ, SSO, true, false, 0, 0);
-	if ( NewCreature != NULL )
+	if ( NewCreature != nullptr )
 		NewCreature->Despawn(600000, 0);
   }
 };
@@ -108,7 +108,7 @@ public:
 		if (mKiller->IsPlayer())
 		{
 			 Creature * NewCreature = _unit->GetMapMgr()->GetInterface()->SpawnCreature(7729, _unit->GetPositionX()+2, _unit->GetPositionY()+2, _unit->GetPositionZ(), _unit->GetOrientation(), true, false, 0, 0);
-			 if ( NewCreature != NULL )
+			 if ( NewCreature != nullptr )
 				NewCreature->Despawn(3*6*1000, 0);
 		}	
 	}
@@ -127,11 +127,11 @@ public:
 		     return;
 
 		Creature * NewCreature = _unit->GetMapMgr()->GetInterface()->SpawnCreature(9526, _unit->GetPositionX()+RandomFloat(5.0f), _unit->GetPositionY()+RandomFloat(5.0f), _unit->GetPositionZ(), _unit->GetOrientation(), true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(360000, 0);
 
 		NewCreature = _unit->GetMapMgr()->GetInterface()->SpawnCreature(9526, _unit->GetPositionX()-RandomFloat(5.0f), _unit->GetPositionY()-RandomFloat(5.0f), _unit->GetPositionZ(), _unit->GetOrientation(), true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(360000, 0);
 	}
 };
@@ -149,11 +149,11 @@ public:
 		     return;
 		
 		Creature * NewCreature = _unit->GetMapMgr()->GetInterface()->SpawnCreature(9527, _unit->GetPositionX()+RandomFloat(5.0f), _unit->GetPositionY()+RandomFloat(5.0f), _unit->GetPositionZ(), _unit->GetOrientation(), true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(360000, 0);
 
 		NewCreature = _unit->GetMapMgr()->GetInterface()->SpawnCreature(9527, _unit->GetPositionX()-RandomFloat(5.0f), _unit->GetPositionY()-RandomFloat(5.0f), _unit->GetPositionZ(), _unit->GetOrientation(), true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(360000, 0);
 	}
 };
@@ -170,11 +170,11 @@ public:
 		     return;
 
 		Creature * NewCreature = _unit->GetMapMgr()->GetInterface()->SpawnCreature(9297, _unit->GetPositionX()+RandomFloat(5.0f), _unit->GetPositionY()+RandomFloat(5.0f), _unit->GetPositionZ(), _unit->GetOrientation(), true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(360000, 0);
 
 		NewCreature = _unit->GetMapMgr()->GetInterface()->SpawnCreature(9297, _unit->GetPositionX()-RandomFloat(5.0f), _unit->GetPositionY()-RandomFloat(5.0f), _unit->GetPositionZ(), _unit->GetOrientation(), true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(360000, 0);
     }
 };
@@ -191,11 +191,11 @@ public:
 		     return;
 
 		Creature * NewCreature = _unit->GetMapMgr()->GetInterface()->SpawnCreature(9521, _unit->GetPositionX()+RandomFloat(5.0f), _unit->GetPositionY()+RandomFloat(5.0f), _unit->GetPositionZ(), _unit->GetOrientation(), true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(360000, 0);
 
 		_unit->GetMapMgr()->GetInterface()->SpawnCreature(9521, _unit->GetPositionX()-RandomFloat(5.0f), _unit->GetPositionY()-RandomFloat(5.0f), _unit->GetPositionZ(), _unit->GetOrientation(), true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(360000, 0);
 	}
 };

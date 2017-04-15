@@ -1,21 +1,6 @@
-/*
- * Chrono Emulator
- * Copyright (C) 2010 ChronoEmu Team <http://www.forsakengaming.com/>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
+//
+// Chrono Emu (C) 2016
+//
 
 #include "StdAfx.h"
 #define SWIMMING_TOLERANCE_LEVEL -0.08f
@@ -53,14 +38,14 @@ CHRONO_INLINE uint32 mTimeStamp()
 uint32 TimeStamp()
 {
 	struct timeval tp;
-	gettimeofday(&tp, NULL);
+	gettimeofday(&tp, nullptr);
 	return (tp.tv_sec * 1000) + (tp.tv_usec / 1000);
 }
 
 CHRONO_INLINE uint32 mTimeStamp()
 {
 	struct timeval tp;
-	gettimeofday(&tp, NULL);
+	gettimeofday(&tp, nullptr);
 	return (tp.tv_sec * 1000) + (tp.tv_usec / 1000);
 }
 
@@ -104,29 +89,13 @@ void WorldSession::HandleMoveTeleportAckOpcode( WorldPacket & recv_data )
 	recv_data >> guid;
 	if(guid == _player->GetGUID())
 	{
-		if(sWorld.antihack_teleport && !(HasGMPermissions() && sWorld.no_antihack_on_gm) && _player->GetPlayerStatus() != TRANSFER_PENDING)
-		{
-			/* we're obviously cheating */
-			sCheatLog.writefromsession(this, "Used teleport hack, disconnecting.");
-			Disconnect();
-			return;
-		}
-
-		if(sWorld.antihack_teleport && !(HasGMPermissions() && sWorld.no_antihack_on_gm) && _player->m_position.Distance2DSq(_player->m_sentTeleportPosition) > 625.0f)	/* 25.0f*25.0f */
-		{
-			/* cheating.... :( */
-			sCheatLog.writefromsession(this, "Used teleport hack {2}, disconnecting.");
-			Disconnect();
-			return;
-		}
-
 		sLog.outDebug( "WORLD: got MSG_MOVE_TELEPORT_ACK." );
 		GetPlayer()->SetPlayerStatus(NONE);
 		if( GetPlayer()->m_auracount[SPELL_AURA_MOD_ROOT] <= 0 )
 			GetPlayer()->SetMovement(MOVE_UNROOT,5);
 		_player->ResetHeartbeatCoords();
 
-		if(GetPlayer()->GetSummon() != NULL)		// move pet too
+		if(GetPlayer()->GetSummon() != nullptr)		// move pet too
 			GetPlayer()->GetSummon()->SetPosition((GetPlayer()->GetPositionX() + 2), (GetPlayer()->GetPositionY() + 2), GetPlayer()->GetPositionZ(), float(M_PI));
 		m_isFalling = false;	
 		if(_player->m_sentTeleportPosition.x != 999999.0f)
@@ -327,33 +296,8 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
 	movement_info.flags & MOVEFLAG_TURN_RIGHT ||
 	movement_info.flags & MOVEFLAG_WALK ||
 	movement_info.flags & MOVEFLAG_FALLING )
-		_player->m_isMoving = true;
-	
-	if( sWorld.antihack_cheatengine && _player->m_lastMovementPacketTimestamp != 0 && (int32)mstime - (int32)_player->m_lastMovementPacketTimestamp != 0)
-	{
-		int32 server_delta = (int32)mstime - (int32)_player->m_lastMovementPacketTimestamp;
-		int32 client_delta = (int32)movement_info.time - (int32)_player->m_lastMoveTime;
-		int32 diff = client_delta - server_delta;
-		//DEBUG_LOG("WorldSession","HandleMovementOpcodes: server delta=%u, client delta=%u", server_delta, client_delta);
-		int32 threshold = int32( World::m_CEThreshold ) + int32( _player->GetSession()->GetLatency() );
-		if( diff >= threshold )		// replace with threshold var
-		{
-			// client cheating with process speedup
-			if( _player->m_cheatEngineChances == 1 )
-			{
-				_player->SetMovement( MOVE_ROOT, 1 );
-				_player->BroadcastMessage( "Cheat engine detected. Please contact an admin with the below information if you believe this is a false detection." );
-				_player->BroadcastMessage( "You will be disconnected in 10 seconds." );
-				_player->BroadcastMessage( MSG_COLOR_WHITE"diff: %d server delta: %u client delta: %u\n", diff, server_delta, client_delta );
-				sEventMgr.AddEvent( _player, &Player::_Disconnect, EVENT_PLAYER_KICK, 10000, 1, 0 );
-				_player->m_cheatEngineChances = 0;
-				sCheatLog.writefromsession(this, "Cheat Engine detected. Diff: %d, Server Delta: %u, Client Delta: %u", diff, server_delta, client_delta );
-			}
-			else if (_player->m_cheatEngineChances > 0 )
-				_player->m_cheatEngineChances--;
-		}
-	}
-	
+	_player->m_isMoving = true;
+		
 	/************************************************************************/
 	/* Remove Emote State                                                   */
 	/************************************************************************/
@@ -395,123 +339,6 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
 	printf("Orientation: %.10f\n", movement_info.orientation);
 #endif
 
-	/************************************************************************/
-	/* Anti-Hack Checks                                                     */
-	/************************************************************************/
-	if( !(HasGMPermissions() && sWorld.no_antihack_on_gm) && !_player->m_uint32Values[UNIT_FIELD_CHARM] && !_player->m_heartbeatDisable)
-	{
-		/************************************************************************/
-		/* Anti-Teleport                                                        */
-		/************************************************************************/
-		if(sWorld.antihack_teleport && _player->m_position.Distance2DSq(movement_info.x, movement_info.y) > 5625.0f
-			&& _player->m_runSpeed < 50.0f && !_player->m_TransporterGUID)
-		{
-			sCheatLog.writefromsession(this, "Used teleport hack {3}, speed was %f", _player->m_runSpeed);
-			Disconnect();
-			return;
-		}
-	}
-
-	if( !(HasGMPermissions() && sWorld.no_antihack_on_gm) /*&& !sEventMgr.HasEvents(_player, EVENT_PLAYER_KICK)*/ && !_player->m_CurrentTransporter && !m_isFalling)
-	{
-		/* declarations  */
-
-		bool haxor = false;
-		float real_delta = (_player->GetPositionX() - movement_info.x) * (_player->GetPositionX() - movement_info.x) + (_player->GetPositionY() - movement_info.y) * (_player->GetPositionY() - movement_info.y);
-		float last_player_speed = _player->m_last_move_Speed;
-			
-		float time_delta = movement_info.time - _player->m_lastMoveTime;
-		float allowed_delta = (time_delta < 1500) ? time_delta/1000 : 1.5f;
-
-		/* getting right speed */
-
-		float player_speed = ( _player->flying_aura ) ? _player->m_flySpeed : _player->m_runSpeed;
-		if( _player->flying_aura ) //is this really needed
-		{
-			if( _player->m_runSpeed > _player->m_flySpeed )
-				player_speed = _player->m_runSpeed;
-		}
-
-		if( _player->m_swimSpeed > player_speed )
-			player_speed = _player->m_swimSpeed;
-
-		/* update for next packet */
-
-		_player->m_last_move_Speed = player_speed;
-
-		/* if use last speed if it was higher then our currect speed */
-
-		if(last_player_speed > player_speed)
-			player_speed = last_player_speed;
-
-		/* check if we're not speedhacking */
-		
-		allowed_delta = ((player_speed * time_delta) * (player_speed * time_delta) + World::m_speedHackLatencyMultiplier);
-
-        if (real_delta > allowed_delta)
-			haxor = true;
-			
-		if((movement_info.flags & MOVEFLAG_FALLING || movement_info.flags & MOVEFLAG_FALLING_FAR 
-			|| movement_info.flags & MOVEFLAG_FREE_FALLING)) // no checks here... =(
-				haxor = false;
-		
-		if(haxor)
-		{
-            // DETECTED!!!!
-			_player->BroadcastMessage( "Speed Hack detected. You will be disconnected in 10 seconds." );
-			_player->SetMovement( MOVE_ROOT, 1 );
-			sEventMgr.AddEvent( _player, &Player::_Disconnect, EVENT_PLAYER_KICK, 10000, 1, 0 );
-			return;
-        }
-	}
-
-	_player->m_lastMoveTime = movement_info.time;
-
-	//Water walk hack
-	if (movement_info.flags & MOVEFLAG_WATER_WALK && !_player->m_isWaterWalking
-		&& !(HasGMPermissions() && sWorld.no_antihack_on_gm)) // allow gms to water walk hack (.cheat waterwalk :P)
-	{
-		// No need to dc anyone here, just unset water walk and we're done
-		WorldPacket data( SMSG_MOVE_LAND_WALK, 12 );
-		data.SetOpcode( SMSG_MOVE_LAND_WALK );
-		data << _player->GetNewGUID();
-		data << uint32( 4 );
-		_player->GetSession()->SendPacket(&data);
-	}
-	// Flyhack check (#2) - doesn't require collision 8)
-	if(movement_info.flags & 0x2000000 && !(HasGMPermissions() && sWorld.no_antihack_on_gm)) 
-	{
-		bool haxor = false;
-		// This logic is easy, if we send MOVEFLAG_AIR_FLYING but don't have any flying auras -> gtfo!
-		if(!_player->flying_aura)
-			haxor = true;
-		
-		if((_player->GetShapeShift() == FORM_FLIGHT || _player->GetShapeShift() == FORM_SWIFT) // no droods flying in azeroth plox :X
-		&& _player->GetMapId() != 530 && _player->GetMapId() != 571 )
-			_player->RemoveShapeShiftSpell(_player->m_ShapeShifted);
-
-			
-		if(haxor == true && (movement_info.flags & MOVEFLAG_FALLING || movement_info.flags & MOVEFLAG_FALLING_FAR 
-			|| movement_info.flags & MOVEFLAG_FREE_FALLING))
-			haxor = false;
-			
-		if(_player->m_UnderwaterState && haxor) // We're swimming.
-			haxor = false;
-		
-		if(haxor)
-		{
-			if(!sEventMgr.HasEvent(_player, EVENT_PLAYER_KICK))
-			{
-				sCheatLog.writefromsession(this, "Used Flyhack, detected by Dvlpr's anti-flyhack (#2) - Disconnecting");
-				_player->BroadcastMessage( "Fly Hack detected. You attempted to fly without flying aura on." );
-				_player->BroadcastMessage( "You will be disconnected in 5 seconds." );
-			}
-			_player->SetMovement( MOVE_ROOT, 1 );
-			sEventMgr.AddEvent( _player, &Player::_Disconnect, EVENT_PLAYER_KICK, 5000, 1, 0 );
-			return;
-		}
-	}
-	
 	/************************************************************************/
 	/* Calculate the timestamp of the packet we have to send out            */
 	/************************************************************************/
@@ -557,7 +384,6 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
 	{
 		_player->blinked = false;
 		_player->m_fallDisabledUntil = UNIXTIME + 5;
-		_player->DelaySpeedHack( 5000 );
 	}
 	else
 	{
@@ -603,11 +429,6 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
 			_player->z_axisposition = 0.0f;
 		}
 		else
-			//whilst player is not falling, continuosly update Z axis position.
-			//once player lands this will be used to determine how far he fell.
-			if( _player->z_axisposition == 0.0f )
-				_player->DelaySpeedHack(20000);
-
 			if( !( movement_info.flags & MOVEFLAG_FALLING ) )
 				_player->z_axisposition = movement_info.z;
 	}
@@ -622,12 +443,11 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
 			if(_player->m_CurrentTransporter)
 			{
 				_player->m_CurrentTransporter->RemovePlayer(_player);
-				_player->m_CurrentTransporter = NULL;
+				_player->m_CurrentTransporter = nullptr;
 			}
 
 			_player->m_TransporterGUID = 0;
 			_player->ResetHeartbeatCoords();
-			_player->DelaySpeedHack(5000);
 		}
 		else if(movement_info.transGuid)
 		{
@@ -648,7 +468,6 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
 				_player->m_TransporterX = movement_info.transX;
 				_player->m_TransporterY = movement_info.transY;
 				_player->m_TransporterZ = movement_info.transZ;
-				_player->DelaySpeedHack(5000);
 			}
 			else
 			{
@@ -660,12 +479,6 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
 			}
 		}
 	}
-
-	/************************************************************************/
-	/* Anti-Speed Hack Checks                                               */
-	/************************************************************************/
-
-	
 
 	/************************************************************************/
 	/* Breathing System                                                     */
@@ -703,7 +516,6 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
 	{
 		if( _player->m_isMoving )
 		{
-			_player->_SpeedhackCheck();
 			_player->m_isMoving = false;
 			_player->m_startMoveTime = 0;
 		}
@@ -723,7 +535,6 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
 	{
 		_player->m_lastHeartbeatPosition.ChangeCoords(movement_info.x, movement_info.y, movement_info.z);
 		_player->m_startMoveTime = _player->m_lastMoveTime;
-		_player->m_cheatEngineChances = 2;
 	}
 }
 
@@ -738,7 +549,7 @@ void WorldSession::HandleMoveTimeSkippedOpcode( WorldPacket & recv_data )
 	recv_data >> time_dif;
 
 	// ignore updates for not us
-	if( _player == NULL || guid != _player->GetGUID() )
+	if( _player == nullptr || guid != _player->GetGUID() )
 		return;
 
 	// send to other players
@@ -827,7 +638,7 @@ void WorldSession::HandleTeleportToUnitOpcode(WorldPacket & recv_data)
 		return;
 	}
 
-	if( (target = _player->GetMapMgr()->GetUnit(_player->GetSelection())) == NULL )
+	if( (target = _player->GetMapMgr()->GetUnit(_player->GetSelection())) == nullptr )
 		return;
 
 	_player->SafeTeleport(_player->GetMapId(), _player->GetInstanceID(), target->GetPosition());

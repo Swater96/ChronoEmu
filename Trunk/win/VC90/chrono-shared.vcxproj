@@ -21,6 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{90297C34-F231-4DF4-848E-A74BCC0E40ED}</ProjectGuid>
     <RootNamespace>shared</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -70,6 +71,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.\chrono-shared___Win32_Release\</OutDir>
     <IntDir>.\chrono-shared___Win32_Release\</IntDir>
+    <TargetName>chrono-shared</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>.\chrono-shared___Win32_Debug\</OutDir>
@@ -115,7 +117,7 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Lib>
-      <OutputFile>$(IntDir)shared.lib</OutputFile>
+      <OutputFile>$(IntDir)chrono-shared.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <PostBuildEvent>
@@ -229,7 +231,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\chrono-shared\Auth\BigNumber.cpp" />
+    <ClCompile Include="..\..\src\chrono-shared\Auth\HMACSHA1.cpp" />
     <ClCompile Include="..\..\src\chrono-shared\Auth\MD5.cpp" />
+    <ClCompile Include="..\..\src\chrono-shared\Auth\SARC4.cpp" />
     <ClCompile Include="..\..\src\chrono-shared\Auth\Sha1.cpp" />
     <ClCompile Include="..\..\src\chrono-shared\Auth\WowCrypt.cpp" />
     <ClCompile Include="..\..\src\chrono-shared\BufferPool.cpp" />
@@ -283,8 +287,11 @@
     <ClInclude Include="..\..\src\chrono-shared\AuthCodes.h" />
     <ClInclude Include="..\..\src\chrono-shared\Auth\AuthPacketKey.h" />
     <ClInclude Include="..\..\src\chrono-shared\Auth\BigNumber.h" />
+    <ClInclude Include="..\..\src\chrono-shared\Auth\HMACSHA1.h" />
     <ClInclude Include="..\..\src\chrono-shared\Auth\MD5.h" />
+    <ClInclude Include="..\..\src\chrono-shared\Auth\SARC4.h" />
     <ClInclude Include="..\..\src\chrono-shared\Auth\Sha1.h" />
+    <ClInclude Include="..\..\src\chrono-shared\Auth\WardenKeyGeneration.h" />
     <ClInclude Include="..\..\src\chrono-shared\Auth\WowCrypt.h" />
     <ClInclude Include="..\..\src\chrono-shared\BufferPool.h" />
     <ClInclude Include="..\..\src\chrono-shared\ByteBuffer.h" />

@@ -71,7 +71,7 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -79,7 +79,7 @@ public:
 
 		Creature * Dashel = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 4961);
 
-		if(Dashel == NULL)
+		if(Dashel == nullptr)
 			return;
 		
 		Dashel->SetUInt32Value(UNIT_FIELD_FACTIONTEMPLATE, 72);
@@ -111,7 +111,7 @@ public:
 
 		Creature * Bartleby = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 6090);
 
-		if(Bartleby == NULL)
+		if(Bartleby == nullptr)
 			return;
 		
 		Bartleby->SetUInt32Value(UNIT_FIELD_FACTIONTEMPLATE, 72);

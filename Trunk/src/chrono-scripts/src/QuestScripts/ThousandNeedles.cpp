@@ -26,14 +26,14 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
 		float SSZ = mTarget->GetPositionZ();
 
 		Creature * creat = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 10427);
-		if(creat == NULL)
+		if(creat == nullptr)
 			return;
 		creat->m_escorter = mTarget;
 		creat->GetAIInterface()->setMoveType(11);
@@ -148,14 +148,14 @@ public:
 
 	void OnQuestComplete( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
 		float SSZ = mTarget->GetPositionZ();
 
 		Creature * creat = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 4452);
-		if(creat == NULL)
+		if(creat == nullptr)
 			return;
 
 		string msg = "Hahah! ";

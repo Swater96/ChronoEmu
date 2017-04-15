@@ -103,16 +103,16 @@ public:
 
 	TileMap()
 	{
-		m_areaMap = NULL;
+		m_areaMap = nullptr;
 		m_area = 0;
 		m_tileHeight = 0;
 		m_heightMapFlags = 0;
-		m_heightMap8F = NULL;
-		m_heightMap9F = NULL;
+		m_heightMap8F = nullptr;
+		m_heightMap9F = nullptr;
 		m_heightMapMult = 1;
 
-		m_liquidType = NULL;
-		m_liquidMap = NULL;
+		m_liquidType = nullptr;
+		m_liquidMap = nullptr;
 		m_liquidLevel = 0;
 		m_liquidOffX = 0;
 		m_liquidOffY = 0;
@@ -189,7 +189,7 @@ public:
 	{
 		for (int32 i = 0; i < TERRAIN_NUM_TILES; ++i)
 			for (int32 j = 0; j < TERRAIN_NUM_TILES; ++j)
-				m_tiles[i][j] = NULL;
+				m_tiles[i][j] = nullptr;
 		m_mapid = mapid;
 	}
 
@@ -204,10 +204,10 @@ public:
 	TerrainTile* GetTile(float x, float y);
 	TerrainTile* GetTile(int32 tx, int32 ty)
 	{
-		TerrainTile* rv = NULL;
+		TerrainTile* rv = nullptr;
 		m_lock[tx][ty].Acquire();
 		rv = m_tiles[tx][ty];
-		if (rv != NULL)
+		if (rv != nullptr)
 			rv->AddRef();
 		m_lock[tx][ty].Release();
 
@@ -224,7 +224,7 @@ public:
 	{
 		m_lock[tx][ty].Acquire();
 		++m_tilerefs[tx][ty];
-		if (m_tiles[tx][ty] == NULL)
+		if (m_tiles[tx][ty] == nullptr)
 		{
 			m_tiles[tx][ty] = new TerrainTile(this, m_mapid, tx, ty);
 			m_tiles[tx][ty]->Load();
@@ -241,7 +241,7 @@ public:
 	void UnloadTile(int32 tx, int32 ty)
 	{
 		m_lock[tx][ty].Acquire();
-		if (m_tiles[tx][ty] == NULL)
+		if (m_tiles[tx][ty] == nullptr)
 		{
 			m_lock[tx][ty].Release();
 			return;
@@ -251,9 +251,9 @@ public:
 		if (--m_tilerefs[tx][ty] == 0)
 		{
 			m_lock[tx][ty].Acquire();
-			if (m_tiles[tx][ty] != NULL)
+			if (m_tiles[tx][ty] != nullptr)
 				m_tiles[tx][ty]->DecRef();
-			m_tiles[tx][ty] = NULL;
+			m_tiles[tx][ty] = nullptr;
 			m_lock[tx][ty].Release();
 		}
 	}
@@ -263,7 +263,7 @@ public:
 	{
 		TerrainTile* tile = GetTile(x, y);
 
-		if (tile == NULL)
+		if (tile == nullptr)
 			return TERRAIN_INVALID_HEIGHT;
 		float rv = tile->m_map.GetHeight(x, y);
 		tile->DecRef();
@@ -274,7 +274,7 @@ public:
 	{
 		TerrainTile* tile = GetTile(x, y);
 
-		if (tile == NULL)
+		if (tile == nullptr)
 			return TERRAIN_INVALID_HEIGHT;
 		float rv = tile->m_map.GetLiquidHeight(x, y);
 		tile->DecRef();
@@ -285,7 +285,7 @@ public:
 	{
 		TerrainTile* tile = GetTile(x, y);
 
-		if (tile == NULL)
+		if (tile == nullptr)
 			return 0;
 		uint8 rv = tile->m_map.GetLiquidType(x, y);
 		tile->DecRef();
@@ -296,7 +296,7 @@ public:
 	{
 		TerrainTile* tile = GetTile(x, y);
 
-		if (tile == NULL)
+		if (tile == nullptr)
 			return 0;
 		uint32 rv = tile->m_map.GetArea(x, y);
 		tile->DecRef();

@@ -34,7 +34,7 @@ void WorldSession::HandleAddFriendOpcode( WorldPacket & recv_data )
 	recv_data >> name;
 	recv_data >> note;
 
-	_player->Social_AddFriend( name.c_str(), note.size() ? note.c_str() : NULL );
+	_player->Social_AddFriend( name.c_str(), note.size() ? note.c_str() : nullptr );
 }
 
 void WorldSession::HandleDelFriendOpcode( WorldPacket & recv_data )
@@ -73,5 +73,5 @@ void WorldSession::HandleSetFriendNote(WorldPacket & recv_data)
 	string note;
 
 	recv_data >> guid >> note;
-	_player->Social_SetNote( (uint32)guid, note.size() ? note.c_str() : NULL );
+	_player->Social_SetNote( (uint32)guid, note.size() ? note.c_str() : nullptr );
 }

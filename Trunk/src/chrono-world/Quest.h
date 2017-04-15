@@ -181,7 +181,7 @@ enum QUEST_MOB_TYPES
 };
 
 class QuestScript;
-#define CALL_QUESTSCRIPT_EVENT(obj, func) if(static_cast<QuestLogEntry*>(obj)->GetQuest()->pQuestScript != NULL) static_cast<QuestLogEntry*>(obj)->GetQuest()->pQuestScript->func
+#define CALL_QUESTSCRIPT_EVENT(obj, func) if(static_cast<QuestLogEntry*>(obj)->GetQuest()->pQuestScript != nullptr) static_cast<QuestLogEntry*>(obj)->GetQuest()->pQuestScript->func
 
 class SERVER_DECL QuestLogEntry : public EventableObject
 {

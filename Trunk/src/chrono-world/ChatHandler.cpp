@@ -181,7 +181,7 @@ void WorldSession::HandleMessagechatOpcode( WorldPacket & recv_data )
 			}
 
 			Group *pGroup = _player->GetGroup();
-			if(pGroup == NULL) break;
+			if(pGroup == nullptr) break;
 			
 			if(GetPlayer()->m_modlanguage >=0)
 				data=sChatHandler.FillMessageData( type, GetPlayer()->m_modlanguage,  msg.c_str(), _player->GetGUID(), _player->bGMTagOn ? 4 : 0 );
@@ -238,8 +238,26 @@ void WorldSession::HandleMessagechatOpcode( WorldPacket & recv_data )
 				return;
 			}
 
-			if(_player->m_playerInfo->guild)
-				_player->m_playerInfo->guild->GuildChat(msg.c_str(), this, lang);
+			if (GetPlayer()->IsInGuild())
+			{
+				Guild *pGuild = objmgr.GetGuild( GetPlayer()->GetGuildId() );
+				if(pGuild)
+				{
+					if(pGuild->HasRankRight(GetPlayer()->GetGuildRank(), GR_RIGHT_GCHATSPEAK))
+					{
+						pGuild->BroadCastToGuild(this, msg);
+					}
+					else
+					{
+                        
+						WorldPacket data2(SMSG_GUILD_COMMAND_RESULT, 8 + pGuild->GetGuildName().size() + 1);
+						data2 << uint32(GUILD_MEMBER_S);
+						data2 << pGuild->GetGuildName();
+						data2 << uint32(C_R_DONT_HAVE_PERMISSION);
+						SendPacket(&data2);
+					}
+				}
+			}
 
 			pMsg=msg.c_str();
 			pMisc=0;
@@ -257,8 +275,23 @@ void WorldSession::HandleMessagechatOpcode( WorldPacket & recv_data )
 				return;
 			}
 
-			if(_player->m_playerInfo->guild)
-				_player->m_playerInfo->guild->OfficerChat(msg.c_str(), this, lang);
+			if (GetPlayer()->IsInGuild())
+			{
+				Guild *pGuild = objmgr.GetGuild( GetPlayer()->GetGuildId() );
+				if(pGuild)
+				{
+					if(pGuild->HasRankRight(GetPlayer()->GetGuildRank(), GR_RIGHT_OFFCHATSPEAK))
+						pGuild->OfficerChannelChat(this, msg);
+					else
+					{
+						WorldPacket data2(SMSG_GUILD_COMMAND_RESULT, 8 + pGuild->GetGuildName().size() + 1);
+						data2 << uint32(GUILD_MEMBER_S);
+						data2 << pGuild->GetGuildName();
+						data2 << uint32(C_R_DONT_HAVE_PERMISSION);
+						SendPacket(&data2);
+					}
+				}
+			}
 
 			pMsg=msg.c_str();
 			pMisc=0;
@@ -391,7 +424,7 @@ void WorldSession::HandleMessagechatOpcode( WorldPacket & recv_data )
 
 			Channel *chn = channelmgr.GetChannel(channel.c_str(),GetPlayer()); 
 			if(chn) 
-				chn->Say(GetPlayer(),msg.c_str(), NULL, false);
+				chn->Say(GetPlayer(),msg.c_str(), nullptr, false);
 
 			//sLog.outString("[%s] %s: %s", channel.c_str(), _player->GetName(), msg.c_str());
 			pMsg=msg.c_str();

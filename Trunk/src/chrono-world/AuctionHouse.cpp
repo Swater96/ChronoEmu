@@ -477,9 +477,9 @@ void WorldSession::HandleAuctionSellItem( WorldPacket & recv_data )
 		return;
 	};
 
-	pItem->SetOwner(NULL);
+	pItem->SetOwner(nullptr);
 	pItem->m_isDirty = true;
-	pItem->SaveToDB(INVENTORY_SLOT_NOT_SET, 0, true, NULL);
+	pItem->SaveToDB(INVENTORY_SLOT_NOT_SET, 0, true, nullptr);
 
 	// Create auction
 	Auction * auct = new Auction;

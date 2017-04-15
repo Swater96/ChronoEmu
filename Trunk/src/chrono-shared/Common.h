@@ -374,7 +374,7 @@ Scripting system exports/imports
 
 #endif
 
-#define atol(a) strtoul( a, NULL, 10)
+#define atol(a) strtoul( a, nullptr, 10)
 
 #define STRINGIZE(a) #a
 
@@ -449,7 +449,7 @@ CHRONO_INLINE uint32 now()
 	return GetTickCount();
 #else
 	struct timeval tv;
-	gettimeofday(&tv, NULL);
+	gettimeofday(&tv, nullptr);
 	return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 #endif
 }

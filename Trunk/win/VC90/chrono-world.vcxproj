@@ -21,6 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1DC6C4DA-A028-41F3-877D-D5400C594F88}</ProjectGuid>
     <RootNamespace>game</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -75,6 +76,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.\..\..\bin\Release\</OutDir>
     <IntDir>.\chrono-world___Win32_Release\</IntDir>
+    <TargetName>chrono-world</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>.\..\..\bin\Debug_x64\</OutDir>
@@ -346,6 +348,7 @@
     <ClCompile Include="..\..\src\chrono-world\SpellEffects.cpp" />
     <ClCompile Include="..\..\src\chrono-world\SpellFixes.cpp" />
     <ClCompile Include="..\..\src\chrono-world\SpellHandler.cpp" />
+    <ClCompile Include="..\..\src\chrono-world\SpellSystem.cpp" />
     <ClCompile Include="..\..\src\chrono-world\SpellSystem\DruidSpellFixes.cpp" />
     <ClCompile Include="..\..\src\chrono-world\SpellSystem\HunterSpellFixes.cpp" />
     <ClCompile Include="..\..\src\chrono-world\SpellSystem\MageSpellFixes.cpp" />
@@ -369,6 +372,10 @@
     <ClCompile Include="..\..\src\chrono-world\TradeHandler.cpp" />
     <ClCompile Include="..\..\src\chrono-world\TransporterHandler.cpp" />
     <ClCompile Include="..\..\src\chrono-world\Unit.cpp" />
+    <ClCompile Include="..\..\src\chrono-world\Warden\WardenBase.cpp" />
+    <ClCompile Include="..\..\src\chrono-world\Warden\WardenDataStorage.cpp" />
+    <ClCompile Include="..\..\src\chrono-world\Warden\WardenMac.cpp" />
+    <ClCompile Include="..\..\src\chrono-world\Warden\WardenWin.cpp" />
     <ClCompile Include="..\..\src\chrono-world\WarsongGulch.cpp" />
     <ClCompile Include="..\..\src\chrono-world\WayPoints.cpp" />
     <ClCompile Include="..\..\src\chrono-world\WeatherMgr.cpp" />
@@ -458,6 +465,12 @@
     <ClInclude Include="..\..\src\chrono-world\Unit.h" />
     <ClInclude Include="..\..\src\chrono-world\UpdateFields.h" />
     <ClInclude Include="..\..\src\chrono-world\UpdateMask.h" />
+    <ClInclude Include="..\..\src\chrono-world\Warden\WardenBase.h" />
+    <ClInclude Include="..\..\src\chrono-world\Warden\WardenDataStorage.h" />
+    <ClInclude Include="..\..\src\chrono-world\Warden\WardenMac.h" />
+    <ClInclude Include="..\..\src\chrono-world\Warden\WardenModuleMac.h" />
+    <ClInclude Include="..\..\src\chrono-world\Warden\WardenModuleWin.h" />
+    <ClInclude Include="..\..\src\chrono-world\Warden\WardenWin.h" />
     <ClInclude Include="..\..\src\chrono-world\WarsongGulch.h" />
     <ClInclude Include="..\..\src\chrono-world\WeatherMgr.h" />
     <ClInclude Include="..\..\src\chrono-world\WordFilter.h" />

@@ -57,7 +57,7 @@ public:
 	RevivePet(Spell * pSpell) : SpellScript(pSpell) {}
 	SpellCastError CanCast(bool tolerate)
 	{
-		if (_spell->p_caster == NULL || _spell->p_caster->GetSummon() == NULL)
+		if (_spell->p_caster == nullptr || _spell->p_caster->GetSummon() == nullptr)
 			return SPELL_FAILED_NO_PET;
 			
 		if (!_spell->p_caster->GetSummon()->isDead())
@@ -74,7 +74,7 @@ public:
 	MongooseBite(Spell * pSpell) : SpellScript(pSpell) {}
 	void CalculateEffect(uint32 EffectIndex, Unit *  target, int32* value)
 	{
-		if( _spell->u_caster != NULL )
+		if( _spell->u_caster != nullptr )
 			*value += _spell->u_caster->GetAP()/5;
 	}
 };

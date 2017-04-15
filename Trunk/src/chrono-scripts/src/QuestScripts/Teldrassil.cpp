@@ -11,7 +11,7 @@ public:
 		return;
 
     Creature * creat = mTarget->GetMapMgr()->GetSqlIdCreature(43727);
-    if(creat == NULL)
+    if(creat == nullptr)
       return;
 
     creat->SetUInt32Value(UNIT_FIELD_DISPLAYID,901);

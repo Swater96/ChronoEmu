@@ -39,7 +39,7 @@ WordFilter::~WordFilter()
 	for(i = 0; i < m_filterCount; ++i)
 	{
 		p = m_filters[i];
-		if(p==NULL)
+		if(p==nullptr)
 			continue;
 
 		if(p->szMatch)
@@ -73,13 +73,13 @@ bool WordFilter::CompileExpression(const char * szExpression, void** pOutput, vo
 	const char * error2;
 	int erroffset;
 
-	re = pcre_compile(szExpression, 0, &error, &erroffset, NULL);
-	if(re != NULL)
+	re = pcre_compile(szExpression, 0, &error, &erroffset, nullptr);
+	if(re != nullptr)
 		ee = pcre_study(re, 0, &error2);
 
-	if(re == NULL || error2 != NULL)
+	if(re == nullptr || error2 != nullptr)
 	{
-		if(re == NULL)
+		if(re == nullptr)
 			Log.Error("WordFilter", "An error occurred while compiling the expression: \"%s\": %s", szExpression, error ? error : "unknown error");
 		else
 			Log.Error("WordFilter", "An error occurred while compiling extra data for the expression: \"%s\": %s", szExpression, error2);
@@ -102,20 +102,20 @@ void WordFilter::Load(const char * szTableName)
 	list<WordFilterMatch*> lItems;
 	list<WordFilterMatch*>::iterator itr;
 	QueryResult * pResult = WorldDatabase.Query("SELECT * FROM %s", szTableName);
-	if(pResult==NULL)
+	if(pResult==nullptr)
 		return;
 
 	do 
 	{
 		pMatch = new WordFilterMatch;
-		pMatch->szMatch = (strlen(pResult->Fetch()[0].GetString()) > 1) ? strdup(pResult->Fetch()[0].GetString()) : NULL;
-		if(pMatch->szMatch==NULL)
+		pMatch->szMatch = (strlen(pResult->Fetch()[0].GetString()) > 1) ? strdup(pResult->Fetch()[0].GetString()) : nullptr;
+		if(pMatch->szMatch==nullptr)
 		{
 			delete pMatch;
 			continue;
 		}
 
-		pMatch->szIgnoreMatch = (strlen(pResult->Fetch()[1].GetString()) > 1) ? strdup(pResult->Fetch()[1].GetString()) : NULL;
+		pMatch->szIgnoreMatch = (strlen(pResult->Fetch()[1].GetString()) > 1) ? strdup(pResult->Fetch()[1].GetString()) : nullptr;
 
 		// compile the expression
 		if(!CompileExpression(pMatch->szMatch, &pMatch->pCompiledExpression, &pMatch->pCompiledExpressionOptions))
@@ -127,7 +127,7 @@ void WordFilter::Load(const char * szTableName)
 			continue;
 		}
 
-		if(pMatch->szIgnoreMatch != NULL)
+		if(pMatch->szIgnoreMatch != nullptr)
 		{
 			if(!CompileExpression(pMatch->szIgnoreMatch, &pMatch->pCompiledIgnoreExpression, &pMatch->pCompiledIgnoreExpressionOptions))
 			{
@@ -140,8 +140,8 @@ void WordFilter::Load(const char * szTableName)
 		}
 		else
 		{
-			pMatch->pCompiledIgnoreExpression=NULL;
-			pMatch->pCompiledIgnoreExpressionOptions=NULL;
+			pMatch->pCompiledIgnoreExpression=nullptr;
+			pMatch->pCompiledIgnoreExpressionOptions=nullptr;
 		}
 
 		pMatch->iType = pResult->Fetch()[2].GetUInt32();

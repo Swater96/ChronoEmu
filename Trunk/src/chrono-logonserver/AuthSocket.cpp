@@ -22,16 +22,16 @@
 
 enum _errors
 {
-	CE_SUCCESS = 0x00,
-	CE_IPBAN=0x01,									  //2bd -- unable to connect (some internal problem)
-	CE_ACCOUNT_CLOSED=0x03,							 // "This account has been closed and is no longer in service -- Please check the registered email address of this account for further information.";
-	CE_NO_ACCOUNT=0x04,								 //(5)The information you have entered is not valid.  Please check the spelling of the account name and password.  If you need help in retrieving a lost or stolen password and account
-	CE_ACCOUNT_IN_USE=0x06,							 //This account is already logged in.  Please check the spelling and try again.
-	CE_PREORDER_TIME_LIMIT=0x07,
-	CE_SERVER_FULL=0x08,								//Could not log in at this time.  Please try again later.
-	CE_WRONG_BUILD_NUMBER=0x09,						 //Unable to validate game version.  This may be caused by file corruption or the interference of another program.
-	CE_UPDATE_CLIENT=0x0a,
-	CE_ACCOUNT_FREEZED=0x0c
+	CE_SUCCESS                 = 0x00,
+	CE_IPBAN                   = 0x01,  // Unable to connect, See CE_ACCOUNT_CLOSED
+	CE_ACCOUNT_CLOSED          = 0x03,	// This account has been closed and is no longer in service -- Please check the registered email address of this account for further information.";
+	CE_NO_ACCOUNT              = 0x04,	// The information you have entered is not valid.  Please check the spelling of the account name and password.  If you need help in retrieving a lost or stolen password and account
+	CE_ACCOUNT_IN_USE          = 0x06,  // This account is already logged in. Please check the spelling and try again.
+	CE_PREORDER_TIME_LIMIT     = 0x07,  // You're out of Trial Time.
+	CE_SERVER_FULL             = 0x08,  // Server is full, please try later.
+	CE_WRONG_BUILD_NUMBER      = 0x09,	// Unable to validate game version. This may be caused by file corruption or the interference of another program.
+	CE_UPDATE_CLIENT           = 0x0a,  // Client is out of date.
+	CE_ACCOUNT_FREEZED         = 0x0c   // No Game Time Available.
 } ;
 
 AuthSocket::AuthSocket(SOCKET fd) : Socket(fd, 32768, 4096)
@@ -41,10 +41,10 @@ AuthSocket::AuthSocket(SOCKET fd) : Socket(fd, 32768, 4096)
 	s.SetRand(256);
 	m_authenticated = false;
 	m_account = 0;
-	last_recv = time(NULL);
+	last_recv = time(nullptr);
 	removedFromSet = false;
-	m_patch=NULL;
-	m_patchJob=NULL;
+	m_patch=nullptr;
+	m_patchJob=nullptr;
 	_authSocketLock.Acquire();
 	_authSockets.insert(this);
 	_authSocketLock.Release();
@@ -67,7 +67,7 @@ void AuthSocket::OnDisconnect()
 	if(m_patchJob)
 	{
 		PatchMgr::getSingleton().AbortPatchJob(m_patchJob);
-		m_patchJob=NULL;
+		m_patchJob=nullptr;
 	}
 }
 
@@ -98,18 +98,18 @@ void AuthSocket::HandleChallenge()
 	memcpy(&m_challenge, ReceiveBuffer, full_size + 4);
 	readBuffer.Remove(full_size + 4);
 
-	// Check client build.
+	// Client Build
 	uint16 build = m_challenge.build;
 
-	// Check client build.
-	if(build > LogonServer::getSingleton().max_build)
+	// If less then min or greater then max send unable to validate game client.
+	if(build < LogonServer::getSingleton().minbuild || build > LogonServer::getSingleton().maxbuild)
 	{
-		// wtf?
+		// Your client is incorrect.
 		SendChallengeError(CE_WRONG_BUILD_NUMBER);
 		return;
 	}
 
-	if(build < LogonServer::getSingleton().min_build)
+	if(build < LogonServer::getSingleton().minbuild)
 	{
 		// can we patch?
 		char flippedloc[5] = {0,0,0,0,0};
@@ -119,7 +119,7 @@ void AuthSocket::HandleChallenge()
 		flippedloc[3] = m_challenge.country[0];
 
 		m_patch = PatchMgr::getSingleton().FindPatchForClient(build, flippedloc);
-		if(m_patch == NULL)
+		if(m_patch == nullptr)
 		{
 			// could not find a valid patch
 			SendChallengeError(CE_WRONG_BUILD_NUMBER);
@@ -165,7 +165,7 @@ void AuthSocket::HandleChallenge()
             break;
 	}
 
-	// Null-terminate the account string
+	// nullptr-terminate the account string
 	if( m_challenge.I_len >= 50 )
 	{
 		Disconnect();
@@ -317,11 +317,11 @@ void AuthSocket::HandleProof()
 	uint8 hash[20];
 
 	sha.Initialize();
-	sha.UpdateBigNumbers(&N, NULL);
+	sha.UpdateBigNumbers(&N, nullptr);
 	sha.Finalize();
 	memcpy(hash, sha.GetDigest(), 20);
 	sha.Initialize();
-	sha.UpdateBigNumbers(&g, NULL);
+	sha.UpdateBigNumbers(&g, nullptr);
 	sha.Finalize();
 	for (int i = 0; i < 20; i++)
 	{
@@ -338,7 +338,7 @@ void AuthSocket::HandleProof()
 	t4.SetBinary(sha.GetDigest(), 20);
 
 	sha.Initialize();
-	sha.UpdateBigNumbers(&t3, &t4, &s, &A, &B, &m_sessionkey, NULL);
+	sha.UpdateBigNumbers(&t3, &t4, &s, &A, &B, &m_sessionkey, nullptr);
 	sha.Finalize();
 
 	BigNumber M;
@@ -429,52 +429,52 @@ static AuthHandler Handlers[MAX_AUTH_CMD] = {
 		&AuthSocket::HandleProof,				// 1
 		&AuthSocket::HandleReconnectChallenge,	// 2
 		&AuthSocket::HandleReconnectProof,		// 3
-		NULL,									// 4
-		NULL,									// 5
-		NULL,									// 6
-		NULL,									// 7
-		NULL,									// 8
-		NULL,									// 9
-		NULL,									// 10
-		NULL,									// 11
-		NULL,									// 12
-		NULL,									// 13
-		NULL,									// 14
-		NULL,									// 15
+		nullptr,									// 4
+		nullptr,									// 5
+		nullptr,									// 6
+		nullptr,									// 7
+		nullptr,									// 8
+		nullptr,									// 9
+		nullptr,									// 10
+		nullptr,									// 11
+		nullptr,									// 12
+		nullptr,									// 13
+		nullptr,									// 14
+		nullptr,									// 15
 		&AuthSocket::HandleRealmlist,			// 16
-		NULL,									// 17
-		NULL,									// 18
-		NULL,									// 19
-		NULL,									// 20
-		NULL,									// 21
-		NULL,									// 22
-		NULL,									// 23
-		NULL,									// 24
-		NULL,									// 25
-		NULL,									// 26
-		NULL,									// 27
-		NULL,									// 28
-		NULL,									// 29
-		NULL,									// 30
-		NULL,									// 31
-		NULL,									// 32
-		NULL,									// 33
-		NULL,									// 34
-		NULL,									// 35
-		NULL,									// 36
-		NULL,									// 37
-		NULL,									// 38
-		NULL,									// 39
-		NULL,									// 40
-		NULL,									// 41
-		NULL,									// 42
-		NULL,									// 43
-		NULL,									// 44
-		NULL,									// 45
-		NULL,									// 46
-		NULL,									// 47
-		NULL,									// 48
-		NULL,									// 49
+		nullptr,									// 17
+		nullptr,									// 18
+		nullptr,									// 19
+		nullptr,									// 20
+		nullptr,									// 21
+		nullptr,									// 22
+		nullptr,									// 23
+		nullptr,									// 24
+		nullptr,									// 25
+		nullptr,									// 26
+		nullptr,									// 27
+		nullptr,									// 28
+		nullptr,									// 29
+		nullptr,									// 30
+		nullptr,									// 31
+		nullptr,									// 32
+		nullptr,									// 33
+		nullptr,									// 34
+		nullptr,									// 35
+		nullptr,									// 36
+		nullptr,									// 37
+		nullptr,									// 38
+		nullptr,									// 39
+		nullptr,									// 40
+		nullptr,									// 41
+		nullptr,									// 42
+		nullptr,									// 43
+		nullptr,									// 44
+		nullptr,									// 45
+		nullptr,									// 46
+		nullptr,									// 47
+		nullptr,									// 48
+		nullptr,									// 49
 		&AuthSocket::HandleTransferAccept,		// 50
 		&AuthSocket::HandleTransferResume,		// 51
 		&AuthSocket::HandleTransferCancel,		// 52
@@ -487,7 +487,7 @@ void AuthSocket::OnRead()
 
 	uint8 Command = *(uint8*)readBuffer.GetBufferStart();
 	last_recv = UNIXTIME;
-	if(Command < MAX_AUTH_CMD && Handlers[Command] != NULL)
+	if(Command < MAX_AUTH_CMD && Handlers[Command] != nullptr)
 		(this->*Handlers[Command])();
 	else
 		Log.Notice("AuthSocket", "Unknown cmd %u", Command);
@@ -525,8 +525,7 @@ void AuthSocket::HandleReconnectChallenge()
 	readBuffer.Remove(full_size + 4);
 
 	// Check client build.
-	if(m_challenge.build > LogonServer::getSingleton().max_build ||
-		m_challenge.build < LogonServer::getSingleton().min_build)
+	if(m_challenge.build < LogonServer::getSingleton().minbuild || m_challenge.build > LogonServer::getSingleton().maxbuild)
 	{
 		SendChallengeError(CE_WRONG_BUILD_NUMBER);
 		return;
@@ -550,7 +549,7 @@ void AuthSocket::HandleReconnectChallenge()
         break;
 	}
 
-	// Null-terminate the account string
+	// nullptr-terminate the account string
 	if( m_challenge.I_len >= 50 )
 	{
 		Disconnect();
@@ -612,7 +611,7 @@ void AuthSocket::HandleReconnectChallenge()
 
 void AuthSocket::HandleReconnectProof()
 {
-	if( m_account == NULL )
+	if( m_account == nullptr )
 		return;
 
 	/*

@@ -92,7 +92,7 @@ void WorldSession::HandleLearnTalentOpcode( WorldPacket & recv_data )
 		return;
 
 /*	unsigned int numRows = sTalentStore.GetNumRows();
-	TalentEntry *talentInfo=NULL ;
+	TalentEntry *talentInfo=nullptr ;
 	for (unsigned int i = 0; i < numRows; i++)		  // Loop through all talents.
 	{
 		TalentEntry *t= sTalentStore.LookupEntry( i );
@@ -110,7 +110,7 @@ void WorldSession::HandleLearnTalentOpcode( WorldPacket & recv_data )
 	// Check if it requires another talent
 	if (talentInfo->DependsOn > 0)
 	{
-		TalentEntry *depTalentInfo = NULL;
+		TalentEntry *depTalentInfo = nullptr;
 		/*for (unsigned int i = 0; i < numRows; i++)		  // Loop through all talents.
 		{
 			TalentEntry *t= sTalentStore.LookupEntry( i );
@@ -204,7 +204,7 @@ void WorldSession::HandleLearnTalentOpcode( WorldPacket & recv_data )
 			
 		for (uint32 i=requested_rank; i<5; ++i)
 		{
-			if (talentInfo->RankID[i] != NULL && GetPlayer()->HasSpell(talentInfo->RankID[i]))
+			if (talentInfo->RankID[i] != 0 && GetPlayer()->HasSpell(talentInfo->RankID[i]))
 				return; //cheater
 		}
 
@@ -236,7 +236,7 @@ void WorldSession::HandleLearnTalentOpcode( WorldPacket & recv_data )
 				}
 				else
 				{
-					Spell*sp=new Spell(_player,spellInfo,true,NULL);
+					Spell*sp=new Spell(_player,spellInfo,true,nullptr);
 					SpellCastTargets tgt;
 					tgt.m_unitTarget=_player->GetGUID();
 					sp->prepare(&tgt);

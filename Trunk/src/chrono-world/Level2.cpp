@@ -58,7 +58,7 @@ bool ChatHandler::HandleInvincibleCommand(const char *args, WorldSession *m_sess
 bool ChatHandler::HandleAddTrainerSpellCommand( const char * args, WorldSession * m_session )
 {
 	Creature * pCreature = getSelectedCreature(m_session, true);
-	if( pCreature == NULL )
+	if( pCreature == nullptr )
 		return true;
 
 	uint32 spellid, cost, reqspell, reqlevel, delspell;
@@ -66,14 +66,14 @@ bool ChatHandler::HandleAddTrainerSpellCommand( const char * args, WorldSession 
 		return false;
 
 	Trainer * pTrainer =  pCreature->GetTrainer();
-	if( pTrainer == NULL )
+	if( pTrainer == nullptr )
 	{
 		RedSystemMessage(m_session, "Target is not a trainer.");
 		return true;
 	}
 
 	SpellEntry* pSpell = dbcSpell.LookupEntryForced(spellid);
-	if(pSpell==NULL)
+	if(pSpell==nullptr)
 	{
 		RedSystemMessage(m_session, "Invalid spell.");
 		return true;
@@ -154,13 +154,52 @@ bool ChatHandler::CreateGuildCommand(const char* args, WorldSession *m_session)
 		}
 	}
 
-	Charter tempCharter(0, ptarget->GetLowGUID(), CHARTER_TYPE_GUILD);
-	tempCharter.SignatureCount=0;
-	tempCharter.GuildName = string(args);
+	if(objmgr.GetGuildByGuildName(args))
+	{
+		WorldPacket data(SMSG_GUILD_COMMAND_RESULT, 100);
+		data << uint32(0);
+		data << args;
+		data << uint32(C_R_GUILD_NAME_EXISTS);
+		m_session->SendPacket(&data);
+		return true;
+	}
 
-	Guild * pGuild = Guild::Create();
-	pGuild->CreateFromCharter(&tempCharter, ptarget->GetSession());
-	SystemMessage(m_session, "Guild created");
+	Guild *pGuild = new Guild;
+	uint32 guildId = pGuild->GetFreeGuildIdFromDb();
+
+	if(guildId == 0)
+	{
+		printf("Error Getting Free Guild ID");
+		delete pGuild;
+		return false;
+	}
+
+	//Guild Setup
+	pGuild->SetGuildId( guildId );
+	pGuild->SetGuildName( args );
+	pGuild->CreateRank("Guild Master", GR_RIGHT_ALL);
+	pGuild->CreateRank("Officer", GR_RIGHT_ALL);
+	pGuild->CreateRank("Veteran", GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);  
+	pGuild->CreateRank("Member", GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
+	pGuild->CreateRank("Initiate", GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
+	pGuild->SetGuildEmblemStyle( 0xFFFF );
+	pGuild->SetGuildEmblemColor( 0xFFFF );
+	pGuild->SetGuildBorderStyle( 0xFFFF );
+	pGuild->SetGuildBorderColor( 0xFFFF );
+	pGuild->SetGuildBackgroundColor( 0xFFFF );
+
+	objmgr.AddGuild(pGuild);
+
+	//Guild Leader Setup
+	ptarget->SetGuildId( pGuild->GetGuildId() );
+	ptarget->SetUInt32Value(PLAYER_GUILDID, pGuild->GetGuildId() );
+	ptarget->SetGuildRank(GUILDRANK_GUILD_MASTER);
+	ptarget->SetUInt32Value(PLAYER_GUILDRANK,GUILDRANK_GUILD_MASTER);
+	pGuild->SetGuildLeaderGuid( ptarget->GetGUID() );
+	pGuild->AddNewGuildMember( ptarget );
+
+	pGuild->SaveToDb();
+	pGuild->SaveRanksToDb();
 	return true;
 }
 
@@ -186,7 +225,7 @@ bool ChatHandler::HandleDeleteCommand(const char* args, WorldSession *m_session)
 		return true;
 	}
 
-	if( unit->m_spawn != NULL && !m_session->CanUseCommand('z') )
+	if( unit->m_spawn != nullptr && !m_session->CanUseCommand('z') )
 	{
 		SystemMessage(m_session, "You do not have permission to do that. Please contact higher staff for removing of saved spawns.");
 		return true;
@@ -204,7 +243,7 @@ bool ChatHandler::HandleDeleteCommand(const char* args, WorldSession *m_session)
 		unit->RemoveFromWorld(false,true);
 	}
 
-	if(unit->m_spawn == NULL)
+	if(unit->m_spawn == nullptr)
 		return true;
 
 	unit->DeleteFromDB();
@@ -212,10 +251,10 @@ bool ChatHandler::HandleDeleteCommand(const char* args, WorldSession *m_session)
 	{
 		uint32 cellx=float2int32(((_maxX-unit->m_spawn->x)/_cellSize));
 		uint32 celly=float2int32(((_maxY-unit->m_spawn->y)/_cellSize));
-		if(cellx <= _sizeX && celly <= _sizeY && unitMgr != NULL)
+		if(cellx <= _sizeX && celly <= _sizeY && unitMgr != nullptr)
 		{
 			CellSpawns * c = unitMgr->GetBaseMap()->GetSpawnsList(cellx, celly);
-			if( c != NULL )
+			if( c != nullptr )
 			{
 				for(CreatureSpawnList::iterator itr = c->CreatureSpawns.begin(); itr != c->CreatureSpawns.end(); ++itr)
 				{
@@ -264,7 +303,7 @@ bool ChatHandler::HandleItemCommand(const char* args, WorldSession *m_session)
 	uint32 item = atoi(pitem);
 	int amount = -1;
 
-	char* pamount = strtok(NULL, " ");
+	char* pamount = strtok(nullptr, " ");
 	if (pamount)
 		amount = atoi(pamount);
 
@@ -491,7 +530,7 @@ bool ChatHandler::HandleCastSpellCommand(const char* args, WorldSession *m_sessi
 		return false;
 	}
 	
-	Spell *sp = new Spell(caster, spellentry, false, NULL);
+	Spell *sp = new Spell(caster, spellentry, false, nullptr);
 	if(!sp)
 	{
 		RedSystemMessage(m_session, "Spell failed creation!");
@@ -608,7 +647,7 @@ bool ChatHandler::HandleMonsterYellCommand(const char* args, WorldSession *m_ses
 
 bool ChatHandler::HandleGOSelect(const char *args, WorldSession *m_session)
 {
-	GameObject *GObj = NULL;
+	GameObject *GObj = nullptr;
 
 	std::set<Object*>::iterator Itr = m_session->GetPlayer()->GetInRangeSetBegin();
 	std::set<Object*>::iterator Itr2 = m_session->GetPlayer()->GetInRangeSetEnd();
@@ -620,12 +659,12 @@ bool ChatHandler::HandleGOSelect(const char *args, WorldSession *m_session)
 	{
 		if(args[0] == '1')
 		{
-			if(m_session->GetPlayer()->m_GM_SelectedGO == NULL)
+			if(m_session->GetPlayer()->m_GM_SelectedGO == nullptr)
 				bUseNext = true;
 
 			for(;;Itr++)
 			{
-				if(Itr == Itr2 && GObj == NULL && bUseNext)
+				if(Itr == Itr2 && GObj == nullptr && bUseNext)
 					Itr = m_session->GetPlayer()->GetInRangeSetBegin();
 				else if(Itr == Itr2)
 					break;
@@ -666,7 +705,7 @@ bool ChatHandler::HandleGOSelect(const char *args, WorldSession *m_session)
 	}
 
 
-	if( GObj == NULL )
+	if( GObj == nullptr )
 	{
 		RedSystemMessage(m_session, "No inrange GameObject found.");
 		return true;
@@ -708,7 +747,7 @@ bool ChatHandler::HandleGODelete(const char *args, WorldSession *m_session)
 				}
 			}
 			delete GObj->m_spawn;
-			GObj->m_spawn = NULL;
+			GObj->m_spawn = nullptr;
 		}
 	}
 	GObj->Despawn(0);
@@ -730,7 +769,7 @@ bool ChatHandler::HandleGODelete(const char *args, WorldSession *m_session)
 	GObj->DeleteFromDB();
 	sObjHolder.Delete<GameObject>(GObj);
 
-	m_session->GetPlayer()->m_GM_SelectedGO = NULL;
+	m_session->GetPlayer()->m_GM_SelectedGO = nullptr;
 
 	GreenSystemMessage(m_session, "GameObject successfully deleted from world and database !");
 */
@@ -748,7 +787,7 @@ bool ChatHandler::HandleGOSpawn(const char *args, WorldSession *m_session)
 	uint32 EntryID  = atoi(pEntryID);
 	
 	bool Save = false;
-	char* pSave = strtok(NULL, " ");
+	char* pSave = strtok(nullptr, " ");
 	if (pSave)
 		Save = (atoi(pSave)>0?true:false);
 
@@ -822,8 +861,8 @@ bool ChatHandler::HandleGOSpawn(const char *args, WorldSession *m_session)
 bool ChatHandler::HandleGOInfo(const char *args, WorldSession *m_session)
 {
 	std::stringstream sstext;
-	GameObjectInfo *GOInfo = NULL;
-	GameObject *GObj = NULL;
+	GameObjectInfo *GOInfo = nullptr;
+	GameObject *GObj = nullptr;
 
 	GObj = m_session->GetPlayer()->m_GM_SelectedGO;
 	if( !GObj )
@@ -900,7 +939,7 @@ bool ChatHandler::HandleGOInfo(const char *args, WorldSession *m_session)
 
 bool ChatHandler::HandleGOEnable(const char *args, WorldSession *m_session)
 {
-	GameObject *GObj = NULL;
+	GameObject *GObj = nullptr;
 
 	GObj = m_session->GetPlayer()->m_GM_SelectedGO;
 	if( !GObj )
@@ -922,7 +961,7 @@ bool ChatHandler::HandleGOEnable(const char *args, WorldSession *m_session)
 
 bool ChatHandler::HandleGOActivate(const char* args, WorldSession *m_session)
 {
-	GameObject *GObj = NULL;
+	GameObject *GObj = nullptr;
 
 	GObj = m_session->GetPlayer()->m_GM_SelectedGO;
 	if( !GObj )
@@ -1001,7 +1040,7 @@ bool ChatHandler::HandleMountCommand(const char *args, WorldSession *m_session)
 		return true;
 	}
 
-	Unit *m_target = NULL;
+	Unit *m_target = nullptr;
 	Player *m_plyr = getSelectedChar(m_session, false);
 	if(m_plyr)
 		m_target = m_plyr;
@@ -1036,31 +1075,31 @@ bool ChatHandler::HandleAddAIAgentCommand(const char* args, WorldSession *m_sess
 	char* agent = strtok((char*)args, " ");
 	if(!agent)
 		return false;
-	char* procEvent = strtok(NULL, " ");
+	char* procEvent = strtok(nullptr, " ");
 	if(!procEvent)
 		return false;
-	char* procChance = strtok(NULL, " ");
+	char* procChance = strtok(nullptr, " ");
 	if(!procChance)
 		return false;
-	char* procCount = strtok(NULL, " ");
+	char* procCount = strtok(nullptr, " ");
 	if(!procCount)
 		return false;
-	char* spellId = strtok(NULL, " ");
+	char* spellId = strtok(nullptr, " ");
 	if(!spellId)
 		return false;
-	char* spellType = strtok(NULL, " ");
+	char* spellType = strtok(nullptr, " ");
 	if(!spellType)
 		return false;
-	char* spelltargetType = strtok(NULL, " ");
+	char* spelltargetType = strtok(nullptr, " ");
 	if(!spelltargetType)
 		return false;
-	char* spellCooldown = strtok(NULL, " ");
+	char* spellCooldown = strtok(nullptr, " ");
 	if(!spellCooldown)
 		return false;
-	char* floatMisc1 = strtok(NULL, " ");
+	char* floatMisc1 = strtok(nullptr, " ");
 	if(!floatMisc1)
 		return false;
-	char* Misc2 = strtok(NULL, " ");
+	char* Misc2 = strtok(nullptr, " ");
 	if(!Misc2)
 		return false;
 
@@ -1175,7 +1214,7 @@ bool ChatHandler::HandleGOExport(const char * args, WorldSession * m_session)
 	WorldDatabase.WaitExecute("INSERT INTO creature_proto_export SELECT * FROM creature_proto WHERE entry = %u", pCreature->GetEntry());
 	WorldDatabase.WaitExecute("INSERT INTO vendors_export SELECT * FROM vendors WHERE entry = %u", pCreature->GetEntry());
 	QueryResult * qr = WorldDatabase.Query("SELECT * FROM vendors WHERE entry = %u", pCreature->GetEntry());
-	if(qr != NULL)
+	if(qr != nullptr)
 	{
 		do 
 		{

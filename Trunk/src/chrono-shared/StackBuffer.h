@@ -164,7 +164,7 @@ public:
 	DEFINE_FAST_WRITE_OPERATOR(bool, 1);
 	StackBuffer& operator >> (bool & dst) { dst = (Read<char>() > 0 ? true : false); return *this; }
 
-	/** string (null-terminated) operators
+	/** string (nullptr-terminated) operators
 	 */
 	StackBuffer& operator << (std::string & value) { EnsureBufferSize(value.length() + 1); memcpy(&m_bufferPointer[m_writePos], value.c_str(), value.length()+1); m_writePos += (value.length() + 1); return *this; }
 	StackBuffer& operator >> (std::string & dest)

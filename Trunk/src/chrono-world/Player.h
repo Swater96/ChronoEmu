@@ -28,7 +28,6 @@ class GameObject;
 class Transporter;
 class Corpse;
 class Guild;
-struct GuildRank;
 class Pet;
 class Charter;
 struct LevelInfo;
@@ -336,144 +335,10 @@ struct LoginAura
 };
 
 // Dodge ( class base ) - UNUSED, Warrior, Paladin, Hunter, Rogue, Priest, UNUSED, Shaman, Mage, Warlock, UNUSED, Druid
-const float baseDodge[12] = { 0.0f, 0.7580f, 0.6520f, -5.4500f, -0.5900f, 3.1830f, 0.0f, 1.6750f, 3.4575f, 2.0350f, 0.0f, -1.8720f };
+const float baseDodge[12] = { 0.0f, 0.00f, 0.75f, 0.64f, 0.0f, 3.0f, 0.0f, 0.75f, 3.25f, 2.0f, 0.0f, 0.75f };
+// Agility to dodge base multiplier - UNUSED, Warrior, Paladin, Hunter, Rogue, Priest, UNUSED, Shaman, Mage, Warlock, UNUSED, Druid
+const float agilitytoDodge[12] = { 0.00000f, 0.05000f, 0.05000f, 0.03774f, 0.06897f, 0.05000f, 0.00000f, 0.05000f, 0.05000f, 0.05000f, 0.00000f, 0.05000f };
 
-// Dodge ( class ratio ) - UNUSED, Warrior, Paladin, Hunter, Rogue, Priest, UNUSED, Shaman, Mage, Warlock, UNUSED, Druid
-// TODO: get proper ratios for all levels, we only have values for level 70 currently and appropriated values for < 70 through a PHP script >_<
-const float dodgeRatio[60][12] = {
-{ 0.000000f , 5.000000f , 5.000000f , 5.000000f , 5.000000f , 5.000000f , 0.000000f , 5.000000f , 5.000000f , 5.000000f , 0.000000f , 5.000000f , } , // Level 1 
-{ 0.000000f , 5.000000f , 5.000000f , 5.000000f , 5.000000f , 5.000000f , 0.000000f , 5.000000f , 5.000000f , 5.000000f , 0.000000f , 5.000000f , } , // Level 2 
-{ 0.000000f , 5.157590f , 5.000000f , 5.000000f , 5.000000f , 5.000000f , 0.000000f , 5.000000f , 5.000000f , 5.000000f , 0.000000f , 5.000000f , } , // Level 3 
-{ 0.000000f , 6.017188f , 5.014323f , 5.014323f , 5.000000f , 5.014323f , 0.000000f , 5.014323f , 5.014323f , 5.014323f , 0.000000f , 5.000000f , } , // Level 4 
-{ 0.000000f , 6.793599f , 5.661333f , 5.661333f , 5.000000f , 5.661333f , 0.000000f , 5.661333f , 5.661333f , 5.661333f , 0.000000f , 5.000000f , } , // Level 5 
-{ 0.000000f , 7.508715f , 6.257262f , 6.257262f , 5.005810f , 6.257262f , 0.000000f , 6.257262f , 6.257262f , 6.257262f , 0.000000f , 5.000000f , } , // Level 6 
-{ 0.000000f , 8.176156f , 6.813463f , 6.813463f , 5.450771f , 6.813463f , 0.000000f , 6.813463f , 6.813463f , 6.813463f , 0.000000f , 5.000000f , } , // Level 7 
-{ 0.000000f , 8.805091f , 7.337576f , 7.337576f , 5.870061f , 7.337576f , 0.000000f , 7.337576f , 7.337576f , 7.337576f , 0.000000f , 5.000000f , } , // Level 8 
-{ 0.000000f , 9.402047f , 7.835039f , 7.835039f , 6.268031f , 7.835039f , 0.000000f , 7.835039f , 7.835039f , 7.835039f , 0.000000f , 5.000000f , } , // Level 9 
-{ 0.000000f , 9.971868f , 8.309890f , 8.309890f , 6.647912f , 8.309890f , 0.000000f , 8.309890f , 8.309890f , 8.309890f , 0.000000f , 5.000000f , } , // Level 10 
-{ 0.000000f , 10.518271f , 8.765226f , 8.765226f , 7.012181f , 8.765226f , 0.000000f , 8.765226f , 8.765226f , 8.765226f , 0.000000f , 5.156022f , } , // Level 11 
-{ 0.000000f , 11.044185f , 9.203487f , 9.203487f , 7.362790f , 9.203487f , 0.000000f , 9.203487f , 9.203487f , 9.203487f , 0.000000f , 5.413823f , } , // Level 12 
-{ 0.000000f , 11.551964f , 9.626636f , 9.626636f , 7.701309f , 9.626636f , 0.000000f , 9.626636f , 9.626636f , 9.626636f , 0.000000f , 5.662734f , } , // Level 13 
-{ 0.000000f , 12.043536f , 10.036280f , 10.036280f , 8.029024f , 10.036280f , 0.000000f , 10.036280f , 10.036280f , 10.036280f , 0.000000f , 5.903701f , } , // Level 14 
-{ 0.000000f , 12.520508f , 10.433757f , 10.433757f , 8.347005f , 10.433757f , 0.000000f , 10.433757f , 10.433757f , 10.433757f , 0.000000f , 6.137511f , } , // Level 15 
-{ 0.000000f , 12.984231f , 10.820192f , 10.820192f , 8.656154f , 10.820192f , 0.000000f , 10.820192f , 10.820192f , 10.820192f , 0.000000f , 6.364827f , } , // Level 16 
-{ 0.000000f , 13.435856f , 11.196547f , 11.196547f , 8.957237f , 11.196547f , 0.000000f , 11.196547f , 11.196547f , 11.196547f , 0.000000f , 6.586212f , } , // Level 17 
-{ 0.000000f , 13.876376f , 11.563647f , 11.563647f , 9.250917f , 11.563647f , 0.000000f , 11.563647f , 11.563647f , 11.563647f , 0.000000f , 6.802153f , } , // Level 18 
-{ 0.000000f , 14.306651f , 11.922209f , 11.922209f , 9.537767f , 11.922209f , 0.000000f , 11.922209f , 11.922209f , 11.922209f , 0.000000f , 7.013073f , } , // Level 19 
-{ 0.000000f , 14.727435f , 12.272863f , 12.272863f , 9.818290f , 12.272863f , 0.000000f , 12.272863f , 12.272863f , 12.272863f , 0.000000f , 7.219340f , } , // Level 20 
-{ 0.000000f , 15.139391f , 12.616159f , 12.616159f , 10.092928f , 12.616159f , 0.000000f , 12.616159f , 12.616159f , 12.616159f , 0.000000f , 7.421279f , } , // Level 21 
-{ 0.000000f , 15.543108f , 12.952590f , 12.952590f , 10.362072f , 12.952590f , 0.000000f , 12.952590f , 12.952590f , 12.952590f , 0.000000f , 7.619180f , } , // Level 22 
-{ 0.000000f , 15.939111f , 13.282593f , 13.282593f , 10.626074f , 13.282593f , 0.000000f , 13.282593f , 13.282593f , 13.282593f , 0.000000f , 7.813299f , } , // Level 23 
-{ 0.000000f , 16.327870f , 13.606558f , 13.606558f , 10.885247f , 13.606558f , 0.000000f , 13.606558f , 13.606558f , 13.606558f , 0.000000f , 8.003867f , } , // Level 24 
-{ 0.000000f , 16.709808f , 13.924840f , 13.924840f , 11.139872f , 13.924840f , 0.000000f , 13.924840f , 13.924840f , 13.924840f , 0.000000f , 8.191092f , } , // Level 25 
-{ 0.000000f , 17.085310f , 14.237758f , 14.237758f , 11.390207f , 14.237758f , 0.000000f , 14.237758f , 14.237758f , 14.237758f , 0.000000f , 8.375162f , } , // Level 26 
-{ 0.000000f , 17.454722f , 14.545602f , 14.545602f , 11.636481f , 14.545602f , 0.000000f , 14.545602f , 14.545602f , 14.545602f , 0.000000f , 8.556246f , } , // Level 27 
-{ 0.000000f , 17.818362f , 14.848635f , 14.848635f , 11.878908f , 14.848635f , 0.000000f , 14.848635f , 14.848635f , 14.848635f , 0.000000f , 8.734502f , } , // Level 28 
-{ 0.000000f , 18.176520f , 15.147100f , 15.147100f , 12.117680f , 15.147100f , 0.000000f , 15.147100f , 15.147100f , 15.147100f , 0.000000f , 8.910069f , } , // Level 29 
-{ 0.000000f , 18.529462f , 15.441218f , 15.441218f , 12.352975f , 15.441218f , 0.000000f , 15.441218f , 15.441218f , 15.441218f , 0.000000f , 9.083081f , } , // Level 30 
-{ 0.000000f , 18.877433f , 15.731194f , 15.731194f , 12.584955f , 15.731194f , 0.000000f , 15.731194f , 15.731194f , 15.731194f , 0.000000f , 9.253655f , } , // Level 31 
-{ 0.000000f , 19.220659f , 16.017216f , 16.017216f , 12.813773f , 16.017216f , 0.000000f , 16.017216f , 16.017216f , 16.017216f , 0.000000f , 9.421903f , } , // Level 32 
-{ 0.000000f , 19.559349f , 16.299458f , 16.299458f , 13.039566f , 16.299458f , 0.000000f , 16.299458f , 16.299458f , 16.299458f , 0.000000f , 9.587928f , } , // Level 33 
-{ 0.000000f , 19.893697f , 16.578081f , 16.578081f , 13.262465f , 16.578081f , 0.000000f , 16.578081f , 16.578081f , 16.578081f , 0.000000f , 9.751824f , } , // Level 34 
-{ 0.000000f , 20.223883f , 16.853236f , 16.853236f , 13.482589f , 16.853236f , 0.000000f , 16.853236f , 16.853236f , 16.853236f , 0.000000f , 9.913680f , } , // Level 35 
-{ 0.000000f , 20.550075f , 17.125062f , 17.125062f , 13.700050f , 17.125062f , 0.000000f , 17.125062f , 17.125062f , 17.125062f , 0.000000f , 10.073578f , } , // Level 36 
-{ 0.000000f , 20.872429f , 17.393691f , 17.393691f , 13.914953f , 17.393691f , 0.000000f , 17.393691f , 17.393691f , 17.393691f , 0.000000f , 10.231595f , } , // Level 37 
-{ 0.000000f , 21.191092f , 17.659243f , 17.659243f , 14.127395f , 17.659243f , 0.000000f , 17.659243f , 17.659243f , 17.659243f , 0.000000f , 10.387803f , } , // Level 38 
-{ 0.000000f , 21.506201f , 17.921834f , 17.921834f , 14.337467f , 17.921834f , 0.000000f , 17.921834f , 17.921834f , 17.921834f , 0.000000f , 10.542268f , } , // Level 39 
-{ 0.000000f , 21.817885f , 18.181571f , 18.181571f , 14.545257f , 18.181571f , 0.000000f , 18.181571f , 18.181571f , 18.181571f , 0.000000f , 10.695055f , } , // Level 40 
-{ 0.000000f , 22.126265f , 18.438554f , 18.438554f , 14.750843f , 18.438554f , 0.000000f , 18.438554f , 18.438554f , 18.438554f , 0.000000f , 10.846221f , } , // Level 41 
-{ 0.000000f , 22.431455f , 18.692879f , 18.692879f , 14.954303f , 18.692879f , 0.000000f , 18.692879f , 18.692879f , 18.692879f , 0.000000f , 10.995824f , } , // Level 42 
-{ 0.000000f , 22.733562f , 18.944635f , 18.944635f , 15.155708f , 18.944635f , 0.000000f , 18.944635f , 18.944635f , 18.944635f , 0.000000f , 11.143916f , } , // Level 43 
-{ 0.000000f , 23.032688f , 19.193907f , 19.193907f , 15.355125f , 19.193907f , 0.000000f , 19.193907f , 19.193907f , 19.193907f , 0.000000f , 11.290547f , } , // Level 44 
-{ 0.000000f , 23.328928f , 19.440774f , 19.440774f , 15.552619f , 19.440774f , 0.000000f , 19.440774f , 19.440774f , 19.440774f , 0.000000f , 11.435763f , } , // Level 45 
-{ 0.000000f , 23.622374f , 19.685312f , 19.685312f , 15.748249f , 19.685312f , 0.000000f , 19.685312f , 19.685312f , 19.685312f , 0.000000f , 11.579609f , } , // Level 46 
-{ 0.000000f , 23.913111f , 19.927592f , 19.927592f , 15.942074f , 19.927592f , 0.000000f , 19.927592f , 19.927592f , 19.927592f , 0.000000f , 11.722127f , } , // Level 47 
-{ 0.000000f , 24.201221f , 20.167684f , 20.167684f , 16.134147f , 20.167684f , 0.000000f , 20.167684f , 20.167684f , 20.167684f , 0.000000f , 11.863358f , } , // Level 48 
-{ 0.000000f , 24.486781f , 20.405651f , 20.405651f , 16.324520f , 20.405651f , 0.000000f , 20.405651f , 20.405651f , 20.405651f , 0.000000f , 12.003338f , } , // Level 49 
-{ 0.000000f , 24.769865f , 20.641554f , 20.641554f , 16.513243f , 20.641554f , 0.000000f , 20.641554f , 20.641554f , 20.641554f , 0.000000f , 12.142105f , } , // Level 50 
-{ 0.000000f , 25.050543f , 20.875453f , 20.875453f , 16.700362f , 20.875453f , 0.000000f , 20.875453f , 20.875453f , 20.875453f , 0.000000f , 12.279693f , } , // Level 51 
-{ 0.000000f , 25.328883f , 21.107402f , 21.107402f , 16.885922f , 21.107402f , 0.000000f , 21.107402f , 21.107402f , 21.107402f , 0.000000f , 12.416134f , } , // Level 52 
-{ 0.000000f , 25.604947f , 21.337456f , 21.337456f , 17.069964f , 21.337456f , 0.000000f , 21.337456f , 21.337456f , 21.337456f , 0.000000f , 12.551460f , } , // Level 53 
-{ 0.000000f , 25.878796f , 21.565664f , 21.565664f , 17.252531f , 21.565664f , 0.000000f , 21.565664f , 21.565664f , 21.565664f , 0.000000f , 12.685700f , } , // Level 54 
-{ 0.000000f , 26.150490f , 21.792075f , 21.792075f , 17.433660f , 21.792075f , 0.000000f , 21.792075f , 21.792075f , 21.792075f , 0.000000f , 12.818883f , } , // Level 55 
-{ 0.000000f , 26.420082f , 22.016735f , 22.016735f , 17.613388f , 22.016735f , 0.000000f , 22.016735f , 22.016735f , 22.016735f , 0.000000f , 12.951036f , } , // Level 56 
-{ 0.000000f , 26.687628f , 22.239690f , 22.239690f , 17.791752f , 22.239690f , 0.000000f , 22.239690f , 22.239690f , 22.239690f , 0.000000f , 13.082186f , } , // Level 57 
-{ 0.000000f , 26.953176f , 22.460980f , 22.460980f , 17.968784f , 22.460980f , 0.000000f , 22.460980f , 22.460980f , 22.460980f , 0.000000f , 13.212357f , } , // Level 58 
-{ 0.000000f , 27.216777f , 22.680647f , 22.680647f , 18.144518f , 22.680647f , 0.000000f , 22.680647f , 22.680647f , 22.680647f , 0.000000f , 13.341573f , } , // Level 59 
-{ 0.000000f , 27.478477f , 22.898731f , 22.898731f , 18.318984f , 22.898731f , 0.000000f , 22.898731f , 22.898731f , 22.898731f , 0.000000f , 13.469858f , } , // Level 60 
-};
-/*
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 1
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 2
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 3
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 4
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 5
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 6
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 7
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 8
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 9
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 10
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 11
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 12
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 13
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 14
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 15
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 16
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 17
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 18
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 19
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 20
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 21
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 22
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 23
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 24
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 25
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 26
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 27
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 28
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 29
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 30
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 31
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 32
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 33
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 34
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 35
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 36
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 37
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 38
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 39
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 40
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 41
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 42
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 43
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 44
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 45
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 46
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 47
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 48
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 49
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 50
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 51
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 52
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 53										 { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 54
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 55
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 56
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 57
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 58
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 59
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 60
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 61
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 62
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 63
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 64
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 65
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 66
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 67
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 68
-{ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },// Level 69
-{ 0.0f, 30.0f, 25.0f, 25.0f, 20.0f, 25.0f, 0.0f, 25.0f, 25.0f, 25.0f, 0.0f, 14.7059f }// Level 70
-};*/
 /*
 Exalted	        1,000	 Access to racial mounts. Capped at 999.7
 Revered	        21,000	 Heroic mode keys for Outland dungeons
@@ -513,20 +378,17 @@ struct PlayerInfo
 	uint32 gender;
 	uint32 cl;
 	uint32 team;
-	
+
+	uint32 Rank;
+	char * publicNote;
+	char * officerNote;
 	time_t lastOnline;
 	uint32 lastZone;
 	uint32 lastLevel;
 	Group * m_Group;
 	int8 subGroup;
-#ifdef VOICE_CHAT
-	int8 groupVoiceId;
-#endif
 
 	Player * m_loggedInPlayer;
-	Guild * guild;
-	GuildRank * guildRank;
-	GuildMember * guildMember;
 };
 struct PlayerPet
 {
@@ -752,10 +614,6 @@ public:
 
 	Player ( uint32 guid );
 	~Player ( );
-
-	CHRONO_INLINE Guild * GetGuild() { return m_playerInfo->guild; }
-	CHRONO_INLINE GuildMember * GetGuildMember() { return m_playerInfo->guildMember; }
-	CHRONO_INLINE GuildRank * GetGuildRankS() { return m_playerInfo->guildRank; }
 
 	void EventGroupFullUpdate();
 
@@ -1038,10 +896,10 @@ public:
     /************************************************************************/
 	void                SetInviter(uint32 pInviter) { m_GroupInviter = pInviter; }
 	CHRONO_INLINE uint32       GetInviter() { return m_GroupInviter; }
-	CHRONO_INLINE bool         InGroup() { return (m_playerInfo->m_Group != NULL && !m_GroupInviter); }
+	CHRONO_INLINE bool         InGroup() { return (m_playerInfo->m_Group != nullptr && !m_GroupInviter); }
 	bool                IsGroupLeader()
 	{
-		if(m_playerInfo->m_Group != NULL)
+		if(m_playerInfo->m_Group != nullptr)
 		{
 			if(m_playerInfo->m_Group->GetLeader() == m_playerInfo)
 				return true;
@@ -1049,8 +907,8 @@ public:
 		return false;
 	}
 	CHRONO_INLINE int          HasBeenInvited() { return m_GroupInviter != 0; }
-	CHRONO_INLINE Group*       GetGroup() { return m_playerInfo ? m_playerInfo->m_Group : NULL; }
-	CHRONO_INLINE uint32	GetGroupID() { return m_playerInfo != NULL ? m_playerInfo->m_Group != NULL ? m_playerInfo->m_Group->GetID(): NULL: NULL; }
+	CHRONO_INLINE Group*       GetGroup() { return m_playerInfo ? m_playerInfo->m_Group : nullptr; }
+	CHRONO_INLINE uint32	GetGroupID() { return m_playerInfo != nullptr ? m_playerInfo->m_Group != nullptr ? m_playerInfo->m_Group->GetID(): 0: 0; }
 	CHRONO_INLINE int8		   GetSubGroup() { return m_playerInfo->subGroup; }
     bool                IsGroupMember(Player *plyr);
 	CHRONO_INLINE bool         IsBanned()
@@ -1073,12 +931,12 @@ public:
     /************************************************************************/
 	CHRONO_INLINE  bool        IsInGuild() {return (m_uint32Values[PLAYER_GUILDID] != 0) ? true : false;}
 	CHRONO_INLINE uint32       GetGuildId() { return m_uint32Values[PLAYER_GUILDID]; }
-	void                SetGuildId(uint32 guildId);
+	void                       SetGuildId(uint32 guildId);
 	CHRONO_INLINE uint32       GetGuildRank() { return m_uint32Values[PLAYER_GUILDRANK]; }
-	void                SetGuildRank(uint32 guildRank);
-	uint32              GetGuildInvitersGuid() { return m_invitersGuid; }
-	void                SetGuildInvitersGuid( uint32 guid ) { m_invitersGuid = guid; }
-	void                UnSetGuildInvitersGuid() { m_invitersGuid = 0; }
+	void                       SetGuildRank(uint32 guildRank) { SetUInt32Value(PLAYER_GUILDRANK, guildRank); }
+	uint32                     GetGuildInvitersGuid() { return m_invitersGuid; }
+	void                       SetGuildInvitersGuid( uint32 guid ) { m_invitersGuid = guid; }
+	void                       UnSetGuildInvitersGuid() { m_invitersGuid = 0; }
   
     /************************************************************************/
     /* Duel                                                                 */
@@ -1120,7 +978,7 @@ public:
 		std::map<uint32, PlayerPet*>::iterator itr = m_Pets.find(idx);
 		if(itr != m_Pets.end()) return itr->second;
 		else
-			return NULL;
+			return nullptr;
 	}
 	void						SpawnPet(uint32 pet_number);
 	void						DespawnPet();
@@ -1173,8 +1031,8 @@ public:
 	void SetBindPoint(float x, float y, float z, uint32 m, uint32 v) { m_bind_pos_x = x; m_bind_pos_y = y; m_bind_pos_z = z; m_bind_mapid = m; m_bind_zoneid = v;}
 	void SendDelayedPacket(WorldPacket *data, bool bDeleteOnSend)
 	{
-		if(data == NULL) return;
-		if(GetSession() != NULL) GetSession()->SendPacket(data);
+		if(data == nullptr) return;
+		if(GetSession() != nullptr) GetSession()->SendPacket(data);
 		if(bDeleteOnSend) delete data;
 	}
 	float offhand_dmg_mod;
@@ -1306,6 +1164,7 @@ public:
 
     //Showing Units WayPoints
 	AIInterface* waypointunit;
+	void SaveGuild();
 	
 	uint32 m_nextSave;
 	//Tutorials
@@ -1546,7 +1405,6 @@ public:
 	int32								m_heartbeatDisable;
 	uint32								m_lastMoveTime;
 	bool 								m_speedChangeInProgress;
-	uint32								m_flyHackChances;
 
 	void AddSplinePacket(uint64 guid, ByteBuffer* packet);
 	ByteBuffer* GetAndRemoveSplinePacket(uint64 guid);
@@ -1644,8 +1502,6 @@ public:
     void SetHonorLastWeekStandingPos(int32 standingPos){ m_standing_pos = standingPos; }
 	
 	bool blinked;
-	uint16 m_speedhackChances;
-	uint16 m_cheatEngineChances;
 	uint32 m_explorationTimer;
 	
 	// DBC stuff
@@ -1665,6 +1521,7 @@ public:
 		SafeTeleport(MapID, InstanceID, vec);
 	}
 
+	Guild * myGuild;
 	/*****************
 	  PVP Stuff
 	******************/
@@ -1789,9 +1646,6 @@ public:
 		SetUInt32Value(UNIT_FIELD_HEALTH, GetUInt32Value(UNIT_FIELD_MAXHEALTH) );
 	}
 
-	void ResetSpeedHack();
-	void DelaySpeedHack(uint32 ms);
-
 	float m_WeaponSubClassDamagePct[21];
 
 	LocationVector m_last_group_position;
@@ -1806,6 +1660,7 @@ public:
 	void save_Misc();
 	void save_PositionHP();
 	void save_BindPosition();
+	void save_GuildData();
 	void save_Honor();
 	void save_EntryPoint();
 	void save_Taxi();
@@ -1890,6 +1745,7 @@ protected:
 	void _SaveQuestLogEntry(QueryBuffer * buf);
 	void _LoadQuestLogEntry(QueryResult * result);
 
+	void _LoadGuild();
 	void _LoadPet(QueryResult * result);
 	void _LoadPetNo();
 	void _LoadPetSpells(QueryResult * result);
@@ -2022,10 +1878,6 @@ public:
 	void addDeletedSpell(uint32 id) { mDeletedSpells.insert( id ); }
 
 	map<uint32, uint32> m_forcedReactions;
-
-	uint32 m_speedhackCheckTimer;
-
-	void _SpeedhackCheck();		// save a call to getMSTime() yes i am a stingy bastard
 
 	bool m_passOnLoot;
 	uint32 m_tradeSequence;

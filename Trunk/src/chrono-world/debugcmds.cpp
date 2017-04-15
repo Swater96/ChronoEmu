@@ -49,7 +49,7 @@ bool ChatHandler::HandleDebugInFrontCommand(const char* args, WorldSession *m_se
 
 bool ChatHandler::HandleShowReactionCommand(const char* args, WorldSession *m_session)
 {
-	Object *obj = NULL;
+	Object *obj = nullptr;
 
 	uint64 guid = m_session->GetPlayer()->GetSelection();
 	if (guid != 0)
@@ -130,7 +130,7 @@ bool ChatHandler::HandleMoveInfoCommand(const char* args, WorldSession *m_sessio
 	uint32 aiagent = ((Creature *)obj)->GetAIInterface()->getCurrentAgent();
 	uint32 lowfollow = 0;
 	uint32 highfollow = 0;
-	/*if(unitToFollow == NULL)
+	/*if(unitToFollow == nullptr)
 	{
 		lowfollow = 0;
 		highfollow = 0;
@@ -159,7 +159,7 @@ bool ChatHandler::HandleMoveInfoCommand(const char* args, WorldSession *m_sessio
 
 bool ChatHandler::HandleAIMoveCommand(const char* args, WorldSession *m_session)
 {
-	Object *obj = NULL;
+	Object *obj = nullptr;
 
 	uint64 guid = m_session->GetPlayer()->GetSelection();
 	if (guid != 0)
@@ -167,7 +167,7 @@ bool ChatHandler::HandleAIMoveCommand(const char* args, WorldSession *m_session)
 		obj = (Object*)m_session->GetPlayer()->GetMapMgr()->GetCreature(GET_LOWGUID_PART(guid));
 	}
 
-	if(obj == NULL)
+	if(obj == nullptr)
 	{
 		SystemMessage(m_session, "You should select a creature.");
 		return true;
@@ -184,15 +184,15 @@ bool ChatHandler::HandleAIMoveCommand(const char* args, WorldSession *m_session)
 	if (pMove)
 		Move  = atoi(pMove);
 
-	char* pRun = strtok(NULL, " ");
+	char* pRun = strtok(nullptr, " ");
 	if (pRun)
 		Run  = atoi(pRun);
 
-	char* pTime = strtok(NULL, " ");
+	char* pTime = strtok(nullptr, " ");
 	if (pTime)
 		Time  = atoi(pTime);
 
-	char* pMeth = strtok(NULL, " ");
+	char* pMeth = strtok(nullptr, " ");
 	if (pMeth)
 		Meth  = atoi(pMeth);
 
@@ -296,7 +296,7 @@ bool ChatHandler::HandleAIMoveCommand(const char* args, WorldSession *m_session)
 bool ChatHandler::HandleFaceCommand(const char* args, WorldSession *m_session)
 {
 
-	Object *obj = NULL;
+	Object *obj = nullptr;
 
 	uint64 guid = m_session->GetPlayer()->GetSelection();
 	if (guid != 0)
@@ -304,7 +304,7 @@ bool ChatHandler::HandleFaceCommand(const char* args, WorldSession *m_session)
 		obj = (Object*)m_session->GetPlayer()->GetMapMgr()->GetCreature(GET_LOWGUID_PART(guid));
 	}
 
-	if(obj == NULL)
+	if(obj == nullptr)
 	{
 		SystemMessage(m_session,  "You should select a creature.");
 		return true;
@@ -348,7 +348,7 @@ bool ChatHandler::HandleFaceCommand(const char* args, WorldSession *m_session)
 bool ChatHandler::HandleAIMoveCommand(const char* args)
 {
 WorldPacket data;
-Object *obj = NULL;
+Object *obj = nullptr;
 
 uint64 guid = m_session->GetPlayer()->GetSelection();
 if (guid != 0)
@@ -356,7 +356,7 @@ if (guid != 0)
 obj = (Object*)objmgr.GetCreature(guid);
 }
 
-if(obj == NULL)
+if(obj == nullptr)
 {
 FillSystemMessageData(&data, "You should select a creature.");
 m_session->SendPacket( &data );
@@ -373,19 +373,19 @@ char* pValue1 = strtok((char*)args, " ");
 if (pValue1)
 Value1  = static_cast<uint8>(atol(pValue1));
 
-char* pRun = strtok(NULL, " ");
+char* pRun = strtok(nullptr, " ");
 if (pRun)
 Run  = atoi(pRun);
 
-char* pValue2 = strtok(NULL, " ");
+char* pValue2 = strtok(nullptr, " ");
 if (pValue2)
 Value2  = atoi(pValue2);
 
-char* pValue3 = strtok(NULL, " ");
+char* pValue3 = strtok(nullptr, " ");
 if (pValue3)
 Value3  = atoi(pValue3);
 
-char* pToFrom = strtok(NULL, " ");
+char* pToFrom = strtok(nullptr, " ");
 if (pToFrom)
 ToFrom  = atoi(pToFrom);
 
@@ -478,25 +478,25 @@ bool ChatHandler::HandleSetBytesCommand(const char* args, WorldSession *m_sessio
 
 	uint32 BytesIndex  = atoi(pBytesIndex);
 
-	char* pValue1 = strtok(NULL, " ");
+	char* pValue1 = strtok(nullptr, " ");
 	if (!pValue1)
 		return false;
 
 	uint8 Value1  = static_cast<uint8>(atol(pValue1));
 
-	char* pValue2 = strtok(NULL, " ");
+	char* pValue2 = strtok(nullptr, " ");
 	if (!pValue2)
 		return false;
 
 	uint8 Value2  = static_cast<uint8>(atol(pValue2));
 
-	char* pValue3 = strtok(NULL, " ");
+	char* pValue3 = strtok(nullptr, " ");
 	if (!pValue3)
 		return false;
 
 	uint8 Value3  = static_cast<uint8>(atol(pValue3));
 
-	char* pValue4 = strtok(NULL, " ");
+	char* pValue4 = strtok(nullptr, " ");
 	if (!pValue4)
 		return false;
 
@@ -557,7 +557,7 @@ bool ChatHandler::HandleDebugLandWalk(const char* args, WorldSession *m_session)
 	Player *chr = getSelectedChar(m_session);
 	char buf[256];
 
-	if (chr == NULL) // Ignatich: what should NOT happen but just in case...
+	if (chr == nullptr) // Ignatich: what should NOT happen but just in case...
 	{
 		SystemMessage(m_session, "No character selected.");
 		return false;
@@ -573,7 +573,7 @@ bool ChatHandler::HandleDebugWaterWalk(const char* args, WorldSession *m_session
 	Player *chr = getSelectedChar(m_session);
 	char buf[256];
 
-	if (chr == NULL) // Ignatich: what should NOT happen but just in case...
+	if (chr == nullptr) // Ignatich: what should NOT happen but just in case...
 	{
 		SystemMessage(m_session, "No character selected.");
 		return false;
@@ -589,7 +589,7 @@ bool ChatHandler::HandleDebugUnroot(const char* args, WorldSession *m_session)
 	Player *chr = getSelectedChar(m_session);
 	char buf[256];
 
-	if (chr == NULL) // Ignatich: what should NOT happen but just in case...
+	if (chr == nullptr) // Ignatich: what should NOT happen but just in case...
 	{
 		SystemMessage(m_session,  "No character selected.");
 		return false;
@@ -607,7 +607,7 @@ bool ChatHandler::HandleDebugRoot(const char* args, WorldSession *m_session)
 	Player *chr = getSelectedChar(m_session);
 	char buf[256];
 
-	if (chr == NULL) // Ignatich: what should NOT happen but just in case...
+	if (chr == nullptr) // Ignatich: what should NOT happen but just in case...
 	{
 		SystemMessage(m_session, "No character selected.");
 		return true;
@@ -620,7 +620,7 @@ bool ChatHandler::HandleDebugRoot(const char* args, WorldSession *m_session)
 
 bool ChatHandler::HandleAggroRangeCommand(const char* args, WorldSession *m_session)
 {
-	Unit *obj = NULL;
+	Unit *obj = nullptr;
 
 	uint64 guid = m_session->GetPlayer()->GetSelection();
 	if (guid != 0)
@@ -651,13 +651,13 @@ bool ChatHandler::HandleKnockBackCommand(const char* args, WorldSession *m_sessi
 	/*char* X = strtok((char*)args, " ");
 	if (!X)
 		return false;
-	char* Y = strtok(NULL, " ");
+	char* Y = strtok(nullptr, " ");
 	if (!Y)
 		return false;
-	char* Z = strtok(NULL, " ");
+	char* Z = strtok(nullptr, " ");
 	if (!Z)
 		return false;
-	char* O = strtok(NULL, " ");
+	char* O = strtok(nullptr, " ");
 	if (!O)
 		return false;
 
@@ -737,7 +737,7 @@ bool ChatHandler::HandleCalcThreatCommand(const char* args, WorldSession *m_sess
 	char* dmg = strtok((char*)args, " ");
 	if(!dmg)
 		return false;
-	char* spellId = strtok(NULL, " ");
+	char* spellId = strtok(nullptr, " ");
 	if(!spellId)
 		return false;
 
@@ -752,7 +752,7 @@ bool ChatHandler::HandleCalcThreatCommand(const char* args, WorldSession *m_sess
 
 bool ChatHandler::HandleThreatListCommand(const char* args, WorldSession *m_session)
 {
-	Unit* target = NULL;
+	Unit* target = nullptr;
 	target = m_session->GetPlayer()->GetMapMgr()->GetUnit(m_session->GetPlayer()->GetSelection());
 	if(!target)
 	{
@@ -783,12 +783,12 @@ bool ChatHandler::HandleSendItemPushResult(const char* args, WorldSession* m_ses
 	char* arg = const_cast<char*>(args);
 	itemid = atol(strtok(arg, " "));
 	if(!itemid) return false;
-	count = atol(strtok(NULL, " "));
-	type = atol(strtok(NULL, " "));
-	unk1 = atol(strtok(NULL, " "));
-	unk2 = atol(strtok(NULL, " "));
-	unk3 = atol(strtok(NULL, " "));
-	unk4 = atol(strtok(NULL, " "));
+	count = atol(strtok(nullptr, " "));
+	type = atol(strtok(nullptr, " "));
+	unk1 = atol(strtok(nullptr, " "));
+	unk2 = atol(strtok(nullptr, " "));
+	unk3 = atol(strtok(nullptr, " "));
+	unk4 = atol(strtok(nullptr, " "));
 
 	// lookup item
 //	ItemPrototype *proto = ItemPrototypeStorage.LookupEntry(itemid);
@@ -807,7 +807,7 @@ bool ChatHandler::HandleSendItemPushResult(const char* args, WorldSession* m_ses
 	data << unk4;
 	m_session->SendPacket(&data);
 	return true;
-	//data << ((proto != NULL) ? proto->Quality : uint32(0)); // quality
+	//data << ((proto != nullptr) ? proto->Quality : uint32(0)); // quality
 }
 
 bool ChatHandler::HandleModifyBitCommand(const char* args, WorldSession* m_session)
@@ -831,7 +831,7 @@ bool ChatHandler::HandleModifyBitCommand(const char* args, WorldSession* m_sessi
 	if (!pField)
 		return false;
 
-	char* pBit = strtok(NULL, " ");
+	char* pBit = strtok(nullptr, " ");
 	if (!pBit)
 		return false;
 
@@ -887,7 +887,7 @@ bool ChatHandler::HandleModifyValueCommand(const char* args,  WorldSession* m_se
 	if (!pField)
 		return false;
 
-	char* pValue = strtok(NULL, " ");
+	char* pValue = strtok(nullptr, " ");
 	if (!pValue)
 		return false;
 

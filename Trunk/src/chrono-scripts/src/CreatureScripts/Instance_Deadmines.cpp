@@ -218,7 +218,7 @@ public:
 	{
 		timer = 10000 + RandomUInt(4000);
 
-		Unit *target = NULL;
+		Unit *target = nullptr;
 		target = _unit->GetAIInterface()->GetNextTarget();
 		_unit->CastSpell(target, slam, true);
 		RemoveAIUpdateEvent();
@@ -551,16 +551,16 @@ public:
 		timer1 = 6 + RandomUInt(3);
 		timer2 = 13 + RandomUInt(3);
 
-		if(moltencount >= timer1 && _unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+		if(moltencount >= timer1 && _unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
 		{
-			Unit *plr = NULL;
+			Unit *plr = nullptr;
 			plr = _unit->GetAIInterface()->GetNextTarget();
 			_unit->CastSpell(plr, molten, true);
 			moltencount = 0;
 		}
-		if(meltcount >= timer2 && _unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+		if(meltcount >= timer2 && _unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
 		{
-			Unit *plr = NULL;
+			Unit *plr = nullptr;
 			plr = _unit->GetAIInterface()->GetNextTarget();
 			_unit->CastSpell(plr, melt, true);
 			meltcount = 0;
@@ -907,12 +907,12 @@ public:
 		IDoor->SetUInt32Value(GAMEOBJECT_STATE, 0);
 		Cannon->Despawn(1000);
 
-		if(Smite != NULL)
+		if(Smite != nullptr)
 		{
 			//Smite->SendChatMessage(CHAT_MSG_MONSTER_YELL, LANG_UNIVERSAL, "You there, check out that noise!");
 			pPlayer->PlaySoundToSet(5775);
 		}
-			if(Pirate1 != NULL)
+			if(Pirate1 != nullptr)
 			{
 				Pirate1->GetAIInterface()->MoveTo(-96.122841f, -675.890259f, 7.414724f, 1.926761f);
 			}
@@ -970,7 +970,7 @@ public:
 		healcount++;
 		timer = 13 + RandomUInt(3);
 
-		if(healcount >= timer && _unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+		if(healcount >= timer && _unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
 		{
 			if(_unit->GetHealthPct() <= 90)
 			{
@@ -989,10 +989,10 @@ public:
 
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
 			float comulativeperc = 0;
-		    Unit *target = NULL;
+		    Unit *target = nullptr;
 			for(int i=0;i<nrspells;i++)
 			{
 				if(!spells[i].perctrigger) continue;

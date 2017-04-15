@@ -62,7 +62,7 @@ Map::~Map()
 						delete (*it);
 
 					delete sp;
-					spawns[x][y]=NULL;
+					spawns[x][y]=nullptr;
 				}
 			}
 			delete [] spawns[x];
@@ -87,7 +87,7 @@ bool CheckResultLengthCreatures(QueryResult * res)
 			first_table_warning = false;
 			Log.LargeErrorMessage(LARGERRORMESSAGE_WARNING, "One of your creature_spawns table has the wrong column count.",
 				"Ascent has skipped loading this table in order to avoid crashing.",
-				"Please correct this, if you do not no spawns will show.", NULL);
+				"Please correct this, if you do not no spawns will show.", nullptr);
 		}
 
 		return false;
@@ -106,7 +106,7 @@ bool CheckResultLengthGameObject(QueryResult * res)
 			first_table_warningg = false;
 			Log.LargeErrorMessage(LARGERRORMESSAGE_WARNING, "One of your gameobject_spawns table has the wrong column count.",
 				"Ascent has skipped loading this table in order to avoid crashing.",
-				"Please correct this, if you do not no spawns will show.", NULL);
+				"Please correct this, if you do not no spawns will show.", nullptr);
 		}
 
 		return false;
@@ -131,7 +131,7 @@ void Map::LoadSpawns(bool reload)
 				delete (*it);
 
 			delete sp;
-			spawns[x][y]=NULL;
+			spawns[x][y]=nullptr;
 		}
 
 	QueryResult * result;
@@ -157,7 +157,7 @@ void Map::LoadSpawns(bool reload)
 					uint32 celly=float2int32(((_maxY-cspawn->y)/_cellSize));*/
 					uint32 cellx=CellHandler<MapMgr>::GetPosX(cspawn->x);
 					uint32 celly=CellHandler<MapMgr>::GetPosY(cspawn->y);
-					if(spawns[cellx]==NULL)
+					if(spawns[cellx]==nullptr)
 					{
 						spawns[cellx]=new CellSpawns*[_sizeY];
 						memset(spawns[cellx],0,sizeof(CellSpawns*)*_sizeY);
@@ -279,7 +279,7 @@ void Map::LoadSpawns(bool reload)
 					//uint32 celly=float2int32(((_maxY-gspawn->y)/_cellSize));
 					uint32 cellx=CellHandler<MapMgr>::GetPosX(gspawn->x);
 					uint32 celly=CellHandler<MapMgr>::GetPosY(gspawn->y);
-					if(spawns[cellx]==NULL)
+					if(spawns[cellx]==nullptr)
 					{
 						spawns[cellx]=new CellSpawns*[_sizeY];
 						memset(spawns[cellx],0,sizeof(CellSpawns*)*_sizeY);

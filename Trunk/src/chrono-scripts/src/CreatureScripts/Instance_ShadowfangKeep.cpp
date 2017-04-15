@@ -398,7 +398,7 @@ class FenrusAI : public MoonScriptCreatureAI
 		GetUnit()->SendChatMessageAlternateEntry(4275, CHAT_MSG_MONSTER_YELL, LANG_UNIVERSAL, "Who dares interfere with the Sons of Arugal?");
 		GetUnit()->PlaySoundToSet(5791);
 
-		MoonScriptCreatureAI* voidwalker = NULL;
+		MoonScriptCreatureAI* voidwalker = nullptr;
 		// Spawn 4 x Arugal's Voidwalkers
 		for(int x=1; x<5; x++)
 		{
@@ -406,7 +406,7 @@ class FenrusAI : public MoonScriptCreatureAI
 			if(voidwalker)
 			{
 				voidwalker->AggroNearestPlayer(100);
-				voidwalker = NULL;
+				voidwalker = nullptr;
 			}
 		}
 

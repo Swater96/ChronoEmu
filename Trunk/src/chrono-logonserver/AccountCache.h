@@ -51,8 +51,8 @@ struct Account
 
 	Account()
 	{
-		GMFlags = NULL;
-		SessionKey = NULL;
+		GMFlags = nullptr;
+		SessionKey = nullptr;
 	}
 
 	~Account()
@@ -72,7 +72,7 @@ struct Account
 		if(len == 0 || (len == 1 && flags[0] == '0'))
 		{
 			// no flags
-			GMFlags = NULL;
+			GMFlags = nullptr;
 			return;
 		}
 		
@@ -83,7 +83,7 @@ struct Account
 
 	void SetSessionKey(const uint8 *key)
 	{
-		if(SessionKey == NULL)
+		if(SessionKey == nullptr)
 			SessionKey = new uint8[40];
 		memcpy(SessionKey, key, 40);
 	}
@@ -147,7 +147,7 @@ public:
 	Account* GetAccount(string Name)
 	{
 		setBusy.Acquire();
-		Account * pAccount = NULL;
+		Account * pAccount = nullptr;
 		// this should already be uppercase!
 #ifdef WIN32
 		HM_NAMESPACE::hash_map<string, Account*>::iterator itr = AccountDatabase.find(Name);
@@ -155,7 +155,7 @@ public:
 		map<string, Account*>::iterator itr = AccountDatabase.find(Name);
 #endif
 
-		if(itr == AccountDatabase.end())	pAccount = NULL;
+		if(itr == AccountDatabase.end())	pAccount = nullptr;
 		else								pAccount = itr->second;
 
 		setBusy.Release();
@@ -181,7 +181,7 @@ private:
 		map<string, Account*>::iterator itr = AccountDatabase.find(Name);
 #endif
 
-		if(itr == AccountDatabase.end())	return NULL;
+		if(itr == AccountDatabase.end())	return nullptr;
 		else								return itr->second;
 	}
 

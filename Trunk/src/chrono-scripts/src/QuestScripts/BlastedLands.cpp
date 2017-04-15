@@ -28,7 +28,7 @@ class HeroesofOld : public QuestScript
 public:
   void OnQuestStart(Player * mTarget, QuestLogEntry * qLogEntry)
   {
-	  if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+	  if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 		  return;
 
 	Creature * spawncheckcr = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(mTarget->GetPositionX(), mTarget->GetPositionY(), mTarget->GetPositionZ(), 7750);
@@ -61,7 +61,7 @@ public:
 
 		GossipMenu *Menu;
 		Creature * general = TO_CREATURE(pObject);
-		if (general == NULL)
+		if (general == nullptr)
 			return;
 
 		objmgr.CreateGossipMenuForPlayer(&Menu, pObject->GetGUID(), 1, plr);
@@ -78,7 +78,7 @@ public:
 			return;
 
 		Creature * general = TO_CREATURE(pObject);
-		if (general == NULL)
+		if (general == nullptr)
 			return;
 
 		switch (IntId)

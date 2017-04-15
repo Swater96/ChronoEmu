@@ -39,22 +39,22 @@ GameObject::GameObject(uint64 guid)
 	invisible = false;
 	invisibilityFlag = INVIS_FLAG_NORMAL;
 	spell = 0;
-	m_summoner = NULL;
+	m_summoner = nullptr;
 	charges = -1;
 	m_ritualcaster = 0;
 	m_ritualtarget = 0;
-	m_ritualmembers = NULL;
+	m_ritualmembers = nullptr;
 	m_ritualspell = 0;
 
-	m_quests = NULL;
-	pInfo = NULL;
-	myScript = NULL;
+	m_quests = nullptr;
+	pInfo = nullptr;
+	myScript = nullptr;
 	m_spawn = 0;
 	loot.gold = 0;
 	m_deleted = false;
 	mines_remaining = 1;
-	m_respawnCell=NULL;
-	m_battleground = NULL;
+	m_respawnCell=nullptr;
+	m_battleground = nullptr;
 }
 
 GameObject::~GameObject()
@@ -68,13 +68,13 @@ GameObject::~GameObject()
 	{
 		Player *plr = objmgr.GetPlayer(guid);
 		if(plr && plr->GetSummonedObject() == this)
-			plr->SetSummonedObject(NULL);
+			plr->SetSummonedObject(nullptr);
 
 		if(plr == m_summoner)
 			m_summoner = 0;
 	}
 
-	if(m_respawnCell!=NULL)
+	if(m_respawnCell!=nullptr)
 		m_respawnCell->_respawnObjects.erase(this);
 
 	if (m_summonedGo && m_summoner)
@@ -82,13 +82,13 @@ GameObject::~GameObject()
 			if (m_summoner->m_ObjectSlots[i] == GetLowGUID())
 				m_summoner->m_ObjectSlots[i] = 0;
 
-	if( m_battleground != NULL && m_battleground->GetType() == BATTLEGROUND_ARATHI_BASIN )
+	if( m_battleground != nullptr && m_battleground->GetType() == BATTLEGROUND_ARATHI_BASIN )
 	{
 		if( bannerslot >= 0 && static_cast<ArathiBasin*>(m_battleground)->m_controlPoints[bannerslot] == this )
-			static_cast<ArathiBasin*>(m_battleground)->m_controlPoints[bannerslot] = NULL;
+			static_cast<ArathiBasin*>(m_battleground)->m_controlPoints[bannerslot] = nullptr;
 
 		if( bannerauraslot >= 0 && static_cast<ArathiBasin*>(m_battleground)->m_controlPointAuras[bannerauraslot] == this )
-			static_cast<ArathiBasin*>(m_battleground)->m_controlPointAuras[bannerauraslot] = NULL;
+			static_cast<ArathiBasin*>(m_battleground)->m_controlPointAuras[bannerauraslot] = nullptr;
 	}
 }
 
@@ -142,7 +142,7 @@ void GameObject::Create(uint32 mapid, float x, float y, float z, float ang)
 	SetFloatValue( GAMEOBJECT_POS_Y, y );
 	SetFloatValue( GAMEOBJECT_POS_Z, z );
 	SetFloatValue( GAMEOBJECT_FACING, ang );
-	//SetUInt32Value( GAMEOBJECT_TIMESTAMP, (uint32)time(NULL));
+	//SetUInt32Value( GAMEOBJECT_TIMESTAMP, (uint32)time(nullptr));
 }
 
 void GameObject::Create( uint32 guidlow, uint32 guidhigh,uint32 displayid, uint8 state, uint32 entryid, float scale,uint32 typeId, uint32 type,uint32 flags, uint32 mapid, float x, float y, float z, float ang )
@@ -159,7 +159,7 @@ void GameObject::Create( uint32 guidlow, uint32 guidhigh,uint32 displayid, uint8
 
 void GameObject::EventCastSpell(uint32 guid, uint32 sp, bool triggered)
 {
-	Spell * spp = new Spell(this,dbcSpell.LookupEntry(sp),false,NULL);
+	Spell * spp = new Spell(this,dbcSpell.LookupEntry(sp),false,nullptr);
 	SpellCastTargets tars( guid);
 	spp->prepare(&tars);
 }
@@ -214,7 +214,7 @@ void GameObject::Update(uint32 p_time)
 					if(!isAttackable(m_summoner,pUnit))continue;
 				}
 				
-				Spell * sp=new Spell((Object*)this,spell,true,NULL);
+				Spell * sp=new Spell((Object*)this,spell,true,nullptr);
 				SpellCastTargets tgt((*itr)->GetGUID());
 				tgt.m_destX = GetPositionX();
 				tgt.m_destY = GetPositionY();
@@ -223,7 +223,7 @@ void GameObject::Update(uint32 p_time)
 				
 				if(pInfo->Type == 6)
 				{
-					if(m_summoner != NULL)
+					if(m_summoner != nullptr)
 						m_summoner->HandleProc(PROC_ON_TRAP_TRIGGER, pUnit, spell);
 				} 
 
@@ -285,7 +285,7 @@ void GameObject::SaveToDB()
 {
 	std::stringstream ss;
 	ss << "REPLACE INTO gameobject_spawns VALUES("
-		<< ((m_spawn == NULL) ? 0 : m_spawn->id) << ","
+		<< ((m_spawn == nullptr) ? 0 : m_spawn->id) << ","
 		<< GetEntry() << ","
 		<< GetMapId() << ","
 		<< GetPositionX() << ","
@@ -437,7 +437,7 @@ void GameObject::InitAI()
 	SpellEntry *sp= dbcSpell.LookupEntry(spellid);
 	if(!sp)
 	{
-		spell = NULL;
+		spell = nullptr;
 		return;
 	}
 	else
@@ -494,7 +494,7 @@ bool GameObject::Load(GOSpawn *spawn)
 
 void GameObject::DeleteFromDB()
 {
-	if( m_spawn != NULL )
+	if( m_spawn != nullptr )
 		WorldDatabase.Execute("DELETE FROM gameobject_spawns WHERE id=%u", m_spawn->id);
 }
 
@@ -519,7 +519,7 @@ void GameObject::UseFishingNode(Player *player)
 		zone = player->GetZoneId();
 
 	FishingZoneEntry *entry = FishingZoneStorage.LookupEntry( zone );
-	if( entry == NULL ) // No fishing information found for area or zone, log an error, and end fishing
+	if( entry == nullptr ) // No fishing information found for area or zone, log an error, and end fishing
 	{
 		sLog.outError( "ERROR: Fishing zone information for zone %d not found!", zone );
 		EndFishing( player, true );
@@ -618,7 +618,7 @@ Quest* GameObject::FindQuest(uint32 quest_id, uint8 quest_relation)
 			return ptr->qst;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 uint16 GameObject::GetQuestRelation(uint32 quest_id)
@@ -627,7 +627,7 @@ uint16 GameObject::GetQuestRelation(uint32 quest_id)
 	list< QuestRelation* >::iterator it;
 	for( it = m_quests->begin(); it != m_quests->end(); ++it )
 	{
-		if( (*it) != NULL && (*it)->qst->id == quest_id )
+		if( (*it) != nullptr && (*it)->qst->id == quest_id )
 		{
 			quest_relation |= (*it)->type;
 		}
@@ -729,7 +729,7 @@ uint32 GameObject::GetGOReqSkill()
 {
 	if(GetEntry() == 180215) return 300;
 
-	if(GetInfo() == NULL)
+	if(GetInfo() == nullptr)
 		return 0;
 
 	Lock *lock = dbcLock.LookupEntry( GetInfo()->SpellFocus );

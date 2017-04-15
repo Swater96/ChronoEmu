@@ -18,7 +18,7 @@ void ChainAggroEntity::AddAggroEntity(Creature* pCreature)
 
 void ChainAggroEntity::RemoveAggroEntity(Creature* pCreature)
 {
-	pCreature->GetAIInterface()->m_ChainAgroSet = NULL;
+	pCreature->GetAIInterface()->m_ChainAgroSet = nullptr;
 	m_agroEntitySet.erase(pCreature);
 
 	// Oh noes, I am with the worms!
@@ -33,7 +33,7 @@ void ChainAggroEntity::Delete()
 	set<Creature*>::iterator itr = m_agroEntitySet.begin();
 	for(; itr != m_agroEntitySet.end(); ++itr)
 	{
-		(*itr)->GetAIInterface()->m_ChainAgroSet = NULL;
+		(*itr)->GetAIInterface()->m_ChainAgroSet = nullptr;
 	}
 	delete this;
 }

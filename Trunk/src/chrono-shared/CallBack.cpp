@@ -31,5 +31,5 @@ void CallbackFP::execute()
 
 CallbackFP* CallbackFP::Create()
 {
-	return new CallbackFP(NULL);
+	return new CallbackFP(nullptr);
 }

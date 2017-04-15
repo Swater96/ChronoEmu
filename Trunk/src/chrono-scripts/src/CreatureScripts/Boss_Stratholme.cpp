@@ -188,7 +188,7 @@ public:
 			door->SetState(0);
 		MoonScriptCreatureAI *undead;
 		for(int i = 0; i<30; i++) {
-			undead = NULL;
+			undead = nullptr;
 			undead = SpawnCreature(CN_MINDLESS_UNDEAD, 3963.0f, -3394.0f, 119.6f, 0.0f);
 			undead->AddWaypoint(CreateWaypoint(1, 0, Flag_Run, MindlessUndeadWaypoint1));
 			undead->AddWaypoint(CreateWaypoint(2, 0, Flag_Run, MindlessUndeadWaypoint2));
@@ -399,7 +399,7 @@ public:
 				for(i = 0; i<6; i++) {
 					if(skelly[i] && skelly[i]->IsAlive()) {
 						skelly[i]->Despawn();
-						skelly[i] = NULL;
+						skelly[i] = nullptr;
 						bonushealth += 2000;
 					}
 				}
@@ -439,7 +439,7 @@ public:
 		for(int i = 0; i<6; i++) {
 			if(skelly[i] && skelly[i]->IsAlive()) {
 				skelly[i]->Despawn();
-				skelly[i] = NULL;
+				skelly[i] = nullptr;
 			}
 		}
 		RemoveTimer(timer);

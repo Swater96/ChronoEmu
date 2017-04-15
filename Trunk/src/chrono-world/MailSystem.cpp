@@ -31,7 +31,7 @@ MailError MailSystem::DeliverMessage(uint64 recipent, MailMessage* message)
 	message->message_id = Generate_Message_Id();
 
 	Player * plr = objmgr.GetPlayer((uint32)recipent);
-	if(plr != NULL)
+	if(plr != nullptr)
 	{
 		plr->m_mailBox.AddMessage(message);
 		if((uint32)UNIXTIME >= message->delivery_time)
@@ -194,7 +194,7 @@ void WorldSession::HandleSendMail(WorldPacket & recv_data )
 	if(item > 0)
 	{
         pItem = _player->GetItemInterface()->GetItemByGUID( item );
-		if( pItem == NULL || pItem->IsSoulbound() || pItem->HasFlag( ITEM_FIELD_FLAGS, ITEM_FLAG_CONJURED ) )
+		if( pItem == nullptr || pItem->IsSoulbound() || pItem->HasFlag( ITEM_FIELD_FLAGS, ITEM_FLAG_CONJURED ) )
 		{
 			SendMailError( MAIL_ERR_INTERNAL_ERROR );
 			return;
@@ -205,7 +205,7 @@ void WorldSession::HandleSendMail(WorldPacket & recv_data )
 	
 	// Search for the recipient
 	PlayerInfo* player = ObjectMgr::getSingleton().GetPlayerInfoByName(recepient.c_str());
-	if( player == NULL )
+	if( player == nullptr )
 	{
 		SendMailError( MAIL_ERR_RECIPIENT_NOT_FOUND );
 		return;
@@ -274,8 +274,8 @@ void WorldSession::HandleSendMail(WorldPacket & recv_data )
 				continue;		// should never be hit.
 
 			pItem->RemoveFromWorld();
-			pItem->SetOwner( NULL );
-			pItem->SaveToDB( INVENTORY_SLOT_NOT_SET, 0, true, NULL );
+			pItem->SetOwner( nullptr );
+			pItem->SaveToDB( INVENTORY_SLOT_NOT_SET, 0, true, nullptr );
 			msg.item_guid = pItem->GetUInt32Value(OBJECT_FIELD_GUID);
 
 			if( GetPermissionCount() > 0 )
@@ -533,7 +533,7 @@ void WorldSession::HandleReturnToSender(WorldPacket & recv_data )
 	message.deleted_flag = false;
 	message.copy_made = false;
 
-	// null out the cod charges. (the sender doesnt want to have to pay for his own item
+	// nullptr out the cod charges. (the sender doesnt want to have to pay for his own item
 	// that he got nothing for.. :p)
 	message.cod = 0;
 
@@ -757,7 +757,7 @@ void Mailbox::Load(QueryResult * result)
 		/*if( msg.copy_made )
 		{
 			QueryResult * result = CharacterDatabase.Query( "SELECT * FROM playeritems WHERE itemtext = %u", msg.message_id );
-			if( result == NULL )
+			if( result == nullptr )
 			{
 				if( msg.deleted_flag )
 					CharacterDatabase.WaitExecute( "DELETE FROM mailbox WHERE message_id = %u", msg.message_id );

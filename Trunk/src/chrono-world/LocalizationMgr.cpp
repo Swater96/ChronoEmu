@@ -110,7 +110,7 @@ void LocalizationMgr::Lower(string& conv)
 void GetDistinctLanguages(set<string>& dest, const char * table)
 {
 	QueryResult * result = WorldDatabase.Query("SELECT DISTINCT language_code FROM %s", table);
-	if(result == NULL)
+	if(result == nullptr)
 		return;
 
 	string lc;
@@ -164,7 +164,7 @@ void LocalizationMgr::Reload(bool first)
 		strcpy(lb,(*ztr).c_str());
 
 		char * lbp = strchr(lb,'=');
-		if(lbp==NULL)
+		if(lbp==nullptr)
 			continue;
 		*lbp=0;
 		lbp++;
@@ -445,9 +445,9 @@ void LocalizationMgr::Reload(bool first)
 }
 
 #define MAKE_LOOKUP_FUNCTION(t, hm, fn) t * LocalizationMgr::fn(uint32 id, uint32 language) { \
-	if(m_disabled) { return NULL; } \
+	if(m_disabled) { return nullptr; } \
 	HM_NAMESPACE::hash_map<uint32, t>::iterator itr = hm[language].find(id); \
-	return (itr == hm[language].end()) ? NULL : &itr->second; }
+	return (itr == hm[language].end()) ? nullptr : &itr->second; }
 
 MAKE_LOOKUP_FUNCTION(LocalizedCreatureName, m_CreatureNames, GetLocalizedCreatureName);
 MAKE_LOOKUP_FUNCTION(LocalizedGameObjectName, m_GameObjectNames, GetLocalizedGameObjectName);

@@ -286,7 +286,7 @@ class CreatureAIScript;
 class GossipScript;
 class AuctionHouse;
 struct Trainer;
-#define CALL_SCRIPT_EVENT(obj, func) if(obj->GetTypeId() == TYPEID_UNIT && static_cast<Creature*>(obj)->GetScript() != NULL) static_cast<Creature*>(obj)->GetScript()->func
+#define CALL_SCRIPT_EVENT(obj, func) if(obj->GetTypeId() == TYPEID_UNIT && static_cast<Creature*>(obj)->GetScript() != nullptr) static_cast<Creature*>(obj)->GetScript()->func
 
 ///////////////////
 /// Creature object
@@ -316,7 +316,7 @@ public:
 	CHRONO_INLINE uint32 GetItemIdBySlot(uint32 slot) { return m_SellItems->at(slot).itemid; }
 	CHRONO_INLINE uint32 GetItemAmountBySlot(uint32 slot) { return m_SellItems->at(slot).amount; }
 
-	CHRONO_INLINE bool HasItems() { return ((m_SellItems != NULL) ? true : false); }
+	CHRONO_INLINE bool HasItems() { return ((m_SellItems != nullptr) ? true : false); }
 
 	int32 GetSlotByItemId(uint32 itemid)
 	{
@@ -382,7 +382,7 @@ public:
 	void UpdateItemAmount(uint32 itemid);
 	/// Quests
 	void _LoadQuests();
-	bool HasQuests() { return m_quests != NULL; };
+	bool HasQuests() { return m_quests != nullptr; };
 	bool HasQuest(uint32 id, uint32 type)
 	{
 		if(!m_quests) return false;

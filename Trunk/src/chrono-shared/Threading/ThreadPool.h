@@ -102,7 +102,7 @@ public:
 	void Join()
 	{
 		// waits until the thread finishes then returns
-		pthread_join(handle, NULL);
+		pthread_join(handle, nullptr);
 	}
 
 	CHRONO_INLINE uint32 GetId() { return (uint32)thread_id; }
@@ -120,8 +120,8 @@ public:
 	void Setup(pthread_t h)
 	{
 		handle = h;
-		pthread_mutex_init(&mutex,NULL);
-		pthread_cond_init(&cond,NULL);
+		pthread_mutex_init(&mutex,nullptr);
+		pthread_cond_init(&cond,nullptr);
 		thread_id = GenerateThreadId();
 	}
 	~ThreadController()
@@ -139,7 +139,7 @@ public:
 	}
 	void Join()
 	{
-		pthread_join(handle,NULL);
+		pthread_join(handle,nullptr);
 	}
 	CHRONO_INLINE uint32 GetId() { return (uint32)thread_id; }
 };

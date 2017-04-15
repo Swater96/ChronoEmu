@@ -40,9 +40,12 @@ public:
 	void CheckForDeadSockets();
 	void Run(int argc, char ** argv);
 	void Stop();
-	uint32 max_build;
-	uint32 min_build;
+
 	uint8 sql_hash[20];
+
+	// Min & Max Client Builds
+	uint32 minbuild  = 5875;
+	uint32 maxbuild = 7000;
 
 private:
 	bool m_stopEvent;

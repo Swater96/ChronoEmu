@@ -170,7 +170,7 @@ private:
         Clones a whole chain;
         */
         Node* clone() {
-           return new Node(this->entry.key, this->entry.value, hashCode, (next == NULL) ? NULL : next->clone());
+           return new Node(this->entry.key, this->entry.value, hashCode, (next == nullptr) ? nullptr : next->clone());
         }
     };
 
@@ -183,7 +183,7 @@ private:
     /**
      Array of Node*. 
      We don't use Array<Node*> because Table is lower level.
-     Some elements may be NULL.
+     Some elements may be nullptr.
      */
     Node**  bucket;
     
@@ -204,7 +204,7 @@ private:
         for (size_t b = 0; b < this->numBuckets; b++) {
             Node* node = oldBucket[b];
          
-            while (node != NULL) {
+            while (node != nullptr) {
                 Node* nextNode = node->next;
         
                 // insert at the head of the list for bucket[i]
@@ -226,7 +226,7 @@ private:
         this->bucket = (Node**)System::alignedMalloc(sizeof(Node*) * numBuckets, 16);
         System::memset(this->bucket, 0, sizeof(Node*) * numBuckets);
         for (size_t b = 0; b < this->numBuckets; b++) {
-            if (h.bucket[b] != NULL) {
+            if (h.bucket[b] != nullptr) {
                 bucket[b] = h.bucket[b]->clone();
             }
         }
@@ -238,14 +238,14 @@ private:
     void freeMemory() {
         for (size_t b = 0; b < numBuckets; b++) {
            Node* node = bucket[b];
-           while (node != NULL) {
+           while (node != nullptr) {
                 Node* next = node->next;
                 delete node;
                 node = next;
            }
         }
         System::alignedFree(bucket);
-        bucket     = NULL;
+        bucket     = nullptr;
         numBuckets = 0;
         _size     = 0;
     }
@@ -295,7 +295,7 @@ public:
         for (size_t b = 0; b < numBuckets; b++) {
             size_t  count = 0;
             Node*   node = bucket[b];
-            while (node != NULL) {
+            while (node != nullptr) {
                 node = node->next;
                 ++count;
             }
@@ -376,7 +376,7 @@ public:
          Looks at the current element first.
          */
         void findNext() {
-            while (node == NULL) {
+            while (node == nullptr) {
                 index++;
                 if (index >= numBuckets) {
                     isDone = true;
@@ -486,8 +486,8 @@ public:
         Node* n = bucket[b];
 
         // No bucket, so this must be the first
-        if (n == NULL) {
-            bucket[b] = new Node(key, value, code, NULL);
+        if (n == nullptr) {
+            bucket[b] = new Node(key, value, code, nullptr);
             ++_size;
             return;
         }
@@ -511,7 +511,7 @@ public:
 
             n = n->next;
             ++bucketLength;
-        } while (n != NULL);
+        } while (n != nullptr);
 
         const size_t maxBucketLength = 5;
         if ((bucketLength > maxBucketLength) & ! allSameCode && (numBuckets < _size * 20)) {
@@ -539,15 +539,15 @@ public:
       Node* n = bucket[b];
 
       // Make sure it was found
-      alwaysAssertM(n != NULL, "Tried to remove a key that was not in the table.");
+      alwaysAssertM(n != nullptr, "Tried to remove a key that was not in the table.");
 
-      Node* previous = NULL;
+      Node* previous = nullptr;
 
       // Try to find the node
       do {
           if ((code == n->hashCode) && (n->entry.key == key)) {
               // This is the node; remove it
-              if (previous == NULL) {
+              if (previous == nullptr) {
                   bucket[b] = n->next;
               } else {
                   previous->next = n->next;
@@ -560,7 +560,7 @@ public:
 
           previous = n;
           n = n->next;
-       } while (n != NULL);
+       } while (n != nullptr);
 
 
       alwaysAssertM(false, "Tried to remove a key that was not in the table.");
@@ -577,7 +577,7 @@ public:
 
       Node* node = bucket[b];
 
-      while (node != NULL) {
+      while (node != nullptr) {
          if ((node->hashCode == code) && (node->entry.key == key)) {
             return node->entry.value;
          }
@@ -600,7 +600,7 @@ public:
 
       Node* node = bucket[b];
 
-      while (node != NULL) {
+      while (node != nullptr) {
           if ((node->hashCode == code) && (node->entry.key == key)) {
              // found key
              val = node->entry.value;
@@ -622,12 +622,12 @@ public:
 
        Node* node = bucket[b];
 
-       while (node != NULL) {
+       while (node != nullptr) {
            if ((node->hashCode == code) && (node->entry.key == key)) {
               return true;
            }
            node = node->next;
-       } while (node != NULL);
+       } while (node != nullptr);
 
        return false;
    }
@@ -655,7 +655,7 @@ public:
        keyArray.resize(0, DONT_SHRINK_UNDERLYING_ARRAY);
        for (size_t i = 0; i < numBuckets; i++) {
            Node* node = bucket[i];
-           while (node != NULL) {
+           while (node != nullptr) {
                keyArray.append(node->entry.key);
                node = node->next;
            }
@@ -694,7 +694,7 @@ public:
    void deleteValues() {
        for (size_t i = 0; i < numBuckets; i++) {
            Node* node = bucket[i];
-           while (node != NULL) {
+           while (node != nullptr) {
                delete node->entry.value;
                node = node->next;
            }

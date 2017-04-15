@@ -125,13 +125,13 @@ bool DayWatcherThread::run()
 	set_tm_pointers();
 	m_busy = false;
 #ifdef WIN32
-	m_abortEvent = CreateEvent(NULL, NULL, FALSE, NULL);
+	m_abortEvent = CreateEvent(nullptr, 0, FALSE, nullptr);
 #else
 	struct timeval now;
 	struct timespec tv;
 
-	pthread_mutex_init(&abortmutex,NULL);
-	pthread_cond_init(&abortcond,NULL);
+	pthread_mutex_init(&abortmutex,nullptr);
+	pthread_cond_init(&abortcond,nullptr);
 #endif
 	
 	while(m_threadRunning)
@@ -153,7 +153,7 @@ bool DayWatcherThread::run()
 #ifdef WIN32
 		WaitForSingleObject(m_abortEvent, 120000);
 #else
-		gettimeofday(&now, NULL);
+		gettimeofday(&now, nullptr);
 		tv.tv_sec = now.tv_sec + 120;
 		tv.tv_nsec = now.tv_usec * 1000;
 		pthread_mutex_lock(&abortmutex);

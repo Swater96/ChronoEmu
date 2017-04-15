@@ -26,7 +26,7 @@ __forceinline uint32 getMSTime() { return GetTickCount(); }
 CHRONO_INLINE uint32 getMSTime()
 {
 	struct timeval tv;
-	gettimeofday(&tv, NULL);
+	gettimeofday(&tv, nullptr);
 	return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 }
 #endif

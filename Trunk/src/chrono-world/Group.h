@@ -142,10 +142,10 @@ public:
 	// Transferring data to clients
 	void Update();
 
-	CHRONO_INLINE void SendPacketToAll(WorldPacket *packet) { SendPacketToAllButOne(packet, NULL); }
+	CHRONO_INLINE void SendPacketToAll(WorldPacket *packet) { SendPacketToAllButOne(packet, nullptr); }
 	void SendPacketToAllButOne(WorldPacket *packet, Player *pSkipTarget);
 
-	CHRONO_INLINE void OutPacketToAll(uint16 op, uint16 len, const void* data) { OutPacketToAllButOne(op, len, data, NULL); }
+	CHRONO_INLINE void OutPacketToAll(uint16 op, uint16 len, const void* data) { OutPacketToAllButOne(op, len, data, nullptr); }
 	void OutPacketToAllButOne(uint16 op, uint16 len, const void* data, Player *pSkipTarget);
 
 	void SendNullUpdate(Player *pPlayer);
@@ -211,26 +211,6 @@ public:
 	CHRONO_INLINE PlayerInfo * GetMainAssist() { return m_mainAssist; }
 
 	void SetDifficulty(uint8 difficulty);
-	
-	/************************************************************************/
-	/* Voicechat                                                            */
-	/************************************************************************/
-#ifdef VOICE_CHAT
-	void AddVoiceMember(PlayerInfo * pPlayer);
-	void RemoveVoiceMember(PlayerInfo * pPlayer);
-	void SendVoiceUpdate();
-	void CreateVoiceSession();
-	void VoiceChannelCreated(uint16 id);
-	void VoiceSessionDropped();
-	void VoiceSessionReconnected();
-
-public:
-	bool m_voiceChannelRequested;
-	int16 m_voiceChannelId;
-	uint32 m_voiceMemberCount;
-protected:
-	PlayerInfo* m_voiceMembersList[41];
-#endif	// VOICE_CHAT
 
 	CHRONO_INLINE void SetFlag(uint8 groupflag) { m_groupFlags |= groupflag; }
 	CHRONO_INLINE void RemoveFlag(uint8 groupflag) { m_groupFlags &= ~groupflag; }

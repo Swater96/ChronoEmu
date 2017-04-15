@@ -104,13 +104,13 @@ void WorldSession::_HandleAreaTriggerOpcode(uint32 id)
 
 	if( _player->GetSession()->CanUseCommand('z') )
 	{
-		if( pAreaTrigger != NULL )
+		if( pAreaTrigger != nullptr )
 			sChatHandler.BlueSystemMessage( this, "[%sSystem%s] |rEntered areatrigger: %s%u (%s).", MSG_COLOR_WHITE, MSG_COLOR_LIGHTBLUE, MSG_COLOR_SUBWHITE, id, pAreaTrigger->Name );
 		else
 			sChatHandler.BlueSystemMessage( this, "[%sSystem%s] |rEntered areatrigger: %s%u", MSG_COLOR_WHITE, MSG_COLOR_LIGHTBLUE, MSG_COLOR_SUBWHITE, id);
 	}
 
-	if( pAreaTrigger == NULL )
+	if( pAreaTrigger == nullptr )
 	{
 		DEBUG_LOG("Missing AreaTrigger: %u", id);
 		return;

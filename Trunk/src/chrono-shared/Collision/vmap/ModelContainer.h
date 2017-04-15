@@ -58,9 +58,9 @@ namespace VMAP
             ModelContainer() : BaseModel()
 			{
 				iNSubModel = 0;
-				iSubModel = NULL;
-				iTreeNodes = NULL;
-				iTriangles = NULL;
+				iSubModel = nullptr;
+				iTreeNodes = nullptr;
+				iTriangles = nullptr;
 				iNTriangles = 0;
 				iNNodes = 0;
 			}

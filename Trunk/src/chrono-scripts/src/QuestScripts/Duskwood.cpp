@@ -40,7 +40,7 @@ public:
 		{
 			// Correct me if I'm wrong but I saw only 1 guard spawning
 			mElizaGuard = _unit->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(_unit->GetPositionX(), _unit->GetPositionY(), _unit->GetPositionZ(), 1871);
-			if ( mElizaGuard == NULL )
+			if ( mElizaGuard == nullptr )
 			{
 					CastSpellNowNoScheduling(mSummonGuard);
 			}
@@ -58,7 +58,7 @@ public:
 	void OnQuestComplete(Player * mTarget, QuestLogEntry *qLogEntry)
 	{
 		Creature * Eliza = sEAS.SpawnCreature(mTarget, 314, -10271.127f, 53.784f, 42.711f, 1.72f);
-		if ( Eliza != NULL )
+		if ( Eliza != nullptr )
 			Eliza->Despawn( 300000, 0 );	// Should it be that much ?
 	};
 };

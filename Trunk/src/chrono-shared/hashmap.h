@@ -29,7 +29,7 @@ typedef int (*PFany)(int, any_t);
 typedef any_t map_t;
 
 /*
- * Return an empty hashmap. Returns NULL if empty.
+ * Return an empty hashmap. Returns nullptr if empty.
 */
 extern map_t hashmap_new();
 

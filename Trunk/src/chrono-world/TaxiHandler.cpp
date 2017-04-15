@@ -217,7 +217,7 @@ void WorldSession::HandleActivateTaxiOpcode( WorldPacket & recv_data )
 	// 0x000008 seems to enable detailed collision checking
 
 	// check for a summon -> if we do, remove.
-	if(_player->GetSummon() != NULL)
+	if(_player->GetSummon() != nullptr)
 	{
 		if(_player->GetSummon()->GetUInt32Value(UNIT_CREATED_BY_SPELL) > 0)
 			_player->GetSummon()->Dismiss(false);						   // warlock summon -> dismiss
@@ -355,7 +355,7 @@ void WorldSession::HandleMultipleActivateTaxiOpcode(WorldPacket & recvPacket)
 	// 0x000008 seems to enable detailed collision checking
 
 	// check for a summon -> if we do, remove.
-	if(_player->GetSummon() != NULL)
+	if(_player->GetSummon() != nullptr)
 	{
 		if(_player->GetSummon()->GetUInt32Value(UNIT_CREATED_BY_SPELL) > 0)
 			_player->GetSummon()->Dismiss(false);						   // warlock summon -> dismiss

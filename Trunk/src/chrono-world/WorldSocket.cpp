@@ -45,13 +45,13 @@ WorldSocket::WorldSocket(SOCKET fd) : Socket(fd, sWorld.SocketSendBufSize, sWorl
 	Authed = false;
 	mSize = mOpcode = mRemaining = 0;
 	_latency = 0;
-	mSession = NULL;
+	mSession = nullptr;
 	mSeed = rand() % 0xFFFFFFF0 + 10;
-	pAuthenticationPacket = NULL;
+	pAuthenticationPacket = nullptr;
 	mQueued = false;
 	mRequestID = 0;
 	m_nagleEanbled = false;
-	m_fullAccountName = NULL;
+	m_fullAccountName = nullptr;
 }
 
 WorldSocket::~WorldSocket()
@@ -65,14 +65,14 @@ WorldSocket::~WorldSocket()
 
 	if(mSession)
 	{
-		mSession->SetSocket(NULL);
-		mSession=NULL;
+		mSession->SetSocket(nullptr);
+		mSession=nullptr;
 	}
 
-	if( m_fullAccountName != NULL )
+	if( m_fullAccountName != nullptr )
 	{
 		delete m_fullAccountName;
-		m_fullAccountName = NULL;
+		m_fullAccountName = nullptr;
 	}
 }
 
@@ -81,7 +81,7 @@ void WorldSocket::OnDisconnect()
 	if(mSession)
 	{
 		mSession->SetSocket(0);
-		mSession=NULL;
+		mSession=nullptr;
 	}
 
 	if(mRequestID != 0)
@@ -134,7 +134,7 @@ void WorldSocket::UpdateQueuedPackets()
 	while((pck = _queue.front()))
 	{
 		/* try to push out as many as you can */
-		switch(_OutPacket(pck->GetOpcode(), pck->size(), pck->size() ? pck->contents() : NULL))
+		switch(_OutPacket(pck->GetOpcode(), pck->size(), pck->size() ? pck->contents() : nullptr))
 		{
 		case OUTPACKET_RESULT_SUCCESS:
 			{
@@ -261,7 +261,7 @@ void WorldSocket::InformationRetreiveCallback(WorldPacket & recvData, uint32 req
 	uint32 error;
 	recvData >> error;
 
-	if(error != 0 || pAuthenticationPacket == NULL)
+	if(error != 0 || pAuthenticationPacket == nullptr)
 	{
 		// something happened wrong @ the logon server
 		OutPacket(SMSG_AUTH_RESPONSE, 1, "\x0D");
@@ -279,7 +279,7 @@ void WorldSocket::InformationRetreiveCallback(WorldPacket & recvData, uint32 req
 	
 	recvData >> AccountID >> AccountName >> GMFlags >> AccountFlags;
 	ForcedPermissions = sLogonCommHandler.GetForcedPermissions(AccountName);
-	if( ForcedPermissions != NULL )
+	if( ForcedPermissions != nullptr )
 		GMFlags.assign(ForcedPermissions->c_str());
 
 	sLog.outDebug( " >> got information packet from logon: `%s` ID %u (request %u)", AccountName.c_str(), AccountID, mRequestID);
@@ -325,7 +325,7 @@ void WorldSocket::InformationRetreiveCallback(WorldPacket & recvData, uint32 req
 	pAuthenticationPacket->read(digest, 20);
 
 	uint32 t = 0;
-	if( m_fullAccountName == NULL )				// should never happen !
+	if( m_fullAccountName == nullptr )				// should never happen !
 		sha.UpdateData(AccountName);
 	else
 	{
@@ -333,13 +333,13 @@ void WorldSocket::InformationRetreiveCallback(WorldPacket & recvData, uint32 req
 		
 		// this is unused now. we may as well free up the memory.
 		delete m_fullAccountName;
-		m_fullAccountName = NULL;
+		m_fullAccountName = nullptr;
 	}
 
 	sha.UpdateData((uint8 *)&t, 4);
 	sha.UpdateData((uint8 *)&mClientSeed, 4);
 	sha.UpdateData((uint8 *)&mSeed, 4);
-	sha.UpdateBigNumbers(&BNK, NULL);
+	sha.UpdateBigNumbers(&BNK, nullptr);
 	sha.Finalize();
 
 	if (memcmp(sha.GetDigest(), digest, 20))
@@ -366,7 +366,7 @@ void WorldSocket::InformationRetreiveCallback(WorldPacket & recvData, uint32 req
 		recvData >> pSession->m_muted;
 
 	for(uint32 i = 0; i < 8; ++i)
-		pSession->SetAccountData(i, NULL, true, 0);
+		pSession->SetAccountData(i, nullptr, true, 0);
 
 	// queue the account loading
 	/*AsyncQuery * aq = new AsyncQuery( new SQLClassCallbackP1<World, uint32>(World::getSingletonPtr(), &World::LoadAccountDataProc, AccountID) );
@@ -375,7 +375,7 @@ void WorldSocket::InformationRetreiveCallback(WorldPacket & recvData, uint32 req
 	if(sWorld.m_useAccountData)
 	{
 		QueryResult * pResult = CharacterDatabase.Query("SELECT * FROM account_data WHERE acct = %u", AccountID);
-		if( pResult == NULL )
+		if( pResult == nullptr )
 			CharacterDatabase.Execute("INSERT INTO account_data VALUES(%u, '', '', '', '', '', '', '', '', '')", AccountID);
 		else
 		{
@@ -568,7 +568,7 @@ void WorldSocket::OnRead()
 			GetReadBuffer().Read((uint8*)Packet->contents(), mRemaining);
 		}
 
-		sWorldLog.LogPacket(mSize, mOpcode, mSize ? Packet->contents() : NULL, 0);
+		sWorldLog.LogPacket(mSize, mOpcode, mSize ? Packet->contents() : nullptr, 0);
 		mRemaining = mSize = mOpcode = 0;
 
 		// Check for packets that we handle

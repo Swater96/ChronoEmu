@@ -33,7 +33,7 @@ void WorldSession::HandleUseItemOpcode(WorldPacket& recvPacket)
 	bool HasTarget = false;
 
 	recvPacket >> tmp1 >> slot >> tmp3; //>> cn >> item_guid;
-	Item* tmpItem = NULL;
+	Item* tmpItem = nullptr;
 	tmpItem = p_User->GetItemInterface()->GetInventoryItem(tmp1,slot);
 	if (!tmpItem)
 		tmpItem = p_User->GetItemInterface()->GetInventoryItem(slot);
@@ -92,7 +92,7 @@ void WorldSession::HandleUseItemOpcode(WorldPacket& recvPacket)
 	{
 		if (p_User->CombatStatus.IsInCombat() || p_User->IsMounted())
 		{
-			_player->GetItemInterface()->BuildInventoryChangeError(tmpItem,NULL,INV_ERR_CANT_DO_IN_COMBAT);
+			_player->GetItemInterface()->BuildInventoryChangeError(tmpItem,nullptr,INV_ERR_CANT_DO_IN_COMBAT);
 			return;
 		}
 		if(p_User->GetStandState()!=1)
@@ -104,7 +104,7 @@ void WorldSession::HandleUseItemOpcode(WorldPacket& recvPacket)
 	{
 		if(_player->getLevel() < itemProto->RequiredLevel)
 		{
-			_player->GetItemInterface()->BuildInventoryChangeError(tmpItem,NULL,INV_ERR_ITEM_RANK_NOT_ENOUGH);
+			_player->GetItemInterface()->BuildInventoryChangeError(tmpItem,nullptr,INV_ERR_ITEM_RANK_NOT_ENOUGH);
 			return;
 		}
 	}
@@ -113,7 +113,7 @@ void WorldSession::HandleUseItemOpcode(WorldPacket& recvPacket)
 	{
 		if(!_player->_HasSkillLine(itemProto->RequiredSkill))
 		{
-			_player->GetItemInterface()->BuildInventoryChangeError(tmpItem,NULL,INV_ERR_ITEM_RANK_NOT_ENOUGH);
+			_player->GetItemInterface()->BuildInventoryChangeError(tmpItem,nullptr,INV_ERR_ITEM_RANK_NOT_ENOUGH);
 			return;
 		}
 
@@ -121,7 +121,7 @@ void WorldSession::HandleUseItemOpcode(WorldPacket& recvPacket)
 		{
 			if(_player->_GetSkillLineCurrent(itemProto->RequiredSkill, false) < itemProto->RequiredSkillRank)
 			{
-				_player->GetItemInterface()->BuildInventoryChangeError(tmpItem,NULL,INV_ERR_ITEM_RANK_NOT_ENOUGH);
+				_player->GetItemInterface()->BuildInventoryChangeError(tmpItem,nullptr,INV_ERR_ITEM_RANK_NOT_ENOUGH);
 				return;
 			}
 		}
@@ -129,7 +129,7 @@ void WorldSession::HandleUseItemOpcode(WorldPacket& recvPacket)
 	
 	if( itemProto->AllowableClass && !(_player->getClassMask() & itemProto->AllowableClass) || itemProto->AllowableRace && !(_player->getRaceMask() & itemProto->AllowableRace) )
 	{
-		_player->GetItemInterface()->BuildInventoryChangeError(tmpItem,NULL,INV_ERR_YOU_CAN_NEVER_USE_THAT_ITEM);
+		_player->GetItemInterface()->BuildInventoryChangeError(tmpItem,nullptr,INV_ERR_YOU_CAN_NEVER_USE_THAT_ITEM);
 		return;
 	}		
 
@@ -173,7 +173,7 @@ void WorldSession::HandleUseItemOpcode(WorldPacket& recvPacket)
 	if(HasTarget)
 		targets.m_unitTarget = _player->GetSelection();
 
-	Spell *spell = new Spell(_player, spellInfo, false, NULL);
+	Spell *spell = new Spell(_player, spellInfo, false, nullptr);
 	uint8 result;
 	spell->extra_cast_number=0;
 	spell->i_caster = tmpItem;
@@ -251,7 +251,7 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 				SpellCastTargets targets(recvPacket,GetPlayer()->GetGUID());
 				if(!targets.m_unitTarget)
 				{
-					sLog.outString( "Cancelling auto-shot cast because targets.m_unitTarget is null!" );
+					sLog.outString( "Cancelling auto-shot cast because targets.m_unitTarget is nullptr!" );
 					return;
 				}
 				SpellEntry *sp = dbcSpell.LookupEntry(spellid);
@@ -296,7 +296,7 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 				return;
 			}
 		}
-		Spell *spell = new Spell(GetPlayer(), spellInfo, false, NULL);
+		Spell *spell = new Spell(GetPlayer(), spellInfo, false, nullptr);
 		spell->prepare(&targets);
 	}
 }

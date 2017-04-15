@@ -30,7 +30,7 @@ SQLCallbackBase::~SQLCallbackBase()
 Database::Database() : ThreadContext()
 {
 	_counter=0;
-	m_connections = NULL;
+	m_connections = nullptr;
 	mConnectionCount = -1;   // Not connected.
 	ThreadRunning = true;
 }
@@ -39,7 +39,7 @@ Database::~Database()
 {
 	for(int32 i = 0; i < mConnectionCount; ++i)
 	{
-		if( m_connections[i].conn != NULL )
+		if( m_connections[i].conn != nullptr )
 			mysql_close(m_connections[i].conn);
 	}
 
@@ -63,15 +63,15 @@ bool Database::Initialize(const char* Hostname, unsigned int port, const char* U
 	m_connections = new DatabaseConnection[ConnectionCount];
 	for( i = 0; i < ConnectionCount; ++i )
 	{
-		temp = mysql_init( NULL );
+		temp = mysql_init( nullptr );
 		if(mysql_options(temp, MYSQL_SET_CHARSET_NAME, "utf8"))
 			Log.Error("MySQLDatabase", "Could not set utf8 character set.");
 
 		if (mysql_options(temp, MYSQL_OPT_RECONNECT, &my_true))
 			Log.Error("MySQLDatabase", "MYSQL_OPT_RECONNECT could not be set, connection drops may occur but will be counteracted.");
 
-		temp2 = mysql_real_connect( temp, Hostname, Username, Password, DatabaseName, port, NULL, 0 );
-		if( temp2 == NULL )
+		temp2 = mysql_real_connect( temp, Hostname, Username, Password, DatabaseName, port, nullptr, 0 );
+		if( temp2 == nullptr )
 		{
 			Log.Error("MySQLDatabase", "Connection failed due to: `%s`", mysql_error( temp ) );
 			return false;
@@ -107,7 +107,7 @@ DatabaseConnection * Database::GetFreeConnection()
 	}
 
 	// shouldn't be reached
-	return NULL;
+	return nullptr;
 }
 
 QueryResult * Database::Query(const char* QueryString, ...)
@@ -119,7 +119,7 @@ QueryResult * Database::Query(const char* QueryString, ...)
 	va_end(vlist);
 
 	// Send the query
-	QueryResult * qResult = NULL;
+	QueryResult * qResult = nullptr;
 	DatabaseConnection * con = GetFreeConnection();
 
 	if(_SendQuery(con, sql, false))
@@ -132,7 +132,7 @@ QueryResult * Database::Query(const char* QueryString, ...)
 QueryResult * Database::QueryNA(const char* QueryString)
 {	
 	// Send the query
-	QueryResult * qResult = NULL;
+	QueryResult * qResult = nullptr;
 	DatabaseConnection * con = GetFreeConnection();
 
 	if( _SendQuery( con, QueryString, false ) )
@@ -145,7 +145,7 @@ QueryResult * Database::QueryNA(const char* QueryString)
 QueryResult * Database::FQuery(const char * QueryString, DatabaseConnection * con)
 {	
 	// Send the query
-	QueryResult * qResult = NULL;
+	QueryResult * qResult = nullptr;
 	if( _SendQuery( con, QueryString, false ) )
 		qResult = _StoreQueryResult( con );
 
@@ -197,7 +197,7 @@ void Database::PerformQueryBuffer(QueryBuffer * b, DatabaseConnection * ccon)
 		return;
 
     DatabaseConnection * con = ccon;
-	if( ccon == NULL )
+	if( ccon == nullptr )
 		con = GetFreeConnection();
 	
 	for(vector<char*>::iterator itr = b->queries.begin(); itr != b->queries.end(); ++itr)
@@ -206,7 +206,7 @@ void Database::PerformQueryBuffer(QueryBuffer * b, DatabaseConnection * ccon)
 		delete[] (*itr);
 	}
 
-	if( ccon == NULL )
+	if( ccon == nullptr )
 		con->Busy.Release();
 }
 
@@ -316,7 +316,7 @@ void AsyncQuery::AddQuery(const char * format, ...)
 	res.query = new char[len+1];
 	res.query[len] = 0;
 	memcpy(res.query, buffer, len);
-	res.result = NULL;
+	res.result = nullptr;
 	queries.push_back(res);
 }
 
@@ -371,7 +371,7 @@ bool QueryThread::run( )
 
 QueryThread::~QueryThread()
 {
-	db->qt = NULL;
+	db->qt = nullptr;
 }
 
 void Database::thread_proc_query()
@@ -380,7 +380,7 @@ void Database::thread_proc_query()
 	DatabaseConnection * con = GetFreeConnection();
 
 	q = query_buffer.pop( );
-	while( q != NULL )
+	while( q != nullptr )
 	{
 		PerformQueryBuffer( q, con );
 		delete q;
@@ -395,9 +395,9 @@ void Database::thread_proc_query()
 
 	// kill any queries
 	q = query_buffer.pop_nowait( );
-	while( q != NULL )
+	while( q != nullptr )
 	{
-		PerformQueryBuffer( q, NULL );
+		PerformQueryBuffer( q, nullptr );
 		delete q;
 
 		q = query_buffer.pop_nowait( );
@@ -407,7 +407,7 @@ void Database::thread_proc_query()
 void Database::QueueAsyncQuery(AsyncQuery * query)
 {
 	query->db = this;
-	/*if(qt == NULL)
+	/*if(qt == nullptr)
 	{
 		query->Perform();
 		return;
@@ -419,11 +419,11 @@ void Database::QueueAsyncQuery(AsyncQuery * query)
 
 void Database::AddQueryBuffer(QueryBuffer * b)
 {
-	if( qt != NULL )
+	if( qt != nullptr )
 		query_buffer.push( b );
 	else
 	{
-		PerformQueryBuffer( b, NULL );
+		PerformQueryBuffer( b, nullptr );
 		delete b;
 	}
 }
@@ -527,7 +527,7 @@ QueryResult::~QueryResult()
 bool QueryResult::NextRow()
 {
 	MYSQL_ROW row = mysql_fetch_row(mResult);
-	if(row == NULL)
+	if(row == nullptr)
 		return false;
 
 	for(uint32 i = 0; i < mFieldCount; ++i)
@@ -545,10 +545,10 @@ QueryResult * Database::_StoreQueryResult(DatabaseConnection * con)
 
 	if( uRows == 0 || uFields == 0 || pRes == 0 )
 	{
-		if( pRes != NULL )
+		if( pRes != nullptr )
 			mysql_free_result( pRes );
 
-		return NULL;
+		return nullptr;
 	}
 
 	res = new QueryResult( pRes, uFields, uRows );
@@ -561,9 +561,9 @@ bool Database::_Reconnect(DatabaseConnection * conn)
 {
 	MYSQL * temp, *temp2;
 
-	temp = mysql_init( NULL );
-	temp2 = mysql_real_connect( temp, mHostname.c_str(), mUsername.c_str(), mPassword.c_str(), mDatabaseName.c_str(), mPort, NULL , 0 );
-	if( temp2 == NULL )
+	temp = mysql_init( nullptr );
+	temp2 = mysql_real_connect( temp, mHostname.c_str(), mUsername.c_str(), mPassword.c_str(), mDatabaseName.c_str(), mPort, nullptr , 0 );
+	if( temp2 == nullptr )
 	{
 		Log.Error("Database", "Could not reconnect to database because of `%s`", mysql_error( temp ) );
 		mysql_close( temp );
@@ -572,7 +572,7 @@ bool Database::_Reconnect(DatabaseConnection * conn)
 
 	mysql_query(temp, "SET SESSION query_cache_type = OFF;");
 
-	if( conn->conn != NULL )
+	if( conn->conn != nullptr )
 		mysql_close( conn->conn );
 
 	conn->conn = temp;
@@ -593,10 +593,10 @@ void Database::Shutdown()
 {
 	for(int32 i = 0; i < mConnectionCount; ++i)
 	{
-		if( m_connections[i].conn != NULL )
+		if( m_connections[i].conn != nullptr )
 		{
 			mysql_close(m_connections[i].conn);
-			m_connections[i].conn = NULL;
+			m_connections[i].conn = nullptr;
 		}
 	}
 }

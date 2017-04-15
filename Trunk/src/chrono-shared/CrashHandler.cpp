@@ -303,7 +303,7 @@ int __cdecl HandleCrash(PEXCEPTION_POINTERS pExceptPtrs)
 	died=true;
 
 	// Create the date/time string
-	time_t curtime = time(NULL);
+	time_t curtime = time(nullptr);
 	tm * pTime = localtime(&curtime);
 	char filename[MAX_PATH];
 	TCHAR modname[MAX_PATH*2];
@@ -319,14 +319,14 @@ int __cdecl HandleCrash(PEXCEPTION_POINTERS pExceptPtrs)
 		pTime->tm_hour, pTime->tm_min, pTime->tm_sec, GetCurrentThreadId());
 	
 
-	HANDLE hDump = CreateFile(filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
+	HANDLE hDump = CreateFile(filename, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
 		FILE_ATTRIBUTE_NORMAL | FILE_FLAG_WRITE_THROUGH, 0);
 
 	if(hDump == INVALID_HANDLE_VALUE)
 	{
 		// Create the directory first
 		CreateDirectory("CrashDumps", 0);
-		hDump = CreateFile(filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
+		hDump = CreateFile(filename, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
 			FILE_ATTRIBUTE_NORMAL | FILE_FLAG_WRITE_THROUGH, 0);
 	}
 

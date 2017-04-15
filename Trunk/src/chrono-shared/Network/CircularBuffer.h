@@ -42,7 +42,7 @@ class CircularBuffer
 	inline size_t GetAFreeSpace() { return (m_bufferEnd - m_regionAPointer - m_regionASize); }
 	inline size_t GetSpaceBeforeA() { return (m_regionAPointer - m_buffer); }
 	inline size_t GetSpaceAfterA() { return (m_bufferEnd - m_regionAPointer - m_regionASize); }
-	inline size_t GetBFreeSpace() { if(m_regionBPointer == NULL) { return 0; } return (m_regionAPointer - m_regionBPointer - m_regionBSize); }
+	inline size_t GetBFreeSpace() { if(m_regionBPointer == nullptr) { return 0; } return (m_regionAPointer - m_regionBPointer - m_regionBSize); }
 
 public:
 

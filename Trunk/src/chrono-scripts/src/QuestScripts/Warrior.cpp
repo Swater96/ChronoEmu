@@ -35,7 +35,7 @@ public:
 
 		GossipMenu *Menu;
 		Creature * windwatcher = TO_CREATURE(pObject);
-		if (windwatcher == NULL)
+		if (windwatcher == nullptr)
 			return;
 
 		objmgr.CreateGossipMenuForPlayer(&Menu, pObject->GetGUID(), 1, plr);
@@ -52,7 +52,7 @@ public:
 			return;
 
 		Creature * windwatcher = TO_CREATURE(pObject);
-		if (windwatcher == NULL)
+		if (windwatcher == nullptr)
 			return;
 
 		switch (IntId)
@@ -63,10 +63,10 @@ public:
 
 			case 1:
 			{
-			if(plr == NULL || plr->GetMapMgr() == NULL || plr->GetMapMgr()->GetInterface() == NULL)
+			if(plr == nullptr || plr->GetMapMgr() == nullptr || plr->GetMapMgr()->GetInterface() == nullptr)
 				return;
 				Creature * whirlwind = plr->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(plr->GetPositionX(), plr->GetPositionY(), plr->GetPositionZ(), 6239);
-				if(whirlwind != NULL)
+				if(whirlwind != nullptr)
 				{
 					if(!whirlwind->isAlive())
 					{
@@ -142,7 +142,7 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -150,7 +150,7 @@ public:
 
 		Creature * Bartleby = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 6090);
 
-		if(Bartleby == NULL)
+		if(Bartleby == nullptr)
 			return;
 
 		Bartleby->SetUInt32Value(UNIT_FIELD_FACTIONTEMPLATE, 168);

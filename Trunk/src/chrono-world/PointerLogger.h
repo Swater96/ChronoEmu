@@ -28,7 +28,7 @@
 	CStackWalker walker; \
 	walker.ShowCallstack(); \
 	FILE* pointerlog=fopen("PointerLog.txt", "a"); \
-	if (pointerlog == NULL) return; \
+	if (pointerlog == nullptr) return; \
 	fprintf(pointerlog, "New pointer: 0x%p\nCallstack: %s\n", x, walker.CallBack.c_str()); \
 	fclose(pointerlog);
 
@@ -36,7 +36,7 @@
 	CStackWalker walker; \
 	walker.ShowCallstack(); \
 	FILE* pointerlog=fopen("PointerLog.txt", "a"); \
-	if (pointerlog == NULL) return; \
+	if (pointerlog == nullptr) return; \
 	fprintf(pointerlog, "Deleted pointer: 0x%p\nCallstack: %s\n", x, walker.CallBack.c_str()); \
 	fclose(pointerlog);
 

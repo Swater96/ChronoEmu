@@ -73,7 +73,7 @@ typedef HM_NAMESPACE::hash_map<uint32, GameObject*> GameObjectSqlIdMap;
 class Transporter;
 #define RESERVE_EXPAND_SIZE 1024
 
-#define CALL_INSTANCE_SCRIPT_EVENT( Mgr, Func ) if ( Mgr != NULL && Mgr->GetScript() != NULL ) Mgr->GetScript()->Func
+#define CALL_INSTANCE_SCRIPT_EVENT( Mgr, Func ) if ( Mgr != nullptr && Mgr->GetScript() != nullptr ) Mgr->GetScript()->Func
 
 class SERVER_DECL MapMgr : public CellHandler <MapCell>, public EventableObject,public ThreadContext
 {
@@ -107,7 +107,7 @@ public:
 	{
 		GameObjectMap::iterator itr = m_gameObjectStorage.find(guid);
 		if( itr == m_gameObjectStorage.end() )
-			return NULL;
+			return nullptr;
 
 		return itr->second;
 	}
@@ -252,14 +252,14 @@ public:
 	// better hope to clear any references to us when calling this :P
 	void InstanceShutdown()
 	{
-		pInstance = NULL;
+		pInstance = nullptr;
 		Terminate();
 	}
 
 	// kill the worker thread only
 	void KillThread()
 	{
-		pInstance=NULL;
+		pInstance=nullptr;
 		thread_kill_only = true;
 		Terminate();
 		while(thread_running)

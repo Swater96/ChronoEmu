@@ -28,7 +28,7 @@
  */
 CircularBuffer::CircularBuffer()
 {
-	m_buffer = m_bufferEnd = m_regionAPointer = m_regionBPointer = NULL;
+	m_buffer = m_bufferEnd = m_regionAPointer = m_regionBPointer = nullptr;
 	m_regionASize = m_regionBSize = 0;
 }
 
@@ -84,13 +84,13 @@ bool CircularBuffer::Read(void * destination, size_t bytes)
 
 			m_regionAPointer = m_buffer;
 			m_regionASize = m_regionBSize;
-			m_regionBPointer = NULL;
+			m_regionBPointer = nullptr;
 			m_regionBSize = 0;
 		}
 		else
 		{
 			// no data in region b
-			m_regionBPointer = NULL;
+			m_regionBPointer = nullptr;
 			m_regionBSize = 0;
 			m_regionAPointer = m_buffer;
 			m_regionASize = 0;
@@ -114,7 +114,7 @@ void CircularBuffer::AllocateB()
 bool CircularBuffer::Write(const void * data, size_t bytes)
 {
 	// If buffer B exists, write to it.
-	if( m_regionBPointer != NULL )
+	if( m_regionBPointer != nullptr )
 	{
 		if( GetBFreeSpace() < bytes )
 			return false;
@@ -150,7 +150,7 @@ bool CircularBuffer::Write(const void * data, size_t bytes)
  */
 size_t CircularBuffer::GetSpace()
 {
-	if( m_regionBPointer != NULL )
+	if( m_regionBPointer != nullptr )
 		return GetBFreeSpace();
 	else
 	{
@@ -222,13 +222,13 @@ void CircularBuffer::Remove(size_t len)
 	
 			m_regionAPointer = m_buffer;
 			m_regionASize = m_regionBSize;
-			m_regionBPointer = NULL;
+			m_regionBPointer = nullptr;
 			m_regionBSize = 0;
 		}
 		else
 		{
 			// no data in region b
-			m_regionBPointer = NULL;
+			m_regionBPointer = nullptr;
 			m_regionBSize = 0;
 			m_regionAPointer = m_buffer;
 			m_regionASize = 0;
@@ -240,7 +240,7 @@ void CircularBuffer::Remove(size_t len)
  */
 void * CircularBuffer::GetBuffer()
 {
-	if( m_regionBPointer != NULL )
+	if( m_regionBPointer != nullptr )
 		return m_regionBPointer + m_regionBSize;
 	else
 		return m_regionAPointer + m_regionASize;
@@ -261,7 +261,7 @@ void CircularBuffer::Allocate(size_t size)
  */
 void CircularBuffer::IncrementWritten(size_t len)			// known as "commit"
 {
-	if( m_regionBPointer != NULL )
+	if( m_regionBPointer != nullptr )
 		m_regionBSize += len;
 	else
 		m_regionASize += len;

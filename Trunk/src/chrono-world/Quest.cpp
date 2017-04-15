@@ -28,7 +28,7 @@ WorldPacket* WorldSession::BuildQuestQueryResponse(Quest *qst)
 	// better to allocate more at startup than have to realloc the buffer later on.
 
 	WorldPacket *data = new WorldPacket(SMSG_QUEST_QUERY_RESPONSE, 2048);
-	LocalizedQuest * lci = (language>0) ? sLocalizationMgr.GetLocalizedQuest(qst->id, language) : NULL;
+	LocalizedQuest * lci = (language>0) ? sLocalizationMgr.GetLocalizedQuest(qst->id, language) : nullptr;
    
 	*data << uint32(qst->id);					   // Quest ID
 	*data << uint32(2);							 // Unknown, always seems to be 2
@@ -120,7 +120,7 @@ WorldPacket* WorldSession::BuildQuestQueryResponse(Quest *qst)
 QuestLogEntry::QuestLogEntry()
 {
 	mInitialized = false;
-	m_quest = NULL;
+	m_quest = nullptr;
 	mDirty = false;
 	m_slot = -1;
 	completed=0;
@@ -213,7 +213,7 @@ void QuestLogEntry::SaveToDB(QueryBuffer * buf)
 
 	ss << ")";
 	
-	if( buf == NULL )
+	if( buf == nullptr )
 		CharacterDatabase.Execute( ss.str().c_str() );
 	else
 		buf->AddQueryStr(ss.str());
@@ -319,7 +319,7 @@ void QuestLogEntry::Finish()
 	m_plr->SetUInt32Value(base + 2, 0);
 
 	// clear from player log
-	m_plr->SetQuestLogSlot(NULL, m_slot);
+	m_plr->SetQuestLogSlot(nullptr, m_slot);
 	m_plr->PushToRemovedQuests(m_quest->id);
 
 	// delete ourselves

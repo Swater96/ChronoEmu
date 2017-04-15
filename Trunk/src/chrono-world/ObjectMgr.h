@@ -489,9 +489,11 @@ public:
 	void LoadVendors();
 	void LoadTotemSpells();
 	void LoadAIThreatToSpellId();
+	void LoadSpellInFront();
 	void LoadSpellFixes();
+	void LoadSpellCoefOverride();
+	void LoadSpellForcedTargets();
 	void LoadSpellProcs();
-	void LoadSpellEffectsOverride();
 	void LoadReputationModifierTable(const char * tablename, ReputationModMap * dmap);
 	void LoadReputationModifiers();
 	void loadSavedVariables();
@@ -578,8 +580,6 @@ public:
 		return false;
 	}
 
-	void LoadDisabledSpells();
-	void ReloadLoadDisabledSpells();
 	CHRONO_INLINE GuildMap::iterator GetGuildsBegin() { return mGuild.begin(); }
 	CHRONO_INLINE GuildMap::iterator GetGuildsEnd() { return mGuild.end(); }
 

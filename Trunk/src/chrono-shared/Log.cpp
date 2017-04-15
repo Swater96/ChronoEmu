@@ -28,7 +28,7 @@ string FormatOutputString(const char * Prefix, const char * Description, bool us
 
 	char p[MAX_PATH];
 	p[0] = 0;
-	time_t t = time(NULL);
+	time_t t = time(nullptr);
 	tm * a = gmtime(&t);
 	strcat(p, Prefix);
 	strcat(p, "/");
@@ -67,7 +67,7 @@ void oLog::outTime()
 {
 #ifndef WIN32
 	char buf[256];
-	time_t t = time(NULL);
+	time_t t = time(nullptr);
 	struct tm *tm = localtime(&t);
 
 	if (tm)
@@ -192,13 +192,13 @@ void oLog::Init()
 {
 	m_screenLogLevel = Config.MainConfig.GetIntDefault("LogLevel", "Screen", 0);
 	m_fileLogLevel = Config.MainConfig.GetIntDefault("LogLevel", "File", 0);
-	m_file = NULL;
+	m_file = nullptr;
 
 	if (m_fileLogLevel >= 0)
 	{
 		const char *filename = "file.log";
 		m_file = fopen(filename, "w");
-		if (m_file == NULL)
+		if (m_file == nullptr)
 		{
 			fprintf(stderr, "%s: Error opening '%s': %s\n", __FUNCTION__, filename, strerror(errno));
 		}
@@ -220,7 +220,7 @@ void SessionLogWriter::write(const char* format, ...)
 	va_start(ap, format);
 	char out[32768];
 
-	time_t t = time(NULL);
+	time_t t = time(nullptr);
 	tm* aTm = localtime(&t);
 	sprintf(out, "[%-4d-%02d-%02d %02d:%02d:%02d] ",aTm->tm_year+1900,aTm->tm_mon+1,aTm->tm_mday,aTm->tm_hour,aTm->tm_min,aTm->tm_sec);
 	size_t l = strlen(out);
@@ -234,9 +234,9 @@ WorldLog::WorldLog()
 {
 	bEnabled = false;
 	bEnabledXml = false;
-	onlyPlayer = NULL;
-	m_file=NULL;
-	m_xml=NULL;
+	onlyPlayer = nullptr;
+	m_file=nullptr;
+	m_xml=nullptr;
 
 	if (Config.MainConfig.GetBoolDefault("LogLevel", "World", false))
 	{
@@ -262,7 +262,7 @@ void WorldLog::Enable()
 		return;
 
 	bEnabled = true;
-	if(m_file != NULL)
+	if(m_file != nullptr)
 	{
 		Disable();
 		bEnabled=true;
@@ -281,7 +281,7 @@ void WorldLog::Disable()
 
 	fflush(m_file);
 	fclose(m_file);
-	m_file=NULL;
+	m_file=nullptr;
 }
 
 void WorldLog::EnableXml()
@@ -290,7 +290,7 @@ void WorldLog::EnableXml()
 		return;
 
 	bEnabledXml = true;
-	if(m_xml != NULL)
+	if(m_xml != nullptr)
 	{
 		DisableXml();
 		bEnabledXml=true;
@@ -314,7 +314,7 @@ void WorldLog::DisableXml()
 	fprintf(m_xml, "</log>");
 	fflush(m_xml);
 	fclose(m_xml);
-	m_xml=NULL;
+	m_xml=nullptr;
 }
 
 WorldLog::~WorldLog()
@@ -322,14 +322,14 @@ WorldLog::~WorldLog()
 	if (m_file)
 	{
 		fclose(m_file);
-		m_file = NULL;
+		m_file = nullptr;
 	}
 
 	if (m_xml)
 	{
 		fprintf(m_xml, "</log>");
 		fclose(m_xml);
-		m_xml = NULL;
+		m_xml = nullptr;
 	}
 }
 
@@ -358,13 +358,13 @@ void SessionLogWriter::Close()
 	if(!m_file) return;
 	fflush(m_file);
 	fclose(m_file);
-	m_file=NULL;
+	m_file=nullptr;
 }
 
 SessionLogWriter::SessionLogWriter(const char * filename, bool open)
 {
 	m_filename = strdup(filename);
-	m_file=NULL;
+	m_file=nullptr;
 	if(open)
 		Open();
 }

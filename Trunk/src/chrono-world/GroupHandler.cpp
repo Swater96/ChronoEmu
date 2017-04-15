@@ -28,15 +28,15 @@ void WorldSession::HandleGroupInviteOpcode( WorldPacket & recv_data )
 	CHECK_PACKET_SIZE(recv_data, 1);
 	WorldPacket data(100);
 	std::string membername;
-	Player * player = NULL;
-	Group *group = NULL;
+	Player * player = nullptr;
+	Group *group = nullptr;
 
 	recv_data >> membername;
 	if(_player->HasBeenInvited())return;
 
 	player = objmgr.GetPlayer(membername.c_str(), false);
 
-	if ( player == NULL)
+	if ( player == nullptr)
 	{
 		SendPartyCommandResult(_player, 0, membername, ERR_PARTY_CANNOT_FIND);
 		return;
@@ -54,7 +54,7 @@ void WorldSession::HandleGroupInviteOpcode( WorldPacket & recv_data )
 	}
 
 	group = _player->GetGroup();
-	if ( group != NULL )
+	if ( group != nullptr )
 	{
 		if (group->IsFull())
 		{
@@ -185,7 +185,7 @@ void WorldSession::HandleGroupUninviteOpcode( WorldPacket & recv_data )
 
 	player = objmgr.GetPlayer(membername.c_str(), false);
 	info = objmgr.GetPlayerInfoByName(membername.c_str());
-	if ( player == NULL && info == NULL )
+	if ( player == nullptr && info == nullptr )
 	{
 		SendPartyCommandResult(_player, 0, membername, ERR_PARTY_CANNOT_FIND);
 		return;
@@ -236,7 +236,7 @@ void WorldSession::HandleGroupSetLeaderOpcode( WorldPacket & recv_data )
 	
 	player = objmgr.GetPlayer((uint32)MemberGuid);
 
-	if ( player == NULL )
+	if ( player == nullptr )
 	{
 		//SendPartyCommandResult(_player, 0, membername, ERR_PARTY_CANNOT_FIND);
 		SendPartyCommandResult(_player, 0, _player->GetName(), ERR_PARTY_CANNOT_FIND);
@@ -297,7 +297,7 @@ void WorldSession::HandleLootMethodOpcode( WorldPacket & recv_data )
 	//Player *plyr = objmgr.GetPlayer((uint32)lootMaster);
 	//if(!plyr)return;
 	Group* pGroup = _player->GetGroup();
-	if( pGroup != NULL)
+	if( pGroup != nullptr)
 		pGroup->SetLooter( _player, lootMethod, threshold );
 }
 

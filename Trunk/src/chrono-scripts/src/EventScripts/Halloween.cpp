@@ -129,7 +129,7 @@ class ShadeOfTheHorsemanAI : public MoonScriptCreatureAI
 		if( iWaypointId == WPCount ) // Reached end
 		{
 			StopWaypointMovement();
-			if( GetNearestCreature( CN_HEADLESS_HORSEMAN_FIRE ) == NULL ) // CASE players win
+			if( GetNearestCreature( CN_HEADLESS_HORSEMAN_FIRE ) == nullptr ) // CASE players win
 			{
 				Emote("My flames have died, left not a spark! I shall send you now to the lifeless dark!", Text_Yell, 11968 );
 				Despawn(30000, 0); //Despawn after 30 secs
@@ -159,7 +159,7 @@ class ShadeOfTheHorsemanAI : public MoonScriptCreatureAI
 	void OnDied( Unit * pKiller )
 	{
 		GameObject * Pumpkin = sEAS.SpawnGameobject( TO_PLAYER(pKiller), 2883, _unit->GetPositionX()+RandomFloat(5.0f), _unit->GetPositionY()+RandomFloat(5.0f), _unit->GetPositionZ(), 0, 1, 0, 0, 0, 0 );
-		if(Pumpkin != NULL)
+		if(Pumpkin != nullptr)
 			_unit->CastSpell(Pumpkin->GetGUID(), 42277, true );
 
 		ParentClass::OnDied(pKiller);
@@ -194,7 +194,7 @@ class HeadlessHorsemanWispInvisAI : public MoonScriptCreatureAI
 		if( minute == "00" && hour == "00" || hour == "04" || hour == "08" || hour == "12" ) // All check for the time
 		{
 			mHeadlessHorseman = GetNearestCreature( CN_SHADE_OF_THE_HORSEMAN );
-			if( mHeadlessHorseman == NULL )
+			if( mHeadlessHorseman == nullptr )
 			{
 				SpawnCreature( CN_SHADE_OF_THE_HORSEMAN, _unit->GetPositionX(), _unit->GetPositionY(), _unit->GetPositionZ(), _unit->GetOrientation());
 				SetAIUpdateFreq( 4 * 60 * 1000 );

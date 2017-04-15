@@ -245,7 +245,7 @@ public:
 		
 		size_t i,j,k;
 		pointer = va_arg(ap, char*);
-		while( pointer != NULL )
+		while( pointer != nullptr )
 		{
 			lines.push_back( pointer );
 			pointer = va_arg(ap, char*);

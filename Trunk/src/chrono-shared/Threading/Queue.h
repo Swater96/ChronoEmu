@@ -27,7 +27,7 @@ template<class T>
 class FQueue 
 {
 public:
-	CHRONO_INLINE FQueue() : cond(&lock) {first=last=NULL;size=0;}
+	CHRONO_INLINE FQueue() : cond(&lock) {first=last=nullptr;size=0;}
 	volatile unsigned int size;
 
 	uint32 get_size()
@@ -43,7 +43,7 @@ public:
 	{
 		h*p=new h;
 		p->value=item;
-		p->pNext=NULL;
+		p->pNext=nullptr;
 		
 		//lock.Acquire();
 		cond.BeginSynchronized();
@@ -70,14 +70,14 @@ public:
 		if(size==0)
 		{
 			cond.EndSynchronized();
-			return NULL;
+			return nullptr;
 		}
 
 		h*tmp=first;
-		if(tmp == NULL)
+		if(tmp == nullptr)
 		{
 			cond.EndSynchronized();
-			return NULL;
+			return nullptr;
 		}
 
 		if(--size)//more than 1 item
@@ -86,7 +86,7 @@ public:
 		}
 		else//last item
 		{
-			first=last=NULL;
+			first=last=nullptr;
 		}
 		//lock.Release();
 		cond.EndSynchronized();
@@ -105,10 +105,10 @@ public:
 		cond.Wait();
 
 		h*tmp=first;
-		if(tmp == NULL)
+		if(tmp == nullptr)
 		{
 			cond.EndSynchronized();
-			return NULL;
+			return nullptr;
 		}
 
 		if(--size)//more than 1 item
@@ -117,7 +117,7 @@ public:
 		}
 		else//last item
 		{
-			first=last=NULL;
+			first=last=nullptr;
 		}
 		//lock.Release();
 		cond.EndSynchronized();

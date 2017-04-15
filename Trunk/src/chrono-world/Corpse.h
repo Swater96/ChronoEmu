@@ -66,7 +66,7 @@ public:
 	void SpawnBones();
 	void Delink();
 
-	void ResetDeathClock(){ m_time = time( NULL ); }
+	void ResetDeathClock(){ m_time = time( nullptr ); }
 	time_t GetDeathClock(){ return m_time; }
 
 private:

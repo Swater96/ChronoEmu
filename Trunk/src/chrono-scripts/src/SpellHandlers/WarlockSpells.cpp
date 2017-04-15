@@ -30,10 +30,10 @@ public:
 	{
 		Unit *  caster=pDispelledAura->GetUnitCaster();
 
-		if (pDispellingSpell->u_caster == NULL || caster == NULL)
+		if (pDispellingSpell->u_caster == nullptr || caster == nullptr)
 			return;
 
-		Spell* sp=new Spell(pDispellingSpell->u_caster, dbcSpell.LookupEntry(31117), true, NULL);
+		Spell* sp=new Spell(pDispellingSpell->u_caster, dbcSpell.LookupEntry(31117), true, nullptr);
 		sp->forced_basepoints[0]=pDispelledAura->m_spellProto->EffectBasePoints[0] * 9;
 		SpellCastTargets t;
 		t.m_target = pDispellingSpell->u_caster;
@@ -49,7 +49,7 @@ public:
 	SpellCastError CanCast(bool tolerate)
 	{
 		Unit *  u_target = _spell->GetUnitTarget();
-		if (u_target != NULL && u_target->IsPlayer())
+		if (u_target != nullptr && u_target->IsPlayer())
 			return SPELL_FAILED_TARGET_IS_PLAYER;
 
 		return SPELL_CANCAST_OK;
@@ -59,7 +59,7 @@ public:
 	{
 		Unit *  target=_spell->GetUnitTarget();
 
-		if (target == NULL || !target->isDead())
+		if (target == nullptr || !target->isDead())
 			return;
 
 		if (RandomUInt(100) < 20)
@@ -76,7 +76,7 @@ public:
 
 	void CalculateEffect(uint32 EffectIndex, Unit *  target, int32* value)
 	{
-		if (_spell->u_caster == NULL)
+		if (_spell->u_caster == nullptr)
 			return;
 
 		*value += _spell->u_caster->GetSpellDmgBonus(_spell->u_caster, _spell->m_spellInfo, *value, false);
@@ -91,7 +91,7 @@ public:
 
 	SpellCastError CanCast(bool tolerate)
 	{
-		if (_spell->u_caster == NULL)
+		if (_spell->u_caster == nullptr)
 			return SPELL_FAILED_BAD_TARGETS;
 
 		if (_spell->u_caster->GetUInt32Value(UNIT_FIELD_HEALTH) <= _spell->CalculateEffect(0, _spell->u_caster))
@@ -102,14 +102,14 @@ public:
 
 	void DummyEffect(uint32 EffectIndex)
 	{
-		if (_spell->u_caster == NULL)
+		if (_spell->u_caster == nullptr)
 			return;
 
 		_spell->u_caster->DealDamage(_spell->u_caster, valueforplayer, 0, 0, _spell->m_spellInfo->Id);
 		_spell->u_caster->Energize(_spell->u_caster, _spell->m_spellInfo->Id, valueforplayer, 0);
 
 		//give extra points to player's pet (mana feed)
-		if (_spell->p_caster != NULL && _spell->damage > valueforplayer && _spell->p_caster->GetSummon() != NULL)
+		if (_spell->p_caster != nullptr && _spell->damage > valueforplayer && _spell->p_caster->GetSummon() != nullptr)
 			_spell->u_caster->Energize(_spell->p_caster->GetSummon(), _spell->m_spellInfo->Id, _spell->damage - valueforplayer, 0);
 	}
 };
@@ -125,7 +125,7 @@ public:
 
 	void DummyEffect(uint32 EffectIndex)
 	{
-		if (_spell->p_caster == NULL || _spell->p_caster->GetSummon() == NULL)
+		if (_spell->p_caster == nullptr || _spell->p_caster->GetSummon() == nullptr)
 			return;
 
 		splitter.m_flatDamageSplit = 0;
@@ -140,7 +140,7 @@ public:
 
 	void OnRemove(Aura* pRemovedAura)
 	{
-		if (_spell->p_caster == NULL)
+		if (_spell->p_caster == nullptr)
 			return;
 
 		for (std::list<DamageSplitTarget>::iterator i=source->m_damageSplitTargets.begin(); i!=source->m_damageSplitTargets.end(); ++i)
@@ -164,20 +164,20 @@ public:
 	{
 		Unit *  u_target = _spell->GetUnitTarget();
 
-		if (_spell->u_caster == NULL || u_target == NULL)
+		if (_spell->u_caster == nullptr || u_target == nullptr)
 			return;
 
 		float mod=1.0f;
 		
-		Aura* aur = NULL;
+		Aura* aur = nullptr;
 
 		for(uint32 x = MAX_AURAS; x < MAX_PASSIVE_AURAS; ++x)
 		{
-			if (u_target->m_auras[x] != NULL && u_target->m_auras[x]->m_spellProto->NameHash == SPELL_HASH_SOUL_SIPHON)
+			if (u_target->m_auras[x] != nullptr && u_target->m_auras[x]->m_spellProto->NameHash == SPELL_HASH_SOUL_SIPHON)
 				aur = u_target->m_auras[x];
 		}
 
-		if (aur == NULL)
+		if (aur == nullptr)
 			return;
 
 		for(int i = MAX_POSITIVE_AURAS; i <= MAX_AURAS; i++)
@@ -200,12 +200,12 @@ public:
 	void OnCast()
 	{
 
-		if (_spell->u_caster == NULL || !_spell->u_caster->IsPet())
+		if (_spell->u_caster == nullptr || !_spell->u_caster->IsPet())
 			return;
 
 		Pet* pet=static_cast<Pet*>(_spell->u_caster);
 
-		if (pet->GetOwner() == NULL)
+		if (pet->GetOwner() == nullptr)
 			return;
 
 		uint32 MaxSchoolBonus=0;
@@ -228,7 +228,7 @@ public:
 	SpellCastError CanCast(bool tolerate)
 	{
 		u_target = _spell->GetUnitTarget();
-		if( u_target == NULL || !u_target->HasFlag(UNIT_FIELD_AURASTATE, AURASTATE_FLAG_IMMOLATE))
+		if( u_target == nullptr || !u_target->HasFlag(UNIT_FIELD_AURASTATE, AURASTATE_FLAG_IMMOLATE))
 			return SPELL_FAILED_CASTER_AURASTATE;
 
 		return SPELL_CANCAST_OK;
@@ -248,7 +248,7 @@ public:
 
 	void DummyEffect(uint32 EffectIndex)
 	{
-		if (_spell->GetUnitTarget() == NULL)
+		if (_spell->GetUnitTarget() == nullptr)
 			return;
 
 		_spell->GetUnitTarget()->GetAIInterface()->modThreatByPtr(_spell->u_caster, _spell->GetUnitTarget()->GetAIInterface()->getThreatByPtr(_spell->u_caster) * (_spell->m_spellInfo->EffectBasePoints[EffectIndex] / 100));

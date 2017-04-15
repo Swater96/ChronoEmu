@@ -53,7 +53,7 @@ class OnyxiaAI : public MoonScriptBossAI
 	
 	void OnCombatStart(Unit *pTarget)
 	{
-		Emote("How fortuitous, usually I must leave my lair to feed!", Text_Yell, NULL);
+		Emote("How fortuitous, usually I must leave my lair to feed!", Text_Yell, 0);
 		SetPhase(1);
 		ParentClass::OnCombatStart(pTarget);
 	}

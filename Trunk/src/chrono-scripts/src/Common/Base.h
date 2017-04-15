@@ -233,8 +233,8 @@ public:
 	void					Despawn(uint32 pDelay=0, uint32 pRespawnTime=0);
 
 	//Spells
-	SpellDesc*				AddSpell(uint32 pSpellId, TargetType pTargetType, float pChance, float pCastTime, int32 pCooldown, float pMinRange=0, float pMaxRange=0, bool pStrictRange=false, char* pText=NULL, TextType pTextType=Text_Yell, uint32 pSoundId=0);
-	SpellDesc*				AddSpellFunc(SpellFunc pFnc, TargetType pTargetType, float pChance, float pCastTime, int32 pCooldown, float pMinRange=0, float pMaxRange=0, bool pStrictRange=false, char* pText=NULL, TextType pTextType=Text_Yell, uint32 pSoundId=0);
+	SpellDesc*				AddSpell(uint32 pSpellId, TargetType pTargetType, float pChance, float pCastTime, int32 pCooldown, float pMinRange=0, float pMaxRange=0, bool pStrictRange=false, char* pText=nullptr, TextType pTextType=Text_Yell, uint32 pSoundId=0);
+	SpellDesc*				AddSpellFunc(SpellFunc pFnc, TargetType pTargetType, float pChance, float pCastTime, int32 pCooldown, float pMinRange=0, float pMaxRange=0, bool pStrictRange=false, char* pText=nullptr, TextType pTextType=Text_Yell, uint32 pSoundId=0);
 	void					CastSpell(SpellDesc* pSpell);
 	void					CastSpellNowNoScheduling(SpellDesc* pSpell);
 	SpellDesc*				FindSpellById(uint32 pSpellId);
@@ -336,7 +336,7 @@ public:
 	//Basic Interface
 	SpellDesc*		AddPhaseSpell(int32 pPhase, SpellDesc* pSpell);
 	int32			GetPhase();
-	void			SetPhase(int32 pPhase, SpellDesc* pPhaseChangeSpell=NULL);
+	void			SetPhase(int32 pPhase, SpellDesc* pPhaseChangeSpell=nullptr);
 	void			SetEnrageInfo(SpellDesc* pSpell, int32 pTriggerMilliseconds);
 
 	//Reimplemented Events

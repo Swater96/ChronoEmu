@@ -148,7 +148,7 @@ bool ChatHandler::HandleKickCommand(const char* args, WorldSession *m_session)
 	Player *chr = objmgr.GetPlayer((const char*)pname, false);
 	if (chr)
 	{
-		char *reason = strtok(NULL, "\n");
+		char *reason = strtok(nullptr, "\n");
 		std::string kickreason = "No reason";
 		if(reason)
 			kickreason = reason;
@@ -168,7 +168,7 @@ bool ChatHandler::HandleKickCommand(const char* args, WorldSession *m_session)
 
 		char msg[200];
 		snprintf(msg, 200, "%s%s was kicked by %s (%s)", MSG_COLOR_WHITE, chr->GetName(), m_session->GetPlayer()->GetName(), kickreason.c_str());
-		sWorld.SendWorldText(msg, NULL);
+		sWorld.SendWorldText(msg, nullptr);
 		//sWorld.SendIRCMessage(msg);
 		SystemMessageToPlr(chr, "You are being kicked from the server by %s. Reason: %s", m_session->GetPlayer()->GetName(), kickreason.c_str());
 
@@ -198,7 +198,7 @@ bool ChatHandler::HandleAddInvItemCommand(const char *args, WorldSession *m_sess
 		return false;
 
 	Player *chr = getSelectedChar(m_session);
-	if (chr == NULL) return true;
+	if (chr == nullptr) return true;
 	
 	ItemPrototype* it = ItemPrototypeStorage.LookupEntry(itemid);
 	if(it)
@@ -362,7 +362,7 @@ bool ChatHandler::HandleTaxiCheatCommand(const char* args, WorldSession *m_sessi
 	int flag = atoi((char*)args);
 
 	Player *chr = getSelectedChar(m_session);
-	if (chr == NULL) return true;
+	if (chr == nullptr) return true;
 	
 	char buf[256];
 
@@ -421,7 +421,7 @@ bool ChatHandler::HandleModifySpeedCommand(const char* args, WorldSession *m_ses
 	}
 
 	Player *chr = getSelectedChar(m_session);
-	if( chr == NULL )
+	if( chr == nullptr )
 		return true;
 	
 	char buf[256];
@@ -453,11 +453,11 @@ bool ChatHandler::HandleLearnSkillCommand(const char *args, WorldSession *m_sess
 
 	BlueSystemMessage(m_session, "Adding skill line %d", skill);
 
-	char *pMin = strtok(NULL, " ");
+	char *pMin = strtok(nullptr, " ");
 	if(pMin)
 	{
 		min = atol(pMin);
-		char *pMax = strtok(NULL, "\n");
+		char *pMax = strtok(nullptr, "\n");
 		if(pMax)
 			max = atol(pMax);
 	} else {
@@ -484,7 +484,7 @@ bool ChatHandler::HandleModifySkillCommand(const char *args, WorldSession *m_ses
 	else
 		skill = atol(pSkill);
 	
-	char *pMin = strtok(NULL, " ");
+	char *pMin = strtok(nullptr, " ");
 	uint32 cnt = 0;
 	if(!pMin)
 		cnt = 1;
@@ -623,7 +623,7 @@ bool ChatHandler::HandleModifyGoldCommand(const char* args, WorldSession *m_sess
 		return false;
 
 	Player *chr = getSelectedChar( m_session, true );
-	if( chr == NULL ) return true;
+	if( chr == nullptr ) return true;
 
 	int32 total   = atoi( (char*)args );
 
@@ -685,9 +685,9 @@ bool ChatHandler::HandleTriggerCommand(const char* args, WorldSession* m_session
 		instance_id = 0;
 
 	AreaTrigger *pTrigger = AreaTriggerStorage.LookupEntry(trigger_id);
-	if(trigger_id == 0 || pTrigger == NULL)
+	if(trigger_id == 0 || pTrigger == nullptr)
 	{
-		RedSystemMessage(m_session, "Could not find trigger %s", (args == NULL ? "NULL" : args));
+		RedSystemMessage(m_session, "Could not find trigger %s", (args == nullptr ? "nullptr" : args));
 		return true;
 	}
 
@@ -736,7 +736,7 @@ bool ChatHandler::HandleNpcSpawnLinkCommand(const char* args, WorldSession *m_se
 		return false;
 
 	int valcount = sscanf(args, "%u", (unsigned int*)&id);
-	if(valcount && target->m_spawn != NULL)
+	if(valcount && target->m_spawn != nullptr)
 	{
 		snprintf(sql, 512, "UPDATE creature_spawns SET respawnlink = '%u' WHERE id = '%u'", (unsigned int)id, (unsigned int)target->m_spawn->id);
 		WorldDatabase.Execute( sql );
@@ -750,27 +750,30 @@ bool ChatHandler::HandleNpcSpawnLinkCommand(const char* args, WorldSession *m_se
 	return true;
 }
 
+//
+// REMOVE THIS COMMAND
+//
 bool ChatHandler::HandleGuildSetLeaderCommand(const char *args, WorldSession *m_session)
 {
-	Player *plr = getSelectedChar(m_session);
-	if( plr == NULL )
+	/*Player *plr = getSelectedChar(m_session);
+	if( plr == nullptr )
 		return true;
 
-	if( plr->m_playerInfo->guild == NULL )
+	if( plr->m_playerInfo->m == nullptr )
 	{
 		SystemMessage(m_session, "Target not in a guild.");
 		return true;
 	}
 
 	PlayerInfo *new_leader = objmgr.GetPlayerInfoByName(args);
-	if( new_leader == NULL )
+	if( new_leader == nullptr )
 	{
 		SystemMessage(m_session, "New leader not found.");
 		return true;
 	}
 
 	Guild *pGuild = plr->m_playerInfo->guild;
-	pGuild->ChangeGuildMaster(new_leader, NULL);
-	SystemMessage(m_session, "Guild leader changed.");
+	pGuild->ChangeGuildMaster(new_leader, nullptr);
+	SystemMessage(m_session, "Guild leader changed.");*/
 	return true;
 }

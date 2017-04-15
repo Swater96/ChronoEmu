@@ -47,9 +47,9 @@ public:
 	WorldSocket(SOCKET fd);
 	~WorldSocket();
 
-	// vs8 fix - send null on empty buffer
-	CHRONO_INLINE void SendPacket(WorldPacket* packet) { if(!packet) return; OutPacket(packet->GetOpcode(), packet->size(), (packet->size() ? (const void*)packet->contents() : NULL)); }
-	CHRONO_INLINE void SendPacket(StackPacket * packet) { if(!packet) return; OutPacket(packet->GetOpcode(), packet->GetSize(), (packet->GetSize() ? (const void*)packet->GetBufferPointer() : NULL)); }
+	// vs8 fix - send nullptr on empty buffer
+	CHRONO_INLINE void SendPacket(WorldPacket* packet) { if(!packet) return; OutPacket(packet->GetOpcode(), packet->size(), (packet->size() ? (const void*)packet->contents() : nullptr)); }
+	CHRONO_INLINE void SendPacket(StackPacket * packet) { if(!packet) return; OutPacket(packet->GetOpcode(), packet->GetSize(), (packet->GetSize() ? (const void*)packet->GetBufferPointer() : nullptr)); }
 
 	void __fastcall OutPacket(uint16 opcode, size_t len, const void* data);
 	OUTPACKET_RESULT __fastcall _OutPacket(uint16 opcode, size_t len, const void* data);
@@ -242,8 +242,8 @@ public:
 	CHRONO_INLINE string GetRemoteIP() { return string(inet_ntoa(m_address.sin_addr)); }
 	CHRONO_INLINE uint32 GetRemotePort() { return ntohs(m_address.sin_port); }
 
-	CHRONO_INLINE void SendPacket(WorldPacket* packet) { if(!packet) return; OutPacket(packet->GetOpcode(), (uint16)packet->size(), (packet->size() ? (const void*)packet->contents() : NULL)); }
-	CHRONO_INLINE void SendPacket(StackBufferBase * packet) { if(!packet) return; OutPacket(packet->GetOpcode(), packet->GetSize(), (packet->GetSize() ? (const void*)packet->GetBufferPointer() : NULL)); }
+	CHRONO_INLINE void SendPacket(WorldPacket* packet) { if(!packet) return; OutPacket(packet->GetOpcode(), (uint16)packet->size(), (packet->size() ? (const void*)packet->contents() : nullptr)); }
+	CHRONO_INLINE void SendPacket(StackBufferBase * packet) { if(!packet) return; OutPacket(packet->GetOpcode(), packet->GetSize(), (packet->GetSize() ? (const void*)packet->GetBufferPointer() : nullptr)); }
 	void __fastcall OutPacket(uint16 opcode, uint16 len, const void* data);
 	CHRONO_INLINE uint32 GetSessionId() { return m_sessionId; }
 

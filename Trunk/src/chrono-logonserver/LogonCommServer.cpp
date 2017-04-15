@@ -31,7 +31,7 @@ CHRONO_INLINE static void swap32(uint32* p) { *p = ((*p >> 24 & 0xff)) | ((*p >>
 LogonCommServerSocket::LogonCommServerSocket(SOCKET fd) : Socket(fd, 65536, 524288)
 {
 	// do nothing
-	last_ping = (uint32)time(NULL);
+	last_ping = (uint32)time(nullptr);
 	next_server_ping = last_ping + 30;
 	remaining = opcode = 0;
 	removed = true;
@@ -128,25 +128,25 @@ void LogonCommServerSocket::HandlePacket(WorldPacket & recvData)
 	}
 
 	static logonpacket_handler Handlers[RMSG_COUNT] = {
-		NULL,												// RMSG_NULL
+		nullptr,												// RMSG_NULL
 		&LogonCommServerSocket::HandleRegister,				// RCMSG_REGISTER_REALM
-		NULL,												// RSMSG_REALM_REGISTERED
+		nullptr,												// RSMSG_REALM_REGISTERED
 		&LogonCommServerSocket::HandleSessionRequest,		// RCMSG_REQUEST_SESSION
-		NULL,												// RSMSG_SESSION_RESULT
+		nullptr,												// RSMSG_SESSION_RESULT
 		&LogonCommServerSocket::HandlePing,					// RCMSG_PING
-		NULL,												// RSMSG_PONG
-		NULL,/*Deprecated*/									// RCMSG_SQL_EXECUTE
-		NULL,/*Deprecated*/									// RCMSG_RELOAD_ACCOUNTS
+		nullptr,												// RSMSG_PONG
+		nullptr,/*Deprecated*/									// RCMSG_SQL_EXECUTE
+		nullptr,/*Deprecated*/									// RCMSG_RELOAD_ACCOUNTS
 		&LogonCommServerSocket::HandleAuthChallenge,		// RCMSG_AUTH_CHALLENGE
-		NULL,												// RSMSG_AUTH_RESPONSE
-		NULL,												// RSMSG_REQUEST_ACCOUNT_CHARACTER_MAPPING
+		nullptr,												// RSMSG_AUTH_RESPONSE
+		nullptr,												// RSMSG_REQUEST_ACCOUNT_CHARACTER_MAPPING
 		&LogonCommServerSocket::HandleMappingReply,			// RCMSG_ACCOUNT_CHARACTER_MAPPING_REPLY
 		&LogonCommServerSocket::HandleUpdateMapping,		// RCMSG_UPDATE_CHARACTER_MAPPING_COUNT
-		NULL,												// RSMSG_DISCONNECT_ACCOUNT
+		nullptr,												// RSMSG_DISCONNECT_ACCOUNT
 		&LogonCommServerSocket::HandleTestConsoleLogin,		// RCMSG_TEST_CONSOLE_LOGIN
-		NULL,												// RSMSG_CONSOLE_LOGIN_RESULT
+		nullptr,												// RSMSG_CONSOLE_LOGIN_RESULT
 		&LogonCommServerSocket::HandleDatabaseModify,		// RCMSG_DATABASE_MODIFY
-		NULL,												// RSMSG_SERVER_PING
+		nullptr,												// RSMSG_SERVER_PING
 		&LogonCommServerSocket::HandleServerPong,			// RCMSG_SERVER_PONG
 	};
 
@@ -168,7 +168,7 @@ void LogonCommServerSocket::HandleRegister(WorldPacket & recvData)
 	realm = sInfoCore.GetRealmByName(realmName.c_str());
 
 	// not existant -> create
-	if( realm == NULL )
+	if( realm == nullptr )
 	{
 		realm = new Realm();
 		realm->Id = sInfoCore.GenerateRealmID();
@@ -208,7 +208,7 @@ void LogonCommServerSocket::HandleSessionRequest(WorldPacket & recvData)
 	// get sessionkey!
 	uint32 error = 0;
 	Account * acct = sAccountMgr.GetAccount(account_name);
-	if(acct == NULL || acct->SessionKey == NULL || acct == 0)
+	if(acct == nullptr || acct->SessionKey == nullptr || acct == 0)
 		error = 1;		  // Unauthorized user.
 
 	// build response packet
@@ -238,7 +238,7 @@ void LogonCommServerSocket::HandlePing(WorldPacket & recvData)
 {
 	WorldPacket data(RSMSG_PONG, 4);
 	SendPacket(&data);
-	last_ping = (uint32)time(NULL);
+	last_ping = (uint32)time(nullptr);
 }
 
 void LogonCommServerSocket::SendPacket(WorldPacket * data)
@@ -323,7 +323,7 @@ void LogonCommServerSocket::HandleMappingReply(WorldPacket & recvData)
 	uint32 realm_id;
 	buf >> realm_id;
 	Realm * realm = sInfoCore.GetRealmById(realm_id);
-	if( realm == NULL )
+	if( realm == nullptr )
 		return;
 
 	realm->m_charMapLock.Acquire();
@@ -380,14 +380,14 @@ void LogonCommServerSocket::HandleTestConsoleLogin(WorldPacket & recvData)
 	data << request;
 
 	Account * pAccount = sAccountMgr.GetAccount(accountname);
-	if(pAccount == NULL)
+	if(pAccount == nullptr)
 	{
 		data << uint32(0);
 		SendPacket(&data);
 		return;
 	}
 
-	if(pAccount->GMFlags == NULL || strchr(pAccount->GMFlags, 'z') == NULL)
+	if(pAccount->GMFlags == nullptr || strchr(pAccount->GMFlags, 'z') == nullptr)
 	{
 		data << uint32(0);
 		SendPacket(&data);
@@ -429,7 +429,7 @@ void LogonCommServerSocket::HandleDatabaseModify(WorldPacket& recvData)
 			ASCENT_TOUPPER(account);
 
 			Account * pAccount = sAccountMgr.GetAccount(account);
-			if( pAccount == NULL )
+			if( pAccount == nullptr )
 				return;
 
 			pAccount->Banned = duration;
@@ -450,7 +450,7 @@ void LogonCommServerSocket::HandleDatabaseModify(WorldPacket& recvData)
 			ASCENT_TOUPPER(account);
 
 			Account * pAccount = sAccountMgr.GetAccount(account);
-			if( pAccount == NULL )
+			if( pAccount == nullptr )
 				return;
 
 			pAccount->SetGMFlags( account.c_str() );
@@ -470,7 +470,7 @@ void LogonCommServerSocket::HandleDatabaseModify(WorldPacket& recvData)
 			ASCENT_TOUPPER(account);
 
 			Account * pAccount = sAccountMgr.GetAccount(account);
-			if( pAccount == NULL )
+			if( pAccount == nullptr )
 				return;
 
 			pAccount->Muted = duration;

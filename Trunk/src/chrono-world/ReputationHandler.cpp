@@ -409,7 +409,7 @@ void Player::UpdateInrangeSetsBasedOnReputation()
 			continue;
 
 		pUnit = TO_UNIT( *itr );
-		if(pUnit->m_factionDBC == NULL || pUnit->m_factionDBC->RepListId < 0)
+		if(pUnit->m_factionDBC == nullptr || pUnit->m_factionDBC->RepListId < 0)
 			continue;
 
 		rep_value = IsHostileBasedOnReputation( pUnit->m_factionDBC );

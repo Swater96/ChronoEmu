@@ -119,7 +119,7 @@ void ObjectMgr::LoadExtraCreatureProtoStuff()
 		while(!itr->AtEnd())
 		{
 			qst = itr->Get();
-			qst->pQuestScript = NULL;
+			qst->pQuestScript = nullptr;
 
 			if( !itr->Inc() )
 				break;
@@ -131,7 +131,7 @@ void ObjectMgr::LoadExtraCreatureProtoStuff()
 	QueryResult * result = WorldDatabase.Query( "SELECT * FROM ai_agents" );
 	CreatureProto * cn;
 
-	if( result != NULL )
+	if( result != nullptr )
 	{
 		AI_Spell *sp;
 		SpellEntry * spe;
@@ -145,7 +145,7 @@ void ObjectMgr::LoadExtraCreatureProtoStuff()
 				entry = fields[0].GetUInt32();
 				cn = CreatureProtoStorage.LookupEntry(entry);
 				spe = dbcSpell.LookupEntryForced(fields[5].GetUInt32());
-				if( spe == NULL )
+				if( spe == nullptr )
 				{
 				if(Config.MainConfig.GetBoolDefault("Server", "CleanDatabase", false))
 				{
@@ -318,7 +318,7 @@ void ObjectMgr::LoadExtraItemStuff()
 			ft = iter->second;
 		pItemPrototype->FoodType = ft ;
 	
-		pItemPrototype->gossip_script=NULL;
+		pItemPrototype->gossip_script=nullptr;
 
 		// forced pet entries
 		switch( pItemPrototype->ItemId )
@@ -470,7 +470,7 @@ void Storage_Cleanup()
 			if (p->aura_string)
 			{
 				free(p->aura_string);
-				p->aura_string = NULL;
+				p->aura_string = nullptr;
 			}
 			for(list<AI_Spell*>::iterator it = p->spells.begin(); it != p->spells.end(); ++it)
 				delete (*it);

@@ -155,12 +155,12 @@ ObjectMgr::~ObjectMgr()
 		Group* pGroup = itr->second;
 		++itr;
 
-		if( pGroup != NULL )
+		if( pGroup != nullptr )
 		{
 			for( uint32 i = 0; i < pGroup->GetSubGroupCount(); ++i )
 			{
 				SubGroup* pSubGroup = pGroup->GetSubGroup( i );
-				if( pSubGroup != NULL )
+				if( pSubGroup != nullptr )
 				{
 					pSubGroup->Disband();
 				}
@@ -172,7 +172,11 @@ ObjectMgr::~ObjectMgr()
 	Log.Notice("ObjectMgr", "Deleting Player Information...");
 	for(HM_NAMESPACE::hash_map<uint32, PlayerInfo*>::iterator itr = m_playersinfo.begin(); itr != m_playersinfo.end(); ++itr)
 	{
-		itr->second->m_Group=NULL;
+		itr->second->m_Group=nullptr;
+		if(itr->second->publicNote)
+			free(itr->second->publicNote);
+		if(itr->second->officerNote)
+			free(itr->second->officerNote);
 		free(itr->second->name);
 		delete itr->second;
 	}
@@ -189,7 +193,7 @@ ObjectMgr::~ObjectMgr()
 Group * ObjectMgr::GetGroupByLeader(Player* pPlayer)
 {
 	GroupMap::iterator itr;
-	Group * ret=NULL;
+	Group * ret=nullptr;
 	m_groupLock.AcquireReadLock();
 	for(itr = m_groups.begin(); itr != m_groups.end(); ++itr)
 	{
@@ -207,7 +211,7 @@ Group * ObjectMgr::GetGroupByLeader(Player* pPlayer)
 Group * ObjectMgr::GetGroupById(uint32 id)
 {
 	GroupMap::iterator itr;
-	Group * ret=NULL;
+	Group * ret=nullptr;
 	m_groupLock.AcquireReadLock();
 	itr = m_groups.find(id);
 	if(itr!=m_groups.end())
@@ -237,16 +241,13 @@ void ObjectMgr::DeletePlayerInfo( uint32 guid )
 	if(pl->m_Group)
 	{
 		pl->m_Group->RemovePlayer(pl);
-		pl->m_Group = NULL;
+		pl->m_Group = nullptr;
 	}
 
-	if(pl->guild)
-	{
-		if(pl->guild->GetGuildLeader()==pl->guid)
-			pl->guild->Disband();
-		else
-			pl->guild->RemoveGuildMember(pl,NULL);
-	}
+	if(pl->officerNote)
+		free(pl->officerNote);
+	if(pl->publicNote)
+		free(pl->publicNote);
 
 	string pnam = string(pl->name);
 	ASCENT_TOLOWER(pnam);
@@ -270,7 +271,7 @@ PlayerInfo *ObjectMgr::GetPlayerInfo( uint32 guid )
 	if(i!=m_playersinfo.end())
 		rv = i->second;
 	else
-		rv = NULL;
+		rv = nullptr;
 	playernamelock.ReleaseReadLock();
 	return rv;
 }
@@ -327,7 +328,7 @@ skilllinespell* ObjectMgr::GetSpellSkill(uint32 id)
 void ObjectMgr::LoadPlayersInfo()
 {
 	PlayerInfo * pn;
-	QueryResult *result = CharacterDatabase.Query("SELECT guid,name,race,class,level,gender,zoneId,timestamp,acct FROM characters");
+	QueryResult *result = CharacterDatabase.Query("SELECT guid,name,race,class,level,gender,zoneId,timestamp,publicNote,officerNote,guildRank,acct FROM characters");
 	uint32 period, c;
 	if(result)
 	{
@@ -345,23 +346,26 @@ void ObjectMgr::LoadPlayersInfo()
 			pn->gender = fields[5].GetUInt8();
 			pn->lastZone=fields[6].GetUInt32();
 			pn->lastOnline=fields[7].GetUInt32();
-			pn->acct = fields[8].GetUInt32();
+			//pn->publicNote=fields[8].GetString();
+			//pn->officerNote= fields[9].GetString();
+			pn->publicNote=pn->officerNote=nullptr;
+			if(strlen(fields[8].GetString()) > 1)
+				pn->publicNote = strdup(fields[8].GetString());
+			if(strlen(fields[9].GetString()) > 1)
+				pn->officerNote = strdup(fields[9].GetString());
+
+			pn->Rank=fields[10].GetUInt32();
+			pn->acct = fields[11].GetUInt32();
 			pn->m_Group=0;
 			pn->subGroup=0;
-			pn->m_loggedInPlayer=NULL;
-			pn->guild=NULL;
-			pn->guildRank=NULL;
-			pn->guildMember=NULL;
-#ifdef VOICE_CHAT
-			pn->groupVoiceId = -1;
-#endif
+			pn->m_loggedInPlayer=nullptr;
 
 			if(pn->race==RACE_HUMAN||pn->race==RACE_DWARF||pn->race==RACE_GNOME||pn->race==RACE_NIGHTELF)
 				pn->team = 0;
 			else 
 				pn->team = 1;
 		  
-			if( GetPlayerInfoByName(pn->name) != NULL )
+			if( GetPlayerInfoByName(pn->name) != nullptr )
 			{
 				// gotta rename him
 				char temp[300];
@@ -396,7 +400,7 @@ PlayerInfo* ObjectMgr::GetPlayerInfoByName(const char * name)
 	string lpn=string(name);
 	ASCENT_TOLOWER(lpn);
 	PlayerNameStringIndexMap::iterator i;
-	PlayerInfo *rv = NULL;
+	PlayerInfo *rv = nullptr;
 	playernamelock.AcquireReadLock();
 
 	i=m_playersInfoByName.find(lpn);
@@ -524,28 +528,71 @@ void ObjectMgr::LoadPlayerCreateInfo()
 // DK:LoadGuilds()
 void ObjectMgr::LoadGuilds()
 {
-	QueryResult *result = CharacterDatabase.Query( "SELECT * FROM guilds" );
-	if(result)
 	{
-		uint32 period = (result->GetRowCount() / 20) + 1;
-		uint32 c = 0;
-		do 
+		QueryResult *result = CharacterDatabase.Query("SELECT * FROM guilds");
+		QueryResult *result2;
+		QueryResult *result3;
+
+		if (!result)
 		{
-			Guild * pGuild = Guild::Create();
-			if(!pGuild->LoadFromDB(result->Fetch()))
+			return;
+		}
+
+		Guild *pGuild;
+		struct RankInfo rankList;
+
+		do
+		{
+			Field *fields = result->Fetch();
+
+			pGuild = new Guild;
+
+			pGuild->SetGuildId(fields[0].GetUInt32());
+			pGuild->SetGuildName(fields[1].GetString());
+			pGuild->SetGuildLeaderGuid(fields[2].GetUInt64());
+			pGuild->SetGuildEmblemStyle(fields[3].GetUInt32());
+			pGuild->SetGuildEmblemColor(fields[4].GetUInt32());
+			pGuild->SetGuildBorderStyle(fields[5].GetUInt32());
+			pGuild->SetGuildBorderColor(fields[6].GetUInt32());
+			pGuild->SetGuildBackgroundColor(fields[7].GetUInt32());
+			pGuild->SetGuildInfo(fields[8].GetString());
+			pGuild->SetGuildMotd(fields[9].GetString());
+
+			result2 = CharacterDatabase.Query("SELECT guid FROM characters WHERE guildId=%u", pGuild->GetGuildId());
+			if (result2)
 			{
-				delete pGuild;
+				do
+				{
+					PlayerInfo *pi = objmgr.GetPlayerInfo(result2->Fetch()->GetUInt32());
+					if (pi)
+						pGuild->AddGuildMember(pi);
+				} while (result2->NextRow());
+				delete result2;
 			}
-			else
-				mGuild.insert(make_pair(pGuild->GetGuildId(), pGuild));
 
-			if( !((++c) % period) )
-				Log.Notice("Guilds", "Done %u/%u, %u%% complete.", c, result->GetRowCount(), float2int32( (float(c) / float(result->GetRowCount()))*100.0f ));
+			result3 = CharacterDatabase.Query("SELECT * FROM guild_ranks WHERE guildId=%u ORDER BY rankId", pGuild->GetGuildId());
+			if (result3)
+			{
+				do
+				{
+					Field *fields3 = result3->Fetch();
 
-		} while(result->NextRow());
+					rankList.name = fields3[2].GetString();
+					rankList.rights = fields3[3].GetUInt32();
+
+					pGuild->CreateRank(rankList.name, rankList.rights);
+				} while (result3->NextRow());
+				delete result3;
+			}
+			pGuild->LoadGuildCreationDate();
+
+			AddGuild(pGuild);
+
+		} while (result->NextRow());
+
 		delete result;
+		Log.Notice("ObjectMgr", "%u guilds loaded.", mGuild.size());
 	}
-	Log.Notice("ObjectMgr", "%u guilds loaded.", mGuild.size());
 }
 
 Corpse* ObjectMgr::LoadCorpse(uint32 guid)
@@ -554,7 +601,7 @@ Corpse* ObjectMgr::LoadCorpse(uint32 guid)
 	QueryResult *result = CharacterDatabase.Query("SELECT * FROM Corpses WHERE guid =%u ", guid );
 
 	if( !result )
-		return NULL;
+		return nullptr;
 	
 	do
 	{
@@ -588,7 +635,7 @@ Corpse* ObjectMgr::LoadCorpse(uint32 guid)
 Corpse *ObjectMgr::GetCorpseByOwner(uint32 ownerguid)
 {
 	CorpseMap::const_iterator itr;
-	Corpse *rv = NULL;
+	Corpse *rv = nullptr;
 	_corpseslock.Acquire();
 	for (itr = m_corpses.begin();itr != m_corpses.end(); ++itr)
 	{
@@ -656,7 +703,7 @@ void ObjectMgr::SaveGMTicket(uint64 guid, QueryBuffer * buf)
 	std::stringstream ss1;
 	std::stringstream ss2;
 	ss1 << "DELETE FROM gm_tickets WHERE guid = " << guid << ";";
-	if( buf == NULL )
+	if( buf == nullptr )
 		CharacterDatabase.Execute(ss1.str( ).c_str( ));
 	else
 		buf->AddQueryStr(ss1.str());
@@ -672,7 +719,7 @@ void ObjectMgr::SaveGMTicket(uint64 guid, QueryBuffer * buf)
 	ss2 << CharacterDatabase.EscapeString(ticket->message) << "', ";
 	ss2 << ticket->timestamp << ");";
 
-	if(buf == NULL)
+	if(buf == nullptr)
 		CharacterDatabase.ExecuteNA(ss2.str( ).c_str( ));
 	else
 		buf->AddQueryStr(ss2.str());
@@ -731,13 +778,6 @@ void ObjectMgr::SetHighestGuids()
 		delete result;
 	}
 
-	result = CharacterDatabase.Query("SELECT MAX(guildId) FROM guilds");
-	if(result)
-	{
-		m_hiGuildId = result->Fetch()[0].GetUInt32();
-		delete result;
-	}
-
 	Log.Notice("ObjectMgr", "HighGuid(CORPSE) = %u", m_hiCorpseGuid);
 	Log.Notice("ObjectMgr", "HighGuid(PLAYER) = %u", m_hiPlayerGuid);
 	Log.Notice("ObjectMgr", "HighGuid(GAMEOBJ) = %u", m_hiGameObjectSpawnId);
@@ -746,7 +786,6 @@ void ObjectMgr::SetHighestGuids()
 	Log.Notice("ObjectMgr", "HighGuid(CONTAINER) = %u", m_hiContainerGuid);
 	Log.Notice("ObjectMgr", "HighGuid(GROUP) = %u", m_hiGroupId);
 	Log.Notice("ObjectMgr", "HighGuid(CHARTER) = %u", m_hiCharterId);
-	Log.Notice("ObjectMgr", "HighGuid(GUILD) = %u", m_hiGuildId);
 }
 
 
@@ -914,7 +953,7 @@ void ObjectMgr::ProcessGameobjectQuests()
 
 Player* ObjectMgr::GetPlayer(const char* name, bool caseSensitive)
 {
-	Player * rv = NULL;
+	Player * rv = nullptr;
 	PlayerStorageMap::const_iterator itr;
 	_playerslock.AcquireReadLock();	
 
@@ -968,7 +1007,7 @@ PlayerCreateInfo* ObjectMgr::GetPlayerCreateInfo(uint8 race, uint8 class_) const
 		if( (itr->second->race == race) && (itr->second->class_ == class_) )
 			return itr->second;
 	}
-	return NULL;
+	return nullptr;
 }
 
 void ObjectMgr::AddGuild(Guild *pGuild)
@@ -991,6 +1030,7 @@ bool ObjectMgr::RemoveGuild(uint32 guildId)
 	}
 
 
+	i->second->RemoveFromDb();
 	mGuild.erase(i);
 	return true;
 }
@@ -999,7 +1039,7 @@ Guild* ObjectMgr::GetGuild(uint32 guildId)
 {
 	GuildMap::const_iterator itr = mGuild.find(guildId);
 	if(itr == mGuild.end())
-		return NULL;
+		return nullptr;
 	return itr->second;
 }
 
@@ -1008,10 +1048,10 @@ Guild* ObjectMgr::GetGuildByLeaderGuid(uint64 leaderGuid)
 	GuildMap::const_iterator itr;
 	for (itr = mGuild.begin();itr != mGuild.end(); itr++)
 	{
-		if( itr->second->GetGuildLeader() == leaderGuid )
+		if (itr->second->GetGuildLeaderGuid() == leaderGuid)
 			return itr->second;
 	}
-	return NULL;
+	return nullptr;
 }
 
 Guild* ObjectMgr::GetGuildByGuildName(std::string guildName)
@@ -1022,7 +1062,7 @@ Guild* ObjectMgr::GetGuildByGuildName(std::string guildName)
 		if( itr->second->GetGuildName() == guildName )
 			return itr->second;
 	}
-	return NULL;
+	return nullptr;
 }
 
 
@@ -1033,7 +1073,7 @@ void ObjectMgr::AddGMTicket(GM_Ticket *ticket,bool startup)
 
 	// save
 	if(!startup)
-		SaveGMTicket(ticket->guid, NULL);
+		SaveGMTicket(ticket->guid, nullptr);
 }
 
 //modified for vs2005 compatibility
@@ -1064,7 +1104,7 @@ GM_Ticket* ObjectMgr::GetGMTicket(uint64 guid)
 			return (*i);
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 void ObjectMgr::LoadVendors()
@@ -1074,7 +1114,7 @@ void ObjectMgr::LoadVendors()
 	CreatureItem itm;
   
 	QueryResult *result = WorldDatabase.Query("SELECT * FROM vendors");
-	if( result != NULL )
+	if( result != nullptr )
 	{
 		if( result->GetFieldCount() < 5 )
 		{
@@ -1131,7 +1171,7 @@ void ObjectMgr::LoadTotemSpells()
 		return;
 	}
 
-	//TotemSpells *ts = NULL;
+	//TotemSpells *ts = nullptr;
 	SpellEntry * sp;
 	uint32 spellid;
 
@@ -1169,7 +1209,7 @@ void ObjectMgr::LoadAIThreatToSpellId()
 	{
 		Field *fields = result->Fetch();
 		sp = dbcSpell.LookupEntryForced( fields[0].GetUInt32() );
-		if( sp != NULL )
+		if( sp != nullptr )
 			sp->ThreatForSpell = fields[1].GetUInt32();
 		else
 		{
@@ -1178,141 +1218,6 @@ void ObjectMgr::LoadAIThreatToSpellId()
 	} while( result->NextRow() );
 
 	delete result;
-}
-
-void ObjectMgr::LoadSpellFixes()
-{
-	SpellEntry* sp;
-	QueryResult * result = WorldDatabase.Query("SELECT * FROM spellfixes");
-	if(result)
-	{
-		sLog.outDetail("Loading %u spell fixes from database...",result->GetRowCount());
-		do
-		{
-			Field * f = result->Fetch();
-			uint32 sf_spellId = f[0].GetUInt32();
-			uint32 sf_procFlags = f[1].GetUInt32();
-			uint32 sf_SpellGroupType = f[2].GetUInt32();
-			uint32 sf_procChance = f[3].GetUInt32();
-			uint32 sf_procCharges = f[4].GetUInt32();
-
-			if( sf_spellId )
-			{
-				sp = dbcSpell.LookupEntryForced( sf_spellId );
-				if( sp != NULL )
-				{
-					if( sf_procFlags )
-						sp->procFlags = sf_procFlags;
-
-					if( sf_SpellGroupType )
-						sp->SpellGroupType = sf_SpellGroupType;
-
-					if( sf_procChance )
-						sp->procChance = sf_procChance;
-
-					if ( sf_procCharges )
-						sp->procCharges = sf_procCharges;
-				}
-			}
-		}while(result->NextRow());
-		delete result;
-	}	
-}
-
-void ObjectMgr::LoadSpellProcs()
-{
-	SpellEntry* sp;
-	QueryResult * result = WorldDatabase.Query("SELECT * FROM spell_proc");
-	if(result)
-	{
-		do
-		{
-			Field * f = result->Fetch();
-			uint32 spe_spellId = f[0].GetUInt32();
-			uint32 spe_NameHash = f[1].GetUInt32();
-
-			if( spe_spellId )
-			{
-				sp = dbcSpell.LookupEntryForced( spe_spellId );
-				if( sp != NULL )
-				{
-					int x;
-					for( x = 0; x < 3; ++x )
-						if( sp->ProcOnNameHash[x] == 0 )
-							break;
-
-					if( x != 3 )
-					{
-						sp->ProcOnNameHash[x] = spe_NameHash;
-					}
-					else
-						sLog.outError("Wrong ProcOnNameHash for Spell: %u!",spe_spellId);
-				}
-			}
-
-		}while(result->NextRow());
-		delete result;
-	}	
-}
-
-void ObjectMgr::LoadSpellEffectsOverride()
-{
-	SpellEntry* sp;
-	QueryResult * result = WorldDatabase.Query("SELECT * FROM spell_effects_override");
-	if(result)
-	{
-		do
-		{
-			Field * f = result->Fetch();
-			uint32 seo_SpellId = f[0].GetUInt32();
-			uint32 seo_EffectId = f[1].GetUInt32();
-			uint32 seo_Disable = f[2].GetUInt32();
-			uint32 seo_Effect = f[3].GetUInt32();
-			uint32 seo_BasePoints = f[4].GetUInt32();
-			uint32 seo_ApplyAuraName = f[5].GetUInt32();
-			uint32 seo_SpellGroupRelation = f[6].GetUInt32();
-			uint32 seo_MiscValue = f[7].GetUInt32();
-			uint32 seo_TriggerSpell = f[8].GetUInt32();
-			uint32 seo_ImplicitTargetA = f[9].GetUInt32();
-			uint32 seo_ImplicitTargetB = f[10].GetUInt32();
-
-			if( seo_SpellId )
-			{
-				sp = dbcSpell.LookupEntryForced( seo_SpellId );
-				if( sp != NULL )
-				{
-					if( seo_Disable )
-						sp->Effect[seo_EffectId] = 0;
-
-					if( seo_Effect )
-						sp->Effect[seo_EffectId] = seo_Effect;
-
-					if( seo_BasePoints )
-						sp->EffectBasePoints[seo_EffectId] = seo_BasePoints;
-
-					if( seo_ApplyAuraName )
-						sp->EffectApplyAuraName[seo_EffectId] = seo_ApplyAuraName;
-
-					if( seo_SpellGroupRelation )
-						sp->EffectSpellGroupRelation[seo_EffectId] = seo_SpellGroupRelation;
-
-					if( seo_MiscValue )
-						sp->EffectMiscValue[seo_EffectId] = seo_MiscValue;
-
-					if( seo_TriggerSpell )
-						sp->EffectTriggerSpell[seo_EffectId] = seo_TriggerSpell;
-					
-					if( seo_ImplicitTargetA )
-						sp->EffectImplicitTargetA[seo_EffectId] = seo_ImplicitTargetA;
-
-					if( seo_ImplicitTargetB )
-						sp->EffectImplicitTargetB[seo_EffectId] = seo_ImplicitTargetB;
-				}
-			}
-
-		}while(result->NextRow());
-		delete result;
-	}	
 }
 
 Item * ObjectMgr::CreateItem(uint32 entry,Player * owner)
@@ -1345,7 +1250,7 @@ Item * ObjectMgr::LoadItem(uint64 guid)
 	{
 		ItemPrototype * pProto = ItemPrototypeStorage.LookupEntry(result->Fetch()[2].GetUInt32());
 		if(!pProto)
-			return NULL;
+			return nullptr;
 
 		if(pProto->InventoryType == INVTYPE_BAG)
 		{
@@ -1374,7 +1279,7 @@ Item * ObjectMgr::LoadExternalItem(uint64 guid)
 	{
 		ItemPrototype * pProto = ItemPrototypeStorage.LookupEntry(result->Fetch()[2].GetUInt32());
 		if(!pProto)
-			return NULL;
+			return nullptr;
 
 		if(pProto->InventoryType == INVTYPE_BAG)
 		{
@@ -1396,7 +1301,7 @@ Item * ObjectMgr::LoadExternalItem(uint64 guid)
 
 void ObjectMgr::LoadCorpses(MapMgr * mgr)
 {
-	Corpse *pCorpse = NULL;
+	Corpse *pCorpse = nullptr;
 
 	QueryResult *result = CharacterDatabase.Query("SELECT * FROM corpses WHERE instanceId = %u", mgr->GetInstanceID());
 
@@ -1517,7 +1422,7 @@ void ObjectMgr::CreateGossipMenuForPlayer(GossipMenu** Location, uint64 Guid, ui
 	GossipMenu *Menu = new GossipMenu(Guid, TextID);
 	ASSERT(Menu);
 
-	if(Plr->CurrentGossipMenu != NULL)
+	if(Plr->CurrentGossipMenu != nullptr)
 		delete Plr->CurrentGossipMenu;
 
 	Plr->CurrentGossipMenu = Menu;
@@ -1548,8 +1453,6 @@ void ObjectMgr::LoadTrainers()
 	Field * fields2;
 	const char * temp;
 	size_t len;
-
-	LoadDisabledSpells();
 
 	if(!result)
 		return;
@@ -1600,7 +1503,7 @@ void ObjectMgr::LoadTrainers()
 			{
 				fields2 = result2->Fetch();
 				TrainerSpell ts;
-				ts.pLearnSpell = NULL;
+				ts.pLearnSpell = nullptr;
 
 				uint32 LearnSpellID=fields2[1].GetUInt32();
 				
@@ -1609,7 +1512,7 @@ void ObjectMgr::LoadTrainers()
 					ts.pLearnSpell = dbcSpell.LookupEntryForced( LearnSpellID );
 				}
 
-				if( ts.pLearnSpell == NULL )
+				if( ts.pLearnSpell == nullptr )
 				{
 					Log.Warning("LoadTrainers", "Trainer %u with a invalid spell %u.", entry, LearnSpellID);
 					continue; //dam'd bad spell in db....
@@ -1662,7 +1565,7 @@ Trainer* ObjectMgr::GetTrainer(uint32 Entry)
 {
 	TrainerMap::iterator iter = mTrainers.find(Entry);
 	if(iter == mTrainers.end())
-		return NULL;
+		return nullptr;
 
 	return iter->second;
 }
@@ -1865,7 +1768,7 @@ LevelInfo* ObjectMgr::GetLevelInfo(uint32 Race, uint32 Class, uint32 Level)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void ObjectMgr::LoadDefaultPetSpells()
@@ -2064,7 +1967,7 @@ WayPointMap*ObjectMgr::GetWayPointMap(uint32 spawnid)
 		//m_waypoints.erase(i);
 		return m;
 	}
-	else return NULL;
+	else return nullptr;
 }
 
 Pet * ObjectMgr::CreatePet()
@@ -2275,7 +2178,7 @@ void Charter::Destroy()
 		if(!Signatures[i])
 			continue;
 		p =  objmgr.GetPlayer( Signatures[i] );
-		if( p != NULL)
+		if( p != nullptr)
 			p->m_charters[CharterType] = 0;
 	}
 #ifdef WIN32
@@ -2326,7 +2229,7 @@ Charter * ObjectMgr::GetCharterByItemGuid(uint64 guid)
 		}
 	}
 	m_charterLock.ReleaseReadLock();
-	return NULL;
+	return nullptr;
 }
 
 Charter * ObjectMgr::GetCharterByGuid(uint64 playerguid, CharterTypes type)
@@ -2354,7 +2257,7 @@ Charter * ObjectMgr::GetCharterByGuid(uint64 playerguid, CharterTypes type)
 		}
 	}
 	m_charterLock.ReleaseReadLock();
-	return NULL;
+	return nullptr;
 }
 
 Charter * ObjectMgr::GetCharterByName(string &charter_name, CharterTypes Type)
@@ -2377,7 +2280,7 @@ Charter * ObjectMgr::GetCharterByName(string &charter_name, CharterTypes Type)
 
 void ObjectMgr::RemoveCharter(Charter * c)
 {
-	if( c == NULL )
+	if( c == nullptr )
 		return;
 	if( c->CharterType > NUM_CHARTER_TYPES )
 	{
@@ -2609,36 +2512,6 @@ bool ObjectMgr::HandleInstanceReputationModifiers(Player * pPlayer, Unit * pVict
 	return true;
 }
 
-void ObjectMgr::LoadDisabledSpells()
-{
-	QueryResult * result = WorldDatabase.Query("SELECT * FROM spell_disable");
-	if(result)
-	{
-		do 
-		{
-			m_disabled_spells.insert( result->Fetch()[0].GetUInt32() );
-		} while(result->NextRow());
-		delete result;
-	}
-
-	Log.Notice("ObjectMgr", "%u disabled spells.", m_disabled_spells.size());
-}
-
-void ObjectMgr::ReloadLoadDisabledSpells()
-{
-	QueryResult * result = WorldDatabase.Query("SELECT * FROM spell_disable");
-	if(result)
-	{
-		do 
-		{
-			m_disabled_spells.clear();
-			m_disabled_spells.insert( result->Fetch()[0].GetUInt32() );
-		} while(result->NextRow());
-		delete result;
-	}
-	Log.Notice("ObjectMgr", "%u disabled spells.", m_disabled_spells.size());
-}
-
 void ObjectMgr::LoadGroups()
 {
 	QueryResult * result = CharacterDatabase.Query("SELECT * FROM groups");
@@ -2663,8 +2536,8 @@ void ObjectMgr::LoadStandingList(uint32 dateBegin)
 
 	uint32 guid,kills,side;
 
-    Field *fields = NULL;
-    QueryResult *result2 = NULL;
+    Field *fields = nullptr;
+    QueryResult *result2 = nullptr;
 	
 	QueryResult *result = CharacterDatabase.Query("SELECT guid,SUM(honor) as honor_sum FROM character_honor_cp WHERE TYPE = %u AND date BETWEEN %u AND %u GROUP BY guid ORDER BY honor_sum DESC",HONORABLE,dateBegin,dateBegin+7);
     if (result)
@@ -2713,7 +2586,7 @@ uint32 ObjectMgr::GetPlayerTeamByGUID(uint64 guid)
 		delete result;
 		CharRaceEntry * raceStorage = dbcCharRace.LookupEntry(race);
 		
-		if(raceStorage != NULL)
+		if(raceStorage != nullptr)
 		{
 			if(raceStorage->team_id == 7)
 				team = 0;
@@ -2738,8 +2611,8 @@ void ObjectMgr::DistributeRankPoints(uint32 team, uint32 dateBegin , bool flush 
 
     HonorScores scores = MaNGOS::Honor::GenerateScores(list,team);
 
-    Field *fields = NULL;
-    QueryResult *result = NULL;
+    Field *fields = nullptr;
+    QueryResult *result = nullptr;
     for (HonorStandingList::iterator itr = list.begin();itr != list.end() ; ++itr)
     {
         RP = 0;

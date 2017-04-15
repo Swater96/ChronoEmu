@@ -58,13 +58,13 @@ Object::Object() : m_position(0,0,0,0), m_spawnLocation(0,0,0,0)
 	mSemaphoreTeleport = false;
 
 
-	m_faction = NULL;
-	m_factionDBC = NULL;
+	m_faction = nullptr;
+	m_factionDBC = nullptr;
 
 	m_instanceId = 0;
 	Active = false;
 	m_inQueue = false;
-	m_extensions = NULL;
+	m_extensions = nullptr;
 	m_loadedFromDB = false;
 
 	m_inRangePlayers.clear();
@@ -86,7 +86,7 @@ Object::~Object( )
 	m_instanceId = -1;
 	m_objectTypeId=TYPEID_UNUSED;
 	
-	if( m_extensions != NULL )
+	if( m_extensions != nullptr )
 		delete m_extensions;
 }
 
@@ -500,7 +500,7 @@ void Object::_BuildValuesUpdate(ByteBuffer * data, UpdateMask *updateMask, Playe
 					for( GameObjectGOMap::iterator itr = go->GetInfo()->goMap.begin(); itr != go->GetInfo()->goMap.end(); ++itr )
 					{
 						qle = target->GetQuestLogForEntry( itr->first->id );
-						if( qle != NULL )
+						if( qle != nullptr )
 						{
 							if( qle->GetQuest()->count_required_mob == 0 )
 								continue;
@@ -923,7 +923,7 @@ void Object::AddToWorld(MapMgr * pMapMgr)
 //this can only be called from the thread of mapmgr!!!
 void Object::PushToWorld(MapMgr*mgr)
 {
-	if(!mgr/* || (m_mapMgr != NULL && m_mapCell != NULL) */)
+	if(!mgr/* || (m_mapMgr != nullptr && m_mapCell != nullptr) */)
 		return; //instance add failed
 
 	m_mapId=mgr->GetMapId();
@@ -985,7 +985,7 @@ void Object::SetUInt32Value( const uint32 index, const uint32 value )
 		if(IsInWorld())
 		{
 			Group* pGroup = TO_PLAYER( this )->GetGroup();
-			if( pGroup != NULL )
+			if( pGroup != nullptr )
 				pGroup->HandleUpdateFieldChange( index, TO_PLAYER( this ) );
 		}
 
@@ -1432,7 +1432,7 @@ bool Object::IsPet()
 
 void Object::_setFaction()
 {
-	FactionTemplateDBC* factT = NULL;
+	FactionTemplateDBC* factT = nullptr;
 
 	if(GetTypeId() == TYPEID_UNIT || GetTypeId() == TYPEID_PLAYER)
 	{
@@ -1501,7 +1501,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 		
 		for (std::map<void*, CallbackBase*>::iterator itr=pVictim->OnTakeDamageCallback.begin(); itr!=pVictim->OnTakeDamageCallback.end(); ++itr)
 		{
-			if (itr->second == NULL)
+			if (itr->second == nullptr)
 				continue;
 
 			itr->second->execute();
@@ -1524,7 +1524,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 	if( pVictim->IsPlayer() && IsPet() )
 	{
 		Player* owner = TO_PLAYER( static_cast< Pet* >( this )->GetPetOwner() );
-		if( owner != NULL )
+		if( owner != nullptr )
 			if( owner->isAlive() && TO_PLAYER( pVictim )->DuelingWith != owner )
 				owner->SetPvPFlag();		
 	}
@@ -1579,7 +1579,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 				victim->TaggerGuid = plr->GetGUID();
 
 				/* set loot method */
-				if( plr->GetGroup() != NULL )
+				if( plr->GetGroup() != nullptr )
 					victim->m_lootMethod = plr->GetGroup()->GetMethod();
 
 				// For new players who get a create object
@@ -1663,8 +1663,8 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 		{
 			plr = TO_PET( this )->GetPetOwner();
 			if (plr)
-				if( plr != NULL && plr->GetMapMgr() == GetMapMgr() )
-					plr = NULL;
+				if( plr != nullptr && plr->GetMapMgr() == GetMapMgr() )
+					plr = nullptr;
 		}
 	}
    
@@ -1673,7 +1673,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 	/*------------------------------------ DUEL HANDLERS --------------------------*/
 	if((pVictim->IsPlayer()) && (this->IsPlayer()) && TO_PLAYER(pVictim)->DuelingWith == TO_PLAYER( this ) ) //Both Players
 	{
-		if((health <= damage) && TO_PLAYER( this )->DuelingWith != NULL)
+		if((health <= damage) && TO_PLAYER( this )->DuelingWith != nullptr)
 		{
 			//Player in Duel and Player Victim has lost
 			uint32 NewHP = pVictim->GetUInt32Value(UNIT_FIELD_MAXHEALTH)/100;
@@ -1729,7 +1729,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 			SpellEntry *killerspell;
 			if( spellId )
 				killerspell = dbcSpell.LookupEntry( spellId );
-			else killerspell = NULL;
+			else killerspell = nullptr;
 			pVictim->HandleProc( CPROC_ON_DIE, TO_UNIT( this ), killerspell );
 			pVictim->m_procCounter = 0;
 			TO_UNIT( this )->HandleProc( CPROC_TARGET_DIE, pVictim, killerspell );
@@ -1740,7 +1740,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 		if( IsPet() )
 		{
 			Player* owner = static_cast<Pet*>( this )->GetPetOwner();
-			if( owner != NULL && pVictim->GetAIInterface()->getThreatByPtr( owner ) > 0 )
+			if( owner != nullptr && pVictim->GetAIInterface()->getThreatByPtr( owner ) > 0 )
 				owner_participe = true;
 		}
 		/* victim died! */
@@ -1764,13 +1764,13 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 			// Only NPCs that bear the PvP flag can be truly representing their faction.
 			if( ((Creature*)pVictim)->HasFlag( UNIT_FIELD_FLAGS, UNIT_FLAG_PVP ) )
 			{
-				Player * pAttacker = NULL;
+				Player * pAttacker = nullptr;
 				if( IsPet() )
 					pAttacker = static_cast< Pet* >( this )->GetPetOwner();
 				else if(IsPlayer())
 					pAttacker = TO_PLAYER( this );
 
-				if( pAttacker != NULL)
+				if( pAttacker != nullptr)
                 {
 				    uint8 teamId = (uint8)pAttacker->GetTeam();
 				    if(teamId == 0) // Swap it.
@@ -1825,7 +1825,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 			if( (*itr)->GetSelection()==pVictim->GetGUID())							
 			{
 				if( (*itr)->isCasting() )
-					(*itr)->CancelSpell( NULL ); //cancel current casting spell
+					(*itr)->CancelSpell( nullptr ); //cancel current casting spell
 			}
 		}
 		/* Stop victim from attacking */
@@ -1858,13 +1858,13 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 		}
 
 		/* -------------------------------- HONOR + BATTLEGROUND CHECKS ------------------------ */
-		plr = NULL;
+		plr = nullptr;
 		if( IsPlayer() )
 			plr = TO_PLAYER( this );
 		else if(IsPet())
 			plr = static_cast< Pet* >( this )->GetPetOwner();
 
-		if( plr != NULL)
+		if( plr != nullptr)
 		{
 			if( plr->m_bg != 0 )
 				plr->m_bg->HookOnPlayerKill( plr, pVictim );
@@ -1925,7 +1925,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 			TO_UNIT( this )->addStateFlag( UF_TARGET_DIED );
 
 			// We will no longer be attacking this target, as it's dead.
-			//static_cast<Unit*>(this)->setAttackTarget(NULL);
+			//static_cast<Unit*>(this)->setAttackTarget(nullptr);
 		}
 		//so now we are completely dead
 		//lets see if we have spirit of redemption
@@ -1934,9 +1934,9 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 			if( TO_PLAYER( pVictim)->HasSpell( 20711 ) ) //check for spirit of Redemption
 			{
 				SpellEntry* sorInfo = dbcSpell.LookupEntry(27827);
-				if( sorInfo != NULL )
+				if( sorInfo != nullptr )
 				{
-					Spell *sor = new Spell( pVictim, sorInfo, true, NULL );
+					Spell *sor = new Spell( pVictim, sorInfo, true, nullptr );
 					SpellCastTargets targets;
 					targets.m_unitTarget = pVictim->GetGUID();
 					sor->prepare(&targets);
@@ -1956,7 +1956,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 			}			
 
 			// it Seems that pets some how dont get a name and cause a crash here
-			//bool isCritter = (pVictim->GetCreatureName() != NULL)? pVictim->GetCreatureName()->Type : 0;
+			//bool isCritter = (pVictim->GetCreatureName() != nullptr)? pVictim->GetCreatureName()->Type : 0;
 
 			//-----------------------------------LOOOT--------------------------------------------
 			if ((!pVictim->IsPet())&& ( !isCritter ))
@@ -1988,7 +1988,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 
 					// Check for owner's group.
 					Group * pGroup = owner->GetGroup();
-					if( pGroup != NULL )
+					if( pGroup != nullptr )
 					{
 						// Owner was in a party.
 						// Check loot method.
@@ -2031,8 +2031,8 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 						case PARTY_LOOT_MASTER:
 							{
 								// Master loot: only the loot master gets the update.
-								Player * pLooter = pGroup->GetLooter() ? pGroup->GetLooter()->m_loggedInPlayer : NULL;
-								if( pLooter == NULL )
+								Player * pLooter = pGroup->GetLooter() ? pGroup->GetLooter()->m_loggedInPlayer : nullptr;
+								if( pLooter == nullptr )
 									pLooter = pGroup->GetLeader()->m_loggedInPlayer;
 
 								if( pLooter->IsVisible( victim ) )  // Save updates for non-existant creatures
@@ -2090,7 +2090,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 				if( owner_participe && IsPet() && !pVictim->IsPet() )
 				{
 					Player* petOwner = static_cast< Pet* >( this )->GetPetOwner();
-					if( petOwner != NULL && petOwner->GetTypeId() == TYPEID_PLAYER )
+					if( petOwner != nullptr && petOwner->GetTypeId() == TYPEID_PLAYER )
 					{
 						if( petOwner->InGroup() )
 						{
@@ -2113,7 +2113,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 							}
 						}
 					}
-					if( petOwner != NULL && pVictim->GetTypeId() != TYPEID_PLAYER && 
+					if( petOwner != nullptr && pVictim->GetTypeId() != TYPEID_PLAYER && 
 						pVictim->GetTypeId() == TYPEID_UNIT )
 						sQuestMgr.OnPlayerKill( petOwner, TO_CREATURE( pVictim ) );
 				}
@@ -2134,7 +2134,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 					
 					//remove owner warlock soul link from caster
 					Player* owner = static_cast<Pet*>( pVictim )->GetPetOwner();
-					if( owner != NULL )
+					if( owner != nullptr )
 						owner->EventDismissPet();
 				}
 				/* ----------------------------- PET DEATH HANDLING END -------------- */
@@ -2142,7 +2142,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 				{
 					//remove owner warlock soul link from caster
 					Unit *owner=pVictim->GetMapMgr()->GetUnit( pVictim->GetUInt64Value( UNIT_FIELD_CHARMEDBY ) );
-					if( owner != NULL && owner->IsPlayer())
+					if( owner != nullptr && owner->IsPlayer())
 						TO_PLAYER( owner )->EventDismissPet();
 				}
 			}
@@ -2157,7 +2157,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 			TO_PLAYER( pVictim )->m_SwimmingTime = 0;
 
 			/* -------------------- KILL PET WHEN PLAYER DIES ---------------*/
-			if( TO_PLAYER( pVictim )->GetSummon() != NULL )
+			if( TO_PLAYER( pVictim )->GetSummon() != nullptr )
 			{
 				if( pVictim->GetUInt32Value( UNIT_CREATED_BY_SPELL ) > 0 )
 					TO_PLAYER( pVictim )->GetSummon()->Dismiss( true );
@@ -2190,7 +2190,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 			{
 				// Defensive pet
 				Pet* pPet = TO_PLAYER( pVictim )->GetSummon();
-				if( pPet != NULL && pPet->GetPetState() != PET_STATE_PASSIVE )
+				if( pPet != nullptr && pPet->GetPetState() != PET_STATE_PASSIVE )
 				{
 					pPet->GetAIInterface()->AttackReaction( TO_UNIT(this), 1 );
 				}
@@ -2198,7 +2198,7 @@ void Object::DealDamage(Unit *pVictim, uint32 damage, uint32 targetEvent, uint32
 		}
 		
 		// TODO: Mark victim as a HK
-		/*if( TO_PLAYER( pVictim )->GetCurrentBattleground() != NULL && TO_PLAYER( this )->GetCurrentBattleground() != NULL)
+		/*if( TO_PLAYER( pVictim )->GetCurrentBattleground() != nullptr && TO_PLAYER( this )->GetCurrentBattleground() != nullptr)
 		{
 			
 		}*/	
@@ -2367,39 +2367,11 @@ void Object::SpellNonMeleeDamageLog(Unit *pVictim, uint32 spellID, uint32 damage
 	//DK:FIXME->SplitDamage
 	// Completed (Supa)
 	// Paladin: Blessing of Sacrifice, and Warlock: Soul Link
-		if( !pVictim->m_damageSplitTargets.empty() )
-		{
-			std::list< DamageSplitTarget >::iterator itr;
-			Unit * splittarget;
-			uint32 splitdamage, tmpsplit;
-			for( itr = pVictim->m_damageSplitTargets.begin() ; itr != pVictim->m_damageSplitTargets.end() ; itr ++ )
-			{
-				// TODO: Separate damage based on school.
-				splittarget = pVictim->GetMapMgr() ? pVictim->GetMapMgr()->GetUnit( itr->m_target ) : NULL;
-				if( splittarget && res > 0 )
-				{
-					// calculate damage
-					tmpsplit = itr->m_flatDamageSplit;
-					if( (int)tmpsplit > float2int32( res ))
-						tmpsplit = float2int32( res ); // prevent < 0 damage
-					splitdamage = tmpsplit;
-					res -= (float)tmpsplit;
-					tmpsplit = itr->m_pctDamageSplit * res;
-					if( (int)tmpsplit > float2int32( res ) )
-						tmpsplit = float2int32( res );
-					splitdamage += tmpsplit;
-					res -= (float)tmpsplit;
-					// TODO: pct damage
-
-					if( splitdamage )
-					{
-						pVictim->DealDamage( splittarget , splitdamage , 0 , 0 , 0 , false );
-						// Send damage log
-						pVictim->SendSpellNonMeleeDamageLog( pVictim , splittarget , 27148 , splitdamage , SCHOOL_HOLY , 0 , 0 , true , 0 , 0 , true );
-					}
-				}
-			}
-		}
+	// Paladin: Blessing of Sacrifice, and Warlock: Soul Link
+	if (pVictim->m_damageSplitTargets.active)
+	{
+		res = (float)pVictim->DoDamageSplitTarget((uint32)res, school, false);
+	}
 //==========================================================================================
 //==============================Data Sending ProcHandling===================================
 //==========================================================================================
@@ -2618,7 +2590,7 @@ void Object::PlaySoundToSet(uint32 sound_entry)
 
 void Object::_SetExtension(const string& name, void* ptr)
 {
-	if( m_extensions == NULL )
+	if( m_extensions == nullptr )
 		m_extensions = new ExtensionSet;
 
 	m_extensions->insert( make_pair( name, ptr ) );

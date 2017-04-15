@@ -28,13 +28,13 @@ Unit::Unit()
 	m_state = 0;
 	m_special_state = 0;
 	m_deathState = ALIVE;
-	m_currentSpell = NULL;
+	m_currentSpell = nullptr;
 	m_meleespell = 0;
 	m_addDmgOnce = 0;
-	m_TotemSlots[0] = NULL;
-	m_TotemSlots[1] = NULL;
-	m_TotemSlots[2] = NULL;
-	m_TotemSlots[3] = NULL;
+	m_TotemSlots[0] = nullptr;
+	m_TotemSlots[1] = nullptr;
+	m_TotemSlots[2] = nullptr;
+	m_TotemSlots[3] = nullptr;
 	m_ObjectSlots[0] = 0;
 	m_ObjectSlots[1] = 0;
 	m_ObjectSlots[2] = 0;
@@ -113,8 +113,8 @@ Unit::Unit()
 	m_noInterrupt = 0;
 	m_modlanguage = -1;
 	
-	critterPet = NULL;
-	summonPet = NULL;
+	critterPet = nullptr;
+	summonPet = nullptr;
 
 	m_useAI = false;
 	for(uint32 x=0;x<10;x++)
@@ -316,7 +316,7 @@ void Unit::Update( uint32 p_time )
 		}
 
 
-		if(m_aiInterface != NULL && m_useAI)
+		if(m_aiInterface != nullptr && m_useAI)
 			m_aiInterface->Update(p_time);
 
 		if(m_diminishActive)
@@ -423,8 +423,8 @@ void Unit::GiveGroupXP(Unit *pVictim, Player *PlayerInGroup)
 		return;
 
 	//Get Highest Level Player, Calc Xp and give it to each group member
-	Player *pHighLvlPlayer = NULL;
-	Player *pGroupGuy = NULL;
+	Player *pHighLvlPlayer = nullptr;
+	Player *pGroupGuy = nullptr;
 	  int active_player_count=0;
 	Player *active_player_list[MAX_GROUP_SIZE_RAID];//since group is small we can afford to do this ratehr then recheck again the whole active player set
 	int total_level=0;
@@ -580,7 +580,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 		}
 
 		uint32 origId = itr2->origId;
-		if( CastingSpell != NULL )
+		if( CastingSpell != nullptr )
 		{
 			//this is to avoid spell proc on spellcast loop. We use dummy that is same for both spells
 			//if( CastingSpell->Id == itr2->spellId )
@@ -598,7 +598,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 			if( itr2->procFlags & CPROC_CAST_SPECIFIC )
 			{
 
-				if( CastingSpell == NULL )
+				if( CastingSpell == nullptr )
 					continue;
 				
 				//this is wrong, dummy is too common to be based on this, we should use spellgroup or something
@@ -645,7 +645,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 			}*/
 			//Custom procchance modifications based on equipped weapon speed.
 			//todo: redo enchanment procs! (might not be neccesary in 1.12.1)
-			/*if( this->IsPlayer() && spe != NULL )
+			/*if( this->IsPlayer() && spe != nullptr )
 			{
 				float ppm = 1.0f;
 
@@ -659,13 +659,13 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 				Item * mh = TO_PLAYER( this )->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
 				Item * of = TO_PLAYER( this )->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_OFFHAND );
 				
-				if( mh != NULL && of != NULL )
+				if( mh != nullptr && of != nullptr )
 				{
 					float mhs = float( mh->GetProto()->Delay );
 					float ohs = float( of->GetProto()->Delay );
 					proc_Chance = FL2UINT( ( mhs + ohs ) * 0.001f * ppm / 0.6f );
 				}
-				else if( mh != NULL )
+				else if( mh != nullptr )
 				{
 					float mhs = float( mh->GetProto()->Delay );
 					proc_Chance = float2int32( mhs * 0.001f * ppm / 0.6f );
@@ -755,7 +755,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						}break;
 						case 17106: //druid intencity
 						{
-							if( CastingSpell == NULL )
+							if( CastingSpell == nullptr )
 								continue;
 							if( CastingSpell->Id != 5229 )//enrage
 								continue;
@@ -767,7 +767,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 							if( TO_PLAYER( this )->GetItemInterface() )
 							{
 								it = TO_PLAYER( this )->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
-								if( it != NULL && it->GetProto() )
+								if( it != nullptr && it->GetProto() )
 								{	
 									uint32 reqskill = GetSkillByProto( it->GetProto()->Class, it->GetProto()->SubClass );
 									if( reqskill != SKILL_MACES && reqskill != SKILL_2H_MACES )
@@ -793,7 +793,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 							if( TO_PLAYER( this )->GetItemInterface())
 							{
 								Item* it = TO_PLAYER( this )->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
-								if( it != NULL && it->GetProto() )
+								if( it != nullptr && it->GetProto() )
 								{
 									uint32 reqskill=GetSkillByProto( it->GetProto()->Class, it->GetProto()->SubClass );
 									if( reqskill != SKILL_SWORDS && reqskill != SKILL_2H_SWORDS )
@@ -812,7 +812,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 							if( TO_PLAYER( this )->GetItemInterface())
 							{
 								it = TO_PLAYER( this )->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
-								if( it != NULL && it->GetProto() )
+								if( it != nullptr && it->GetProto() )
 								{
 									//class 2 means weapons ;)
 									if( it->GetProto()->Class != 2 )
@@ -830,7 +830,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 							if( TO_PLAYER( this )->GetItemInterface() )
 							{
 								it = TO_PLAYER( this )->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
-								if( !( it != NULL && it->GetProto() ) )
+								if( !( it != nullptr && it->GetProto() ) )
 									continue; //no weapon no joy
 							}
 							else
@@ -845,7 +845,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						// hunter - Entrapment
 						case 19185:
 						{
-							if( CastingSpell == NULL )
+							if( CastingSpell == nullptr )
 								continue;
 								//only trigger effect for specified spells
 								if( CastingSpell->NameHash!=SPELL_HASH_BACKSTAB && //immolation trap
@@ -857,7 +857,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						// Mage ignite talent only for fire dmg
 						case 12654:
 						{
-							if( CastingSpell == NULL )
+							if( CastingSpell == nullptr )
 								continue;
 							if( CastingSpell->School != SCHOOL_FIRE )
 								continue;
@@ -873,7 +873,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						case 17799:
 						case 17800:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								//only trigger effect for specified spells
 								if( CastingSpell->NameHash!=SPELL_HASH_SHADOW_BOLT)//shadow bolt								
@@ -891,11 +891,11 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 								else if( GetUInt64Value( UNIT_FIELD_CHARM ) )
 									new_caster = GetMapMgr()->GetUnit( GetUInt64Value( UNIT_FIELD_CHARM ) );
 								else
-									new_caster = NULL;
-								if( new_caster != NULL && new_caster->isAlive() )
+									new_caster = nullptr;
+								if( new_caster != nullptr && new_caster->isAlive() )
 								{
 									SpellEntry* spellInfo = dbcSpell.LookupEntry( 25228 ); //we already modified this spell on server loading so it must exist
-									Spell* spell(new Spell( new_caster, spellInfo, true, NULL ));
+									Spell* spell(new Spell( new_caster, spellInfo, true, nullptr ));
 									spell->forced_basepoints[0] = dmg;
 									SpellCastTargets targets;
 									targets.m_unitTarget = GetGUID();
@@ -906,7 +906,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//warlock - Nighfall
 						case 17941:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								//only trigger effect for specified spells
 								if( CastingSpell->NameHash != SPELL_HASH_CORRUPTION && //Corruption
@@ -916,7 +916,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//warlock - Aftermath
 						case 18118:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								//only trigger effect for specified spells
 								skilllinespell* skillability = objmgr.GetSpellSkill(CastingSpell->Id);
@@ -928,7 +928,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//warlock - pyroclasm
 						case 18093:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								//only trigger effect for specified spells
 								if( CastingSpell->NameHash != SPELL_HASH_RAIN_OF_FIRE && //Rain of Fire
@@ -939,7 +939,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//mage - Improved Scorch
 						case 22959:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								//only trigger effect for specified spells
 								if( CastingSpell->NameHash != SPELL_HASH_SCORCH ) //Scorch
@@ -948,7 +948,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//mage - Combustion
 						case 28682:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								//only trigger effect for specified spells
 								if( !( CastingSpell->c_is_flags & SPELL_FLAG_IS_DAMAGING)
@@ -967,7 +967,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//priest - Shadow Weaving
 						case 15258:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								if( CastingSpell->School != SCHOOL_SHADOW || !( CastingSpell->c_is_flags & SPELL_FLAG_IS_DAMAGING ) ) //we need damaging spells for this, so we suppose all shadow spells casted on target are dmging spells = Wrong
 									continue;
@@ -994,7 +994,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 								if (!parentproc || !spellInfo)
 									continue;
 								int32 val = parentproc->EffectBasePoints[0] + 1;
-                                Spell *spell = new Spell(this, spellInfo ,true, NULL);
+                                Spell *spell = new Spell(this, spellInfo ,true, nullptr);
                                 spell->forced_basepoints[0] = (val*dmg)/300; //per tick
                                 SpellCastTargets targets;
                                 targets.m_unitTarget = GetGUID();
@@ -1004,7 +1004,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//shaman - Healing Way
 						case 29203:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								//only trigger effect for specified spells
 								if( CastingSpell->NameHash != SPELL_HASH_HEALING_WAVE ) //healing wave
@@ -1015,7 +1015,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						case 29178:
 						case 30165:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								//only trigger effect for specified spells
 								if( !(CastingSpell->c_is_flags & SPELL_FLAG_IS_DAMAGING)) //healing wave
@@ -1026,7 +1026,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						case 16236:
 						case 16237:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;
 								if( !(CastingSpell->c_is_flags & SPELL_FLAG_IS_HEALING) ) //healing spell
 									continue;
@@ -1054,7 +1054,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//rogue - Ruthlessness
 						case 14157:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								//we need a finishing move for this 
 								if(!(CastingSpell->c_is_flags & SPELL_FLAG_IS_FINISHING_MOVE) || victim==this)
@@ -1063,7 +1063,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//rogue - Relentless Strikes
 						case 14181:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								
 								if(!Rand(20)) //why do we need to do this?
@@ -1072,10 +1072,10 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//rogue - Initiative
 						case 13977:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								//we need a Ambush, Garrote, or Cheap Shot
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;
 
 								if( CastingSpell->NameHash != SPELL_HASH_CHEAP_SHOT && //Cheap Shot
@@ -1098,7 +1098,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//Priest - blackout
 						case 15269:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								if( CastingSpell->School != SCHOOL_SHADOW || !( CastingSpell->c_is_flags & SPELL_FLAG_IS_DAMAGING ) )
 									continue;
@@ -1114,7 +1114,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						case 12536:
 							{
 								//requires damageing spell
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								if( !( CastingSpell->c_is_flags & SPELL_FLAG_IS_DAMAGING ) )
 									continue;
@@ -1124,7 +1124,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						case 12485:
 						case 12486:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;
 								if( CastingSpell->NameHash != SPELL_HASH_BLIZZARD || victim == this ) //Blizzard
 									continue;
@@ -1132,7 +1132,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						//mage - Master of Elements
 						case 29077:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;
 								if( CastingSpell->School!=SCHOOL_FIRE && CastingSpell->School!=SCHOOL_FROST) //fire and frost criticals
 									continue;
@@ -1142,7 +1142,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						case 20233:
 						case 20236:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;
 								if( CastingSpell->NameHash != SPELL_HASH_LAY_ON_HANDS )
 									continue;
@@ -1153,7 +1153,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 								if( victim == this )
 									continue; //not self casted crits
 								//requires damageing spell
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;//this should not ocur unless we made a fuckup somewhere
 								if(!(CastingSpell->c_is_flags & SPELL_FLAG_IS_DAMAGING))
 									continue;
@@ -1165,7 +1165,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 						// druid - Celestial Focus
 						case 16922:
 							{
-								if( CastingSpell == NULL )
+								if( CastingSpell == nullptr )
 									continue;
 								if( CastingSpell->NameHash != SPELL_HASH_STARFIRE )
 									continue;
@@ -1196,7 +1196,7 @@ void Unit::HandleProc( uint32 flag, Unit* victim, SpellEntry* CastingSpell, uint
 				if(spellId==22858 && isInBack(victim)) //retatliation needs target to be not in front. Can be casted by creatures too
 					continue;
 				SpellEntry *spellInfo = dbcSpell.LookupEntry(spellId );
-				Spell *spell = new Spell(this, spellInfo ,true, NULL);
+				Spell *spell = new Spell(this, spellInfo ,true, nullptr);
 				spell->forced_basepoints[0] = dmg_overwrite;
 				spell->ProcedOnSpell = CastingSpell;
 				//Spell *spell = new Spell(this,spellInfo,false,0,true,false);
@@ -1345,7 +1345,7 @@ void Unit::HandleProcSpellOnSpell(Unit* Victim,uint32 damage,bool critical)
 */
 bool Unit::isCasting()
 {
-	return (m_currentSpell != NULL);
+	return (m_currentSpell != nullptr);
 }
 
 bool Unit::IsInInstance()
@@ -1528,7 +1528,7 @@ void Unit::CalculateResistanceReduction(Unit *pVictim,dealdamage * dmg, SpellEnt
 
 uint32 Unit::GetSpellDidHitResult( Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability )
 {
-	Item * it = NULL;
+	Item * it = nullptr;
 	float hitchance          = 0.0f;
 	float dodge				 = 0.0f;
 	float parry				 = 0.0f;
@@ -1595,17 +1595,17 @@ uint32 Unit::GetSpellDidHitResult( Unit* pVictim, uint32 weapon_damage_type, Spe
 		switch( weapon_damage_type )
 		{
 		case MELEE:   // melee main hand weapon
-			it = disarmed ? NULL : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
+			it = disarmed ? nullptr : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
 			hitmodifier += pr->CalcRating( PLAYER_RATING_MODIFIER_MELEE_HIT );
 			self_skill = float2int32( pr->CalcRating( PLAYER_RATING_MODIFIER_MELEE_MAIN_HAND_SKILL ) );
 			break;
 		case OFFHAND: // melee offhand weapon (dualwield)
-			it = disarmed ? NULL : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_OFFHAND );
+			it = disarmed ? nullptr : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_OFFHAND );
 			hitmodifier += pr->CalcRating( PLAYER_RATING_MODIFIER_MELEE_HIT );
 			self_skill = float2int32( pr->CalcRating( PLAYER_RATING_MODIFIER_MELEE_OFF_HAND_SKILL ) );
 			break;
 		case RANGED:  // ranged weapon
-			it = disarmed ? NULL : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_RANGED );
+			it = disarmed ? nullptr : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_RANGED );
 			hitmodifier += pr->CalcRating( PLAYER_RATING_MODIFIER_RANGED_HIT );
 			self_skill = float2int32( pr->CalcRating( PLAYER_RATING_MODIFIER_RANGED_SKILL ) );
 			break;
@@ -1683,14 +1683,14 @@ uint32 Unit::GetSpellDidHitResult( Unit* pVictim, uint32 weapon_damage_type, Spe
 	else if(this->IsPlayer())
 	{
 		it = TO_PLAYER( this )->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_OFFHAND );
-		if( it != NULL && it->GetProto()->InventoryType == INVTYPE_WEAPON && !ability )//dualwield to-hit penalty
+		if( it != nullptr && it->GetProto()->InventoryType == INVTYPE_WEAPON && !ability )//dualwield to-hit penalty
 		{
 			hitmodifier -= 19.0f;
 		}
 		else
 		{
 			it = TO_PLAYER( this )->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
-			if( it != NULL && it->GetProto()->InventoryType == INVTYPE_2HWEAPON )//2 handed weapon to-hit penalty
+			if( it != nullptr && it->GetProto()->InventoryType == INVTYPE_2HWEAPON )//2 handed weapon to-hit penalty
 				hitmodifier -= 4.0f;
 		}
 	}
@@ -1755,23 +1755,18 @@ void Unit::Strike( Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability
 	if(!pVictim->isAlive() || !isAlive()  || IsStunned() || IsPacified() || IsFeared())
 		return;
 
-	if(!isInFront(pVictim))
-	{
-		if(!ability || !ability->NameHash == SPELL_HASH_WHIRLWIND )
+	if (!isInFront(pVictim))
+		if (IsPlayer())
 		{
-			if(IsPlayer())
-			{
-				TO_PLAYER( this )->GetSession()->OutPacket(SMSG_ATTACKSWING_BADFACING);
-				return;
-			}
+			static_cast< Player* >(this)->GetSession()->OutPacket(SMSG_ATTACKSWING_BADFACING);
+			return;
 		}
-	}
 //==========================================================================================
 //==============================Variables Initialization====================================
 //==========================================================================================
 	dealdamage dmg			  = {0,0,0};
 	
-	Item * it = NULL;
+	Item * it = nullptr;
 	
 	float hitchance          = 0.0f;
 	float dodge				 = 0.0f;
@@ -1841,7 +1836,7 @@ void Unit::Strike( Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability
 		if( pVictim->m_objectTypeId == TYPEID_UNIT ) 
 		{ 
 			Creature* c = TO_CREATURE( pVictim );
-			if( c != NULL && c->GetCreatureName()&&c->GetCreatureName()->Rank == ELITE_WORLDBOSS )
+			if( c != nullptr && c->GetCreatureName()&&c->GetCreatureName()->Rank == ELITE_WORLDBOSS )
 			{
 				victim_skill = std::max( victim_skill, ( (int32)getLevel() + 3 ) * 5 ); //used max to avoid situation when lowlvl hits boss.
 			}
@@ -1859,20 +1854,20 @@ void Unit::Strike( Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability
 		switch( weapon_damage_type )
 		{
 		case MELEE:   // melee main hand weapon
-			it = disarmed ? NULL : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
+			it = disarmed ? nullptr : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
 			self_skill = float2int32( pr->CalcRating( PLAYER_RATING_MODIFIER_MELEE_MAIN_HAND_SKILL ) );
 			if (it && it->GetProto())
 				dmg.school_type = it->GetProto()->Damage[0].Type;
 			break;
 		case OFFHAND: // melee offhand weapon (dualwield)
-			it = disarmed ? NULL : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_OFFHAND );
+			it = disarmed ? nullptr : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_OFFHAND );
 			self_skill = float2int32( pr->CalcRating( PLAYER_RATING_MODIFIER_MELEE_OFF_HAND_SKILL ) );
 			hit_status |= HITSTATUS_DUALWIELD;//animation
 			if (it && it->GetProto())
 				dmg.school_type = it->GetProto()->Damage[0].Type;
 			break;
 		case RANGED:  // ranged weapon
-			it = disarmed ? NULL : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_RANGED );
+			it = disarmed ? nullptr : pr->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_RANGED );
 			self_skill = float2int32( pr->CalcRating( PLAYER_RATING_MODIFIER_RANGED_SKILL ) );
 			if (it && it->GetProto())
 				dmg.school_type = it->GetProto()->Damage[0].Type;
@@ -2021,12 +2016,12 @@ else
 		if(this->IsPlayer())
 		{
 			it = TO_PLAYER( this )->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_OFFHAND );
-			if( it != NULL && it->GetProto()->InventoryType == INVTYPE_WEAPON && !ability )//dualwield to-hit penalty
+			if( it != nullptr && it->GetProto()->InventoryType == INVTYPE_WEAPON && !ability )//dualwield to-hit penalty
 				hitmodifier -= 19.0f;
 			else
 			{
 				it = TO_PLAYER( this )->GetItemInterface()->GetInventoryItem( EQUIPMENT_SLOT_MAINHAND );
-				if( it != NULL && it->GetProto()->InventoryType == INVTYPE_2HWEAPON )//2 handed weapon to-hit penalty
+				if( it != nullptr && it->GetProto()->InventoryType == INVTYPE_2HWEAPON )//2 handed weapon to-hit penalty
 					hitmodifier -= 4.0f;
 			}
 		}
@@ -2043,7 +2038,7 @@ else
 		block = 0.0f;
 	}
 
-	if( ability != NULL && ability->Attributes & ATTRIBUTES_CANT_BE_DPB )
+	if( ability != nullptr && ability->Attributes & ATTRIBUTES_CANT_BE_DPB )
 	{
 		dodge = 0.0f;
 		parry = 0.0f;
@@ -2088,13 +2083,13 @@ else
 	case 0:
 		hit_status |= HITSTATUS_MISS;
 		// dirty ai agro fix
-		if(pVictim->GetTypeId() == TYPEID_UNIT && pVictim->GetAIInterface()->GetNextTarget() == NULL)
+		if(pVictim->GetTypeId() == TYPEID_UNIT && pVictim->GetAIInterface()->GetNextTarget() == nullptr)
 			pVictim->GetAIInterface()->AttackReaction(this, 1, 0);
 		break;
 //--------------------------------dodge-----------------------------------------------------
 	case 1:
 		// dirty ai agro fix
-		if(pVictim->GetTypeId() == TYPEID_UNIT && pVictim->GetAIInterface()->GetNextTarget() == NULL)
+		if(pVictim->GetTypeId() == TYPEID_UNIT && pVictim->GetAIInterface()->GetNextTarget() == nullptr)
 			pVictim->GetAIInterface()->AttackReaction(this, 1, 0);
 
 		CALL_SCRIPT_EVENT(pVictim, OnTargetDodged)(this);
@@ -2124,7 +2119,7 @@ else
 //--------------------------------parry-----------------------------------------------------
 	case 2:
 		// dirty ai agro fix
-		if(pVictim->GetTypeId() == TYPEID_UNIT && pVictim->GetAIInterface()->GetNextTarget() == NULL)
+		if(pVictim->GetTypeId() == TYPEID_UNIT && pVictim->GetAIInterface()->GetNextTarget() == nullptr)
 			pVictim->GetAIInterface()->AttackReaction(this, 1, 0);
 
 		CALL_SCRIPT_EVENT(pVictim, OnTargetParried)(this);
@@ -2211,7 +2206,7 @@ else
 			dmg.full_damage += add_damage;
 
 			//a bit dirty fix
-			/*if( ability != NULL && ability->NameHash == SPELL_HASH_SHRED )
+			/*if( ability != nullptr && ability->NameHash == SPELL_HASH_SHRED )
 			{
 				summaryPCTmod *= 1 + pVictim->ModDamageTakenByMechPCT[MECHANIC_BLEEDING];
 			}*/
@@ -2227,7 +2222,7 @@ else
 			if( dd_mod > 1.0f )
 				dmg.full_damage += float2int32( ( inital_dmg * dd_mod) - inital_dmg );
 
-			if( ability != NULL && ability->NameHash == SPELL_HASH_SHRED )
+			if( ability != nullptr && ability->NameHash == SPELL_HASH_SHRED )
 				dmg.full_damage += float2int32( ( inital_dmg * (1 + pVictim->ModDamageTakenByMechPCT[MECHANIC_BLEEDING]) ) - inital_dmg );
 
 			//pet happiness state dmg modifier
@@ -2273,7 +2268,7 @@ else
 			case 4:
 				{
 					Item* shield = TO_PLAYER( pVictim )->GetItemInterface()->GetInventoryItem(EQUIPMENT_SLOT_OFFHAND);
-					if( shield != NULL )
+					if( shield != nullptr )
 					{
 						targetEvent = 2;
 						pVictim->Emote(EMOTE_ONESHOT_PARRYSHIELD);// Animation
@@ -2420,39 +2415,15 @@ else
 //==========================================================================================
 //------------------------------- Special Effects Processing
 // Paladin: Blessing of Sacrifice, and Warlock: Soul Link
-		if( !pVictim->m_damageSplitTargets.empty() )
-		{
-			std::list< DamageSplitTarget >::iterator itr;
-			Unit * splittarget;
-			uint32 splitdamage, tmpsplit;
-			for( itr = pVictim->m_damageSplitTargets.begin() ; itr != pVictim->m_damageSplitTargets.end() ; itr ++ )
-			{
-				// TODO: Separate damage based on school.
-				splittarget = pVictim->GetMapMgr() ? pVictim->GetMapMgr()->GetUnit( itr->m_target ) : NULL;
-				if( splittarget && dmg.full_damage > 0 )
-				{
-					// calculate damage
-					tmpsplit = itr->m_flatDamageSplit;
-					if( tmpsplit > dmg.full_damage )
-						tmpsplit = dmg.full_damage; // prevent < 0 damage
-					splitdamage = tmpsplit;
-					dmg.full_damage -= tmpsplit;
-					tmpsplit = itr->m_pctDamageSplit * dmg.full_damage;
-					if( tmpsplit > dmg.full_damage )
-						tmpsplit = dmg.full_damage;
-					splitdamage += tmpsplit;
-					dmg.full_damage -= tmpsplit;
-					// TODO: pct damage
-					if( splitdamage )
-					{
-						pVictim->DealDamage( splittarget , splitdamage , 0 , 0 , 0 , false );
-						// Send damage log
-						pVictim->SendSpellNonMeleeDamageLog( pVictim , splittarget , 27148 , splitdamage , SCHOOL_HOLY , 0 , 0 , true , 0 , 0 , true );
-					}
-				}
-			}
-			realdamage = dmg.full_damage;
-		}
+
+	if (pVictim->m_damageSplitTargets.active)
+	{
+		if (ability)
+			realdamage = pVictim->DoDamageSplitTarget(realdamage, ability->School, false);
+		else
+			realdamage = pVictim->DoDamageSplitTarget(realdamage, 0, true);
+	}
+
 //--------------------------special states processing---------------------------------------
 	
 	if(pVictim->GetTypeId() == TYPEID_PLAYER && TO_PLAYER(pVictim)->GodModeCheat == true)
@@ -2502,12 +2473,12 @@ else
 					}
 
 					// Cast.
-					cspell = new Spell(this, itr->first, true, NULL);
+					cspell = new Spell(this, itr->first, true, nullptr);
 					cspell->prepare(&targets);
 				}
 				else
 				{
-					cspell = new Spell(this, itr->first, true, NULL);
+					cspell = new Spell(this, itr->first, true, nullptr);
 					cspell->prepare(&targets);
 				}			
 			}
@@ -2539,12 +2510,12 @@ else
 		// DONE: Remove + readded it :P
 		for( uint32 x = MAX_POSITIVE_AURAS; x <= MAX_AURAS; x++ )
 		{
-			if( pVictim->m_auras[x] != NULL && pVictim->m_auras[x]->GetUnitCaster() != NULL && pVictim->m_auras[x]->GetUnitCaster()->GetGUID() == GetGUID() && pVictim->m_auras[x]->GetSpellProto()->buffIndexType == SPELL_TYPE_INDEX_JUDGEMENT )
+			if( pVictim->m_auras[x] != nullptr && pVictim->m_auras[x]->GetUnitCaster() != nullptr && pVictim->m_auras[x]->GetUnitCaster()->GetGUID() == GetGUID() && pVictim->m_auras[x]->GetSpellProto()->buffIndexType == SPELL_TYPE_INDEX_JUDGEMENT )
 			{
 				Aura * aur = pVictim->m_auras[x];
 				SpellEntry * spinfo = aur->GetSpellProto();
 				aur->Remove();
-				Spell * sp = new Spell( this , spinfo , true , NULL );
+				Spell * sp = new Spell( this , spinfo , true , nullptr );
 				SpellCastTargets tgt;
 				tgt.m_unitTarget = pVictim->GetGUID();
 				sp->prepare( &tgt );
@@ -2709,7 +2680,7 @@ else
 
 		// Weapon speed (normal)
 		Item* weapon = ( TO_PLAYER( this )->GetItemInterface())->GetInventoryItem( INVENTORY_SLOT_NOT_SET, ( weapon_damage_type == OFFHAND ? EQUIPMENT_SLOT_OFFHAND : EQUIPMENT_SLOT_MAINHAND ) );
-		if( weapon == NULL )
+		if( weapon == nullptr )
 		{
 			if( weapon_damage_type == OFFHAND )
 				s = GetUInt32Value( UNIT_FIELD_BASEATTACKTIME_01 ) / 1000.0f;
@@ -2720,7 +2691,7 @@ else
 		{
 			uint32 entry = weapon->GetEntry();
 			ItemPrototype* pProto = ItemPrototypeStorage.LookupEntry( entry );
-			if( pProto != NULL )
+			if( pProto != nullptr )
 			{
 				s = pProto->Delay / 1000.0f;
 			}
@@ -2771,7 +2742,7 @@ else
 		while(extra_attacks > 0)
 		{
 			extra_attacks--;
-			Strike( pVictim, weapon_damage_type, NULL, 0, 0, 0, false, false);
+			Strike( pVictim, weapon_damage_type, nullptr, 0, 0, 0, false, false);
 		}
 
 		m_extraAttackCounter = false;
@@ -2994,7 +2965,7 @@ void Unit::AddAura(Aura *aur, SpellScript* script)
     }
 	
 	if( aur->m_auraSlot != 0xffffffff )
-		m_auras[aur->m_auraSlot] = NULL;   
+		m_auras[aur->m_auraSlot] = nullptr;   
          
     aur->m_auraSlot=255;
     aur->ApplyModifiers(true);
@@ -3086,7 +3057,7 @@ void Unit::AddAura(Aura *aur, SpellScript* script)
 	}
 	
 	//we got here, add the script reference
-	if (script != NULL)
+	if (script != nullptr)
 		script->AddRef(aur);
 }
 
@@ -3218,7 +3189,7 @@ void Unit::RemoveAllNegativeAuras()
 {
 	for(uint32 x=MAX_POSITIVE_AURAS;x<MAX_AURAS;x++)
 	{
-		if(m_auras[x] != NULL)
+		if(m_auras[x] != nullptr)
 		{
 			if(m_auras[x]->GetSpellProto()->Flags4 & FLAGS4_DEATH_PERSISTANT)
 				continue;
@@ -3235,7 +3206,7 @@ bool Unit::RemoveAllAuras(uint32 spellId, uint64 guid, Aura* ignore)
 	bool res = false;
 	for(uint32 x=0;x<MAX_AURAS+MAX_PASSIVE_AURAS;x++)
 	{
-		if(m_auras[x] && (ignore == NULL || ignore != m_auras[x]))
+		if(m_auras[x] && (ignore == nullptr || ignore != m_auras[x]))
 		{
 			if(m_auras[x]->GetSpellId()==spellId)
 			{
@@ -3384,7 +3355,7 @@ Aura* Unit::FindAuraPosByNameHash(uint32 namehash)
 			}
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 Aura* Unit::FindAura(uint32 spellId)
@@ -3399,7 +3370,7 @@ Aura* Unit::FindAura(uint32 spellId)
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 Aura* Unit::FindAura(uint32 spellId, uint64 guid)
@@ -3414,13 +3385,13 @@ Aura* Unit::FindAura(uint32 spellId, uint64 guid)
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 void Unit::_UpdateSpells( uint32 time )
 {
 	/* to avoid deleting the current spell */
-	if(m_currentSpell != NULL)
+	if(m_currentSpell != nullptr)
 	{
 		m_spellsbusy=true;
 		m_currentSpell->update(time);
@@ -3565,7 +3536,7 @@ void Unit::InterruptSpell()
 		{
 			// shouldn't really happen. but due to spell sytem bugs there are some cases where this can happen.
 			sEventMgr.AddEvent(this,&Unit::CancelSpell,m_currentSpell,EVENT_UNK,1,1,EVENT_FLAG_DO_NOT_EXECUTE_IN_WORLD_CONTEXT);
-			m_currentSpell=NULL;
+			m_currentSpell=nullptr;
 		}
 		else
 			m_currentSpell->cancel();
@@ -3593,9 +3564,9 @@ void Unit::Emote(EmoteType emote)
 void Unit::SendChatMessageToPlayer(uint8 type, uint32 lang, const char *msg, Player *plr)
 {
 	size_t UnitNameLength = 0, MessageLength = 0;
-	CreatureInfo *ci = (m_objectTypeId == TYPEID_UNIT) ? ((Creature*)this)->creature_info : NULL;
+	CreatureInfo *ci = (m_objectTypeId == TYPEID_UNIT) ? ((Creature*)this)->creature_info : nullptr;
 
-	if(ci == NULL || plr == NULL)
+	if(ci == nullptr || plr == nullptr)
 		return;
 
 	UnitNameLength = strlen((char*)ci->Name) + 1;
@@ -3642,9 +3613,9 @@ void Unit::SendChatMessageAlternateEntry(uint32 entry, uint8 type, uint32 lang, 
 void Unit::SendChatMessage(uint8 type, uint32 lang, const char *msg)
 {
 	size_t UnitNameLength = 0, MessageLength = 0;
-	CreatureInfo *ci = (m_objectTypeId == TYPEID_UNIT) ? ((Creature*)this)->creature_info : NULL;
+	CreatureInfo *ci = (m_objectTypeId == TYPEID_UNIT) ? ((Creature*)this)->creature_info : nullptr;
 
-	if(ci == NULL)
+	if(ci == nullptr)
 		return;
 
 	UnitNameLength = strlen((char*)ci->Name) + 1;
@@ -3738,7 +3709,7 @@ uint32 Unit::GetResistance(uint32 type)
 
 void Unit::MoveToWaypoint(uint32 wp_id)
 {
-	if(this->m_useAI && this->GetAIInterface() != NULL)
+	if(this->m_useAI && this->GetAIInterface() != nullptr)
 	{
 		AIInterface *ai = GetAIInterface();
 		WayPoint *wp = ai->getWayPoint(wp_id);
@@ -3855,9 +3826,9 @@ void Unit::VampiricEmbrace(uint32 dmg,Unit* tgt)
 	this->Heal(this,15286,heal);
 
 	SubGroup* pGroup = TO_PLAYER( this )->GetGroup() ?
-		TO_PLAYER( this )->GetGroup()->GetSubGroup( TO_PLAYER( this )->GetSubGroup() ) : NULL;
+		TO_PLAYER( this )->GetGroup()->GetSubGroup( TO_PLAYER( this )->GetSubGroup() ) : nullptr;
 
-	if( pGroup != NULL )
+	if( pGroup != nullptr )
 	{
 		GroupMembersSet::iterator itr;
 		TO_PLAYER( this )->GetGroup()->Lock();
@@ -3895,7 +3866,7 @@ void Unit::RemoveAllAreaAuras()
 */
 uint32 Unit::AbsorbDamage( uint32 School, uint32* dmg )
 {
-	if( dmg == NULL )
+	if( dmg == nullptr )
 		return 0;
 
 	if( School > 6 )
@@ -4001,14 +3972,14 @@ void Unit::RemoveAurasByInterruptFlag(uint32 flag)
 	for(uint32 x=0;x<256;x++)
 	{
 		a = m_auras[x];
-		if(a == NULL)
+		if(a == nullptr)
 			continue;
 		
 		//some spells do not get removed all the time only at specific intervals
 		if((a->m_spellProto->AuraInterruptFlags & flag) && !(a->m_spellProto->procFlags & CPROC_REMOVEONUSE))
 		{
 			a->Remove();
-			m_auras[x] = NULL;
+			m_auras[x] = nullptr;
 		}
 	}
 }
@@ -4135,7 +4106,7 @@ void Unit::EventSummonPetExpire()
 			if(!spInfo)
 				return;
 
-			Spell*sp=new Spell(summonPet,spInfo,true,NULL);
+			Spell*sp=new Spell(summonPet,spInfo,true,nullptr);
 			SpellCastTargets tgt;
 			tgt.m_unitTarget=summonPet->GetGUID();
 			sp->prepare(&tgt);
@@ -4144,7 +4115,7 @@ void Unit::EventSummonPetExpire()
 		{
 			summonPet->RemoveFromWorld(false, true);
 			delete summonPet;
-			summonPet = NULL;
+			summonPet = nullptr;
 		}
 	}
 	sEventMgr.RemoveEvents(this, EVENT_SUMMON_PET_EXPIRE);
@@ -4152,7 +4123,7 @@ void Unit::EventSummonPetExpire()
 
 void Unit::CastSpell(Unit* Target, SpellEntry* Sp, bool triggered)
 {
-	if( Sp == NULL )
+	if( Sp == nullptr )
 		return;
 
 	Spell *newSpell = new Spell(this, Sp, triggered, 0);
@@ -4179,7 +4150,7 @@ void Unit::CastSpell(Unit* Target, uint32 SpellID, bool triggered)
 
 void Unit::CastSpell(uint64 targetGuid, SpellEntry* Sp, bool triggered)
 {
-	if( Sp == NULL )
+	if( Sp == nullptr )
 		return;
 
 	SpellCastTargets targets(targetGuid);
@@ -4197,7 +4168,7 @@ void Unit::CastSpell(uint64 targetGuid, uint32 SpellID, bool triggered)
 
 uint8 Unit::CastSpellAoF(float x,float y,float z,SpellEntry* Sp, bool triggered)
 {
-	if( Sp == NULL )
+	if( Sp == nullptr )
 		return SPELL_FAILED_ERROR;
 
 	SpellCastTargets targets;
@@ -4381,7 +4352,7 @@ void Unit::RemoveFromWorld(bool free_guid)
 		{
 			if( m_auras[x]->m_deleted )
 			{
-				m_auras[x] = NULL;
+				m_auras[x] = nullptr;
 				continue;
 			}
 
@@ -4798,7 +4769,7 @@ bool Unit::GetSpeedDecrease()
 
 void Unit::EventCastSpell(Unit * Target, SpellEntry * Sp)
 {
-	Spell * pSpell = new Spell(Target, Sp, true, NULL);
+	Spell * pSpell = new Spell(Target, Sp, true, nullptr);
 	SpellCastTargets targets(Target->GetGUID());
 	pSpell->prepare(&targets);
 }
@@ -4835,7 +4806,7 @@ Unit* Unit::create_guardian(uint32 guardian_entry,uint32 duration,float angle, u
 	if(!proto || !info)
 	{
 		sLog.outDetail("Warning : Missing summon creature template %u !",guardian_entry);
-		return NULL;
+		return nullptr;
 	}
 	float m_fallowAngle=angle;
 	float x = GetPositionX()+(3*(cosf(m_fallowAngle+GetOrientation())));
@@ -4904,7 +4875,7 @@ void CombatStatusHandler::ClearMyHealers()
 	for(i = m_healers.begin(); i != m_healers.end(); ++i)
 	{
 		pt = m_Unit->GetMapMgr()->GetPlayer(*i);
-		if(pt != NULL)
+		if(pt != nullptr)
 			pt->CombatStatus.RemoveHealed(m_Unit);
 	}
 
@@ -4994,7 +4965,7 @@ void CombatStatusHandler::ClearPrimaryAttackTarget()
 	if(m_primaryAttackTarget != 0)
 	{
 		Unit * pt = m_Unit->GetMapMgr()->GetUnit(m_primaryAttackTarget);
-		if(pt != NULL)
+		if(pt != nullptr)
 		{
 			// remove from their attacker set. (if we have no longer got any DoT's, etc)
 			if(!IsAttacking(pt))
@@ -5020,7 +4991,7 @@ bool CombatStatusHandler::IsAttacking(Unit * pTarget)
 	// check the target for any of our DoT's.
 	for(uint32 i = MAX_POSITIVE_AURAS; i < MAX_AURAS; ++i)
 	{
-		if(pTarget->m_auras[i] != NULL)
+		if(pTarget->m_auras[i] != nullptr)
 		{
 			if(m_Unit->GetGUID() == pTarget->m_auras[i]->m_casterGuid && pTarget->m_auras[i]->IsCombatStateAffecting())
 				return true;
@@ -5471,7 +5442,7 @@ void CombatStatusHandler::TryToClearAttackTargets()
 	{
 		i2 = i++;
 		pt = m_Unit->GetMapMgr()->GetUnit(*i2);
-		if(pt == NULL)
+		if(pt == nullptr)
 		{
 			m_attackTargets.erase(i2);
 			continue;
@@ -5520,7 +5491,7 @@ void CombatStatusHandler::AttackersForgetHate()
 	{
 		i2 = i++;
 		pt = m_Unit->GetMapMgr()->GetUnit(*i2);
-		if(pt == NULL)
+		if(pt == nullptr)
 		{
 			m_attackTargets.erase(i2);
 			continue;
@@ -5541,7 +5512,7 @@ void Unit::CancelSpell(Spell * ptr)
 
 void Unit::EventStrikeWithAbility(uint64 guid, SpellEntry * sp, uint32 damage)
 {
-	Unit * victim = m_mapMgr ? m_mapMgr->GetUnit(guid) : NULL;
+	Unit * victim = m_mapMgr ? m_mapMgr->GetUnit(guid) : nullptr;
 	if(victim)
 		Strike( victim, RANGED, sp, 0, 0, 0, false, true );
 }
@@ -5587,7 +5558,7 @@ void Unit::DispelAll(bool positive)
 {
 	for(uint32 i = 0; i < MAX_AURAS; ++i)
 	{
-		if(m_auras[i]!=NULL)
+		if(m_auras[i]!=nullptr)
 			if((m_auras[i]->IsPositive()&&positive)||!m_auras[i]->IsPositive())
 				m_auras[i]->Remove();
 	}
@@ -5700,7 +5671,7 @@ void Object::ClearLoot()
 	// better cancel any rolls just in case.
 	for(vector<__LootItem>::iterator itr = m_loot.items.begin(); itr != m_loot.items.end(); ++itr)
 	{
-		if( itr->roll != NULL )
+		if( itr->roll != nullptr )
 		{
 			sEventMgr.RemoveEvents(itr->roll);
 			itr->roll = NULLROLL; // buh-bye!
@@ -5730,10 +5701,10 @@ void Unit::Dismount()
 
 void Unit::RemoveAuraBySlot(uint16 Slot)
 {
-	if(m_auras[Slot]!=NULL)
+	if(m_auras[Slot]!=nullptr)
 	{
 		m_auras[Slot]->Remove();
-		m_auras[Slot] = NULL;
+		m_auras[Slot] = nullptr;
 	}
 }
 
@@ -5857,4 +5828,35 @@ void Unit::RemoveCustomEffect(uint8 effect)
 		if((*itr).second == 0)
 			CustomImmunityList.erase(itr);
 	}
+}
+
+uint32 Unit::DoDamageSplitTarget(uint32 res, uint32 school_type, bool melee_dmg)
+{
+	Unit* splittarget;
+	uint32 splitdamage, tmpsplit;
+	DamageSplitTarget * ds = &m_damageSplitTargets;
+
+	splittarget = (GetMapMgr() != nullptr) ? GetMapMgr()->GetUnit(ds->m_target) : nullptr;
+	if (splittarget != nullptr && res > 0)
+	{
+		// calculate damage
+		tmpsplit = ds->m_flatDamageSplit;
+		if (tmpsplit > res)
+			tmpsplit = res; // prevent < 0 damage
+		splitdamage = tmpsplit;
+		res -= tmpsplit;
+		tmpsplit = float2int32(ds->m_pctDamageSplit * res);
+		if (tmpsplit > res)
+			tmpsplit = res;
+		splitdamage += tmpsplit;
+		res -= tmpsplit;
+
+		if (splitdamage)
+		{
+			splittarget->DealDamage(splittarget, splitdamage, 0, 0, 0);
+			// Send log
+			SendSpellNonMeleeDamageLog(this, splittarget, ds->m_spellId, splitdamage, school_type, 0, 0, true, 0, 0, true);
+		}
+	}
+	return res;
 }

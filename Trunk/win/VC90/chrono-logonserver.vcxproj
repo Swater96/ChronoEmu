@@ -22,6 +22,7 @@
     <ProjectGuid>{6E15F06D-5546-474D-BB42-39848DEF77E0}</ProjectGuid>
     <RootNamespace>logonserver</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -78,6 +79,7 @@
     <OutDir>.\..\..\bin\Release\</OutDir>
     <IntDir>.\chrono-logonserver___Win32_Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>chrono-logonserver</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>.\..\..\bin\Release_x64\</OutDir>

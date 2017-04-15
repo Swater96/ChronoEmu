@@ -34,7 +34,7 @@ public:
 	IceBlock(Spell * pSpell) : SpellScript(pSpell) {}
 	SpellCastError CanCast(bool tolerate)
 	{
-		if (_spell->u_caster == NULL || _spell->u_caster->HasAura(41425))
+		if (_spell->u_caster == nullptr || _spell->u_caster->HasAura(41425))
 			return SPELL_FAILED_DAMAGE_IMMUNE;
 
 		return SPELL_CANCAST_OK;
@@ -42,7 +42,7 @@ public:
 
 	void OnCast()
 	{
-		if (_spell->u_caster != NULL)
+		if (_spell->u_caster != nullptr)
 			_spell->u_caster->CastSpell(_spell->u_caster, 41425, true);
 	}
 };

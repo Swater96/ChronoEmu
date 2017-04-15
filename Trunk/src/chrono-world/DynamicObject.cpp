@@ -32,14 +32,14 @@ DynamicObject::DynamicObject(uint32 high, uint32 low)
 	m_wowGuid.Init(GetGUID());
 	m_floatValues[OBJECT_FIELD_SCALE_X] = 1;
 
-	m_spellScript = NULL;
+	m_spellScript = nullptr;
 
-	m_parentSpell = NULL;
+	m_parentSpell = nullptr;
  	m_aliveDuration = 0;
-	m_caster = NULL;
-	u_caster = NULL;
-	m_spellProto = NULL;
-	p_caster = NULL;
+	m_caster = nullptr;
+	u_caster = nullptr;
+	m_spellProto = nullptr;
+	p_caster = nullptr;
 }
 
 DynamicObject::~DynamicObject()
@@ -59,7 +59,7 @@ DynamicObject::~DynamicObject()
 	if(u_caster->dynObj && u_caster->dynObj == this)
 		u_caster->dynObj = 0;
 		
-	if (m_spellScript != NULL)
+	if (m_spellScript != nullptr)
 		m_spellScript->RemoveRef(this);
 }
 
@@ -71,7 +71,7 @@ void DynamicObject::Create(Unit * caster, Spell * pSpell, float x, float y, floa
 		m_parentSpell = pSpell;
 	}
 	
-	if (pSpell->m_spellScript != NULL)
+	if (pSpell->m_spellScript != nullptr)
 		pSpell->m_spellScript->AddRef(this);
 	
 	p_caster = pSpell->p_caster;

@@ -9,7 +9,7 @@ public:
   void OnQuestComplete(Player * mTarget, QuestLogEntry *qLogEntry)
   {
     Creature * creat = mTarget->GetMapMgr()->GetSqlIdCreature(19175); //Lady Sylvanas Windrunner - NCDB guid
-	if(creat == NULL) // we still check for equality with == NULL. if we are assigning, we use = NULLCREATURE/OBJECT/ETC
+	if(creat == nullptr) // we still check for equality with == nullptr. if we are assigning, we use = NULLCREATURE/OBJECT/ETC
       return;
 
     sEAS.SpawnCreatureExtended(mTarget, 21628, 1295.222656f, 314.253998f, -57.320854f, 2.365611f, 35, 180000, true, true, true);

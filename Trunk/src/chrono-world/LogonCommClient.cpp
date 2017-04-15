@@ -92,26 +92,26 @@ void LogonCommClientSocket::OnRead()
 void LogonCommClientSocket::HandlePacket(WorldPacket & recvData)
 {
 	static logonpacket_handler Handlers[RMSG_COUNT] = {
-		NULL,												// RMSG_NULL
-		NULL,												// RCMSG_REGISTER_REALM
+		nullptr,												// RMSG_NULL
+		nullptr,												// RCMSG_REGISTER_REALM
 		&LogonCommClientSocket::HandleRegister,				// RSMSG_REALM_REGISTERED
-		NULL,												// RCMSG_REQUEST_SESSION
+		nullptr,												// RCMSG_REQUEST_SESSION
 		&LogonCommClientSocket::HandleSessionInfo,			// RSMSG_SESSION_RESULT
-		NULL,												// RCMSG_PING
+		nullptr,												// RCMSG_PING
 		&LogonCommClientSocket::HandlePong,					// RSMSG_PONG
-		NULL,												// RCMSG_SQL_EXECUTE
-		NULL,												// RCMSG_RELOAD_ACCOUNTS
-		NULL,												// RCMSG_AUTH_CHALLENGE
+		nullptr,												// RCMSG_SQL_EXECUTE
+		nullptr,												// RCMSG_RELOAD_ACCOUNTS
+		nullptr,												// RCMSG_AUTH_CHALLENGE
 		&LogonCommClientSocket::HandleAuthResponse,			// RSMSG_AUTH_RESPONSE
 		&LogonCommClientSocket::HandleRequestAccountMapping,// RSMSG_REQUEST_ACCOUNT_CHARACTER_MAPPING
-		NULL,												// RCMSG_ACCOUNT_CHARACTER_MAPPING_REPLY
-		NULL,												// RCMSG_UPDATE_CHARACTER_MAPPING_COUNT
+		nullptr,												// RCMSG_ACCOUNT_CHARACTER_MAPPING_REPLY
+		nullptr,												// RCMSG_UPDATE_CHARACTER_MAPPING_COUNT
 		&LogonCommClientSocket::HandleDisconnectAccount,	// RSMSG_DISCONNECT_ACCOUNT
-		NULL,												// RCMSG_TEST_CONSOLE_LOGIN
+		nullptr,												// RCMSG_TEST_CONSOLE_LOGIN
 		&LogonCommClientSocket::HandleConsoleAuthResult,	// RSMSG_CONSOLE_LOGIN_RESULT
-		NULL,												// RCMSG_MODIFY_DATABASE
+		nullptr,												// RCMSG_MODIFY_DATABASE
 		&LogonCommClientSocket::HandleServerPing,			// RCMSG_SERVER_PING
-		NULL,												// RSMSG_SERVER_PONG
+		nullptr,												// RSMSG_SERVER_PONG
 	};
 
 	if(recvData.GetOpcode() >= RMSG_COUNT || Handlers[recvData.GetOpcode()] == 0)
@@ -383,7 +383,7 @@ void LogonCommClientSocket::HandleDisconnectAccount(WorldPacket & recvData)
 	recvData >> id;
 
 	WorldSession * sess = sWorld.FindSession(id);
-	if(sess != NULL)
+	if(sess != nullptr)
 		sess->Disconnect();
 }
 

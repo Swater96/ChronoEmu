@@ -248,7 +248,7 @@ uint32 QuestMgr::ActiveQuestsCount(Object* quest_giver, Player* plr)
 
 void QuestMgr::BuildOfferReward(WorldPacket *data, Quest* qst, Object* qst_giver, uint32 menutype, uint32 language, Player *plr)
 {
-	LocalizedQuest * lq = (language>0) ? sLocalizationMgr.GetLocalizedQuest(qst->id,language):NULL;
+	LocalizedQuest * lq = (language>0) ? sLocalizationMgr.GetLocalizedQuest(qst->id,language):nullptr;
 	ItemPrototype * it;
 	data->SetOpcode(SMSG_QUESTGIVER_OFFER_REWARD);
 	*data << qst_giver->GetGUID();
@@ -308,7 +308,7 @@ void QuestMgr::BuildOfferReward(WorldPacket *data, Quest* qst, Object* qst_giver
 
 void QuestMgr::BuildQuestDetails(WorldPacket *data, Quest* qst, Object* qst_giver, uint32 menutype, uint32 language, Player *plr)
 {
-	LocalizedQuest * lq = (language>0) ? sLocalizationMgr.GetLocalizedQuest(qst->id,language):NULL;
+	LocalizedQuest * lq = (language>0) ? sLocalizationMgr.GetLocalizedQuest(qst->id,language):nullptr;
 	std::map<uint32, uint8>::const_iterator itr;
 
 	data->SetOpcode( SMSG_QUESTGIVER_QUEST_DETAILS );
@@ -329,8 +329,6 @@ void QuestMgr::BuildQuestDetails(WorldPacket *data, Quest* qst, Object* qst_give
 	}
 
 	*data <<  uint32(1);
-	//*data << uint32(0);		 // "Suggested players"
-
 	
 	*data << qst->count_reward_choiceitem;
 	ItemPrototype *ip;
@@ -345,7 +343,7 @@ void QuestMgr::BuildQuestDetails(WorldPacket *data, Quest* qst, Object* qst_give
 		if(ip)
 			*data << ip->DisplayInfoID;
 		else
-			*data << uint32( 0x00 );
+			*data << uint32(0x00);
 	}
 
 	*data << qst->count_reward_item;
@@ -364,8 +362,8 @@ void QuestMgr::BuildQuestDetails(WorldPacket *data, Quest* qst, Object* qst_give
 
 	*data << GenerateRewardMoney(plr, qst);
 	
-	*data << qst->required_itemcount;
-	for (uint32 i=0; i <  4; i++)
+	*data << qst->required_itemcount[i];
+	for (i = 0; i <  4; i++)
 	{
 		*data << uint32(qst->reward_item[i]);
 		*data << uint32(qst->reward_itemcount[i]);
@@ -381,7 +379,7 @@ void QuestMgr::BuildQuestDetails(WorldPacket *data, Quest* qst, Object* qst_give
 
 void QuestMgr::BuildRequestItems(WorldPacket *data, Quest* qst, Object* qst_giver, uint32 status, uint32 language)
 {
-	LocalizedQuest * lq = (language>0) ? sLocalizationMgr.GetLocalizedQuest(qst->id,language):NULL;
+	LocalizedQuest * lq = (language>0) ? sLocalizationMgr.GetLocalizedQuest(qst->id,language):nullptr;
 	ItemPrototype * it;
 	data->SetOpcode( SMSG_QUESTGIVER_REQUEST_ITEMS );
 
@@ -519,7 +517,7 @@ void QuestMgr::BuildQuestList(WorldPacket *data, Object* qst_giver, Player *plr,
 			if (tmp_map.find((*it)->qst->id) == tmp_map.end())
 			{
 				tmp_map.insert(std::map<uint32,uint8>::value_type((*it)->qst->id, 1));
-				LocalizedQuest * lq = (language>0) ? sLocalizationMgr.GetLocalizedQuest((*it)->qst->id,language):NULL;
+				LocalizedQuest * lq = (language>0) ? sLocalizationMgr.GetLocalizedQuest((*it)->qst->id,language):nullptr;
 
 				*data << (*it)->qst->id;
 				
@@ -588,7 +586,7 @@ bool QuestMgr::OnGameObjectActivate(Player *plr, GameObject *go)
 	for(i = 0; i < 20; ++i)
 	{
 		qle = plr->GetQuestLogInSlot( i );
-		if( qle != NULL )
+		if( qle != nullptr )
 		{
 			// dont waste time on quests without mobs
 			if( qle->GetQuest()->count_required_mob == 0 )
@@ -632,7 +630,7 @@ void QuestMgr::OnPlayerKill(Player* plr, Creature* victim)
 		for(i = 0; i < 20; ++i)
 		{
 			qle = plr->GetQuestLogInSlot( i );
-			if( qle != NULL )
+			if( qle != nullptr )
 			{
 				// dont waste time on quests without mobs
 				if( qle->GetQuest()->count_required_mob == 0 )
@@ -657,7 +655,7 @@ void QuestMgr::OnPlayerKill(Player* plr, Creature* victim)
 	}
 
 	// Shared kills
-	Player *gplr = NULL;
+	Player *gplr = nullptr;
 
 	if(plr->InGroup())
 	{
@@ -679,7 +677,7 @@ void QuestMgr::OnPlayerKill(Player* plr, Creature* victim)
 						for( i = 0; i < 20; ++i )
 						{
 							qle = gplr->GetQuestLogInSlot(i);
-							if( qle != NULL )
+							if( qle != nullptr )
 							{
 								// dont waste time on quests without mobs
 								if( qle->GetQuest()->count_required_mob == 0 )
@@ -718,8 +716,8 @@ void QuestMgr::OnPlayerCast(Player* plr, uint32 spellid, uint64& victimguid)
 	if(!plr || !plr->HasQuestSpell(spellid))
 		return;
 
-	Unit * victim = plr->GetMapMgr() ? plr->GetMapMgr()->GetUnit(victimguid) : NULL;
-	if(victim==NULL)
+	Unit * victim = plr->GetMapMgr() ? plr->GetMapMgr()->GetUnit(victimguid) : nullptr;
+	if(victim==nullptr)
 		return;
 
 	uint32 i, j;
@@ -838,7 +836,7 @@ void QuestMgr::GiveQuestRewardReputation(Player* plr, Quest* qst, Object *qst_gi
 
 			// Let's do this properly. Determine the faction of the creature, and give reputation to his faction.
 			if( qst_giver->GetTypeId() == TYPEID_UNIT )
-				if(((Creature*)qst_giver)->m_factionDBC != NULL )
+				if(((Creature*)qst_giver)->m_factionDBC != nullptr )
 					fact = ((Creature*)qst_giver)->m_factionDBC->ID;
 			if( qst_giver->GetTypeId() == TYPEID_GAMEOBJECT )
 				fact = qst_giver->GetUInt32Value(GAMEOBJECT_FACTION );
@@ -868,7 +866,7 @@ void QuestMgr::OnQuestFinished(Player* plr, Quest* qst, Object *qst_giver, uint3
 //Re-Check for Gold Requirement (needed for possible xploit)
     if(qst->required_money && (plr->GetUInt32Value(PLAYER_FIELD_COINAGE) < qst->required_money)) 
        return;
-    QuestLogEntry *qle = NULL;
+    QuestLogEntry *qle = nullptr;
     if(!qst->is_repeatable)
     {
 	    qle = plr->GetQuestLogForEntry(qst->id);
@@ -931,7 +929,7 @@ void QuestMgr::OnQuestFinished(Player* plr, Quest* qst, Object *qst_giver, uint3
 						slotresult = plr->GetItemInterface()->FindFreeInventorySlot(proto);
 						if(!slotresult.Result)
 						{
-							plr->GetItemInterface()->BuildInventoryChangeError(NULL, NULL, INV_ERR_INVENTORY_FULL);
+							plr->GetItemInterface()->BuildInventoryChangeError(nullptr, nullptr, INV_ERR_INVENTORY_FULL);
 						}
 						else
 						{
@@ -968,7 +966,7 @@ void QuestMgr::OnQuestFinished(Player* plr, Quest* qst, Object *qst_giver, uint3
 					slotresult = plr->GetItemInterface()->FindFreeInventorySlot(proto);
 					if(!slotresult.Result)
 					{
-						plr->GetItemInterface()->BuildInventoryChangeError(NULL, NULL, INV_ERR_INVENTORY_FULL);
+						plr->GetItemInterface()->BuildInventoryChangeError(nullptr, nullptr, INV_ERR_INVENTORY_FULL);
 					}
 					else
 					{
@@ -1003,7 +1001,7 @@ void QuestMgr::OnQuestFinished(Player* plr, Quest* qst, Object *qst_giver, uint3
 		    SpellEntry  * inf =dbcSpell.LookupEntry(qst->effect_on_player);
 		    if(inf)
 		    {
-			    Spell * spe = new Spell(qst_giver,inf,true,NULL);
+			    Spell * spe = new Spell(qst_giver,inf,true,nullptr);
 			    SpellCastTargets tgt;
 			    tgt.m_unitTarget = plr->GetGUID();
 			    spe->prepare(&tgt);
@@ -1036,7 +1034,7 @@ void QuestMgr::OnQuestFinished(Player* plr, Quest* qst, Object *qst_giver, uint3
 						slotresult = plr->GetItemInterface()->FindFreeInventorySlot(proto);
 						if(!slotresult.Result)
 						{
-							plr->GetItemInterface()->BuildInventoryChangeError(NULL, NULL, INV_ERR_INVENTORY_FULL);
+							plr->GetItemInterface()->BuildInventoryChangeError(nullptr, nullptr, INV_ERR_INVENTORY_FULL);
 						}
 						else
 						{
@@ -1073,7 +1071,7 @@ void QuestMgr::OnQuestFinished(Player* plr, Quest* qst, Object *qst_giver, uint3
 					slotresult = plr->GetItemInterface()->FindFreeInventorySlot(proto);
 					if(!slotresult.Result)
 					{
-						plr->GetItemInterface()->BuildInventoryChangeError(NULL, NULL, INV_ERR_INVENTORY_FULL);
+						plr->GetItemInterface()->BuildInventoryChangeError(nullptr, nullptr, INV_ERR_INVENTORY_FULL);
 					}
 					else 
 					{
@@ -1145,7 +1143,7 @@ void QuestMgr::OnQuestFinished(Player* plr, Quest* qst, Object *qst_giver, uint3
 		    SpellEntry  * inf =dbcSpell.LookupEntry(qst->effect_on_player);
 		    if(inf)
 		    {
-			    Spell * spe = new Spell(qst_giver,inf,true,NULL);
+			    Spell * spe = new Spell(qst_giver,inf,true,nullptr);
 			    SpellCastTargets tgt;
 			    tgt.m_unitTarget = plr->GetGUID();
 			    spe->prepare(&tgt);
@@ -1189,7 +1187,7 @@ template <class T> void QuestMgr::_AddQuest(uint32 entryid, Quest *qst, uint8 ty
 {
 	HM_NAMESPACE::hash_map<uint32, list<QuestRelation *>* > &olist = _GetList<T>();
 	std::list<QuestRelation *>* nlist;
-	QuestRelation *ptr = NULL;
+	QuestRelation *ptr = nullptr;
 
 	if (olist.find(entryid) == olist.end())
 	{
@@ -1212,7 +1210,7 @@ template <class T> void QuestMgr::_AddQuest(uint32 entryid, Quest *qst, uint8 ty
 		}
 	}
 
-	if (ptr == NULL)
+	if (ptr == nullptr)
 	{
 		ptr = new QuestRelation;
 		ptr->qst = qst;
@@ -1576,7 +1574,7 @@ bool QuestMgr::CanStoreReward(Player *plyr, Quest *qst, uint32 reward_slot)
 {
     uint32 available_slots = 0;
     uint32 slotsrequired = 0;
-    available_slots = plyr->GetItemInterface()->CalculateFreeSlots(NULL);
+    available_slots = plyr->GetItemInterface()->CalculateFreeSlots(nullptr);
     // Static Item reward
     for(uint32 i = 0; i < 4; ++i)
     {
@@ -1782,7 +1780,7 @@ void QuestMgr::LoadExtraQuestStuff()
 
 	pResult = WorldDatabase.Query("SELECT * FROM item_quest_association");
 	pos = 0;
-	if( pResult != NULL)
+	if( pResult != nullptr)
 	{
 		total = pResult->GetRowCount();
 		do 
@@ -1810,7 +1808,7 @@ void QuestMgr::AddItemQuestAssociation( uint32 itemId, Quest *qst, uint8 item_co
 {
 	HM_NAMESPACE::hash_map<uint32, list<QuestAssociation *>* > &associationList = GetQuestAssociationList();
 	std::list<QuestAssociation *>* tempList;
-	QuestAssociation *ptr = NULL;
+	QuestAssociation *ptr = nullptr;
 	
 	// look for the item in the associationList
 	if (associationList.find( itemId ) == associationList.end() )
@@ -1839,7 +1837,7 @@ void QuestMgr::AddItemQuestAssociation( uint32 itemId, Quest *qst, uint8 item_co
 	}
 
 	// did we find a matching quest?
-	if (ptr == NULL)
+	if (ptr == nullptr)
 	{
 		// nope, create a new QuestAssociation for this item and quest
 		ptr = new QuestAssociation;

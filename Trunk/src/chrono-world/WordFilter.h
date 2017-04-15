@@ -39,7 +39,7 @@ class WordFilter
 	bool CompileExpression(const char * szExpression, void** pOutput, void** pExtraOutput);
 
 public:
-	WordFilter() : m_filters(NULL),m_filterCount(0) {}
+	WordFilter() : m_filters(nullptr),m_filterCount(0) {}
 	~WordFilter();
 
 	void Load(const char * szTableName);

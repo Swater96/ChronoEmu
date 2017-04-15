@@ -108,7 +108,7 @@ public:
 	~Transporter();
 	virtual void Destructor();
 
-	bool CreateAsTransporter(uint32 EntryID, const char* Name, int32 Time);
+	bool CreateAsTransporter(uint32 EntryID, const char* Name);
 	void UpdatePosition();
 	void TransportPassengers(uint32 mapid, uint32 oldmap, float x, float y, float z);
 	bool GenerateWaypoints();

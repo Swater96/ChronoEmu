@@ -24,10 +24,10 @@
 class DBC;
 
 DBC::DBC() {
-	tbl = NULL;
-	db = NULL;
+	tbl = nullptr;
+	db = nullptr;
 	loaded = false;
-	format = NULL;
+	format = nullptr;
 }
 
 void DBC::Load(const char *filename) {

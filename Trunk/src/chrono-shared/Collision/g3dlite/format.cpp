@@ -59,7 +59,7 @@ std::string vformat(const char *fmt, va_list argPtr) {
     if (actualSize > bufSize) {
 
         // Now use the heap.
-        char* heapBuffer = NULL;
+        char* heapBuffer = nullptr;
 
         if (actualSize < maxSize) {
 
@@ -129,7 +129,7 @@ std::string vformat(const char* fmt, va_list argPtr) {
     // allocate it on the stack because this saves
     // the malloc/free time.  The number 161 is chosen
     // to support two lines of text on an 80 character
-    // console (plus the null terminator).
+    // console (plus the nullptr terminator).
     const int bufSize = 161;
     char stackBuffer[bufSize];
 

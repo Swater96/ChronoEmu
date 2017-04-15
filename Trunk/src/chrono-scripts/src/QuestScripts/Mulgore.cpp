@@ -24,7 +24,7 @@ bool InducingVision(uint32 i, Spell * pSpell)
 {
 		if(!pSpell->p_caster) return true;
 		Player * mTarget = pSpell->p_caster;
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return true;
 		  Creature * creat = mTarget->GetMapMgr()->GetInterface()->SpawnCreature(2983, -2238.994873f, -408.009552f, -9.424423f, 5.753043f, true, false, 0, 0);
 		  creat->GetAIInterface()->setMoveType(11);

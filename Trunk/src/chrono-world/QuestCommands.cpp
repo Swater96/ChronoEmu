@@ -661,7 +661,7 @@ bool ChatHandler::HandleQuestListCommand(const char * args, WorldSession * m_ses
 			uint32 quest_id = fields[0].GetUInt32();
 
 			qst = QuestStorage.LookupEntry(quest_id);
-			if(qst==NULL)
+			if(qst==nullptr)
 				continue;
 
 			string qid  = MyConvertIntToString(quest_id);
@@ -723,7 +723,7 @@ bool ChatHandler::HandleQuestAddStartCommand(const char * args, WorldSession * m
 	uint32 quest_id = atol(args);
 	Quest * qst = QuestStorage.LookupEntry(quest_id);
 
-	if (qst == NULL)
+	if (qst == nullptr)
 	{
 		SystemMessage(m_session, "Invalid quest selected, unable to add quest to the specified NPC.");
 		return false;
@@ -807,7 +807,7 @@ bool ChatHandler::HandleQuestAddFinishCommand(const char * args, WorldSession * 
 	uint32 quest_id = atol(args);
 	Quest * qst = QuestStorage.LookupEntry(quest_id);
 
-	if (qst == NULL)
+	if (qst == nullptr)
 	{
 		SystemMessage(m_session, "Invalid quest selected, unable to add quest to the specified NPC.");
 		return false;
@@ -904,7 +904,7 @@ bool ChatHandler::HandleQuestDelStartCommand(const char * args, WorldSession * m
 	uint32 quest_id = atol(args);
 	Quest * qst = QuestStorage.LookupEntry(quest_id);
 
-	if (qst == NULL)
+	if (qst == nullptr)
 	{
 		SystemMessage(m_session, "Invalid Quest selected.");
 		return false;
@@ -988,7 +988,7 @@ bool ChatHandler::HandleQuestDelFinishCommand(const char * args, WorldSession * 
 	uint32 quest_id = atol(args);
 	Quest * qst = QuestStorage.LookupEntry(quest_id);
 
-	if (qst == NULL)
+	if (qst == nullptr)
 	{
 		SystemMessage(m_session, "Invalid Quest selected.");
 		return false;

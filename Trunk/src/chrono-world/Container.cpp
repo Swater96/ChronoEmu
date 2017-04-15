@@ -34,7 +34,7 @@ Container::Container(uint32 high,uint32 low) : Item()
 	SetFloatValue( OBJECT_FIELD_SCALE_X, 1 );//always 1
 
 
-	m_Slot = NULL;
+	m_Slot = nullptr;
 	random_suffix=random_prop=0;
 }
 
@@ -88,8 +88,8 @@ void Container::Create( uint32 itemid, Player *owner )
 
 	SetUInt32Value( OBJECT_FIELD_ENTRY, itemid );
 
-	// TODO: this shouldnt get NULL form containers in mail fix me
-	if( owner != NULL )
+	// TODO: this shouldnt get nullptr form containers in mail fix me
+	if( owner != nullptr )
 	{
 		SetUInt64Value( ITEM_FIELD_OWNER, owner->GetGUID() );
 		SetUInt64Value( ITEM_FIELD_CONTAINED, owner->GetGUID() );
@@ -136,8 +136,8 @@ bool Container::AddItem(int8 slot, Item *item)
 	if((uint32)slot > m_itemProto->ContainerSlots)
 		return false;
 
-	//ASSERT(m_Slot[slot] == NULL);
-	if(m_Slot[slot] != NULL)
+	//ASSERT(m_Slot[slot] == nullptr);
+	if(m_Slot[slot] != nullptr)
 	{
 		//sLog.outString("Bad container item %u slot %d", item->GetGUID(), slot);
 		return false;
@@ -236,8 +236,8 @@ Item *Container::SafeRemoveAndRetreiveItemFromSlot(int8 slot, bool destroy)
 
 	Item *pItem = m_Slot[slot];
 
-	if (pItem == NULL || pItem==this) return NULL;
-	m_Slot[slot] = NULL;
+	if (pItem == nullptr || pItem==this) return nullptr;
+	m_Slot[slot] = nullptr;
 
 	if( pItem->GetOwner() == m_owner )
 	{
@@ -254,7 +254,7 @@ Item *Container::SafeRemoveAndRetreiveItemFromSlot(int8 slot, bool destroy)
 		}
 	}
 	else
-		pItem = NULL;
+		pItem = nullptr;
 
 	return pItem;
 }
@@ -265,8 +265,8 @@ bool Container::SafeFullRemoveItemFromSlot(int8 slot)
 
 	Item *pItem = m_Slot[slot];
 
-	if (pItem == NULL ||pItem==this) return false;
-	m_Slot[slot] = NULL;
+	if (pItem == nullptr ||pItem==this) return false;
+	m_Slot[slot] = nullptr;
 
 	SetUInt64Value(CONTAINER_FIELD_SLOT_1  + slot*2, 0 );
 	pItem->SetUInt64Value(ITEM_FIELD_CONTAINED, 0);

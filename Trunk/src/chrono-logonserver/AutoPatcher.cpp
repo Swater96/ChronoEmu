@@ -61,7 +61,7 @@ PatchMgr::PatchMgr()
 		if(sscanf(fd.cFileName,"%4s%u.", locality, &srcversion) != 2)
 			continue;
 
-		hFile = CreateFile(Buffer3, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_ARCHIVE, NULL);
+		hFile = CreateFile(Buffer3, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_ARCHIVE, nullptr);
 		if(hFile == INVALID_HANDLE_VALUE)
 			continue;
 
@@ -76,7 +76,7 @@ PatchMgr::PatchMgr()
 		pPatch->Locality[4] = 0;
 		pPatch->uLocality = *(uint32*)pPatch->Locality;
 
-		if(pPatch->Data==NULL)
+		if(pPatch->Data==nullptr)
 		{
 			// shouldn't really happen
 			delete pPatch;
@@ -85,7 +85,7 @@ PatchMgr::PatchMgr()
 		}
 
 		// read the whole file
-		ASSERT(ReadFile(hFile, pPatch->Data, pPatch->FileSize, &size, NULL));
+		ASSERT(ReadFile(hFile, pPatch->Data, pPatch->FileSize, &size, nullptr));
 		ASSERT(size == pPatch->FileSize);
 
 		// close the handle, no longer needed
@@ -127,7 +127,7 @@ PatchMgr::PatchMgr()
 	strcpy(Buffer2,Buffer);
 
 	filecount = scandir("./ClientPatches", &list, 0, 0);
-	if(filecount <= 0 || list==NULL)
+	if(filecount <= 0 || list==nullptr)
 	{
 		Log.Error("PatchMgr", "No patches found.");
 		return;
@@ -163,7 +163,7 @@ PatchMgr::PatchMgr()
 		pPatch->Locality[4] = 0;
 		pPatch->uLocality = *(uint32*)pPatch->Locality;
 
-		if(pPatch->Data==NULL)
+		if(pPatch->Data==nullptr)
 		{
 			// shouldn't really happen
 			delete pPatch;
@@ -202,7 +202,7 @@ Patch * PatchMgr::FindPatchForClient(uint32 Version, const char * Locality)
 	uint32 ulocality;
 	uint32 i;
 	vector<Patch*>::iterator itr;
-	Patch * fallbackPatch = NULL;
+	Patch * fallbackPatch = nullptr;
 	for(i = 0; i < 4; ++i)
 		tmplocality[i]=tolower(Locality[i]);
 	tmplocality[4]=0;
@@ -214,7 +214,7 @@ Patch * PatchMgr::FindPatchForClient(uint32 Version, const char * Locality)
 		// saving a string compare ;)
 		if((*itr)->uLocality==ulocality)
 		{
-			if(fallbackPatch==NULL && (*itr)->Version==0)
+			if(fallbackPatch==nullptr && (*itr)->Version==0)
 				fallbackPatch = (*itr);
 			
 			if((*itr)->Version == Version)
@@ -247,7 +247,7 @@ void PatchMgr::UpdateJobs()
 
 		if(!(*itr2)->Update())
 		{
-			(*itr2)->GetClient()->m_patchJob=NULL;
+			(*itr2)->GetClient()->m_patchJob=nullptr;
 			delete (*itr2);
 			m_patchJobs.erase(itr2);
 		}

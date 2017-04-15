@@ -124,7 +124,7 @@ public:
 		if(slot >= 0 && slot <= 12)
 			return m_pBuyBack[slot];
 		else 
-			return NULL;
+			return nullptr;
 	}
 	void AddBuyBackItem(Item* it, uint32 price);
 	void RemoveBuyBackItem(uint32 index);
@@ -144,7 +144,7 @@ class ItemIterator
 	Item * m_currentItem;
 	ItemInterface* m_target;
 public:
-	ItemIterator(ItemInterface* target) : m_atEnd(false),m_searchInProgress(false),m_slot(0),m_containerSlot(0),m_container(NULL),m_target(target) {}
+	ItemIterator(ItemInterface* target) : m_atEnd(false),m_searchInProgress(false),m_slot(0),m_containerSlot(0),m_container(nullptr),m_target(target) {}
 	~ItemIterator() { if(m_searchInProgress) { EndSearch(); } }
 
 	void BeginSearch()
@@ -153,8 +153,8 @@ public:
 		ASSERT(!m_searchInProgress);
 		m_atEnd=false;
 		m_searchInProgress=true;
-		m_container=NULL;
-		m_currentItem=NULL;
+		m_container=nullptr;
+		m_currentItem=nullptr;
 		m_slot=0;
 		Increment();
 	}
@@ -183,13 +183,13 @@ public:
 			BeginSearch();
 
 		// are we currently inside a container?
-		if(m_container != NULL)
+		if(m_container != nullptr)
 		{
 			// loop the container.
 			for(; m_containerSlot < m_container->GetProto()->ContainerSlots; ++m_containerSlot)
 			{
 				m_currentItem = m_container->GetItem(m_containerSlot);
-				if(m_currentItem != NULL)
+				if(m_currentItem != nullptr)
 				{
 					// increment the counter so we don't get the same item again
 					++m_containerSlot;
@@ -200,7 +200,7 @@ public:
 			}
 
 			// unset this
-			m_container=NULL;
+			m_container=nullptr;
 		}
 
 		for(; m_slot < MAX_INVENTORY_SLOT; ++m_slot)
@@ -214,7 +214,7 @@ public:
 					m_containerSlot = 0;
 
 					// clear the pointer up. so we can tell if we found an item or not
-					m_currentItem = NULL;
+					m_currentItem = nullptr;
 
 					// increment m_slot so we don't search this container again
 					++m_slot;
@@ -240,7 +240,7 @@ public:
 
 		// if we're here we've searched all items.
 		m_atEnd=true;
-		m_currentItem=NULL;
+		m_currentItem=nullptr;
 	}
 	
 

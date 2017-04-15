@@ -48,7 +48,7 @@ void WorldSession::HandleChannelJoin(WorldPacket& recvPacket)
 		return;
 	
 	chn = channelmgr.GetCreateChannel(channelname.c_str(), _player, dbc_id);
-	if(chn == NULL)
+	if(chn == nullptr)
 		return;
 
 	chn->AttemptJoin(_player, pass.c_str());
@@ -64,7 +64,7 @@ void WorldSession::HandleChannelLeave(WorldPacket& recvPacket)
 	recvPacket >> channelname;
 
 	chn = channelmgr.GetChannel(channelname.c_str(), _player);
-	if(chn == NULL)
+	if(chn == nullptr)
 		return;
 
 	chn->Part(_player);
@@ -79,7 +79,7 @@ void WorldSession::HandleChannelList(WorldPacket& recvPacket)
 	recvPacket >> channelname;
 
 	chn = channelmgr.GetChannel(channelname.c_str(), _player);
-	if(chn != NULL)
+	if(chn != nullptr)
 		chn->List(_player);
 }
 

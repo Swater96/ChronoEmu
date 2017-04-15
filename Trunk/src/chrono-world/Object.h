@@ -165,7 +165,7 @@ public:
   //! True if object exists in world
  
 	
-	CHRONO_INLINE bool IsInWorld() { return m_mapMgr != NULL; }
+	CHRONO_INLINE bool IsInWorld() { return m_mapMgr != nullptr; }
 	virtual void AddToWorld();
 	virtual void AddToWorld(MapMgr * pMapMgr);
 	void PushToWorld(MapMgr*);
@@ -402,7 +402,7 @@ public:
 	
 	virtual void AddInRangeObject(Object* pObj)
 	{
-		if( pObj == NULL )
+		if( pObj == nullptr )
 			return;
 
 		m_objectsInRange.insert( pObj );
@@ -418,7 +418,7 @@ public:
 
 	CHRONO_INLINE void RemoveInRangeObject( Object* pObj )
 	{
-		if( pObj == NULL )
+		if( pObj == nullptr )
 			return;
 
 		OnRemoveInRangeObject( pObj );
@@ -630,13 +630,13 @@ public:
 	template<typename T>
 		T GetExtension(const string& name)
 	{
-		if( m_extensions == NULL )
-			return ((T)NULL);
+		if( m_extensions == nullptr )
+			return ((T)nullptr);
 		else
 		{
 			ExtensionSet::iterator itr = m_extensions->find( name );
 			if( itr == m_extensions->end() )
-				return ((T)NULL);
+				return ((T)nullptr);
 			else
 				return ((T)itr->second);
 		}

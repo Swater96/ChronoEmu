@@ -104,7 +104,7 @@ bool Socket::BurstSend(const uint8 * Bytes, uint32 Size)
 string Socket::GetRemoteIP()
 {
 	char* ip = (char*)inet_ntoa( m_client.sin_addr );
-	if( ip != NULL )
+	if( ip != nullptr )
 		return string( ip );
 	else
 		return string( "noip" );

@@ -32,7 +32,7 @@ public:
 	{
 		Unit *  target=_spell->GetUnitTarget();
 
-		if(target == NULL || target->GetEntry() != 5307 || target->isAlive())
+		if(target == nullptr || target->GetEntry() != 5307 || target->isAlive())
 			return SPELL_FAILED_BAD_TARGETS;
 
 		return SPELL_CANCAST_OK;
@@ -48,7 +48,7 @@ public:
 	{
 		Unit *  target=_spell->GetUnitTarget();
 
-		if(target == NULL || target->GetEntry() != 17326)
+		if(target == nullptr || target->GetEntry() != 17326)
 			return SPELL_FAILED_BAD_TARGETS;
 
 		return SPELL_CANCAST_OK;
@@ -64,7 +64,7 @@ public:
 	{
 		Unit *  target=_spell->GetUnitTarget();
 
-		if(target == NULL || target->GetEntry() != 16880)
+		if(target == nullptr || target->GetEntry() != 16880)
 			return SPELL_FAILED_BAD_TARGETS;
 
 		return SPELL_CANCAST_OK;
@@ -80,7 +80,7 @@ public:
 	{
 		Unit *  target=_spell->GetUnitTarget();
 
-		if(target == NULL || target->GetEntry() != 2530)
+		if(target == nullptr || target->GetEntry() != 2530)
 			return SPELL_FAILED_BAD_TARGETS;
 
 		return SPELL_CANCAST_OK;
@@ -96,7 +96,7 @@ public:
 	{
 		Unit *  target=_spell->GetUnitTarget();
 
-		if(target == NULL || target->GetEntry() != 20058)
+		if(target == nullptr || target->GetEntry() != 20058)
 			return SPELL_FAILED_BAD_TARGETS;
 
 		return SPELL_CANCAST_OK;
@@ -111,7 +111,7 @@ public:
 	SpellCastError CanCast(bool tolerate)
 	{
 		Creature * corpse = _spell->m_caster->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(_spell->m_caster->GetPositionX(), _spell->m_caster->GetPositionY(), _spell->m_caster->GetPositionZ(), 18240);
-		if(corpse != NULL)
+		if(corpse != nullptr)
 			if (_spell->m_caster->CalcDistance(corpse) > 5)
 				return SPELL_FAILED_NOT_HERE;
 
@@ -127,7 +127,7 @@ public:
 	SpellCastError CanCast(bool tolerate)
 	{
 		Creature * cleft = _spell->m_caster->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(_spell->m_caster->GetPositionX(), _spell->m_caster->GetPositionY(), _spell->m_caster->GetPositionZ(), 22105);
-		if(cleft == NULL || cleft->isAlive())
+		if(cleft == nullptr || cleft->isAlive())
 			return SPELL_FAILED_NOT_HERE;
 
 		return SPELL_CANCAST_OK;
@@ -142,7 +142,7 @@ public:
 	SpellCastError CanCast(bool tolerate)
 	{
 		Creature * corpse = _spell->m_caster->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(_spell->m_caster->GetPositionX(), _spell->m_caster->GetPositionY(), _spell->m_caster->GetPositionZ(), 17701);
-		if(corpse != NULL)
+		if(corpse != nullptr)
 			if (_spell->m_caster->CalcDistance(corpse) > 5  || corpse->isAlive())
 				return SPELL_FAILED_NOT_HERE;
 
@@ -158,7 +158,7 @@ public:
 	SpellCastError CanCast(bool tolerate)
 	{
 		Creature * abysal = _spell->m_caster->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(_spell->m_caster->GetPositionX(), _spell->p_caster->GetPositionY(), _spell->m_caster->GetPositionZ(), 19973);
-		if(_spell->p_caster == NULL || abysal == NULL || abysal->isAlive())
+		if(_spell->p_caster == nullptr || abysal == nullptr || abysal->isAlive())
 			return SPELL_FAILED_NOT_HERE;
 
 		if(!(_spell->p_caster->GetItemInterface()->GetItemCount(31672, 0) > 1 && _spell->p_caster->GetItemInterface()->GetItemCount(31673, 0) > 0 && _spell->p_caster->CalcDistance(abysal) < 10))
@@ -175,7 +175,7 @@ public:
 	ReindeerTransformation(Spell * pSpell) : SpellScript(pSpell) {}
 	SpellCastError CanCast(bool tolerate)
 	{
-		if (_spell->p_caster == NULL || !_spell->p_caster->IsMounted())
+		if (_spell->p_caster == nullptr || !_spell->p_caster->IsMounted())
 			return SPELL_FAILED_ONLY_MOUNTED;
 
 		return SPELL_CANCAST_OK;
@@ -191,7 +191,7 @@ public:
 	{
 		Unit *  u_target=_spell->GetUnitTarget();
 
-		if (u_target == NULL || u_target->IsPlayer() || u_target->getClass() != TARGET_TYPE_DEMON)
+		if (u_target == nullptr || u_target->IsPlayer() || u_target->getClass() != TARGET_TYPE_DEMON)
 			return SPELL_FAILED_SPELL_UNAVAILABLE;
 
 		return SPELL_CANCAST_OK;
@@ -219,7 +219,7 @@ public:
 	{
 		Unit *  u_target=_spell->GetUnitTarget();
 
-		if (u_target == NULL || !u_target->IsCreature() || u_target->GetEntry() != 20132)
+		if (u_target == nullptr || !u_target->IsCreature() || u_target->GetEntry() != 20132)
 			return SPELL_FAILED_BAD_TARGETS;
 
 		return SPELL_CANCAST_OK;
@@ -235,7 +235,7 @@ public:
 	{
 		Unit *  u_target=_spell->GetUnitTarget();
 
-		if (u_target == NULL || !u_target->IsCreature() || u_target->GetEntry() != 21387)
+		if (u_target == nullptr || !u_target->IsCreature() || u_target->GetEntry() != 21387)
 			return SPELL_FAILED_BAD_TARGETS;
 
 		return SPELL_CANCAST_OK;
@@ -251,7 +251,7 @@ public:
 	{
 		Unit *  u_target=_spell->GetUnitTarget();
 
-		if (u_target == NULL || !u_target->IsCreature() || u_target->GetEntry() != 24972)
+		if (u_target == nullptr || !u_target->IsCreature() || u_target->GetEntry() != 24972)
 			return SPELL_FAILED_BAD_TARGETS;
 
 		if (!u_target->isDead())
@@ -270,7 +270,7 @@ public:
 	{
 		Unit *  u_target=_spell->GetUnitTarget();
 
-		if (u_target == NULL || !u_target->IsCreature() || u_target->GetEntry() != 24972)
+		if (u_target == nullptr || !u_target->IsCreature() || u_target->GetEntry() != 24972)
 			return SPELL_FAILED_BAD_TARGETS;
 
 		if (!u_target->isDead())

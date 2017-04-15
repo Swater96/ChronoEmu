@@ -121,7 +121,7 @@ public:
 	CHRONO_INLINE Player* GetOwner() { return m_Owner; }
 
 	void LoadFromDB(Player* owner, PlayerPet * pi);
-	void CreateAsSummon(uint32 entry, CreatureInfo *ci, Creature *created_from_creature, Unit* owner, SpellEntry *created_by_spell, uint32 type, uint32 expiretime, Spell* call_back=NULL);
+	void CreateAsSummon(uint32 entry, CreatureInfo *ci, Creature *created_from_creature, Unit* owner, SpellEntry *created_by_spell, uint32 type, uint32 expiretime, Spell* call_back=nullptr);
  
 	virtual void Update(uint32 time);
 	void OnPushToWorld();
@@ -151,7 +151,7 @@ public:
 		if(itr != m_AISpellStore.end())
 			return itr->second;
 		else
-			return NULL;
+			return nullptr;
 	}
 
 	void UpdatePetInfo(bool bSetToOffline);

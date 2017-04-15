@@ -60,7 +60,7 @@ public:
 		float SSO = pLooter->GetOrientation();
 
 		Creature * NewCreature = pLooter->GetMapMgr()->GetInterface()->SpawnCreature(11120, SSX, SSY, SSZ, SSO, true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(600000, 0);
 	}
 };
@@ -76,7 +76,7 @@ public:
 	void OnActivate(Player * pPlayer)
 	{
 		Creature * NewCreature = pPlayer->GetMapMgr()->GetInterface()->SpawnCreature(14515, -11556.3f, -1628.32f, 41.299f, 4.1f, true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(1200000, 0);
 	}
 };
@@ -97,15 +97,15 @@ public:
 		float SSO = pPlayer->GetOrientation();
 
 		Creature * NewCreature = pPlayer->GetMapMgr()->GetInterface()->SpawnCreature(14748, SSX+1, SSY, SSZ, SSO, true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(600000, 0);
 
 		NewCreature = pPlayer->GetMapMgr()->GetInterface()->SpawnCreature(14748, SSX, SSY, SSZ, SSO, true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(600000, 0);
 
 		NewCreature = pPlayer->GetMapMgr()->GetInterface()->SpawnCreature(14748, SSX-1, SSY, SSZ, SSO, true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(600000, 0);
 	}
 };
@@ -128,7 +128,7 @@ public:
 			float SSO = pPlayer->GetOrientation();
 
 			Creature * NewCreature = pPlayer->GetMapMgr()->GetInterface()->SpawnCreature(7273, SSX+1, SSY, SSZ, SSO, true, false, 0, 0);
-			if ( NewCreature != NULL )
+			if ( NewCreature != nullptr )
 				NewCreature->Despawn(1800000, 0);
 		}
 		else
@@ -156,7 +156,7 @@ public:
 			float SSO = pPlayer->GetOrientation();
 
 			Creature * NewCreature = pPlayer->GetMapMgr()->GetInterface()->SpawnCreature(5894, SSX, SSY+1, SSZ, SSO, true, false, 0, 0);
-			if ( NewCreature != NULL )
+			if ( NewCreature != nullptr )
 				NewCreature->Despawn(600000, 0);
 		}
 		else
@@ -182,11 +182,11 @@ public:
 		Ulag = pPlayer->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(2390.101807f, 336.676788f, 40.015614f, 6390);
 		pDoor = pPlayer->GetMapMgr()->GetInterface()->GetGameObjectNearestCoords(2388.480029f, 338.3901f, 40.092899f, 176594);
 		QuestLogEntry * en = pPlayer->GetQuestLogForEntry(1819);
-		if(!en || pDoor==NULL || Ulag)
+		if(!en || pDoor==nullptr || Ulag)
 		return;
 
 		Creature * NewCreature = pPlayer->GetMapMgr()->GetInterface()->SpawnCreature(6390, 2390.101807f, 336.676788f, 40.015614f, 2.259590f, true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 		{
 			NewCreature->Despawn(180000, 0);
 			NewCreature->GetAIInterface()->SetNextTarget(pPlayer);
@@ -217,7 +217,7 @@ public:
 		float SSO = pLooter->GetOrientation();
 
 		Creature * NewCreature = pLooter->GetMapMgr()->GetInterface()->SpawnCreature(1770, SSX, SSY, SSZ, SSO, true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->SendChatMessage(CHAT_MSG_MONSTER_YELL, LANG_UNIVERSAL, "The Sons of Arugal will rise against all who challenge the power of the Moonrage!");
 	}
 };
@@ -242,7 +242,7 @@ public:
 			float SSO = pPlayer->GetOrientation();
 
 			Creature * NewCreature = pPlayer->GetMapMgr()->GetInterface()->SpawnCreature(3619, SSX, SSY+1, SSZ, SSO, true, false, 0, 0);
-			if ( NewCreature != NULL )
+			if ( NewCreature != nullptr )
 				NewCreature->Despawn(600000, 0);
 		}
 	}
@@ -294,11 +294,11 @@ public:
 			return;
 
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(6027);
-		if(qle == NULL)
+		if(qle == nullptr)
 			  return;
 
 		Creature * naga = sEAS.SpawnCreature(pPlayer, 12369, 246.741, 2953.3, 5.8631, 1.078, 0);
-		if ( naga != NULL )
+		if ( naga != nullptr )
 			naga->Despawn(6*60*1000, 0);
 	}
 };
@@ -317,27 +317,27 @@ public:
 			return;
 
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(2882);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		Creature * pirate = sEAS.SpawnCreature(pPlayer, 7899, pPlayer->GetPositionX()+RandomFloat(5.0f), pPlayer->GetPositionY()+RandomFloat(5.0f), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), 0);
-		if ( pirate != NULL )
+		if ( pirate != nullptr )
 			pirate->Despawn(6*60*1000, 0);
 
 		pirate = sEAS.SpawnCreature(pPlayer, 7899, pPlayer->GetPositionX()-RandomFloat(5.0f), pPlayer->GetPositionY()+RandomFloat(5.0f), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), 0);
-		if ( pirate != NULL )
+		if ( pirate != nullptr )
 			pirate->Despawn(6*60*1000, 0);
 
 		pirate = sEAS.SpawnCreature(pPlayer, 7901, pPlayer->GetPositionX()+RandomFloat(5.0f), pPlayer->GetPositionY()-RandomFloat(5.0f), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), 0);
-		if ( pirate != NULL )
+		if ( pirate != nullptr )
 			pirate->Despawn(6*60*1000, 0);
 
 		pirate = sEAS.SpawnCreature(pPlayer, 7901, pPlayer->GetPositionX()+RandomFloat(5.0f), pPlayer->GetPositionY()+RandomFloat(5.0f), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), 0);
-		if ( pirate != NULL )
+		if ( pirate != nullptr )
 			pirate->Despawn(6*60*1000, 0);
 
 		pirate = sEAS.SpawnCreature(pPlayer, 7902, pPlayer->GetPositionX()-RandomFloat(5.0f), pPlayer->GetPositionY()-RandomFloat(5.0f), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), 0);
-		if ( pirate != NULL )
+		if ( pirate != nullptr )
 			pirate->Despawn(6*60*1000, 0);
 
 		GameObject * gobj = sEAS.SpawnGameobject(pPlayer, 142194, pPlayer->GetPositionX()+5, pPlayer->GetPositionY(), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), 1, 0, 0, 0, 0);
@@ -359,7 +359,7 @@ public:
 			return;
 
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(3821);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		Creature * shaghost = pPlayer->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(pPlayer->GetPositionX(), pPlayer->GetPositionY(), pPlayer->GetPositionZ(), 9136);
@@ -367,7 +367,7 @@ public:
 			return;
 
 		Creature * shaghostspawn = sEAS.SpawnCreature(pPlayer, 9136, pPlayer->GetPositionX(), pPlayer->GetPositionY(), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), 0);
-		if ( shaghostspawn != NULL )
+		if ( shaghostspawn != nullptr )
 			shaghostspawn->Despawn(2*60*1000, 0);
 	}
 };
@@ -386,11 +386,11 @@ public:
 			return;
 
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(5381);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		Creature * demon = sEAS.SpawnCreature(pPlayer, 11876, -348.231, 1763.85, 138.371, 4.42728, 0);
-		if ( demon != NULL )
+		if ( demon != nullptr )
 			demon->Despawn(6*60*1000, 0);
 	}
 };
@@ -409,7 +409,7 @@ public:
 			return;
 
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(5581);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		if(qle->GetMobCount(0) < qle->GetQuest()->required_mobcount[0])
@@ -436,7 +436,7 @@ public:
 			return;
 
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(4296);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		if(pPlayer->GetItemInterface()->GetItemCount(11470, 0) < 1)
@@ -458,7 +458,7 @@ public:
 			return;
 
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(1150);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		Creature * grenka = pPlayer->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(pPlayer->GetPositionX(), pPlayer->GetPositionY(), pPlayer->GetPositionZ(), 4490);
@@ -471,7 +471,7 @@ public:
 		}
 
 		Creature * grenkaspawn = sEAS.SpawnCreature(pPlayer, 4490, pPlayer->GetPositionX(), pPlayer->GetPositionY(), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), 0);
-		if ( grenkaspawn != NULL )
+		if ( grenkaspawn != nullptr )
 			grenkaspawn->Despawn(6*60*1000, 0);
 	}
 };
@@ -490,11 +490,11 @@ public:
 			return;
 
 		QuestLogEntry *qle = pPlayer->GetQuestLogForEntry(8481);
-		if(qle == NULL)
+		if(qle == nullptr)
 			return;
 
 		Creature * xandivious = sEAS.SpawnCreature(pPlayer, 15623, pPlayer->GetPositionX()+5, pPlayer->GetPositionY(), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), 0);
-		if ( xandivious != NULL )
+		if ( xandivious != nullptr )
 			xandivious->Despawn(6*60*1000, 0);
 	}
 };
@@ -515,7 +515,7 @@ public:
 		float SSO = pPlayer->GetOrientation();
 
 		Creature * NewCreature = pPlayer->GetMapMgr()->GetInterface()->SpawnCreature(10882, SSX, SSY, SSZ, SSO, true, false, 0, 0);
-		if ( NewCreature != NULL )
+		if ( NewCreature != nullptr )
 			NewCreature->Despawn(600000, 0);
 	}
 };

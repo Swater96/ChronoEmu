@@ -70,13 +70,13 @@ Creature *	MoonInstanceScript::FindClosestCreatureOnMap( uint32 pEntry, float pX
 
 Creature * MoonInstanceScript::SpawnCreature( uint32 pEntry, float pX, float pY, float pZ, float pO )
 {
-	Creature * NewCreature = mInstance->GetInterface()->SpawnCreature( pEntry, pX, pY, pZ, pO, true, true, NULL, NULL);
+	Creature * NewCreature = mInstance->GetInterface()->SpawnCreature( pEntry, pX, pY, pZ, pO, true, true, 0, 0);
 	return NewCreature;
 };
 
 Creature * MoonInstanceScript::SpawnCreature( uint32 pEntry, float pX, float pY, float pZ, float pO, uint32 pFactionId )
 {
-	Creature * NewCreature = mInstance->GetInterface()->SpawnCreature( pEntry, pX, pY, pZ, pO, true, true, NULL, NULL);
+	Creature * NewCreature = mInstance->GetInterface()->SpawnCreature( pEntry, pX, pY, pZ, pO, true, true, 0, 0);
 	if ( NewCreature != NULLCREATURE )
 		NewCreature->SetUInt32Value(UNIT_FIELD_FACTIONTEMPLATE, pFactionId);
 
@@ -90,7 +90,7 @@ CreatureSet MoonInstanceScript::FindCreaturesOnMap( uint32 pEntry )
 	for ( uint32 i = 0; i != mInstance->m_CreatureHighGuid; ++i )
 	{
 		CurrentCreature = mInstance->m_CreatureStorage[ i ];
-		if ( CurrentCreature != NULL )
+		if ( CurrentCreature != nullptr )
 		{ 
 			if ( CurrentCreature->GetEntry() == pEntry )
 				ReturnSet.insert( CurrentCreature );
@@ -126,7 +126,7 @@ GameObject * MoonInstanceScript::FindClosestGameObjectOnMap( uint32 pEntry, floa
 
 GameObject * MoonInstanceScript::SpawnGameObject( uint32 pEntry, float pX, float pY, float pZ, float pO )
 {
-	GameObject * pNewGO = mInstance->GetInterface()->SpawnGameObject( pEntry, pX, pY, pZ, pO, true, NULL, NULL );
+	GameObject * pNewGO = mInstance->GetInterface()->SpawnGameObject( pEntry, pX, pY, pZ, pO, true, 0, 0 );
 	return pNewGO;
 };
 
@@ -137,7 +137,7 @@ GameObjectSet MoonInstanceScript::FindGameObjectsOnMap( uint32 pEntry )
 	for ( GameObjectMap::iterator Iter = mInstance->m_gameObjectStorage.begin(); Iter != mInstance->m_gameObjectStorage.end(); ++Iter )
 	{
 		CurrentObject = ( *Iter ).second;
-		if ( CurrentObject != NULL )
+		if ( CurrentObject != nullptr )
 		{ 
 			if ( CurrentObject->GetEntry() == pEntry )
 				ReturnSet.insert( CurrentObject );
@@ -189,7 +189,7 @@ void MoonInstanceScript::AddGameObjectStateByEntry( uint32 pEntry, GameObjectSta
 	else
 	{
 		QueryResult* Result = WorldDatabase.Query( "SELECT id FROM gameobject_spawns WHERE entry = %u", pEntry );
-		if ( Result != NULL )
+		if ( Result != nullptr )
 		{
 			do
 			{
@@ -223,7 +223,7 @@ void MoonInstanceScript::AddGameObjectStateById( uint32 pId, GameObjectState pSt
 	else
 	{
 		QueryResult* Result = WorldDatabase.Query( "SELECT entry FROM gameobject_spawns WHERE id = %u", pId );
-		if ( Result != NULL )
+		if ( Result != nullptr )
 		{
 			uint32 Entry = Result->Fetch()[ 0 ].GetUInt32();
 			Iter = mGameObjects.find( Entry );
@@ -247,7 +247,7 @@ float MoonInstanceScript::GetRangeToObject( Object * pObjectA, Object * pObjectB
 
 float MoonInstanceScript::GetRangeToObject( Object * pObject, float pX, float pY, float pZ )
 {
-	if ( pObject == NULL )
+	if ( pObject == nullptr )
 		return 0.0f;
 
 	return GetRangeToObject( pObject->GetPositionX(), pObject->GetPositionY(), pObject->GetPositionZ(), pX, pY, pZ );
@@ -375,14 +375,14 @@ void MoonInstanceScript::SetCellForcedStates( float pMinX, float pMaxX, float pM
 		while ( pMinY < pMaxY )
 		{
 			MapCell* CurrentCell = mInstance->GetCellByCoords( pMinX, pMinY );
-			if ( pActivate && CurrentCell == NULL )
+			if ( pActivate && CurrentCell == nullptr )
 			{
 				CurrentCell = mInstance->CreateByCoords( pMinX, pMinY );
-				if ( CurrentCell != NULL )
+				if ( CurrentCell != nullptr )
 					CurrentCell->Init( mInstance->GetPosX( pMinX ), mInstance->GetPosY( pMinY ), mInstance->GetMapId(), mInstance );
 			};
 
-			if ( CurrentCell != NULL )
+			if ( CurrentCell != nullptr )
 			{
 				if ( pActivate )
 					mInstance->AddForcedCell( CurrentCell );
@@ -466,7 +466,7 @@ void MoonInstanceScript::OnLoad()
 
 void MoonInstanceScript::UpdateEvent()
 {
-	uint32 CurrentTime = static_cast< uint32 >( time( NULL ) );
+	uint32 CurrentTime = static_cast< uint32 >( time( nullptr ) );
 	for ( TimerArray::iterator TimerIter = mTimers.begin(); TimerIter != mTimers.end(); ++TimerIter )
 	{
 		TimerIter->second -= mUpdateFrequency;
@@ -480,14 +480,14 @@ void MoonInstanceScript::Destroy()
 
 void MoonInstanceScript::BuildEncounterMap()
 {
-	if ( mInstance->pInstance == NULL )
+	if ( mInstance->pInstance == nullptr )
 		return;
 
 	QueryResult* KillResult = WorldDatabase.Query( "SELECT id, entry FROM creature_spawns WHERE map = %u AND entry IN ( SELECT entry FROM creature_names WHERE rank = 3 )", mInstance->GetMapId() );
-	if ( KillResult != NULL )
+	if ( KillResult != nullptr )
 	{
 		uint32 Id = 0, Entry = 0;
-		Field* CurrentField = NULL;
+		Field* CurrentField = nullptr;
 		EncounterMap::iterator EncounterIter;
 		EncounterState State = State_NotStarted;
 		bool StartedInstance = mInstance->pInstance->m_killedNpcs.size() > 0;
@@ -520,7 +520,7 @@ void MoonInstanceScript::BuildEncounterMap()
 // Dynamic data creation that still involves MySQL
 void MoonInstanceScript::BuildEncounterMapWithEntries( IdVector pEntries )
 {
-	if ( mInstance->pInstance == NULL || pEntries.size() == 0 )
+	if ( mInstance->pInstance == nullptr || pEntries.size() == 0 )
 		return;
 
 	std::stringstream Query;
@@ -534,10 +534,10 @@ void MoonInstanceScript::BuildEncounterMapWithEntries( IdVector pEntries )
 
 	Query << " )";
 	QueryResult* KillResult = WorldDatabase.Query( Query.str().c_str() );
-	if ( KillResult != NULL )
+	if ( KillResult != nullptr )
 	{
 		uint32 Id = 0, Entry = 0;
-		Field* CurrentField = NULL;
+		Field* CurrentField = nullptr;
 		EncounterMap::iterator EncounterIter;
 		EncounterState State = State_NotStarted;
 		bool StartedInstance = mInstance->pInstance->m_killedNpcs.size() > 0;
@@ -571,7 +571,7 @@ void MoonInstanceScript::BuildEncounterMapWithEntries( IdVector pEntries )
 void MoonInstanceScript::BuildEncounterMapWithIds( IdVector pIds )
 {
 	// Won't work with spawns that are not in world - would work well with instance fully loaded
-	if ( mInstance->pInstance == NULL || pIds.size() == 0 )
+	if ( mInstance->pInstance == nullptr || pIds.size() == 0 )
 		return;
 
 	uint32 CurrentId = 0;

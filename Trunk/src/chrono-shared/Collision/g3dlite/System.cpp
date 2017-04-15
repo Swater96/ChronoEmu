@@ -70,7 +70,7 @@
 namespace G3D {
 
 static char                                     versionCstr[1024];
-System::OutOfMemoryCallback                     System::outOfMemoryCallback = NULL;
+System::OutOfMemoryCallback                     System::outOfMemoryCallback = nullptr;
 
 
 void System::init() {
@@ -140,7 +140,7 @@ private:
         void*           ptr;
         size_t          bytes;
 
-        inline MemBlock() : ptr(NULL), bytes(0) {}
+        inline MemBlock() : ptr(nullptr), bytes(0) {}
         inline MemBlock(void* p, size_t b) : ptr(p), bytes(b) {}
     };
 
@@ -192,7 +192,7 @@ private:
         (void)bytes;
         debugAssert(tinyBufferSize >= bytes);
 
-        void* ptr = NULL;
+        void* ptr = nullptr;
 
         if (tinyPoolSize > 0) {
             --tinyPoolSize;
@@ -221,14 +221,14 @@ private:
     void flushPool(MemBlock* pool, int& poolSize) {
         for (int i = 0; i < poolSize; ++i) {
             ::free(pool->ptr);
-            pool->ptr = NULL;
+            pool->ptr = nullptr;
             pool->bytes = 0;
         }
         poolSize = 0;
     }
 
 
-    /**  Allocate out of a specific pool->  Return NULL if no suitable 
+    /**  Allocate out of a specific pool->  Return nullptr if no suitable 
          memory was found. 
     
          */
@@ -253,7 +253,7 @@ private:
             }
         }
 
-        return NULL;
+        return nullptr;
     }
 
 public:
@@ -282,7 +282,7 @@ public:
         bytesAllocated       = true;
 
         tinyPoolSize         = 0;
-        tinyHeap             = NULL;
+        tinyHeap             = nullptr;
 
         smallPoolSize        = 0;
 
@@ -300,7 +300,7 @@ public:
 #       ifdef G3D_WIN32
             InitializeCriticalSection(&mutex);
 #       else
-            pthread_mutex_init(&mutex, NULL);
+            pthread_mutex_init(&mutex, nullptr);
 #       endif
     }
 
@@ -316,7 +316,7 @@ public:
 
     
     void* realloc(void* ptr, size_t bytes) {
-        if (ptr == NULL) {
+        if (ptr == nullptr) {
             return malloc(bytes);
         }
 
@@ -403,7 +403,7 @@ public:
         // since malloc already added its own header).
         void* ptr = ::malloc(bytes + 4);
 
-        if (ptr == NULL) {
+        if (ptr == nullptr) {
             // Flush memory pools to try and recover space
             flushPool(smallPool, smallPoolSize);
             flushPool(medPool, medPoolSize);
@@ -411,20 +411,20 @@ public:
         }
 
 
-        if (ptr == NULL) {
-            if ((System::outOfMemoryCallback != NULL) &&
+        if (ptr == nullptr) {
+            if ((System::outOfMemoryCallback != nullptr) &&
                 (System::outOfMemoryCallback(bytes + 4, true) == true)) {
                 // Re-attempt the malloc
                 ptr = ::malloc(bytes + 4);
             }
         }
 
-        if (ptr == NULL) {
-            if (System::outOfMemoryCallback != NULL) {
+        if (ptr == nullptr) {
+            if (System::outOfMemoryCallback != nullptr) {
                 // Notify the application
                 System::outOfMemoryCallback(bytes + 4, false);
             }
-            return NULL;
+            return nullptr;
         }
 
         *(uint32*)ptr = (uint32)bytes;
@@ -434,8 +434,8 @@ public:
 
 
     void free(void* ptr) {
-        if (ptr == NULL) {
-            // Free does nothing on null pointers
+        if (ptr == nullptr) {
+            // Free does nothing on nullptr pointers
             return;
         }
 
@@ -505,7 +505,7 @@ public:
 // Dynamically allocated because we need to ensure that
 // the buffer pool is still around when the last global variable 
 // is deallocated.
-static BufferPool* bufferpool = NULL;
+static BufferPool* bufferpool = nullptr;
 
 std::string System::mallocPerformance() {    
 #ifndef NO_BUFFERPOOL
@@ -599,8 +599,8 @@ void* System::alignedMalloc(size_t bytes, size_t alignment) {
     void* truePtr = System::malloc(totalBytes);
 
     if (!truePtr) {
-        // malloc returned NULL
-        return NULL;
+        // malloc returned nullptr
+        return nullptr;
     }
 
     debugAssert(isValidHeapPointer(truePtr));
@@ -644,7 +644,7 @@ void* System::alignedMalloc(size_t bytes, size_t alignment) {
 
 
 void System::alignedFree(void* _ptr) {
-    if (_ptr == NULL) {
+    if (_ptr == nullptr) {
         return;
     }
 

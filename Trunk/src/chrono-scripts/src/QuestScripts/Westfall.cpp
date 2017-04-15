@@ -26,7 +26,7 @@ public:
 
 	void OnQuestStart( Player * mTarget, QuestLogEntry * qLogEntry)
 	{
-		if( mTarget == NULL || mTarget->GetMapMgr() == NULL || mTarget->GetMapMgr()->GetInterface() == NULL )
+		if( mTarget == nullptr || mTarget->GetMapMgr() == nullptr || mTarget->GetMapMgr()->GetInterface() == nullptr )
 			return;
 		float SSX = mTarget->GetPositionX();
 		float SSY = mTarget->GetPositionY();
@@ -34,7 +34,7 @@ public:
 
 		Creature * creat = mTarget->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(SSX, SSY, SSZ, 467);
 
-				if(creat == NULL)
+				if(creat == nullptr)
 			return;
 		creat->m_escorter = mTarget;
 		creat->GetAIInterface()->setMoveType(11);
@@ -80,7 +80,7 @@ public:
 			_unit->SendChatMessage(CHAT_MSG_MONSTER_SAY, LANG_UNIVERSAL, "Tell your master that this is where Van Cleef is hiding. I'm outta here!");
 			_unit->Despawn(5000,1000);
 			sEAS.DeleteWaypoints(_unit);
-			if(_unit->m_escorter == NULL)
+			if(_unit->m_escorter == nullptr)
 				return;
 			Player * plr = _unit->m_escorter;
 			_unit->m_escorter = NULLPLR;

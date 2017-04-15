@@ -150,10 +150,10 @@ public:
     
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
             float comulativeperc = 0;
-            Unit *target = NULL;
+            Unit *target = nullptr;
             for(int i=0;i<nrspells;i++)
             {
                 spells[i].casttime--;
@@ -371,10 +371,10 @@ public:
     
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
             float comulativeperc = 0;
-            Unit *target = NULL;
+            Unit *target = nullptr;
             for(int i=0;i<nrspells;i++)
             {
                 spells[i].casttime--;
@@ -501,10 +501,10 @@ public:
     
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
             float comulativeperc = 0;
-            Unit *target = NULL;
+            Unit *target = nullptr;
             for(int i=0;i<nrspells;i++)
             {
                 spells[i].casttime--;
@@ -686,10 +686,10 @@ public:
     
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
             float comulativeperc = 0;
-            Unit *target = NULL;
+            Unit *target = nullptr;
             for(int i=0;i<nrspells;i++)
             {
                 spells[i].casttime--;
@@ -805,10 +805,10 @@ public:
     
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
             float comulativeperc = 0;
-            Unit *target = NULL;
+            Unit *target = nullptr;
             for(int i=0;i<nrspells;i++)
             {
                 spells[i].casttime--;
@@ -1003,10 +1003,10 @@ public:
     
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
             float comulativeperc = 0;
-            Unit *target = NULL;
+            Unit *target = nullptr;
             for(int i=0;i<nrspells;i++)
             {
                 spells[i].casttime--;
@@ -1322,10 +1322,10 @@ public:
     
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
             float comulativeperc = 0;
-            Unit *target = NULL;
+            Unit *target = nullptr;
             for(int i=0;i<nrspells;i++)
             {
                 spells[i].casttime--;
@@ -1580,10 +1580,10 @@ public:
     
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
             float comulativeperc = 0;
-            Unit *target = NULL;
+            Unit *target = nullptr;
             for(int i=0;i<nrspells;i++)
             {
                 spells[i].casttime--;
@@ -1753,10 +1753,10 @@ public:
     
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
             float comulativeperc = 0;
-            Unit *target = NULL;
+            Unit *target = nullptr;
             for(int i=0;i<nrspells;i++)
             {
                 spells[i].casttime--;
@@ -1886,10 +1886,10 @@ public:
     
     void SpellCast(float val)
     {
-        if(_unit->GetCurrentSpell() == NULL && _unit->GetAIInterface()->GetNextTarget())
+        if(_unit->GetCurrentSpell() == nullptr && _unit->GetAIInterface()->GetNextTarget())
         {
             float comulativeperc = 0;
-            Unit *target = NULL;
+            Unit *target = nullptr;
             int RandomSpeach;
             RandomSpeach=rand()%2;
             for(int i=0;i<nrspells;i++)
