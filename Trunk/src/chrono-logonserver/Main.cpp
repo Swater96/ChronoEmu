@@ -278,7 +278,7 @@ void LogonServer::Run(int argc, char ** argv)
 		{ 0, 0, 0, 0 }
 	};
 
-	char c;
+	int c;
 	while ((c = chrono_getopt_long_only(argc, argv, ":f:", longopts, nullptr)) != -1)
 	{
 		switch (c)
@@ -489,6 +489,8 @@ void LogonServer::Run(int argc, char ** argv)
 	delete SocketMgr::getSingletonPtr();
 	delete SocketGarbageCollector::getSingletonPtr();
 	delete pfc;
+	delete cl;
+	delete sl;
 	printf("Shutdown complete.\n");
 }
 

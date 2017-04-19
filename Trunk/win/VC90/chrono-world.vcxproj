@@ -357,7 +357,7 @@
     <ClCompile Include="..\..\src\chrono-world\SpellSystem\RogueSpellFixes.cpp" />
     <ClCompile Include="..\..\src\chrono-world\SpellSystem\ShamanSpellFixes.cpp" />
     <ClCompile Include="..\..\src\chrono-world\SpellSystem\WarlockSpellFixes.cpp" />
-    <ClCompile Include="..\..\src\chrono-world\SpellSystem\Warriors.cpp" />
+    <ClCompile Include="..\..\src\chrono-world\SpellSystem\WarriorSpellFixes.cpp" />
     <ClCompile Include="..\..\src\chrono-world\SpellTarget.cpp" />
     <ClCompile Include="..\..\src\chrono-world\Stats.cpp" />
     <ClCompile Include="..\..\src\chrono-world\StdAfx.cpp">
